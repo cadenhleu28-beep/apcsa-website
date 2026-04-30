@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import { AuthProvider } from "./context/AuthContext";
 import HomePage from "./pages/HomePage";
 import UnitPage from "./pages/UnitPage";
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="/unit/:unitId/:subSlug" element={<SubUnitPage />} />
         <Route path="/exam" element={<ExamPage />} />
       </Routes>
+      <Analytics />
     </AuthProvider>
   );
 }
