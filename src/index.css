@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    background-color: #0d1117;
+    color: #e6edf3;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #0d1117; }
+  ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #58a6ff; }
+
+  /* Code blocks */
+  pre, code {
+    font-family: "JetBrains Mono", "Fira Code", monospace;
+  }
+}
+
+@layer components {
+  .unit-card-blue  { --card-color: #58a6ff; }
+  .unit-card-green { --card-color: #3fb950; }
+  .unit-card-purple { --card-color: #bc8cff; }
+  .unit-card-orange { --card-color: #f78166; }
+}
