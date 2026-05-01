@@ -33,7 +33,7 @@ export const curriculum: Curriculum = {
           title: "Java Basics & Primitive Types",
           cedTopics: ["1.1", "1.2", "1.3"],
           description:
-            "Algorithms, compilation, primitive data types, arithmetic expressions, and printed output.",
+            "Your first look at how Java runs, what data types it uses, and how to print output to the screen.",
           objectives: [
             "Explain what an algorithm is and how a compiler converts source code to bytecode",
             "Declare and initialize int, double, and boolean variables",
@@ -53,7 +53,7 @@ export const curriculum: Curriculum = {
     }
 }`,
               explanation:
-                "Every Java program lives inside a class. The main method is the entry point — Java runs it automatically. println adds a newline after printing; print does not.",
+                "Every Java program lives inside a class. Think of main as the starting line — Java finds it and runs it first. The difference between println and print is simple: println moves the cursor to a new line after printing, print leaves the cursor right where it stopped. That's why the last two print statements in this example share a line.",
             },
             {
               id: "1-1-ex2",
@@ -66,7 +66,7 @@ System.out.println(score);   // 95
 System.out.println(gpa);     // 3.85
 System.out.println(passed);  // true`,
               explanation:
-                "The three primitive types on the AP exam are int, double, and boolean. String is a reference type (object), not a primitive — it stores a memory address, not raw data.",
+                "Three primitive types come up constantly on the exam: int for whole numbers, double for decimals, and boolean for true or false. String looks like a fourth primitive but it isn't — it's an object that stores a memory address pointing to the actual text, not the text itself. That distinction feels minor now but becomes important when you start comparing Strings later.",
             },
             {
               id: "1-1-ex3",
@@ -82,7 +82,7 @@ System.out.println(a % b);  // 1  ← remainder (modulo)
 
 double result = 7.0 / 2;    // 3.5  (one double → double division)`,
               explanation:
-                "When both operands are int, division truncates toward zero — 7 / 2 is 3, not 3.5. The modulo operator (%) returns the remainder after division. If either operand is a double, the result is a double.",
+                "Here's the one that surprises people: when both numbers are ints, Java throws away the decimal. 7 / 2 gives you 3, not 3.5 — no rounding, just truncation. The % operator gives you the remainder after division. Think of it like long division: 7 ÷ 2 = 3 remainder 1, so 7 % 2 is 1. To get a decimal result, at least one number needs to be a double: 7.0 / 2 gives 3.5.",
             },
             {
               id: "1-1-ex4",
@@ -95,7 +95,7 @@ System.out.println(msg);              // AP Exam year: 2026
 System.out.println("Sum: " + 1 + 2); // Sum: 12  (NOT 3!)
 System.out.println("Sum: " + (1 + 2)); // Sum: 3   (parens force addition first)`,
               explanation:
-                "When + is applied to a String, it concatenates rather than adds. Left-to-right evaluation means \"Sum: \" + 1 produces \"Sum: 1\" first, then \"Sum: 1\" + 2 produces \"Sum: 12\". Use parentheses to force arithmetic before concatenation.",
+                "When + sits next to a String, Java concatenates instead of adding. The trap is that Java works left to right. So \"Sum: \" + 1 becomes the String \"Sum: 1\", and then \"Sum: 1\" + 2 becomes \"Sum: 12\" — not 3. Wrap the numbers in parentheses to force the addition first: \"Sum: \" + (1 + 2) gives you \"Sum: 3\".",
             },
           ],
           conceptChecks: [
@@ -105,7 +105,7 @@ System.out.println("Sum: " + (1 + 2)); // Sum: 3   (parens force addition first)
               code: `System.out.println(17 / 5);
 System.out.println(17 % 5);`,
               answer:
-                "3\n2\n\nInteger division truncates: 17 ÷ 5 = 3 remainder 2. So 17 / 5 → 3, and 17 % 5 → 2.",
+                "3\n2\n\nBoth 17 and 5 are ints, so Java uses integer division. 5 goes into 17 three times (5 × 3 = 15), so 17 / 5 = 3. The remainder is 17 − 15 = 2, and that's exactly what % gives you.",
               hint: "Both operands are int, so / truncates and % gives the remainder.",
             },
             {
@@ -116,7 +116,7 @@ System.out.println("B");
 System.out.print("C");
 System.out.println("D");`,
               answer:
-                "AB\nCD\n\nprint() does not add a newline, so A and B appear on the same line. println() adds a newline after B, then C and D appear on the next line.",
+                "AB\nCD\n\nprint() leaves the cursor right where it stopped — no new line. So A and B end up on the same line. println() prints B and then moves to a new line, so C and D start fresh together on the next line.",
               hint: "Track which calls use print vs. println.",
             },
             {
@@ -127,7 +127,7 @@ int y = 4;
 System.out.println(x / y);
 System.out.println(x % y);`,
               answer:
-                "2\n2\n\n10 / 4 = 2 (truncated from 2.5). 10 % 4 = 2 (since 4 × 2 = 8, remainder is 10 − 8 = 2).",
+                "2\n2\n\n10 / 4 truncates to 2 — it's not 2.5 because both are ints. Then 10 % 4 asks: how much is left over? 4 × 2 = 8, and 10 − 8 = 2. So the remainder is 2.",
             },
           ],
           mcqs: [
@@ -143,7 +143,7 @@ System.out.println(x % y);`,
               ],
               correctId: "A",
               explanation:
-                "Both 15 and 4 are int literals, so integer division is performed: 15 ÷ 4 = 3 (truncated toward zero). The result 3 is stored in x. It is not rounded to 4 and not stored as a decimal.",
+                "Neither 15 nor 4 has a decimal point, so Java treats them as ints and uses integer division. 4 goes into 15 three times (4 × 3 = 12) with 3 left over — the result is 3. Java doesn't round. It truncates. If you want 3.75, you'd write 15.0 / 4 or use double variables.",
               skill: "2.B",
             },
             {
@@ -158,7 +158,7 @@ System.out.println(x % y);`,
               ],
               correctId: "B",
               explanation:
-                "4.5 is a floating-point number, which requires double. int cannot store decimals — int x = 4.5 is a compile error. (int) 4.5 would truncate to 4, losing the decimal. boolean stores only true or false.",
+                "4.5 has a decimal, so it needs double — int only holds whole numbers, and int x = 4.5 is a compile error. Option D casts to int first, which truncates 4.5 to 4 and loses the decimal entirely. boolean is for true/false, never numbers.",
               skill: "1.B",
             },
             {
@@ -173,7 +173,7 @@ System.out.println(x % y);`,
               ],
               correctId: "B",
               explanation:
-                'Evaluation is left-to-right. "Score: " + 10 produces "Score: 10" (string concatenation). Then "Score: 10" + 5 produces "Score: 105". To get 15, write "Score: " + (10 + 5).',
+                'Java works left to right. The first + sees a String on the left ("Score: ") and concatenates: "Score: " + 10 = "Score: 10". Now the second + also has a String on the left, so it concatenates again: "Score: 10" + 5 = "Score: 105". The fix is simple — use parentheses: "Score: " + (10 + 5) forces the addition to happen before the String gets involved.',
               skill: "2.B",
             },
             {
@@ -187,7 +187,7 @@ System.out.println(x % y);`,
               ],
               correctId: "B",
               explanation:
-                "23 % 7 is the remainder when 23 is divided by 7. 7 × 3 = 21, so the remainder is 23 − 21 = 2. The modulo of two ints is always an int.",
+                "Think of it like long division: how many times does 7 go into 23? Three times (7 × 3 = 21). What's left over? 23 − 21 = 2. That leftover is the remainder, which is what % returns.",
               skill: "2.B",
             },
             {
@@ -205,7 +205,7 @@ System.out.println(c);`,
               ],
               correctId: "C",
               explanation:
-                "a / b is evaluated first. Since both a and b are int, integer division produces 2. The int value 2 is then widened to double and stored in c. Printing a double 2.0 outputs 2.0, not 2.5 — the division already happened between two ints.",
+                "The right side (a / b) is evaluated first. Both a and b are int, so Java does integer division: 5 / 2 = 2. That 2 is then converted to a double and stored in c, giving 2.0 — not 2.5. The double in the variable type doesn't change how the division was done. By the time c gets involved, the answer is already 2.",
               skill: "2.B",
             },
           ],
@@ -216,7 +216,7 @@ System.out.println(c);`,
           title: "Assignment, Input & Casting",
           cedTopics: ["1.4", "1.5"],
           description:
-            "Assignment statements, variable ranges, widening vs. narrowing casts, and casting pitfalls.",
+            "How variables update over time, and what happens when you convert between number types.",
           objectives: [
             "Write assignment statements and trace value changes",
             "Explain the range of int and double types",
@@ -238,7 +238,7 @@ int b = a;        // b gets a copy of the VALUE — not a reference
 a = 99;
 System.out.println(b); // still 3 — primitives copy by value`,
               explanation:
-                "In an assignment, the entire right side is evaluated before the result is stored. For primitive types, assignment copies the value — changing a later does not affect b.",
+                "Java always evaluates the right side of = completely before storing the result. One thing that trips people up: when you write int b = a, b gets a copy of a's value at that moment — not a link to a. So when a later changes to 99, b doesn't follow along. Primitives copy their value, not their identity.",
             },
             {
               id: "1-2-ex2",
@@ -257,7 +257,7 @@ double neg = -2.9;
 int negTrunc = (int) neg;   // truncates toward zero
 System.out.println(negTrunc);  // -2  (NOT -3!)`,
               explanation:
-                "Widening (int → double) is automatic because no precision is lost. Narrowing (double → int) requires an explicit cast and truncates the decimal — it never rounds. Negative values also truncate toward zero.",
+                "Converting from int to double is automatic — Java does it for you because there's no risk of losing data. Going the other direction (double to int) loses the decimal, so Java makes you be explicit with a cast. Important: casting always truncates toward zero, not toward the nearest integer. -2.9 becomes -2, not -3. That trips a lot of people up.",
             },
             {
               id: "1-2-ex3",
@@ -273,7 +273,7 @@ int b = 2;
 double result = (double)(a / b);  // 4.0, NOT 4.5!
 double result2 = (double) a / b;  // 4.5 — correct way`,
               explanation:
-                "(double)(a / b) casts the result AFTER integer division has already truncated. To force decimal division, cast one operand BEFORE the division: (double) a / b.",
+                "The cast only reaches the very next value or expression in parentheses. So (double)(7 / 2) evaluates 7 / 2 first — which gives 3 as an int — and then casts 3 to 3.0. The decimal was already gone. To get 3.5, cast before the division: (double) 7 / 2 turns 7 into 7.0, and then 7.0 / 2 = 3.5. This is one of the most common exam traps in Unit 1.",
             },
           ],
           conceptChecks: [
@@ -282,14 +282,14 @@ double result2 = (double) a / b;  // 4.5 — correct way`,
               prompt: "What is the value of result after this code?",
               code: `double result = (double)(9 / 2);`,
               answer:
-                "4.0\n\nThe parentheses force 9 / 2 to be evaluated first as integer division: 9 / 2 = 4. Then (double) 4 widens it to 4.0. It is NOT 4.5.",
+                "4.0\n\nThe parentheses mean 9 / 2 runs first. Both are ints, so integer division gives 4 — not 4.5. Then (double) 4 converts it to 4.0. By the time the cast runs, the decimal is already gone.",
               hint: "Which happens first — the division or the cast?",
             },
             {
               id: "1-2-cc2",
               prompt: "What does (int)(-3.1) evaluate to?",
               answer:
-                "-3\n\nCasting to int truncates toward zero, not toward negative infinity. -3.1 truncates to -3, not -4.",
+                "-3\n\nThe cast drops everything after the decimal and moves toward zero — not downward. -3.1 is between -4 and -3, and toward zero is -3. If you said -4, you were thinking of Math.floor() — which always rounds down. A cast does not.",
               hint: "int cast always truncates toward zero.",
             },
             {
@@ -300,7 +300,7 @@ x = x + 3;
 x = x * 2;
 System.out.println(x);`,
               answer:
-                "16\n\nStep 1: x = 5 + 3 = 8. Step 2: x = 8 * 2 = 16.",
+                "16\n\nTrace it step by step: x = 5 + 3 = 8, then x = 8 × 2 = 16.",
             },
           ],
           mcqs: [
@@ -316,7 +316,7 @@ System.out.println(x);`,
               ],
               correctId: "A",
               explanation:
-                "(int) 3.9 truncates to 3. Then 3 + 1 = 4. The cast only applies to the literal 3.9, not to the + 1 part.",
+                "The cast only reaches 3.9 — it turns it into 3. Then 3 + 1 = 4. The + 1 is outside the cast's reach, so it happens after as plain integer addition.",
               skill: "2.B",
             },
             {
@@ -330,7 +330,7 @@ System.out.println(x);`,
               ],
               correctId: "C",
               explanation:
-                "(double) 9 / 2 casts 9 to 9.0 before division, yielding 9.0 / 2 = 4.5. Option A computes integer division first (4), then casts to 4.0. Option B also does integer division. Option D casts back to int before dividing.",
+                "Option C casts 9 before the division, giving 9.0 / 2 = 4.5. Option A puts the cast outside the division — 9 / 2 = 4 first, then cast to 4.0. Option B stores an integer division result in a double — same problem. Option D casts both operands to int, so division is int ÷ int = 4.",
               skill: "2.B",
             },
             {
@@ -344,7 +344,7 @@ System.out.println(x);`,
               ],
               correctId: "C",
               explanation:
-                "int to double is a widening conversion — no data is lost since a double can represent all int values. All other options would lose information or are incompatible types, requiring an explicit cast or being illegal in Java.",
+                "int to double is safe because a double can represent every integer exactly — no information is lost, so Java does it automatically. The others all require explicit casts or are simply invalid: you can't go from double to int without losing the decimal, and int/double to boolean isn't a thing in Java.",
               skill: "1.B",
             },
             {
@@ -359,7 +359,7 @@ System.out.println(x);`,
               ],
               correctId: "B",
               explanation:
-                "Casting to int always truncates toward zero, not toward negative infinity. -7.8 truncated toward zero is -7, not -8. Many students confuse truncation with floor (which would give -8).",
+                "Casting to int moves toward zero, not downward. -7.8 is between -8 and -7, and toward zero is -7. Math.floor(-7.8) would give -8.0 — but that's floor, not a cast. Know the difference; the exam tests exactly this.",
               skill: "2.B",
             },
           ],
@@ -370,7 +370,7 @@ System.out.println(x);`,
           title: "Compound Operators & Increment",
           cedTopics: ["1.6"],
           description:
-            "Compound assignment operators (+=, -=, *=, /=, %=) and increment/decrement operators.",
+            "Shorthand ways to update a variable, and the tricky distinction between pre- and post-increment.",
           objectives: [
             "Rewrite compound assignment as a full assignment statement",
             "Distinguish between pre-increment (++x) and post-increment (x++) in an expression",
@@ -390,7 +390,7 @@ x %= 3;   // x = x % 3  →   2  (11 % 3 = 2)
 
 System.out.println(x); // 2`,
               explanation:
-                "Each compound operator is shorthand for applying the operation to the variable and reassigning. /= uses integer division when both sides are int — 11 /= 4 stores 2, not 2.75.",
+                "Each compound operator is just a shortcut — x += 5 means exactly the same as x = x + 5. One thing to watch: if the variable is an int, /= still uses integer division. 11 /= 4 stores 2, not 2.75.",
             },
             {
               id: "1-3-ex2",
@@ -411,7 +411,7 @@ int m = 10;
 System.out.println(m--); // prints 10, then m becomes 9
 System.out.println(m);   // 9`,
               explanation:
-                "Post-increment (n++) returns the current value and then increments. Pre-increment (++n) increments first and then returns the new value. In a standalone statement (not inside an expression), they behave identically.",
+                "The difference between n++ and ++n only matters when they're inside a larger expression. Post-increment (n++) means \"use the current value, then add 1.\" Pre-increment (++n) means \"add 1 first, then use the value.\" On a line by itself, they do exactly the same thing. The exam often puts them inside a println, so pay attention to which comes first.",
             },
           ],
           conceptChecks: [
@@ -423,7 +423,7 @@ x += 3;
 x *= 2;
 x -= 5;`,
               answer:
-                "21\n\nStep 1: x = 10 + 3 = 13. Step 2: x = 13 * 2 = 26. Step 3: x = 26 - 5 = 21.",
+                "21\n\nTrace it step by step: 10 + 3 = 13, then 13 × 2 = 26, then 26 − 5 = 21.",
             },
             {
               id: "1-3-cc2",
@@ -432,7 +432,7 @@ x -= 5;`,
 System.out.println(n++);
 System.out.println(n);`,
               answer:
-                "5\n6\n\nPost-increment: println receives n's current value (5), prints it, then n becomes 6. The second println prints the updated n.",
+                "5\n6\n\nPost-increment: println gets n's current value (5) first, prints it, and only then does n increase to 6. The second println sees the updated value.",
               hint: "Post-increment: use the value, then increment.",
             },
             {
@@ -442,7 +442,7 @@ System.out.println(n);`,
 System.out.println(++n);
 System.out.println(n);`,
               answer:
-                "6\n6\n\nPre-increment: n becomes 6 first, then println prints 6. Both lines print 6.",
+                "6\n6\n\nPre-increment: n becomes 6 before println even sees it. Both lines print 6 because the increment happened before the first print.",
               hint: "Pre-increment: increment first, then use the value.",
             },
           ],
@@ -458,7 +458,7 @@ System.out.println(n);`,
               ],
               correctId: "B",
               explanation:
-                "x += 7 is shorthand for x = x + 7. Option A sets x to 7 (discards old value). Option C is not an assignment. Option D (=+ 7) sets x to positive 7, not x + 7.",
+                "x += 7 unpacks to x = x + 7 — the old value gets 7 added to it, and the result goes back into x. Option A just sets x to 7, ignoring whatever x was before. Option C is an expression but not an assignment — nothing changes. Option D (=+) sets x to +7, which is just 7.",
               skill: "2.B",
             },
             {
@@ -474,7 +474,7 @@ x /= 5;`,
               ],
               correctId: "B",
               explanation:
-                "x /= 5 means x = x / 5 = 17 / 5. Since x is int, integer division applies: 17 / 5 = 3 (truncated). The result 3 is stored back in x.",
+                "x /= 5 expands to x = x / 5 = 17 / 5. x is an int, so integer division truncates: 17 / 5 = 3 (not 3.4). That 3 gets stored back into x.",
               skill: "2.B",
             },
             {
@@ -490,7 +490,7 @@ System.out.println(n--);`,
               ],
               correctId: "C",
               explanation:
-                "Post-decrement (n--) returns the current value of n (7) before decrementing. The println receives 7 and prints it. After the statement, n is 6.",
+                "Post-decrement means use the value first, then subtract. println gets 7 (n's current value), prints it, and only after that does n drop to 6.",
               skill: "2.B",
             },
             {
@@ -508,7 +508,7 @@ System.out.println(x);`,
               ],
               correctId: "B",
               explanation:
-                "Step 1: x *= 3 → x = 4 * 3 = 12. Step 2: x %= 5 → x = 12 % 5 = 2 (12 = 2×5 + 2). Final output: 2.",
+                "x *= 3 gives x = 4 × 3 = 12. Then x %= 5: how many times does 5 go into 12? Twice (5 × 2 = 10). Remainder = 12 − 10 = 2. That's what prints.",
               skill: "2.B",
             },
           ],
@@ -519,7 +519,7 @@ System.out.println(x);`,
           title: "APIs, Comments & Method Signatures",
           cedTopics: ["1.7", "1.8", "1.9"],
           description:
-            "What an API is, how to read documentation, writing comments, and understanding method signatures.",
+            "How to read a method's documentation, write code comments, and understand what a method signature tells you before you call it.",
           objectives: [
             "Explain what an API and a library are",
             "Write single-line and multi-line comments",
@@ -544,7 +544,7 @@ public static double circleArea(double radius) {
     return Math.PI * radius * radius;
 }`,
               explanation:
-                "Comments are completely ignored by the compiler — they exist for human readers. Single-line (//) comments end at the next newline. Multi-line (/* */) can span many lines. Javadoc (/** */) is parsed by tools to generate documentation.",
+                "The compiler skips every comment completely — they exist only for you and other readers. Single-line (//) comments end when the line ends. Multi-line (/* */) comments can span as many lines as you need. Javadoc comments (/** */) follow a special format that tools can parse to auto-generate documentation pages, like the ones on the official Java API website.",
             },
             {
               id: "1-4-ex2",
@@ -564,7 +564,7 @@ int sum = add(3, 7);  // → 10
 public static void printGreeting(String name)
 printGreeting("Alice");  // no return value to capture`,
               explanation:
-                "A method signature tells you everything you need to call a method: the return type (what you get back), the method name, and the parameter list (what you must pass in). void means nothing is returned.",
+                "A method signature is like a contract — it tells you exactly what to pass in and what you get back, without needing to see the code inside. The return type comes first, then the method name, then the parameters in parentheses. void means the method doesn't hand anything back — it just does something, like printing to the screen.",
             },
             {
               id: "1-4-ex3",
@@ -578,7 +578,7 @@ java.util.Scanner sc = new java.util.Scanner(System.in); // verbose
 // With import, you can use the short name:
 Scanner sc = new Scanner(System.in);                      // clean`,
               explanation:
-                "An API (Application Programming Interface) is the set of classes and methods a library makes available. The import statement lets you use a class by its short name instead of its full package path. You don't need to import java.lang — it's always available (that's where String, Math, Integer, etc. live).",
+                "An API is a menu of tools someone else already wrote for you. The import statement is just a shortcut — without it, you'd have to type the full package path every single time. One important detail: java.lang is loaded automatically. You never need to import String, Math, or Integer — Java brings them in for you.",
             },
           ],
           conceptChecks: [
@@ -587,13 +587,13 @@ Scanner sc = new Scanner(System.in);                      // clean`,
               prompt: "For this method signature, identify: (a) return type, (b) method name, (c) parameter types.",
               code: `public static String formatScore(int score, double average)`,
               answer:
-                "(a) Return type: String\n(b) Method name: formatScore\n(c) Parameter types: int, double\n\nThe method takes an int and a double as arguments and returns a String.",
+                "(a) Return type: String — it's the word right before the method name\n(b) Method name: formatScore\n(c) Parameter types: int and double — listed in order inside the parentheses\n\nWhen you call this method, you pass an int and a double in, and you get a String back.",
             },
             {
               id: "1-4-cc2",
               prompt: "What does a return type of void indicate?",
               answer:
-                "void means the method does not return any value. You cannot assign the result of a void method to a variable — there is nothing to assign. void methods are called for their side effects (like printing).",
+                "void means the method doesn't hand anything back. You can't write String result = printGreeting(\"Alice\") because there's no value coming back to store. void methods are all about their side effects — printing output, saving a file, updating state.",
             },
             {
               id: "1-4-cc3",
@@ -603,7 +603,7 @@ B: ## This explains the logic
 C: -- This explains the logic
 D: ** This explains the logic`,
               answer:
-                "A only.\n\nJava uses // for single-line comments and /* */ for multi-line comments. The ## syntax is Python/shell, -- is SQL/Lua, and ** is not a comment syntax in any common language.",
+                "A only. Java comments use // for single lines and /* */ for multi-line blocks. The ## style comes from Python and shell scripts, and -- is used in SQL. Neither of those works in Java.",
             },
           ],
           mcqs: [
@@ -618,7 +618,7 @@ D: ** This explains the logic`,
               ],
               correctId: "B",
               explanation:
-                "An API defines the available classes and methods in a library, along with how to call them. The Java API (java.lang, java.util, etc.) is a large collection of pre-built classes. You use an API by calling its methods — you don't need to know how they're implemented.",
+                "An API is the set of classes and methods a library offers for other programmers to use. When you call Math.sqrt() or String.length(), you're using the Java API. You don't need to know how those methods are built internally — the API just tells you what to pass in and what you get back.",
               skill: "1.A",
             },
             {
@@ -633,7 +633,7 @@ D: ** This explains the logic`,
               ],
               correctId: "C",
               explanation:
-                "In a method signature, the return type appears directly before the method name. Here, int appears before countVowels, so the method returns an int. String is the parameter type, not the return type.",
+                "The return type always sits directly before the method name. Here, int comes right before countVowels — so the method returns an int. String is the type of the input parameter s, not the return type. Easy to mix up if you're reading fast.",
               skill: "1.B",
             },
             {
@@ -649,7 +649,7 @@ System.out.println(x);`,
               ],
               correctId: "B",
               explanation:
-                "The declaration int x = 5; is inside a comment, so the compiler ignores it entirely. When println(x) tries to use x, the compiler cannot find any declaration — resulting in a compile error.",
+                "Everything inside /* */ is invisible to the compiler — it's as if that line doesn't exist. When the compiler reaches println(x), it searches for a declaration of x and finds nothing. That's a compile error, not a runtime error.",
               skill: "2.A",
             },
           ],
@@ -660,7 +660,7 @@ System.out.println(x);`,
           title: "Calling Class (Static) Methods",
           cedTopics: ["1.10"],
           description:
-            "How to call static methods on a class without creating an object instance.",
+            "How to call methods that belong to the class itself rather than to any specific object.",
           objectives: [
             "Call a static method using ClassName.methodName(args)",
             "Distinguish static methods from instance methods",
@@ -679,7 +679,7 @@ int parsed = Integer.parseInt("100"); // 100 (String → int)
 String str = Integer.toString(55);   // "55" (int → String)
 double maxVal = Math.max(3.5, 7.2);  // 7.2`,
               explanation:
-                "Static methods belong to the class, not any particular object. You call them by prefixing the class name (Math, Integer, Double). No new or object reference is needed.",
+                "Static methods live on the class itself — you don't need to create an object to use them. Just write ClassName.methodName(arguments) and you're done. Math, Integer, and Double all have useful static methods you'll reach for constantly.",
             },
             {
               id: "1-5-ex2",
@@ -696,7 +696,7 @@ String up = s.toUpperCase();      // s.toUpperCase()
 // You CANNOT call instance methods without an object:
 // int bad = String.length(); // compile error!`,
               explanation:
-                "The key distinction: static methods use ClassName.method(), instance methods use objectRef.method(). Calling an instance method on the class name (or on null) causes a compile or runtime error.",
+                "Static methods are called on the class (Math.abs(...)), instance methods are called on an object (s.length()). You can't call an instance method on the class name because there's no specific object to operate on — Java doesn't know whose data to use.",
             },
           ],
           conceptChecks: [
@@ -704,13 +704,13 @@ String up = s.toUpperCase();      // s.toUpperCase()
               id: "1-5-cc1",
               prompt: "Write the correct call to find the absolute value of -15 using the Math class.",
               answer:
-                "Math.abs(-15)\n\nabs is a static method on the Math class, so you call it as Math.abs(argument). It returns 15.",
+                "Math.abs(-15) — returns 15.\n\nabs is static, so you call it on the class name itself. No object needed.",
             },
             {
               id: "1-5-cc2",
               prompt: "What is the return type and value of Integer.parseInt(\"256\")?",
               answer:
-                "Return type: int. Value: 256.\n\nInteger.parseInt converts a String containing digits into its int equivalent. If the String contains non-numeric characters, it throws a runtime exception.",
+                "Return type: int. Value: 256.\n\nparseInt reads the digits in the String and converts them to an int. If the String has anything that isn't a digit — like \"abc\" or \"2.5\" — it throws a runtime exception.",
             },
           ],
           mcqs: [
@@ -725,7 +725,7 @@ String up = s.toUpperCase();      // s.toUpperCase()
               ],
               correctId: "A",
               explanation:
-                "Static methods are called via ClassName.methodName(). Option B uses new (valid but unnecessary for static methods). Option C declares m without initializing it — calling a method on an uninitialized variable causes a compile error. Option D reverses the class and method names.",
+                "Static methods are called on the class: MathUtils.square(4). Option B creates an object first — technically valid but unnecessary for static. Option C declares m but never initializes it, so m.square(4) is a compile error. Option D swaps the class and method names, which isn't valid Java syntax.",
               skill: "2.B",
             },
             {
@@ -739,7 +739,7 @@ String up = s.toUpperCase();      // s.toUpperCase()
               ],
               correctId: "A",
               explanation:
-                "Integer.parseInt parses the String as a base-10 integer. Leading zeros are ignored in decimal parsing, so \"042\" becomes 42. No exception occurs unless the String contains non-digit characters.",
+                "parseInt reads the string as a base-10 number. Leading zeros don't change the value — \"042\" is just 42. An exception would only happen if the String contained letters or symbols.",
               skill: "2.B",
             },
             {
@@ -753,7 +753,7 @@ String up = s.toUpperCase();      // s.toUpperCase()
               ],
               correctId: "C",
               explanation:
-                "Math.sqrt(16.0) is called on the class name Math — no object is needed. Options A, B, and D are all called on object references (str, list, obj), making them instance method calls.",
+                "Math.sqrt(16.0) is called on the class name directly — no object variable on the left of the dot. The others (str.length(), list.size(), obj.toString()) all call on specific objects, making them instance method calls.",
               skill: "1.B",
             },
           ],
@@ -764,7 +764,7 @@ String up = s.toUpperCase();      // s.toUpperCase()
           title: "The Math Class",
           cedTopics: ["1.11"],
           description:
-            "All Math class methods on the Java Quick Reference: abs, pow, sqrt, random, max, min, floor, ceil, round.",
+            "Every Math method on your AP Quick Reference card, including the random number formula you'll use on the exam.",
           objectives: [
             "Call Math.abs(), Math.pow(), Math.sqrt(), and Math.random()",
             "Generate a random integer in a specified range using Math.random()",
@@ -787,7 +787,7 @@ System.out.println(Math.floor(3.9));    // 3.0  (round down)
 System.out.println(Math.ceil(3.1));     // 4.0  (round up)
 System.out.println(Math.round(3.5));    // 4    (returns long)`,
               explanation:
-                "Math methods are all static — call them as Math.method(). Most return double. Math.abs is overloaded: it returns int if given an int, double if given a double. Math.pow and Math.sqrt always return double, even for whole-number results like 1024.0.",
+                "All Math methods are static — call them as Math.method(). Nearly all return double, even when the answer is a whole number. Math.pow(2, 10) gives 1024.0, not 1024. Math.abs is the one exception: it matches the type you give it (int in → int out, double in → double out).",
             },
             {
               id: "1-6-ex2",
@@ -805,7 +805,7 @@ int die = (int)(Math.random() * 6) + 1;    // 1, 2, 3, 4, 5, or 6
 // (int)(Math.random() * (max - min + 1)) + min
 int card = (int)(Math.random() * 13) + 1;  // 1 through 13`,
               explanation:
-                "Math.random() × n gives a double in [0, n). Casting to int truncates to give integers in [0, n-1]. Adding min shifts the range. The formula (int)(Math.random() * (max - min + 1)) + min generates uniformly random integers in [min, max] inclusive.",
+                "Math.random() gives you a decimal from 0.0 up to (but not including) 1.0. Multiply by 6 to stretch that to [0.0, 6.0), then cast to int to get 0–5. Add 1 to shift up to 1–6. The general formula — (int)(Math.random() * (max - min + 1)) + min — works for any range you need. Memorize this one; it shows up on the exam.",
             },
           ],
           conceptChecks: [
@@ -813,21 +813,21 @@ int card = (int)(Math.random() * 13) + 1;  // 1 through 13`,
               id: "1-6-cc1",
               prompt: "What does Math.pow(2, 10) return, and what is its type?",
               answer:
-                "1024.0 — type double.\n\nMath.pow always returns a double, even when the result is a whole number. If you need an int, cast it: (int) Math.pow(2, 10) → 1024.",
+                "1024.0 — type double.\n\nMath.pow always returns double. The result might be a whole number, but the type is still double. Cast it if you need an int: (int) Math.pow(2, 10) gives 1024.",
             },
             {
               id: "1-6-cc2",
               prompt: "What is the range of values produced by this expression?",
               code: `(int)(Math.random() * 6) + 1`,
               answer:
-                "1 through 6 inclusive.\n\nMath.random() * 6 gives [0.0, 6.0). Casting to int gives 0–5. Adding 1 shifts to 1–6. This is the standard die-roll formula.",
+                "1 through 6 inclusive.\n\nMath.random() × 6 gives a decimal in [0.0, 6.0). Casting to int chops off the decimal, leaving 0, 1, 2, 3, 4, or 5. Adding 1 shifts everything up by one: 1, 2, 3, 4, 5, or 6.",
               hint: "Math.random() is in [0.0, 1.0). Multiplying by 6 gives [0.0, 6.0).",
             },
             {
               id: "1-6-cc3",
               prompt: "What does Math.sqrt(144) return?",
               answer:
-                "12.0 (a double).\n\nMath.sqrt always returns a double. Even though √144 = 12 exactly, the return value is 12.0, not 12.",
+                "12.0 — type double.\n\nMath.sqrt always returns double, even when the answer is a perfect whole number. √144 = 12, but the return value is 12.0.",
             },
           ],
           mcqs: [
@@ -842,7 +842,7 @@ int card = (int)(Math.random() * 13) + 1;  // 1 through 13`,
               ],
               correctId: "B",
               explanation:
-                "Math.sqrt always returns a double. √49 = 7, but as a double the result is 7.0. If you need an int, you would write (int) Math.sqrt(49).",
+                "Math.sqrt always returns double. The math gives you 7, but the type is double — so it's 7.0. To store it as an int, you'd cast: (int) Math.sqrt(49) = 7.",
               skill: "2.B",
             },
             {
@@ -856,7 +856,7 @@ int card = (int)(Math.random() * 13) + 1;  // 1 through 13`,
               ],
               correctId: "C",
               explanation:
-                "(int)(Math.random() * 10) gives 0–9. Adding 1 shifts it to 1–10. Option A gives 0–9. Option B gives 0–10. Option D gives 1–9.",
+                "You need exactly 10 possible values (1 through 10), so multiply by 10 to get 0–9, then add 1 to shift to 1–10. Option A gives 0–9 (missing the +1). Option B multiplies by 11, giving 0–10 — that's eleven values, not ten. Option D multiplies by 9, giving 1–9 — missing 10.",
               skill: "2.B",
             },
             {
@@ -871,7 +871,7 @@ int card = (int)(Math.random() * 13) + 1;  // 1 through 13`,
               ],
               correctId: "C",
               explanation:
-                "Math.pow(3, 3) returns 27.0 (a double). Casting to int truncates the decimal, giving the int 27. If the cast were not there, the result would be the double 27.0.",
+                "Math.pow(3, 3) = 27.0 as a double. The (int) cast strips the decimal and gives you the int 27. Without the cast, the result stays 27.0.",
               skill: "2.B",
             },
             {
@@ -885,7 +885,7 @@ int card = (int)(Math.random() * 13) + 1;  // 1 through 13`,
               ],
               correctId: "C",
               explanation:
-                "Math.round rounds to the nearest integer (4.6 → 5). Math.floor always rounds down (4.6 → 4.0). Math.ceil always rounds up (4.6 → 5.0, but returns a double). Math.abs returns the absolute value, not a rounded value.",
+                "Math.round does what you'd expect — it rounds 4.6 to 5. Math.floor always goes down (4.6 → 4.0, a double). Math.ceil always goes up (4.6 → 5.0, still a double). Math.abs gives the absolute value — it has nothing to do with rounding.",
               skill: "2.B",
             },
           ],
@@ -896,7 +896,7 @@ int card = (int)(Math.random() * 13) + 1;  // 1 through 13`,
           title: "Objects & Instantiation",
           cedTopics: ["1.12", "1.13", "1.14"],
           description:
-            "Classes vs. objects, the new keyword, reference variables, null, aliasing, and calling instance methods.",
+            "The difference between a class and an object, how reference variables actually work under the hood, and what happens when two variables point to the same thing.",
           objectives: [
             "Explain the difference between a class (blueprint) and an object (instance)",
             "Use the new keyword to instantiate an object",
@@ -919,7 +919,7 @@ String name = "Alice";                   // Java creates a String object automat
 // Student s = new Student("Alice", 11);
 // new allocates memory and calls the constructor.`,
               explanation:
-                "The new keyword allocates memory on the heap and calls the constructor to initialize the object. The variable on the left is a reference variable — it stores the memory address of the object, not the object itself.",
+                "Think of a class as a blueprint and an object as a house built from that blueprint. new does two things: it reserves memory for the object, then calls the constructor to set up its initial state. The variable on the left doesn't hold the object itself — it holds a memory address that points to where the object lives.",
             },
             {
               id: "1-7-ex2",
@@ -938,7 +938,7 @@ int y = x;   // y gets a copy of VALUE 5
 x = 99;      // changing x does NOT affect y
 System.out.println(y); // still 5`,
               explanation:
-                "A reference variable holds a memory address, not the actual data. When you assign one reference variable to another, both point to the same object (aliasing). With primitives, you copy the value — no aliasing occurs. Calling any method on null causes a NullPointerException.",
+                "When you write String b = a, you're not copying the object — you're copying the address. Now a and b both point to the same object in memory. That's aliasing. With primitives (like int x, int y), you copy the actual value, so they're completely independent. null means the reference points nowhere — call any method on a null reference and you get a NullPointerException at runtime.",
             },
             {
               id: "1-7-ex3",
@@ -955,7 +955,7 @@ boolean has = msg.contains("World"); // true
 // msg itself is UNCHANGED (Strings are immutable)
 System.out.println(msg); // "Hello, World!" — same as before`,
               explanation:
-                "Instance methods are called on an object using the dot operator. The object you call the method on is called the implicit parameter — it's the object the method operates on. For String, all methods return new Strings; the original is never modified.",
+                "Instance methods need an actual object to work on — that's what goes on the left of the dot. The object provides the data the method uses. For String specifically, none of these calls change msg. Strings are immutable: every method returns a brand-new String and leaves the original completely untouched. If you don't save the result, it's gone.",
             },
           ],
           conceptChecks: [
@@ -963,7 +963,7 @@ System.out.println(msg); // "Hello, World!" — same as before`,
               id: "1-7-cc1",
               prompt: "What value does an uninitialized reference variable have in Java?",
               answer:
-                "null.\n\nAn uninitialized (declared but not assigned) reference variable has the value null, meaning it points to no object. Attempting to call a method on a null reference causes a NullPointerException at runtime.",
+                "null.\n\nA reference variable that hasn't been assigned yet holds null — it points to nothing. Try to call a method on it and you get a NullPointerException at runtime. Primitives behave differently: they get default values like 0 or false.",
             },
             {
               id: "1-7-cc2",
@@ -973,13 +973,13 @@ String y = x;
 // (assume we could mutate Strings — pretend y.setChar(0, 'b'))
 // What would x contain?`,
               answer:
-                "Aliasing means two reference variables point to the same object in memory. If y and x both reference the same object and you mutate it through y, x also sees the change — they're the same object. (String is actually immutable, but aliasing matters greatly for mutable objects like arrays and ArrayLists.)",
+                "Aliasing means two variables hold the same memory address — they point to the same object. If the object were mutable and you changed it through y, x would see the change too, because they're both just pointing to the same place. String is immutable so this doesn't cause a visible issue here, but the same concept applies directly to arrays and ArrayLists, which are mutable.",
             },
             {
               id: "1-7-cc3",
               prompt: "What is the difference between a class and an object?",
               answer:
-                "A class is the blueprint/template. An object is a specific instance created from that blueprint.\n\nExample: String is the class. \"hello\" is an object (an instance of String). You can have many String objects, all sharing the same class definition.",
+                "A class is the blueprint. An object is one specific thing built from that blueprint.\n\nString is the class — the definition. \"hello\" is an object — a specific instance of String. You can create a thousand different String objects, all from the same class definition.",
             },
           ],
           mcqs: [
@@ -994,7 +994,7 @@ String y = x;
               ],
               correctId: "B",
               explanation:
-                "new allocates memory on the heap for the new object and then calls the appropriate constructor to initialize its state. The constructor sets up the object's initial values. The reference to this newly created object is then stored in the variable on the left.",
+                "new does two things: it reserves memory on the heap for the new object, then calls the constructor to set up its initial state. The memory address of that freshly created object is what gets stored in the variable on the left.",
               skill: "1.B",
             },
             {
@@ -1008,7 +1008,7 @@ String y = x;
               ],
               correctId: "C",
               explanation:
-                "A reference variable stores the memory address (reference) of the object, not the object's data itself. This is why assigning one reference variable to another creates aliasing — both variables end up holding the same address, pointing to the same object.",
+                "A reference variable holds a memory address — a pointer to where the object lives — not the object's data itself. That's exactly why assigning one reference to another creates aliasing: both variables end up holding the same address, both pointing to the same object.",
               skill: "1.B",
             },
             {
@@ -1024,7 +1024,7 @@ System.out.println(s);`,
               ],
               correctId: "B",
               explanation:
-                "Printing a null reference with System.out.println does not throw an exception — it prints the string \"null\". A NullPointerException only occurs when you try to call a method ON the null reference (e.g., s.length()).",
+                "println handles null gracefully — it just prints the word \"null\". A NullPointerException only happens when you try to call a method on null (like s.length() or s.toUpperCase()). Simply passing null to println is fine.",
               skill: "2.B",
             },
             {
@@ -1042,7 +1042,7 @@ System.out.println(b);`,
               ],
               correctId: "B",
               explanation:
-                "After String b = a, both a and b reference \"hello\". Then a = \"world\" changes a to reference a new String object — it does NOT modify the original \"hello\" String. b still references \"hello\". (String reassignment doesn't mutate; it just changes which object the variable points to.)",
+                "After b = a, both variables point to \"hello\". Then a = \"world\" doesn't change the \"hello\" String — it just changes which object a points to. b still points to \"hello\" because reassigning a has no effect on b. This is different from aliasing on a mutable object, where a change through one variable would be visible through the other.",
               skill: "2.B",
             },
           ],
@@ -1053,7 +1053,7 @@ System.out.println(b);`,
           title: "String Manipulation",
           cedTopics: ["1.15"],
           description:
-            "String immutability, all Quick Reference String methods: length, substring, indexOf, equals, compareTo.",
+            "All the String methods on your AP Quick Reference card — and the two common traps: substring's exclusive end index and immutability.",
           objectives: [
             "Explain why Strings are immutable",
             "Use length(), substring(from, to), and substring(from) correctly",
@@ -1078,7 +1078,7 @@ System.out.println(s.substring(7));     // "ming"  (index 7 to end)
 System.out.println(s.indexOf("gram"));  // 3
 System.out.println(s.indexOf("java"));  // -1  (not found)`,
               explanation:
-                "String indexing is zero-based. substring(from, to) includes the character at index from but EXCLUDES the character at index to — a common exam trap. indexOf returns -1 when the substring is not found.",
+                "String characters are numbered starting at 0, not 1. The trickiest part of substring: the end index is exclusive. substring(3, 7) gives you characters at positions 3, 4, 5, and 6 — not 7. If you forget this, your substring will always be one character too short. indexOf returns -1 (not null, not 0) when the search string isn't found.",
             },
             {
               id: "1-8-ex2",
@@ -1097,7 +1097,7 @@ System.out.println(sub);   // "ello"
 s = s.toUpperCase();
 System.out.println(s);  // "HELLO"`,
               explanation:
-                "String objects are immutable — no method can change the characters in an existing String. Every String method returns a brand-new String. If you don't capture or reassign the result, it is discarded.",
+                "String objects are immutable — once created, the characters inside can never change. Every String method that looks like it modifies the String actually creates a brand-new one and returns it. If you call s.toUpperCase() but don't save the result, it disappears. To actually \"change\" s, you have to reassign: s = s.toUpperCase().",
             },
             {
               id: "1-8-ex3",
@@ -1118,7 +1118,7 @@ System.out.println(a.compareTo(c)); // negative (apple < banana)
 System.out.println(c.compareTo(a)); // positive (banana > apple)
 System.out.println(a.compareTo(b)); // 0        (equal)`,
               explanation:
-                "Use .equals() to check if two Strings have the same characters. Using == checks if they are the same object in memory — which can give wrong results. compareTo returns a negative number if the calling string comes first alphabetically, 0 if equal, positive if it comes after.",
+                "Always use .equals() to compare String content. The == operator compares memory addresses, not characters — two separate String objects can have identical text but different addresses, so == might return false when you'd expect true. compareTo is for ordering: negative if the calling string comes first alphabetically, 0 if equal, positive if it comes after. You don't need the exact number — just the sign.",
             },
           ],
           conceptChecks: [
@@ -1127,7 +1127,7 @@ System.out.println(a.compareTo(b)); // 0        (equal)`,
               prompt: "What does the following expression return?",
               code: `"programming".substring(3, 7)`,
               answer:
-                "\"gram\"\n\nsubstring(3, 7) extracts characters at indices 3, 4, 5, 6 (NOT 7 — the end index is exclusive). p=0, r=1, o=2, g=3, r=4, a=5, m=6, m=7... so indices 3-6 are 'g','r','a','m'.",
+                "\"gram\"\n\nsubstring(3, 7) takes positions 3, 4, 5, 6 — not 7. The end index is always exclusive. Count from zero: p=0, r=1, o=2, g=3, r=4, a=5, m=6. Positions 3 through 6 spell \"gram\".",
               hint: "Start index is inclusive; end index is exclusive.",
             },
             {
@@ -1137,14 +1137,14 @@ System.out.println(a.compareTo(b)); // 0        (equal)`,
 s.toUpperCase();
 System.out.println(s);`,
               answer:
-                "hello\n\nStrings are immutable. toUpperCase() returns a new String — it does NOT modify s. Since the return value isn't captured or reassigned, it's discarded. s still references the original \"hello\".",
+                "hello\n\ntoUpperCase() creates a new String (\"HELLO\") and returns it, but the result is never saved. s isn't reassigned, so s still points to the original \"hello\". To get the uppercase version, you'd write s = s.toUpperCase().",
               hint: "Did the code reassign s?",
             },
             {
               id: "1-8-cc3",
               prompt: "What does \"cat\".compareTo(\"dog\") return — positive, negative, or zero?",
               answer:
-                "Negative.\n\n\"cat\" comes before \"dog\" alphabetically (lexicographically). compareTo returns a negative value when the calling string is less than the argument. The exact value is not important — only the sign matters for ordering.",
+                "Negative.\n\n\"cat\" comes before \"dog\" in the dictionary, so it's \"less than\" \"dog\". compareTo returns a negative number when the calling string comes first. You never need the exact number — just know: negative means first, zero means equal, positive means after.",
             },
           ],
           mcqs: [
@@ -1160,7 +1160,7 @@ System.out.println(s);`,
               ],
               correctId: "B",
               explanation:
-                "\"hello\" has indices h=0, e=1, l=2, l=3, o=4. substring(1, 4) includes indices 1, 2, 3 — the characters e, l, l — giving \"ell\". Index 4 is excluded.",
+                "Map the indices first: h=0, e=1, l=2, l=3, o=4. substring(1, 4) takes positions 1, 2, and 3 — characters e, l, l. Position 4 is excluded. That spells \"ell\".",
               skill: "2.B",
             },
             {
@@ -1174,7 +1174,7 @@ System.out.println(s);`,
               ],
               correctId: "C",
               explanation:
-                "indexOf returns -1 when the specified substring is not found — not 0 (which would mean it was found at the very beginning), not null (it returns int, not a reference type), and no exception.",
+                "indexOf uses -1 as its \"not found\" signal. This is intentional — 0 means \"found at position 0\", and null isn't valid here since indexOf returns int, not a reference. Check for -1 when you need to know whether a substring exists.",
               skill: "2.B",
             },
             {
@@ -1191,7 +1191,7 @@ if (s1 == s2) { System.out.println("equal"); }`,
               ],
               correctId: "B",
               explanation:
-                "== on reference types compares memory addresses. Two separate String objects with the same content may live at different addresses, causing == to return false. Always use .equals() to compare String content.",
+                "== compares memory addresses, not content. Two String objects can contain the same characters but live at different locations in memory — so == might return false even when the text is identical. Always use .equals() when you care about the actual letters.",
               skill: "2.A",
             },
             {
@@ -1208,7 +1208,7 @@ System.out.println(s.length());`,
               ],
               correctId: "A",
               explanation:
-                "s.toLowerCase() returns a new String \"java\" but s is never reassigned, so s still references \"Java\". length() on \"Java\" is 4. Immutability means the original String is unchanged.",
+                "s.toLowerCase() creates a new \"java\" String but s is never reassigned. Immutability means the original \"Java\" is completely untouched. s.length() is called on the still-unchanged \"Java\", which has 4 characters.",
               skill: "2.B",
             },
             {
@@ -1222,7 +1222,7 @@ System.out.println(s.length());`,
               ],
               correctId: "C",
               explanation:
-                "compareTo returns: negative if s1 < s2 (s1 comes first), 0 if equal, positive if s1 > s2 (s1 comes after). Since s1 comes after s2 alphabetically (s1 > s2), the result is a positive integer. The exact value is not specified and not important.",
+                "compareTo's sign tells you the order: negative means s1 comes first, zero means equal, positive means s1 comes after. Since s1 is alphabetically after s2, the result is positive. The exact number doesn't matter — only the sign.",
               skill: "2.B",
             },
           ],
@@ -1240,7 +1240,7 @@ System.out.println(s.length());`,
       examWeight: "25–35%",
       suggestedPeriods: "29–31",
       description:
-        "Control flow: boolean expressions, if/else conditionals, while and for loops, standard algorithms, and nested iteration.",
+        "How Java decides what to do: comparing values, chaining conditions, looping until something changes, and repeating work with nested loops.",
       color: "green",
       icon: "GitBranch",
       subUnits: [
@@ -1250,7 +1250,7 @@ System.out.println(s.length());`,
           title: "Boolean Expressions",
           cedTopics: ["2.1", "2.2"],
           description:
-            "Relational operators, logical operators (&&, ||, !), truth tables, De Morgan's Laws, and short-circuit evaluation.",
+            "How Java makes decisions: comparing values with relational operators, combining conditions with &&, ||, and !, and the shortcut Java uses to avoid unnecessary evaluation.",
           objectives: [
             "Evaluate boolean expressions using ==, !=, >, <, >=, <=",
             "Apply &&, ||, and ! to combine boolean expressions",
@@ -1274,7 +1274,7 @@ System.out.println(x <= 6);  // false
 // Relational operators ALWAYS produce a boolean
 boolean result = (x * 2 > 10); // true — store it in a variable`,
               explanation:
-                "Relational operators compare two values and produce a boolean (true or false). They work on numbers and can be stored in boolean variables or used directly in if/while conditions.",
+                "Every relational operator produces one thing: true or false. Nothing else. You can print the result directly, store it in a boolean variable, or drop it straight into an if or while condition — all three work.",
             },
             {
               id: "2-1-ex2",
@@ -1298,7 +1298,7 @@ if (n == 0 || 10 / n > 2) {   // safe! n == 0 is true → stops
     System.out.println("zero");
 }`,
               explanation:
-                "&&  requires BOTH sides to be true. || requires at least ONE side to be true. Short-circuit evaluation means Java stops evaluating as soon as the result is determined — useful for guarding against division by zero or null references.",
+                "Think of && as 'both must pass' and || as 'either one works.' Short-circuit evaluation is Java's safety mechanism: with &&, if the left side is already false, Java doesn't bother checking the right side — the result can't change. This is how the division-by-zero guard in the code above stays safe.",
             },
             {
               id: "2-1-ex3",
@@ -1316,7 +1316,7 @@ boolean v3 = !(x < 0 || y < 0);        // !(false || false) = !false = true
 boolean v4 = !(x < 0) && !(y < 0);     // !false && !false  = true  && true  = true
 System.out.println(v3 == v4); // true`,
               explanation:
-                "De Morgan's Laws let you push a ! inside a compound expression by flipping && ↔ || and negating each operand. These are frequently tested on the AP exam — both recognizing equivalence and applying the transformation.",
+                "De Morgan's Laws give you a recipe for distributing a ! into a compound expression: flip && to || (or vice versa), then negate each part. The AP exam tests this heavily — both recognizing when two expressions are equivalent and writing the transformed version yourself.",
             },
           ],
           conceptChecks: [
@@ -1325,15 +1325,15 @@ System.out.println(v3 == v4); // true`,
               prompt: "Evaluate this expression. What does it print?",
               code: `System.out.println(!(true && false));`,
               answer:
-                "true\n\ntrue && false = false (both must be true). !false = true.",
-              hint: "Evaluate the inner && first, then apply !.",
+                "true\n\nWork inside out. true && false = false (both must pass, one doesn't). Then !false = true.",
+              hint: "Start with what's inside the parentheses.",
             },
             {
               id: "2-1-cc2",
               prompt: "Using De Morgan's Law, write an equivalent expression for: !(x >= 5 || y == 0)",
               answer:
-                "x < 5 && y != 0\n\nStep 1: flip || to &&. Step 2: negate each side — !(x >= 5) becomes x < 5, and !(y == 0) becomes y != 0.",
-              hint: "!(a || b) == !a && !b. Then simplify each negation.",
+                "x < 5 && y != 0\n\nTwo moves: flip || to &&, then negate each piece. !(x >= 5) becomes x < 5. !(y == 0) becomes y != 0.",
+              hint: "!(a || b) = !a && !b. Apply that, then simplify each negated comparison.",
             },
             {
               id: "2-1-cc3",
@@ -1343,7 +1343,7 @@ if (n != 0 && 10 / n > 1) {
     System.out.println("yes");
 }`,
               answer:
-                "No exception. Short-circuit evaluation: n != 0 is false, so Java immediately skips the second condition (10 / n > 1) without evaluating it. The division by zero never occurs.",
+                "No exception. n != 0 is false, so Java stops right there — short-circuit evaluation means the second condition never runs. The dangerous division by zero is never attempted.",
             },
           ],
           mcqs: [
@@ -1359,7 +1359,7 @@ if (n != 0 && 10 / n > 1) {
               ],
               correctId: "A",
               explanation:
-                "(3 > 5) is false. (10 != 10) is false. (4 < 8) is true. false || false || true = true. With ||, only one operand needs to be true.",
+                "Evaluate left to right: (3 > 5) is false, (10 != 10) is false, (4 < 8) is true. With ||, you only need one true — and you got one.",
               skill: "2.B",
             },
             {
@@ -1373,7 +1373,7 @@ if (n != 0 && 10 / n > 1) {
               ],
               correctId: "C",
               explanation:
-                "By De Morgan's Law, !(a && b) = !a || !b. So !(x < 10 && y > 5) = !(x < 10) || !(y > 5) = (x >= 10) || (y <= 5).",
+                "Apply De Morgan's: !(a && b) = !a || !b. Flip && to ||, then negate each part. !(x < 10) is x >= 10. !(y > 5) is y <= 5. Combined: x >= 10 || y <= 5.",
               skill: "2.B",
             },
             {
@@ -1387,7 +1387,7 @@ if (n != 0 && 10 / n > 1) {
               ],
               correctId: "B",
               explanation:
-                "(x > 4) is true, (x < 4) is false. true && false = false. A number cannot be both greater and less than 4 simultaneously.",
+                "x is 6. x > 4 is true. x < 4 is false. true && false is false. No number can be both greater than and less than 4 at once — so this && will always be false for any value.",
               skill: "2.B",
             },
             {
@@ -1401,7 +1401,7 @@ if (n != 0 && 10 / n > 1) {
               ],
               correctId: "C",
               explanation:
-                "With &&, if the left side is false, the whole expression must be false regardless of the right side, so Java skips evaluating it. This is useful for guards like (obj != null && obj.method()), where you don't want to call a method on null.",
+                "With &&, if the left side is already false, the whole thing must be false — nothing the right side says can change that. So Java skips it. The classic use case: (obj != null && obj.method()) — check the object exists before you call anything on it.",
               skill: "1.B",
             },
           ],
@@ -1412,7 +1412,7 @@ if (n != 0 && 10 / n > 1) {
           title: "Conditionals: if, else if, else",
           cedTopics: ["2.3", "2.4", "2.5", "2.6"],
           description:
-            "if/else chains, nested conditionals, compound boolean conditions, and comparing equivalent expressions.",
+            "How Java chooses which code to run: chaining if/else if/else blocks, nesting conditions inside each other, and recognizing when two different-looking conditions mean the same thing.",
           objectives: [
             "Write if, else if, else chains and trace their execution",
             "Write and trace nested if statements",
@@ -1439,7 +1439,7 @@ if (score >= 90) {
 // Java evaluates top to bottom, runs the FIRST true branch, then skips the rest.
 // score >= 70 is true, but score >= 90 and score >= 80 are checked first.`,
               explanation:
-                "Conditions in an if/else if chain are tested top-to-bottom. Only the first true branch executes — all remaining branches are skipped. If no condition is true and there is an else, the else block runs.",
+                "Java reads your conditions from top to bottom and stops at the first one that's true. Once a branch runs, the rest are skipped — even if they'd also be true. If nothing matches, the else catches it. If there's no else and nothing matches, nothing happens.",
             },
             {
               id: "2-2-ex2",
@@ -1464,7 +1464,7 @@ if (x > 0 && y > 0) {
     System.out.println("x positive, y not");
 }`,
               explanation:
-                "Nested ifs let you check a second condition only after the first is true. The inner else belongs to the inner if, not the outer one. Nesting is equivalent to using && but can be clearer when one branch has multiple sub-cases.",
+                "A nested if is just an if inside another if. The inner else belongs to the inner if — not the outer one. The two styles (nested vs. &&) produce identical results, but nesting is clearer when you need separate sub-cases for the inner branch.",
             },
             {
               id: "2-2-ex3",
@@ -1485,7 +1485,7 @@ System.out.println(n >= 10);    // false
 boolean inRange = (n >= 1 && n <= 10);  // true
 // WRONG: 1 <= n <= 10 is NOT valid Java syntax!`,
               explanation:
-                "Two expressions are equivalent if they produce the same boolean for every possible input. Recognizing equivalence lets you simplify conditions or spot when a rewritten version changes meaning. The range check pattern (n >= low && n <= high) is especially common on the exam.",
+                "Two expressions are equivalent if they always produce the same result for every possible input. Testing one or two values isn't enough to prove equivalence — you'd need to verify all inputs. The range check (n >= low && n <= high) comes up constantly on the exam, and you need to know it's the only valid Java way to express it — the chain 1 <= n <= 10 is not valid Java syntax.",
             },
           ],
           conceptChecks: [
@@ -1503,8 +1503,8 @@ if (score >= 90) {
     System.out.println("F");
 }`,
               answer:
-                "B\n\nscore >= 90 is false. score >= 80 is true → prints \"B\" and skips the rest. Even though score >= 70 is also true, it is never reached.",
-              hint: "Java runs the first true branch and skips all others.",
+                "B\n\nJava checks conditions in order. score >= 90? No. score >= 80? Yes — prints \"B\" and jumps out of the chain. The score >= 70 branch is never even looked at.",
+              hint: "Which condition is checked first? Which one does 85 satisfy?",
             },
             {
               id: "2-2-cc2",
@@ -1519,7 +1519,7 @@ if (x > 5) {
 }
 System.out.println("done");`,
               answer:
-                "medium\ndone\n\nx > 5 is false. x > 1 is true → prints \"medium\". The code after the entire if/else block always runs, so \"done\" prints regardless.",
+                "medium\ndone\n\nx > 5 is false. x > 1 is true — \"medium\" prints and the chain exits. The last println is outside the if/else entirely, so it always runs.",
             },
             {
               id: "2-2-cc3",
@@ -1530,7 +1530,7 @@ System.out.println("done");`,
 // Expression B:
 n < 5`,
               answer:
-                "Yes — they are equivalent.\n\n!(n >= 5) negates \"n is at least 5\", which means \"n is less than 5\" — exactly n < 5. You can verify with any value: if n = 4, both are true; if n = 5, both are false.",
+                "Yes — equivalent.\n\n!(n >= 5) means 'n is NOT at least 5,' which is the same as 'n is less than 5.' Test it: n = 4 makes both true; n = 5 makes both false; n = 6 makes both false.",
             },
           ],
           mcqs: [
@@ -1555,7 +1555,7 @@ if (x > 20) {
               ],
               correctId: "B",
               explanation:
-                "x > 20 is false. x > 10 is true → prints \"B\" and immediately exits the chain. Even though x > 5 is also true, it is never reached because the else if already matched.",
+                "x = 15. x > 20? No. x > 10? Yes — prints \"B\" and the chain is done. It doesn't matter that x > 5 is also true; the first match wins.",
               skill: "2.B",
             },
             {
@@ -1569,7 +1569,7 @@ if (x > 20) {
               ],
               correctId: "C",
               explanation:
-                "By De Morgan's Law, !(a || b) = !a && !b. So !(x < 3 || x > 7) = !(x < 3) && !(x > 7) = (x >= 3) && (x <= 7). This tests whether x is in the range [3, 7] inclusive.",
+                "De Morgan's: !(a || b) = !a && !b. Flip || to &&, negate each part. !(x < 3) is x >= 3. !(x > 7) is x <= 7. Result: x >= 3 && x <= 7 — the range check for [3, 7].",
               skill: "2.B",
             },
             {
@@ -1594,7 +1594,7 @@ if (a > 3) {
               ],
               correctId: "B",
               explanation:
-                "a > 3 is true → enter outer if. b > 10 is false → skip inner if, execute inner else: print \"Y\". Z is never reached because the outer else is skipped.",
+                "a > 3 is true, so we enter the outer if. Inside, b > 10 is false — skip the inner if, run the inner else: print \"Y\". The outer else (\"Z\") is never touched.",
               skill: "2.B",
             },
             {
@@ -1608,7 +1608,7 @@ if (a > 3) {
               ],
               correctId: "C",
               explanation:
-                "n >= 1 && n <= 100 correctly checks both bounds with &&. Option A is not valid Java syntax. Option B (||) is always true for any integer. Option D (||) is equivalent to !(n < 1 && n > 100) which is also always true since no number is simultaneously below 1 and above 100.",
+                "n >= 1 && n <= 100 is the correct range check — you need && because n must satisfy both bounds at once. Option A (1 <= n <= 100) looks right but doesn't compile in Java. Option B (||) is true for almost any integer — a number just needs to be at least 1 or at most 100, which is nearly everything. Option D has the same problem.",
               skill: "2.B",
             },
           ],
@@ -1619,7 +1619,7 @@ if (a > 3) {
           title: "while Loops",
           cedTopics: ["2.7"],
           description:
-            "while loop syntax, execution model, infinite loop risk, and off-by-one errors.",
+            "How while loops work, what happens if you forget to update the loop variable, and the exact mistake that makes your loop run one time too many or too few.",
           objectives: [
             "Write a while loop with correct initialization, condition, and update",
             "Trace a while loop and determine how many times the body executes",
@@ -1645,7 +1645,7 @@ while (x < 5) {
 }
 System.out.println("after");      // prints: after`,
               explanation:
-                "A while loop evaluates its condition before each pass. If the condition is false from the start, the body is skipped entirely. The update inside the body (i++) is essential — omitting it creates an infinite loop.",
+                "A while loop checks its condition before anything runs. If the condition is false on the very first check, the body is never executed — not even once. The update (i++) is what eventually makes the condition false. Forget it and the loop runs forever.",
             },
             {
               id: "2-3-ex2",
@@ -1666,7 +1666,7 @@ while (value != -1) {
 }
 System.out.println(total); // 5`,
               explanation:
-                "while loops are ideal when you don't know how many iterations are needed in advance — like reading until a sentinel value. The loop variable must eventually make the condition false, or you get an infinite loop.",
+                "Use a while loop when you don't know up front how many times you need to loop — like 'keep reading input until the user types -1.' The sentinel pattern (stop when you see a special value) is a classic while loop use case. Just make sure something inside the loop will eventually make the condition false.",
             },
             {
               id: "2-3-ex3",
@@ -1694,7 +1694,7 @@ while (i <= 5) {
     i++;
 }`,
               explanation:
-                "Off-by-one errors are among the most common bugs. The key question: should the boundary value be included? Use < if you want to stop before the boundary, <= if you want to include it. Always trace with the first and last expected values to verify.",
+                "Off-by-one errors are the most common loop bug. Ask yourself: should the last value be included? If yes, use <=. If no, use <. When you're not sure, trace the loop with the first and last value you expect. Does the body run for both? Then you're good.",
             },
           ],
           conceptChecks: [
@@ -1706,8 +1706,8 @@ while (i <= 8) {
     i += 2;
 }`,
               answer:
-                "4 times.\n\ni starts at 1. After each iteration: 3, 5, 7, 9. The body runs when i = 1, 3, 5, 7 (4 times). When i becomes 9, 9 <= 8 is false, so the loop exits.",
-              hint: "Trace: i = 1, 3, 5, 7, 9. When does i <= 8 become false?",
+                "4 times.\n\nTrace it: i starts at 1. Each iteration adds 2, so i goes 1 → 3 → 5 → 7 → 9. The body runs for i = 1, 3, 5, 7. When i reaches 9, the condition 9 <= 8 is false and the loop ends.",
+              hint: "Write out the values of i after each iteration.",
             },
             {
               id: "2-3-cc2",
@@ -1718,7 +1718,7 @@ while (x > 1) {
 }
 System.out.println(x);`,
               answer:
-                "1\n\nx starts at 16. Integer division by 2 each iteration: 16 → 8 → 4 → 2 → 1. When x = 1, x > 1 is false. After the loop, x is 1.",
+                "1\n\nx starts at 16. Integer division by 2: 16 → 8 → 4 → 2 → 1. When x = 1, the condition x > 1 is false and the loop stops. x is printed as 1.",
             },
             {
               id: "2-3-cc3",
@@ -1729,7 +1729,7 @@ while (i < 10) {
     i++;
 }`,
               answer:
-                "Off-by-one error: the loop prints 1–9 but misses 10. The condition should be i <= 10 (or i < 11) to include 10.",
+                "Off-by-one error. The loop stops when i reaches 10, but i < 10 is false at that point — so 10 is never printed. Change the condition to i <= 10.",
             },
           ],
           mcqs: [
@@ -1749,7 +1749,7 @@ while (i < 4) {
               ],
               correctId: "B",
               explanation:
-                "i starts at 0. The body runs when i = 0, 1, 2, 3 (four times). When i = 4, the condition i < 4 is false and the loop exits.",
+                "i starts at 0 and runs as long as i < 4. The body executes for i = 0, 1, 2, 3 — that's four times. When i hits 4, the condition fails and the loop exits.",
               skill: "2.B",
             },
             {
@@ -1769,7 +1769,7 @@ while (i <= 5) {
               ],
               correctId: "B",
               explanation:
-                "The loop adds 1 + 2 + 3 + 4 + 5 = 15. i runs from 1 to 5 inclusive (five iterations). sum accumulates: 1, 3, 6, 10, 15.",
+                "The loop runs for i = 1, 2, 3, 4, 5. Each iteration adds i to sum. Trace: 0 + 1 = 1, then + 2 = 3, then + 3 = 6, then + 4 = 10, then + 5 = 15.",
               skill: "2.B",
             },
             {
@@ -1788,7 +1788,7 @@ System.out.println(n);`,
               ],
               correctId: "C",
               explanation:
-                "n = 100: 100 > 1 → n = 100/10 = 10. n = 10: 10 > 1 → n = 10/10 = 1. n = 1: 1 > 1 is false → loop exits. Prints 1.",
+                "Trace the value of n: 100 → 10 → 1. When n = 1, the condition 1 > 1 is false. The loop exits. 1 is printed.",
               skill: "2.B",
             },
             {
@@ -1806,7 +1806,7 @@ while (x > 0) {
               ],
               correctId: "A",
               explanation:
-                "x starts at 1 (positive) and increases — it will always be > 0, creating an infinite loop. Changing x += 2 to x -= 2 decreases x, which will eventually make x <= 0 and exit the loop.",
+                "x starts at 1 and keeps increasing — it will always be positive, so the condition x > 0 is always true. The loop never exits. Changing x += 2 to x -= 2 makes x decrease, which will eventually reach 0 or below and end the loop.",
               skill: "2.A",
             },
           ],
@@ -1817,7 +1817,7 @@ while (x > 0) {
           title: "for Loops & for-each",
           cedTopics: ["2.8"],
           description:
-            "for loop syntax, equivalence to while, enhanced for-each loop, and choosing the right loop.",
+            "How to write a for loop, when to use it instead of while, and the for-each shortcut that reads cleaner but can't modify the collection.",
           objectives: [
             "Write a for loop with initialization, condition, and update all in the header",
             "Convert between for and while loop forms",
@@ -1849,7 +1849,7 @@ for (int i = 0; i <= 9; i += 3) {
     System.out.print(i + " ");  // 0 3 6 9
 }`,
               explanation:
-                "A for loop packs initialization, condition, and update into one line. The init runs exactly once. The condition is checked before each iteration. The update runs after each body execution. Any of the three parts can be omitted (leaving a blank), but the semicolons are required.",
+                "A for loop puts all three parts of loop control — start, stop, step — in one line. The initialization runs once at the beginning. The condition is checked before each iteration. The update runs after each body execution. You can omit any of the three parts, but you must keep both semicolons.",
             },
             {
               id: "2-4-ex2",
@@ -1871,7 +1871,7 @@ while (i < n) {     // condition
 // Use for when you know the number of iterations in advance.
 // Use while when the stopping condition is more complex or unknown.`,
               explanation:
-                "Every for loop can be rewritten as a while loop and vice versa. The for loop is preferred when iterating a fixed number of times because it keeps init, condition, and update together and prevents forgetting the update.",
+                "A for loop and a while loop are interchangeable — every for can be rewritten as a while and vice versa. Prefer for when you know the number of iterations in advance, because keeping init, condition, and update on one line makes it harder to accidentally forget the update.",
             },
             {
               id: "2-4-ex3",
@@ -1894,7 +1894,7 @@ for (int score : scores) {
     score += 10;  // modifies LOCAL copy — original array unchanged!
 }`,
               explanation:
-                "The enhanced for-each loop (for (Type var : collection)) is cleaner for read-only traversal — no index arithmetic, no off-by-one risk. However, you cannot use it to change array elements or access the current index. For modifications, use a regular indexed for loop.",
+                "The for-each loop is cleaner when you just need to visit every element — no index bookkeeping, no off-by-one risk. The trade-off: you can't use it to change array elements or know which index you're on. The variable inside the loop (score) is a local copy, not a reference to the original slot. Any changes you make to it disappear. For modifications, use a regular for loop.",
             },
           ],
           conceptChecks: [
@@ -1905,8 +1905,8 @@ for (int score : scores) {
     System.out.print(i + " ");
 }`,
               answer:
-                "1 4 7 10\n\ni starts at 1. After each body: 4, 7, 10, 13. The loop runs when i = 1, 4, 7, 10 (all ≤ 10). When i = 13, 13 <= 10 is false.",
-              hint: "Trace: i = 1, then +3 each time. Stop when i > 10.",
+                "1 4 7 10\n\ni starts at 1. After each body execution, i jumps up by 3: 1 → 4 → 7 → 10 → 13. All values up to 10 are printed. At i = 13, the condition fails.",
+              hint: "Write out i after each update: 1, 4, 7, ...",
             },
             {
               id: "2-4-cc2",
@@ -1915,7 +1915,7 @@ for (int score : scores) {
     System.out.println("tick");
 }`,
               answer:
-                "4 times.\n\ni = 10 (10 > 0 ✓), 7 (✓), 4 (✓), 1 (✓), then i = -2 → -2 > 0 is false. So 4 iterations.",
+                "4 times.\n\ni starts at 10 and drops by 3 each iteration: 10, 7, 4, 1. All four pass the condition i > 0. At i = -2, the condition fails and the loop ends.",
             },
             {
               id: "2-4-cc3",
@@ -1925,7 +1925,7 @@ for (int n : nums) {
     n *= 2;
 }`,
               answer:
-                "The enhanced for-each creates a local copy of each element in n. Modifying n does not change the original array. To modify elements, use a regular for loop with an index: nums[i] *= 2.",
+                "The for-each variable n is a copy of the array element, not a reference to the original slot. Doubling n just changes the copy — the original array is untouched. To actually modify the array, you need the index: use a regular for loop and write nums[i] *= 2.",
             },
           ],
           mcqs: [
@@ -1943,7 +1943,7 @@ for (int n : nums) {
               ],
               correctId: "B",
               explanation:
-                "i starts at 2, increments by 2 each time: 2, 4, 6, 8. When i would be 10, the condition i <= 8 fails. So 2, 4, 6, 8 are printed.",
+                "i starts at 2 and steps by 2: 2, 4, 6, 8. At i = 10, the condition i <= 8 fails. So exactly 2, 4, 6, 8 are printed.",
               skill: "2.B",
             },
             {
@@ -1962,7 +1962,7 @@ for (int n : nums) {
               ],
               correctId: "B",
               explanation:
-                "The loop body (the if statement) executes 10 times (i = 0 to 9). However, System.out.println only runs when i is even: 0, 2, 4, 6, 8 — that is 5 times. The question says \"loop body\" which runs 10 times, but the print runs 5 times. If the question asks about the print, the answer is 5.",
+                "The outer loop runs 10 times (i = 0 through 9). But System.out.println only fires when i % 2 == 0 — that is, when i is even: 0, 2, 4, 6, 8. That's 5 prints.",
               skill: "2.B",
             },
             {
@@ -1982,7 +1982,7 @@ while (i <= 20) {
               ],
               correctId: "B",
               explanation:
-                "The while loop starts at i = 1, runs while i <= 20, and steps by 4. The equivalent for loop has the same initialization (i = 1), condition (i <= 20), and update (i += 4).",
+                "Match all three parts: start at i = 1, run while i <= 20, step by i += 4. Option B mirrors all three exactly. Option A uses i < 20 (wrong bound), Option C starts at i = 0 (wrong init), Option D uses i++ (wrong step).",
               skill: "2.B",
             },
           ],
@@ -1993,7 +1993,7 @@ while (i <= 20) {
           title: "Standard Algorithms",
           cedTopics: ["2.9", "2.10"],
           description:
-            "CED-required algorithms: divisibility, digit extraction, frequency, min/max, sum/average, and string traversal algorithms.",
+            "The loop-based algorithms the AP exam tests directly: checking divisibility, pulling individual digits out of a number, finding min and max, computing averages without losing the decimal, and walking through Strings character by character.",
           objectives: [
             "Use % to test divisibility and extract the last digit of an integer",
             "Implement a frequency counter with a conditional inside a loop",
@@ -2024,7 +2024,7 @@ while (n > 0) {
     n /= 10;
 }`,
               explanation:
-                "n % 10 isolates the ones digit. n / 10 shifts everything right (drops the ones digit). Repeating these two operations in a loop processes every digit. n % d == 0 tests whether n is divisible by d.",
+                "n % 10 is the ones digit — always. n / 10 drops the ones digit (integer division). Put them in a loop and you peel off one digit per iteration, right to left. To check divisibility: n % d == 0 means 'n divides evenly by d.'",
             },
             {
               id: "2-5-ex2",
@@ -2050,7 +2050,7 @@ for (int i = 1; i < scores.length; i++) {
 System.out.println("Min: " + min);  // 61
 System.out.println("Max: " + max);  // 95`,
               explanation:
-                "Initialize min and max to scores[0] (not 0 or Integer.MAX_VALUE) to correctly handle all-negative or all-positive arrays. Cast before dividing to get a decimal average — (double) sum / n, not (double)(sum / n).",
+                "Always start min and max at scores[0] — the actual first element. If you initialize to 0 and all values are negative, 0 will look like the max forever. For the average, cast before you divide: (double) sum / count. If you write (double)(sum / count) instead, the integer division already happened — you cast the truncated result and the decimal is gone.",
             },
             {
               id: "2-5-ex3",
@@ -2082,7 +2082,7 @@ System.out.println(rev);  // racecar (palindrome!)
 // Palindrome check: original equals reverse
 System.out.println(s.equals(rev));  // true`,
               explanation:
-                "charAt(i) returns the char at index i (zero-based). Building a reversed string by iterating from the last index down to 0 is the standard reversal algorithm. A palindrome is a string that equals its reverse.",
+                "charAt(i) gives you the character at position i, starting from 0. To reverse a String, iterate from the last index down to 0, building a new String as you go. A palindrome is any string that equals its own reverse — use .equals() to compare, not ==.",
             },
           ],
           conceptChecks: [
@@ -2090,7 +2090,7 @@ System.out.println(s.equals(rev));  // true`,
               id: "2-5-cc1",
               prompt: "What does n % 10 return when n = 4829? What does n / 10 return?",
               answer:
-                "n % 10 = 9 (the ones digit). n / 10 = 482 (removes the ones digit via integer division).",
+                "n % 10 = 9 — that's the ones digit of 4829. n / 10 = 482 — integer division drops the ones digit entirely.",
             },
             {
               id: "2-5-cc2",
@@ -2099,8 +2099,8 @@ System.out.println(s.equals(rev));  // true`,
 int count = 4;
 double avg = (double)(sum / count);`,
               answer:
-                "Integer division happens first: sum / count = 93 / 4 = 23 (truncated). Then 23 is widened to 23.0. The correct answer should be 23.25. Fix: (double) sum / count.",
-              hint: "When does the cast happen relative to the division?",
+                "The parentheses make the cast happen too late. Java evaluates sum / count first (both ints) → 93 / 4 = 23, decimal dropped. Then (double) 23 = 23.0. The fix is (double) sum / count, which casts sum to 93.0 before the division.",
+              hint: "Look at which part is in parentheses — that's what gets cast.",
             },
             {
               id: "2-5-cc3",
@@ -2111,7 +2111,7 @@ for (int i = s.length() - 1; i >= 0; i--) {
 }
 System.out.println(rev);`,
               answer:
-                "olleh\n\nThe loop starts at index 4 ('o') and works backward to index 0 ('h'), building: \"o\", \"ol\", \"oll\", \"olle\", \"olleh\".",
+                "olleh\n\n\"hello\" has 5 characters (indices 0–4). The loop starts at index 4 ('o') and works backward: builds \"o\", \"ol\", \"oll\", \"olle\", \"olleh\".",
             },
           ],
           mcqs: [
@@ -2127,7 +2127,7 @@ System.out.println(rev);`,
               ],
               correctId: "C",
               explanation:
-                "n % 10 gives the remainder when divided by 10, which is always the ones digit. 253 / 10 = 25 remainder 3, so 253 % 10 = 3.",
+                "n % 10 is always the ones digit. Think long division: 253 ÷ 10 = 25 remainder 3. The remainder is 3.",
               skill: "2.B",
             },
             {
@@ -2146,7 +2146,7 @@ for (int i = 1; i < arr.length; i++) {
               ],
               correctId: "C",
               explanation:
-                "Initializing max to arr[0] is always correct — the array's actual first element is a valid starting bound. Initializing to 0 fails here since all values are negative (0 > all of them). Integer.MAX_VALUE would work but is unnecessary. Integer.MIN_VALUE also works, but arr[0] is the cleanest and most general approach.",
+                "arr[0] is the right choice because it's guaranteed to be a real element from the array. Starting at 0 fails when all values are negative — 0 is bigger than all of them and stays as 'max' forever. Integer.MIN_VALUE technically works but arr[0] is cleaner. Integer.MAX_VALUE is backwards — you'd use that when looking for a minimum.",
               skill: "2.B",
             },
             {
@@ -2168,7 +2168,7 @@ System.out.println(count);`,
               ],
               correctId: "B",
               explanation:
-                "\"computer\" has: c-o-m-p-u-t-e-r. 'o' appears at index 1, 'e' appears at index 6. Count = 2.",
+                "Scan \"computer\" for 'o' and 'e': c-o-m-p-u-t-e-r. 'o' is at index 1, 'e' is at index 6. Two matches, count = 2.",
               skill: "2.B",
             },
             {
@@ -2185,7 +2185,7 @@ double avg = (double) sum / count;`,
               ],
               correctId: "C",
               explanation:
-                "(double) sum casts 45 to 45.0 before dividing. 45.0 / 6 = 7.5. The result is a double. This is the correct pattern to get a decimal average.",
+                "The cast (double) sum turns 45 into 45.0 before the division happens. 45.0 / 6 = 7.5. That's the correct pattern — cast first, then divide.",
               skill: "2.B",
             },
           ],
@@ -2196,7 +2196,7 @@ double avg = (double) sum / count;`,
           title: "Nested Iteration & Runtime Analysis",
           cedTopics: ["2.11", "2.12"],
           description:
-            "Nested loops, counting total statement executions, and informal O(n) vs O(n²) analysis.",
+            "How nested loops multiply work — and why that matters for how fast your program runs as the input size grows.",
           objectives: [
             "Trace nested loops and count total iterations",
             "Determine the total number of times a statement inside nested loops executes",
@@ -2218,7 +2218,7 @@ for (int i = 0; i < 3; i++) {           // 3 iterations
 // * * * *
 // * * * *`,
               explanation:
-                "For each single iteration of the outer loop, the inner loop runs to completion. Total executions of the inner body = outer count × inner count. Here: 3 × 4 = 12 stars.",
+                "Every time the outer loop runs once, the inner loop runs its full cycle. So the inner body executes outer-count × inner-count times total. Here that's 3 × 4 = 12 stars. That multiplication is how you count nested loop iterations on the exam.",
             },
             {
               id: "2-6-ex2",
@@ -2238,7 +2238,7 @@ for (int i = 1; i <= n; i++) {       // i goes 1..5
 // * * * * *
 // Total stars: 1+2+3+4+5 = 15`,
               explanation:
-                "When the inner loop bound depends on the outer variable, the total iterations are not a simple product. Here they are 1 + 2 + … + n = n(n+1)/2 — roughly proportional to n², which is O(n²) growth.",
+                "When the inner loop's limit depends on the outer variable, you can't just multiply. Here the inner loop runs 1 time on the first pass, 2 on the second, up to n on the last. Total: 1 + 2 + ... + n = n(n+1)/2. For large n, this grows roughly as n² — so the performance cost scales up fast.",
             },
             {
               id: "2-6-ex3",
@@ -2264,7 +2264,7 @@ for (int i = 0; i < n; i++) {
 //   O(n)  → ~100 operations
 //   O(n²) → ~10,000 operations`,
               explanation:
-                "A single loop over n elements is O(n) — linear growth. Two nested loops each over n elements is O(n²) — quadratic growth. On the AP exam, you're not required to use Big-O notation: describing it as \"proportional to n\" or \"proportional to n²\" or counting exact statement executions is sufficient.",
+                "One loop over n items: linear growth, O(n). Two loops each over n items: quadratic growth, O(n²). Double n and the O(n) algorithm does twice the work. Double n and the O(n²) algorithm does four times the work — that difference matters enormously at scale. On the AP exam, you won't need Big-O notation — describing the growth as 'proportional to n' or 'proportional to n²' is enough.",
             },
           ],
           conceptChecks: [
@@ -2277,7 +2277,7 @@ for (int i = 0; i < n; i++) {
     }
 }`,
               answer:
-                "20 times.\n\nOuter loop: 4 iterations (i = 0, 1, 2, 3). Inner loop: 5 iterations per outer. Total: 4 × 5 = 20.",
+                "20 times.\n\nOuter loop runs 4 times (i = 0, 1, 2, 3). For each outer iteration, the inner loop runs 5 times. 4 × 5 = 20.",
             },
             {
               id: "2-6-cc2",
@@ -2289,8 +2289,8 @@ for (int i = 0; i < n; i++) {
     System.out.println();
 }`,
               answer:
-                "1 2 3\n2 3\n3\n\nRow 1 (i=1): j runs 1,2,3. Row 2 (i=2): j runs 2,3. Row 3 (i=3): j runs 3 only.",
-              hint: "The inner loop starts at j = i, not j = 1.",
+                "1 2 3\n2 3\n3\n\nThe inner loop starts at j = i, not at 1. When i = 1: j runs 1, 2, 3. When i = 2: j runs 2, 3. When i = 3: j runs only 3.",
+              hint: "What is j's starting value on each outer iteration?",
             },
             {
               id: "2-6-cc3",
@@ -2299,7 +2299,7 @@ for (int i = 0; i < n; i++) {
     System.out.println(i * 2);
 }`,
               answer:
-                "O(n) — linear. There is one loop that executes n times. The total work grows proportionally to n. Doubling n doubles the number of operations.",
+                "O(n) — linear growth. One loop, runs n times. Double n and the program does twice the work. No nesting means no n² behavior.",
             },
           ],
           mcqs: [
@@ -2319,7 +2319,7 @@ for (int i = 0; i < n; i++) {
               ],
               correctId: "B",
               explanation:
-                "Outer loop runs 5 times (i = 1 to 5). Inner loop runs 3 times per outer iteration. Total: 5 × 3 = 15.",
+                "Outer loop: i = 1, 2, 3, 4, 5 → 5 iterations. Inner loop: j = 1, 2, 3 → 3 iterations per outer. 5 × 3 = 15 total prints.",
               skill: "2.B",
             },
             {
@@ -2338,7 +2338,7 @@ for (int i = 0; i < n; i++) {
               ],
               correctId: "C",
               explanation:
-                "Both loops run n times. For each of the n outer iterations, the inner body runs n times. Total: n × n = n². This is the defining structure of an O(n²) algorithm.",
+                "Both loops are bounded by n. For each of the n outer iterations, the inner body runs n times. Total: n × n = n². That's what makes this O(n²).",
               skill: "2.B",
             },
             {
@@ -2352,7 +2352,7 @@ for (int i = 0; i < n; i++) {
               ],
               correctId: "C",
               explanation:
-                "Option C has two loops both bounded by n: n × n = n² operations. Option A is O(n). Option B is O(n) because the inner loop always runs exactly 10 times (a constant), so total work is 10n. Option D is O(1) — a single formula, no loop.",
+                "Option C is the answer: both loops bounded by n → n² operations. Option A is a single loop → O(n). Option B looks nested but the inner loop always runs exactly 10 times (a constant) → still O(n). Option D is a one-line formula, no loop → O(1).",
               skill: "2.B",
             },
             {
@@ -2371,7 +2371,7 @@ for (int i = 0; i < n; i++) {
               ],
               correctId: "A",
               explanation:
-                "i=1,j=1: 1×1=1. i=1,j=2: 1×2=2. i=2,j=1: 2×1=2. i=2,j=2: 2×2=4. i=3,j=1: 3×1=3. i=3,j=2: 3×2=6. Output: 1 2 2 4 3 6.",
+                "Trace each (i, j) pair: (1,1)→1, (1,2)→2, (2,1)→2, (2,2)→4, (3,1)→3, (3,2)→6. Output: 1 2 2 4 3 6.",
               skill: "2.B",
             },
           ],
@@ -2389,7 +2389,7 @@ for (int i = 0; i < n; i++) {
       examWeight: "10–18%",
       suggestedPeriods: "20–22",
       description:
-        "Designing and writing complete Java classes: instance variables, constructors, methods, static members, scope, and encapsulation.",
+        "You'll go from using other people's classes to writing your own: defining what an object stores, how it's built, how it behaves, and how you protect its data from outside interference.",
       color: "purple",
       icon: "Code2",
       subUnits: [
@@ -2399,7 +2399,7 @@ for (int i = 0; i < n; i++) {
           title: "Abstraction, Design & Ethics",
           cedTopics: ["3.1", "3.2"],
           description:
-            "Data and procedural abstraction, UML class diagrams, and the social/ethical impacts of program design.",
+            "Why hiding details makes code easier to use, how to read a blueprint-style class diagram, and why programs that seem technically correct can still cause real-world harm.",
           objectives: [
             "Explain data abstraction and procedural abstraction",
             "Read a UML class diagram and identify attributes vs. behaviors",
@@ -2428,7 +2428,7 @@ BankAccount acct = new BankAccount(500.0);
 acct.deposit(100.0);
 System.out.println(acct.getBalance()); // 600.0`,
               explanation:
-                "Data abstraction means hiding how data is stored (private double balance) behind a clean public interface. The caller can use deposit() and withdraw() without knowing the internal representation could change to an int in cents tomorrow.",
+                "The caller doesn't need to know that balance is a double — or that it might change to an int in cents tomorrow. They just call deposit() and withdraw(). That's data abstraction: hiding the storage detail behind a clean public interface so callers never have to care how it works internally.",
             },
             {
               id: "3-1-ex2",
@@ -2453,7 +2453,7 @@ public class BankAccount {
     public void withdraw(double amt) { balance -= amt; }
 }`,
               explanation:
-                "A UML class diagram has three sections: the class name on top, attributes (instance variables with types) in the middle, and behaviors (methods) at the bottom. The '+' prefix means public; '-' means private.",
+                "Think of a UML diagram as a blueprint card for a class. Top section: the class name. Middle: what it stores — instance variables with their types. Bottom: what it can do — the methods. The '+' prefix means public (accessible from outside); '-' means private (internal only).",
             },
             {
               id: "3-1-ex3",
@@ -2475,24 +2475,24 @@ private boolean isValid()               { /* checks inputs */ return true; }
 private double  calculateGPA()          { /* grade logic  */ return 3.8;  }
 private void    printReport(double gpa) { System.out.println("GPA: " + gpa); }`,
               explanation:
-                "Procedural abstraction means calling a method by name without knowing its implementation. This lets you write, test, and change each piece independently — a core software engineering principle that makes large programs manageable.",
+                "The caller just writes isValid() — they don't know or care what's inside. That's procedural abstraction: naming a task and hiding its implementation. You can now test isValid(), calculateGPA(), and printReport() independently. If the grading formula changes, only calculateGPA() needs to change — nothing else is affected.",
             },
           ],
           conceptChecks: [
             {
               id: "3-1-cc1",
               prompt: "A class has a private field 'balance' and a public method 'getBalance()'. Which term describes hiding the storage detail behind the public method?",
-              answer: "Data abstraction. The caller uses getBalance() without knowing (or caring) that the data is stored as a double named 'balance'. The internal representation could change, and callers wouldn't need to update their code.",
+              answer: "Data abstraction. The field balance is private — the caller can't see it. They can only interact with the object through getBalance(), deposit(), and withdraw(). If you changed balance from a double to an int stored in cents, no caller would need to update their code.",
             },
             {
               id: "3-1-cc2",
               prompt: "A UML class diagram has three horizontal sections. From top to bottom, what does each section contain?",
-              answer: "Top: the class name. Middle: the attributes (instance variables) with their types, prefixed with '+' (public) or '-' (private). Bottom: the behaviors (methods) with return types and parameters.",
+              answer: "Top section: the class name. Middle section: the attributes — the data the object stores — with their types. Bottom section: the behaviors — the methods — with return types and parameters. The '+' prefix means public; '-' means private.",
             },
             {
               id: "3-1-cc3",
               prompt: "A developer writes a hiring recommendation algorithm trained on historical data. What is one potential unintended societal effect the CED asks developers to consider?",
-              answer: "The algorithm could perpetuate historical biases, unfairly disadvantaging certain demographic groups. The CED states developers are responsible for considering potential unintended harmful social, economic, and cultural effects — not just whether the code runs correctly.",
+              answer: "The algorithm could perpetuate historical bias. If past hiring decisions unfairly excluded certain groups, training on that data teaches the algorithm to do the same — even though no one programmed it to discriminate. The AP CED puts this responsibility on developers: code that runs correctly can still cause real harm.",
             },
           ],
           mcqs: [
@@ -2507,7 +2507,7 @@ private void    printReport(double gpa) { System.out.println("GPA: " + gpa); }`,
               ],
               correctId: "B",
               explanation:
-                "Data abstraction means hiding how data is stored (e.g., private double balance) behind a public interface (getBalance(), deposit()). Callers interact with the interface without knowing the internal implementation.",
+                "Data abstraction hides the 'how' behind the 'what.' The caller doesn't see or care that balance is a private double — they just call getBalance() or deposit(). A describes procedural abstraction (breaking into methods), not data abstraction.",
               skill: "1.B",
             },
             {
@@ -2521,7 +2521,7 @@ private void    printReport(double gpa) { System.out.println("GPA: " + gpa); }`,
               ],
               correctId: "C",
               explanation:
-                "A UML class diagram has three sections from top to bottom: class name, attributes (instance variables), and behaviors (methods). The bottom section lists the methods.",
+                "Top to bottom: class name, then attributes (the data it stores), then behaviors (the methods). A common mix-up: students confuse the middle and bottom sections — attributes (variables) go in the middle, and behaviors (methods) go at the bottom.",
               skill: "1.B",
             },
             {
@@ -2535,7 +2535,7 @@ private void    printReport(double gpa) { System.out.println("GPA: " + gpa); }`,
               ],
               correctId: "C",
               explanation:
-                "Procedural abstraction means calling a method by name without knowing its implementation. The caller uses calculateTax() as a black box — the 'how' is hidden behind the method name.",
+                "Calling calculateTax() without seeing its implementation is procedural abstraction — the caller treats it as a black box. Data abstraction (A) is about hiding how data is stored, not how a computation works. Those are related but distinct concepts.",
               skill: "1.B",
             },
             {
@@ -2549,7 +2549,7 @@ private void    printReport(double gpa) { System.out.println("GPA: " + gpa); }`,
               ],
               correctId: "B",
               explanation:
-                "When training data is not diverse, a model may perform poorly on underrepresented groups — an unintended discriminatory effect. The CED emphasizes that developers must consider societal impact, not just technical correctness.",
+                "The system doesn't 'know' it's being unfair — it just reflects its training data. If that data underrepresents certain groups, accuracy for those groups will be lower. That's an unintended societal effect: a technically working system that produces unfair outcomes.",
               skill: "5.E",
             },
           ],
@@ -2560,7 +2560,7 @@ private void    printReport(double gpa) { System.out.println("GPA: " + gpa); }`,
           title: "Class Anatomy & Constructors",
           cedTopics: ["3.3", "3.4"],
           description:
-            "public/private access modifiers, encapsulation, instance variable declarations, and writing constructors.",
+            "How to write the skeleton of any Java class: what to keep private, how constructors set up a new object, and what happens when you don't write a constructor at all.",
           objectives: [
             "Write a class with private instance variables and public constructors",
             "Explain why instance variables are private (encapsulation)",
@@ -2596,7 +2596,7 @@ private void    printReport(double gpa) { System.out.println("GPA: " + gpa); }`,
     }
 }`,
               explanation:
-                "Every Java class follows this structure: private instance variables, a public constructor using this.field to assign parameters, public getter/setter methods, and optional helper methods. Classes are always public; instance variables are always private.",
+                "Every Java class follows this skeleton. Private variables protect the data — outside code can't reach them directly. The constructor runs once at new Dog(...) and sets everything up. The this keyword tells Java to use the instance variable (this.name) instead of the parameter (name) when both have the same name. Accessors and mutators give controlled outside access.",
             },
             {
               id: "3-2-ex2",
@@ -2627,7 +2627,7 @@ Dog d2 = new Dog("Buddy", 3); // name="Buddy",   age=3
 System.out.println(d1.getName()); // Unknown
 System.out.println(d2.getName()); // Buddy`,
               explanation:
-                "Constructor overloading means writing multiple constructors with different parameter lists. Java selects the right one based on the arguments you pass with 'new'. If you define any constructor, Java no longer provides a free default no-arg constructor.",
+                "Java picks the right constructor by matching your arguments to a parameter list. new Dog() matches the no-arg version; new Dog(\"Buddy\", 3) matches the parameterized version. Watch out: the moment you define any constructor, Java stops providing a free default no-arg constructor. If you want both, you have to write both.",
             },
             {
               id: "3-2-ex3",
@@ -2649,7 +2649,7 @@ System.out.println(d2.getName()); // Buddy`,
     }
 }`,
               explanation:
-                "When a class has no explicit constructor, Java provides a default no-arg constructor and initializes all instance variables to defaults: 0 for int, 0.0 for double, false for boolean, and null for reference types like String. Local variables do NOT have defaults and must be initialized before use.",
+                "If you don't write a constructor, Java quietly provides one that sets each instance variable to its type's zero value: int → 0, double → 0.0, boolean → false, reference types like String → null. Local variables inside methods don't get this safety net — you must initialize them yourself before using them.",
             },
           ],
           conceptChecks: [
@@ -2666,18 +2666,18 @@ System.out.println(d2.getName()); // Buddy`,
     public String getName() { return name; }
     public int    getAge()  { return age;  }
 }`,
-              answer: "name = \"Buddy\", age = 3. The constructor assigns each parameter to its corresponding instance variable using this.name = name and this.age = age.",
-              hint: "Trace each assignment in the constructor body.",
+              answer: "name = \"Buddy\", age = 3. The constructor receives \"Buddy\" and 3 as arguments. It runs this.name = name, storing \"Buddy\" in the instance variable, then this.age = age, storing 3. Both assignments use this. to target the instance variable rather than the local parameter.",
+              hint: "Follow each this.field = param assignment one at a time.",
             },
             {
               id: "3-2-cc2",
               prompt: "Why should instance variables be declared private rather than public?",
-              answer: "Encapsulation — private fields can only be read or changed through the class's own methods (getters/setters). This lets the class enforce validation rules and change its internal representation without breaking code that calls it from outside.",
+              answer: "Encapsulation. Making fields private means outside code can't directly read or change them — it must go through the class's methods. This gives the class control: a setter can reject invalid values (like a negative age), and the internal storage can change without breaking any code that uses the class.",
             },
             {
               id: "3-2-cc3",
               prompt: "A class defines a parameterized constructor Dog(String name, int age) but no no-arg constructor. What happens if you write: Dog d = new Dog();?",
-              answer: "Compile error. Once you define any constructor, Java does NOT automatically provide a default no-arg constructor. You would need to explicitly write a public Dog() { } constructor to allow no-arg instantiation.",
+              answer: "Compile error. Java only provides the free default no-arg constructor when you haven't written any constructor at all. The moment you define Dog(String name, int age), that free default disappears. If you need new Dog() to work, you must write a no-arg constructor yourself.",
             },
           ],
           mcqs: [
@@ -2692,7 +2692,7 @@ System.out.println(d2.getName()); // Buddy`,
               ],
               correctId: "C",
               explanation:
-                "Private instance variables enforce encapsulation — the internal state can only be changed through the class's own methods. This allows the class to validate changes and change its implementation without breaking external code.",
+                "Private fields enforce encapsulation: the only way to read or change them is through the class's own methods. This means the class controls its own state. A is wrong — that describes public fields, not private ones. D is wrong — Java doesn't require it; it's a best practice.",
               skill: "1.B",
             },
             {
@@ -2706,7 +2706,7 @@ System.out.println(d2.getName()); // Buddy`,
               ],
               correctId: "B",
               explanation:
-                "A valid constructor has the same name as the class, is public, and has no return type (not even void). Option A adds 'void', options C uses 'private', and D adds 'int' — all invalid.",
+                "A constructor must match the class name exactly, be public, and have no return type — not even void. Option A adds 'void' (turning it into a regular method). Option C uses 'private' (won't be accessible from outside). Option D adds 'int' (same problem as A — it's now a method, not a constructor).",
               skill: "2.A",
             },
             {
@@ -2720,7 +2720,7 @@ System.out.println(d2.getName()); // Buddy`,
               ],
               correctId: "C",
               explanation:
-                "Instance variables are automatically initialized to default values when no constructor sets them: int → 0, double → 0.0, boolean → false, reference types → null. This is different from local variables, which have no default.",
+                "Java automatically initializes instance variables to their type's zero value: int → 0, double → 0.0, boolean → false, String → null. A (undefined) describes local variables, not instance variables. D (null) is only for reference types — int gets 0, not null.",
               skill: "2.A",
             },
             {
@@ -2734,7 +2734,7 @@ System.out.println(d2.getName()); // Buddy`,
               ],
               correctId: "C",
               explanation:
-                "Constructors are called with 'new ClassName(args)'. 'new Cat()' passes no arguments, so it matches the no-arg constructor Cat(). Option B is missing 'new', and option D is missing the parentheses.",
+                "Creating any object requires new ClassName(). Option B is missing new — that's method call syntax, not object creation. Option D is missing the parentheses after Cat. The argument list (empty here) is what tells Java which overloaded constructor to call.",
               skill: "2.A",
             },
           ],
@@ -2745,7 +2745,7 @@ System.out.println(d2.getName()); // Buddy`,
           title: "Writing Methods",
           cedTopics: ["3.5", "3.6"],
           description:
-            "Accessor and mutator methods, void vs. return, pass-by-value for primitives, object references passed by value, and aliasing.",
+            "How to write methods that read or change an object's data, and Java's tricky rule about what methods can and can't do to variables outside themselves.",
           objectives: [
             "Write accessor (getter) and mutator (setter) methods",
             "Write a method with a non-void return type and use the return statement",
@@ -2784,7 +2784,7 @@ System.out.println(r.getArea());       // 15.0
 r.setWidth(10.0);
 System.out.println(r.getArea());       // 30.0`,
               explanation:
-                "Accessor (getter) methods return the value of an instance variable without changing it. Mutator (setter) methods change an instance variable's value and return void. Computed methods like getArea() use multiple fields to produce a result.",
+                "Accessors (getters) are read-only: they return a value and leave the object unchanged. Mutators (setters) are write-only: they change a value and return void. Computed methods like getArea() don't store width * height anywhere — they calculate it fresh every time from the current field values.",
             },
             {
               id: "3-3-ex2",
@@ -2803,7 +2803,7 @@ System.out.println(r.getArea());       // 30.0`,
     }
 }`,
               explanation:
-                "Java is pass-by-value for primitives: the method receives a copy of the value, not the original variable. Changing x inside addOne() has no effect on n in main(). This is one of the most frequently tested concepts on the AP exam.",
+                "When you call addOne(n), Java copies the value 5 and hands that copy to the method. The method works on its own copy of x. Whatever happens to x inside there — n in main() never knows about it. This rule applies to all primitive types: int, double, boolean, char.",
             },
             {
               id: "3-3-ex3",
@@ -2831,7 +2831,7 @@ Dog b = a;                    // b is an alias for the same Dog object
 b.setName("Rex");
 System.out.println(a.getName()); // Rex — a and b share the same object!`,
               explanation:
-                "Object references are passed by value: a copy of the address is passed, so the method can call mutators on the original object. However, reassigning the reference (d = new Dog(...)) only changes the local copy. Aliasing occurs when two variables point to the same object — mutating through one affects the other.",
+                "An object reference is an address — a number that says 'the Dog lives at memory location 1042.' When you pass myDog to a method, Java copies that address. The method has its own copy of the address, but it still points to the same Dog. Calling setName() through the copy reaches the original object. But d = new Dog(...) just replaces the local copy of the address — the caller's variable is untouched. Aliasing is when two variables hold the same address: they look separate but they're both windows into the same object.",
             },
           ],
           conceptChecks: [
@@ -2843,8 +2843,8 @@ System.out.println(a.getName()); // Rex — a and b share the same object!`,
 int n = 10;
 addOne(n);
 System.out.println(n);`,
-              answer: "10. Java passes primitives by value — addOne() gets a copy of 10. Incrementing x inside the method only changes the local copy. The variable n in the caller is never modified.",
-              hint: "Primitives are copied — the method cannot change the original.",
+              answer: "10. When addOne(n) is called, Java copies the value 10 and gives that copy to the method as x. x++ changes the copy from 10 to 11. n back in the caller is a separate variable — it was never touched. n still holds 10.",
+              hint: "Ask: did the method receive n itself, or a copy of n?",
             },
             {
               id: "3-3-cc2",
@@ -2856,7 +2856,7 @@ System.out.println(n);`,
 Dog myDog = new Dog("Spot");
 changeName(myDog);
 System.out.println(myDog.getName());`,
-              answer: "Rex. Even though the reference is a copy, it points to the same Dog object on the heap. Calling setName() through the copy still mutates the original object's state.",
+              answer: "Rex. Java copies the reference (the address of the Dog object) and gives it to changeName(). The copy still points to the same Dog. When setName(\"Rex\") is called through that copy, it mutates the actual Dog in memory. myDog still holds the same address — and now that Dog's name is Rex.",
               hint: "The copy of the reference still points to the same object.",
             },
             {
@@ -2865,7 +2865,7 @@ System.out.println(myDog.getName());`,
               code: `Dog a = new Dog("Buddy");
 Dog b = a;
 b.setName("Max");`,
-              answer: "Max. Because b = a creates an alias — both variables point to the same Dog object in memory. Calling b.setName(\"Max\") mutates that single object, so a.getName() also returns \"Max\".",
+              answer: "Max. The line b = a doesn't create a second Dog — it copies the address stored in a into b. Now both a and b hold the same address, pointing at the same Dog in memory. When b.setName(\"Max\") runs, it changes that one Dog. Since a still points to the same Dog, a.getName() returns \"Max\".",
               hint: "Aliasing: b = a does NOT create a second Dog object.",
             },
           ],
@@ -2881,7 +2881,7 @@ b.setName("Max");`,
               ],
               correctId: "B",
               explanation:
-                "An accessor (getter) method returns the value of an instance variable and has no side effects on the object's state. Mutator (setter) methods are the ones that modify instance variables.",
+                "An accessor's job is to report — it returns a value and changes nothing. A mutator's job is to update — it changes an instance variable and returns void. A and D describe mutators or other operations, not accessors.",
               skill: "2.A",
             },
             {
@@ -2899,7 +2899,7 @@ System.out.println(x);`,
               ],
               correctId: "A",
               explanation:
-                "Java passes primitives by value. doubleIt() receives a copy of 4; assigning n = n * 2 changes the local copy only. The original variable x remains 4.",
+                "doubleIt() receives a copy of 4 — not x itself. n = n * 2 doubles the copy inside the method. When the method ends, that copy disappears. x in main() was never touched, so it still holds 4.",
               skill: "2.B",
             },
             {
@@ -2913,7 +2913,7 @@ System.out.println(x);`,
               ],
               correctId: "B",
               explanation:
-                "When an object reference is passed, the method gets a copy of the reference (address), but it still points to the same object on the heap. Calling a mutator (setName) through the copied reference modifies the original object.",
+                "The method gets a copy of the reference — a copy of the address pointing to the Dog. That address still points to the same Dog. Calling setName(\"Rex\") through that copied address mutates the real object. A is a common misconception: references are passed by value, but that doesn't mean the object itself is protected.",
               skill: "2.B",
             },
             {
@@ -2927,7 +2927,7 @@ System.out.println(x);`,
               ],
               correctId: "C",
               explanation:
-                "b = a creates an alias — both b and a point to the exact same Dog object in memory. When b.setName(\"Rex\") is called, it mutates that shared object, so a.getName() returns \"Rex\" as well.",
+                "b = a copies the address, not the object. Now a and b both hold the same address — they're aliases. There's only one Dog in memory. When b.setName(\"Rex\") runs, that one Dog changes its name. Reading a.getName() reads from the same Dog, so you get \"Rex\".",
               skill: "2.B",
             },
             {
@@ -2941,7 +2941,7 @@ System.out.println(x);`,
               ],
               correctId: "B",
               explanation:
-                "A mutator (setter) should be public (so external code can call it), void (it changes state rather than returning a value), take a parameter of the same type as the field, and assign with this.score = score to differentiate the parameter from the instance variable.",
+                "A mutator must be public (callable from outside), void (it changes state, not returns it), and take a parameter matching the field's type. The this.score = score assignment stores the parameter value into the instance variable — without this., the parameter shadows the instance variable and you'd just be assigning score to itself.",
               skill: "2.A",
             },
           ],
@@ -2952,7 +2952,7 @@ System.out.println(x);`,
           title: "Static Members, Scope & the this Keyword",
           cedTopics: ["3.7", "3.8", "3.9"],
           description:
-            "static variables and methods, local vs. instance scope, NullPointerException, and using this to disambiguate.",
+            "How static members differ from instance members, why Java throws NullPointerException when you call a method on nothing, and what this actually means inside a class.",
           objectives: [
             "Declare and use static (class) variables and static methods",
             "Explain the difference between local variable scope and instance variable scope",
@@ -2989,7 +2989,7 @@ System.out.println(Counter.getCount()); // 3  (class-level call)
 System.out.println(c1.getId());         // 1
 System.out.println(c3.getId());         // 3`,
               explanation:
-                "A static variable has one copy shared across all instances — perfect for counting objects. Static methods are called with ClassName.method() rather than obj.method(), and they cannot access instance variables because there is no specific object to refer to.",
+                "Think of a static variable as a shared whiteboard for the entire class. Every time you create a new Counter, all of them see the same count. A static method belongs to the class, not to any object — that's why you call it with Counter.getCount() rather than c1.getCount(). Because no specific object is involved, static methods can't access instance variables like id.",
             },
             {
               id: "3-4-ex2",
@@ -3018,7 +3018,7 @@ Point p = new Point(3, 4);
 p.move(1, 2);
 System.out.println(p); // (4, 6)`,
               explanation:
-                "When a parameter has the same name as an instance variable, the parameter shadows the instance variable. Using 'this.x' explicitly refers to the instance variable, while plain 'x' refers to the parameter. Omitting 'this' when the names differ is also valid — Java finds the instance variable anyway.",
+                "The parameter x and the instance variable x have the same name — they collide. Inside the constructor, plain x means the parameter. this.x means 'the x that belongs to this object.' Without this., the assignment becomes x = x — assigning the parameter to itself, a no-op. The instance variable never gets set. If the names were different (like int xVal), you wouldn't need this. at all.",
             },
             {
               id: "3-4-ex3",
@@ -3047,7 +3047,7 @@ System.out.println(d1.getName()); // Unknown
 Dog d2 = null;
 System.out.println(d2.getName()); // throws NullPointerException at runtime!`,
               explanation:
-                "this() calls another constructor in the same class and must appear on the very first line of the calling constructor. This avoids duplicating initialization code. A NullPointerException is thrown at runtime whenever you call a method on a variable that holds null instead of an actual object.",
+                "this(\"Unknown\", 0) is constructor chaining: instead of duplicating initialization code, the no-arg constructor delegates to the parameterized one. It must be the very first line — nothing can come before it. The NullPointerException at the bottom is a runtime error, not a compile error. The compiler sees that d is declared as Dog and allows the method call. But at runtime, d holds null — there's no Dog to call getName() on, so Java throws NullPointerException.",
             },
           ],
           conceptChecks: [
@@ -3057,7 +3057,7 @@ System.out.println(d2.getName()); // throws NullPointerException at runtime!`,
               code: `Counter a = new Counter();
 Counter b = new Counter();
 Counter c = new Counter();`,
-              answer: "3. The static variable 'count' is shared across all Counter instances. Each call to new Counter() increments the same count, so after creating three objects, count is 3.",
+              answer: "3. The static variable count belongs to the class, not to any individual Counter object. Every call to new Counter() increments the same count. After creating a, b, and c, count has been incremented three times — it equals 3. Create a fourth Counter and it becomes 4.",
               hint: "Static variables belong to the class, not individual objects.",
             },
             {
@@ -3067,14 +3067,14 @@ Counter c = new Counter();`,
     this.x = x;
     this.y = y;
 }`,
-              answer: "Plain 'x' refers to the constructor parameter. 'this.x' refers to the instance variable of the current object. Without 'this.', the parameter shadows the instance variable, so you'd accidentally assign x = x (the parameter to itself), leaving the instance variable uninitialized.",
+              answer: "Plain x is the constructor parameter — the value passed in. this.x is the instance variable stored inside the object. When both have the same name, the parameter shadows the instance variable. Without this., the line x = x assigns the parameter to itself — a no-op. The instance variable stays at its default (0 for int), and you'd have a hard-to-spot bug.",
             },
             {
               id: "3-4-cc3",
               prompt: "What exception is thrown when this code runs, and why?",
               code: `Dog d = null;
 System.out.println(d.getName());`,
-              answer: "NullPointerException. The variable d holds null — it doesn't reference any Dog object in memory. Calling a method on null causes Java to throw NullPointerException at runtime because there is no object to execute the method on.",
+              answer: "NullPointerException, thrown at runtime. d is declared as type Dog, so the compiler doesn't flag the method call. But when the program runs, d holds null — it's not pointing to any Dog. Java has no object to call getName() on, so it throws NullPointerException. This is one of the most common runtime errors you'll encounter.",
             },
           ],
           mcqs: [
@@ -3089,7 +3089,7 @@ System.out.println(d.getName());`,
               ],
               correctId: "B",
               explanation:
-                "A static variable is a class variable — one copy shared by all instances. If one constructor increments it, the change is visible through every object and through the class name itself.",
+                "Static variables are class-level — one copy, shared by every object. If Counter's constructor increments count, every Counter object sees the updated value. A is wrong: each object having its own copy describes instance variables, not static ones.",
               skill: "2.A",
             },
             {
@@ -3109,7 +3109,7 @@ System.out.println(d.getName());`,
               ],
               correctId: "B",
               explanation:
-                "A static method has no 'this' context — it is not associated with any specific object. Therefore, it cannot reference instance variables like 'value'. To fix it, either make getValue() non-static or make 'value' static.",
+                "Static methods don't have a this reference — they're not tied to any specific object. value is an instance variable that belongs to a specific object. When getValue() is static, it can't ask 'which object's value?' — there's no object in context. Fix: either remove static from getValue(), or make value static too.",
               skill: "2.A",
             },
             {
@@ -3123,7 +3123,7 @@ System.out.println(d.getName());`,
               ],
               correctId: "B",
               explanation:
-                "When a parameter has the same name as an instance variable, 'this.name' explicitly refers to the instance variable of the current object, while plain 'name' refers to the parameter. Without 'this', the parameter shadows the instance variable.",
+                "Inside the constructor, name by itself refers to the parameter. this.name refers to the instance variable. Without this., the line becomes name = name — the parameter assigned to itself, a no-op. The instance variable is never set, leaving it at null. This bug compiles without error but breaks the object silently.",
               skill: "2.A",
             },
             {
@@ -3137,7 +3137,7 @@ System.out.println(d.getName());`,
               ],
               correctId: "C",
               explanation:
-                "The compiler allows calling methods on any variable of the correct type, but at runtime, d holds null — no Dog object exists. Java throws NullPointerException when you try to invoke a method on a null reference.",
+                "This compiles fine — the compiler sees that d is declared as Dog and allows the method call. But at runtime, d holds null. There's no Dog in memory. Java throws NullPointerException when you call a method on null. A and B are wrong: null doesn't behave like an empty string and doesn't return null from a method — it crashes.",
               skill: "2.B",
             },
             {
@@ -3151,7 +3151,7 @@ System.out.println(d.getName());`,
               ],
               correctId: "B",
               explanation:
-                "this() calls another constructor in the same class and must be the very first statement in the constructor body — no other statements before it. Option A executes a statement before this(), which is invalid.",
+                "this() must be the very first line in the constructor — no statements before it. Option A declares String s before calling this(), which violates this rule and causes a compile error. Options C and D are wrong syntax entirely: you can't call a constructor with the class name alone, and new Dog() inside the constructor creates a separate object rather than chaining.",
               skill: "2.A",
             },
           ],
@@ -3169,7 +3169,7 @@ System.out.println(d.getName());`,
       examWeight: "30–40%",
       suggestedPeriods: "50–52",
       description:
-        "Arrays, ArrayLists, 2D arrays, File I/O with Scanner, dataset ethics, searching, sorting, and recursion tracing.",
+        "The biggest unit on the exam: storing lists of data in arrays and ArrayLists, reading from files, searching and sorting that data, and tracing code that calls itself.",
       color: "orange",
       icon: "Database",
       subUnits: [
@@ -3179,7 +3179,7 @@ System.out.println(d.getName());`,
           title: "Data Ethics & Introduction to Data Sets",
           cedTopics: ["4.1", "4.2"],
           description:
-            "Privacy risks from data collection, algorithmic bias, data quality, and what a data set is.",
+            "How software can cause real harm through poor data practices — and how to recognize a data set that's actually appropriate for the problem being solved.",
           objectives: [
             "Identify privacy risks created by collecting and storing personal data",
             "Explain algorithmic bias and how incomplete data produces unfair outcomes",
@@ -3206,7 +3206,7 @@ System.out.println(d.getName());`,
 //   - count of students above a threshold
 //   - distribution across grade categories`,
               explanation:
-                "A data set is a collection of specific pieces of information — here, each row is one student's record. Programs manipulate data sets by reading values, computing statistics, and filtering or sorting entries to answer questions about the data.",
+                "A data set is just structured, organized information. Each row is one record; each column is one attribute. Once a program reads a data set, it can answer questions about it: What's the average? Who scored highest? How many students passed? That's what data analysis is.",
             },
             {
               id: "4-1-ex2",
@@ -3227,7 +3227,7 @@ public class UserRecord {
 // 3. Delete data when no longer needed
 // 4. Protect databases with access controls`,
               explanation:
-                "Every piece of personal data stored creates a risk — if the database is breached, users are harmed. The principle of data minimization says: only collect what you actually need. Developers are responsible for considering these risks when designing systems.",
+                "Every field you store is a liability. If the database is ever breached, every piece of sensitive data gets exposed — and the harm is real. Data minimization means only collect what you actually need for the job. As the developer, you're responsible for making that call.",
             },
             {
               id: "4-1-ex3",
@@ -3249,24 +3249,24 @@ public class UserRecord {
 
 // Fix: audit training data for representation, test for disparate impact`,
               explanation:
-                "Algorithmic bias occurs when flawed or incomplete training data causes a model to produce systematically unfair outcomes for certain groups. Because algorithms make decisions at scale and their logic is hidden, bias can spread further and be harder to detect than individual human bias.",
+                "The algorithm isn't malicious — it's just doing what the data told it to do. If the training data reflects historical unfairness, the model learns that unfairness and repeats it. Worse: algorithms make thousands of decisions automatically, and the bias is buried in statistics, not visible in any single decision.",
             },
           ],
           conceptChecks: [
             {
               id: "4-1-cc1",
               prompt: "What is algorithmic bias, and how can incomplete training data cause it?",
-              answer: "Algorithmic bias is a systemic error in an algorithm that produces unfair outcomes for certain groups. If the training data underrepresents some populations, the model never learns their patterns correctly, so its predictions are systematically worse for those groups — even without any intentional discrimination.",
+              answer: "Algorithmic bias is when an algorithm consistently produces unfair outcomes for certain groups — not because of any intention, but because the training data didn't represent them fairly. The model can't predict well for people it never learned from.",
             },
             {
               id: "4-1-cc2",
               prompt: "A company wants to use a data set of social media posts from teenagers to train a medical diagnosis model for elderly patients. Is this data set appropriate? Why or why not?",
-              answer: "No. The data set is not appropriate because the population (teenagers on social media) does not match the problem (diagnosing elderly patients). The language, symptoms, and health patterns described would be completely different. Using an inappropriate data set leads to incorrect or harmful conclusions.",
+              answer: "No — and it's not even close. The population writing the data (teenagers) has almost nothing in common with the population being diagnosed (elderly patients). Their language, health concerns, and symptoms are completely different. A model trained on this data would make unreliable — and potentially dangerous — predictions.",
             },
             {
               id: "4-1-cc3",
               prompt: "A fitness app collects users' GPS location every 30 seconds, even when the app is closed. What privacy risk does this create?",
-              answer: "Continuous GPS tracking reveals users' home address, workplace, daily routines, and places of worship — all highly sensitive. If the company is breached, this data could be used for stalking, burglary, or discrimination. The data is also being collected beyond what is needed for a fitness app (data minimization violation).",
+              answer: "GPS data collected every 30 seconds builds a detailed picture of someone's life — where they sleep, where they work, where they worship. If that data is stolen, it enables stalking, burglary, and targeted harassment. A fitness app doesn't need continuous background tracking to count steps — collecting it anyway violates data minimization.",
             },
           ],
           mcqs: [
@@ -3281,7 +3281,7 @@ public class UserRecord {
               ],
               correctId: "B",
               explanation:
-                "Algorithmic bias is systematic unfairness produced by flawed or incomplete data, not necessarily intentional. An algorithm trained on non-representative data will make poor or unfair predictions for underrepresented groups.",
+                "The key word is 'systematic.' Bias isn't a one-off error — it's consistent unfairness baked into the model by the data it learned from. It doesn't require intentional discrimination from the developer.",
               skill: "5.E",
             },
             {
@@ -3295,7 +3295,7 @@ public class UserRecord {
               ],
               correctId: "B",
               explanation:
-                "Storing sensitive personal data creates privacy risk. A breach exposes patients to identity theft, discrimination, or harm from exposed medical history. Developers must design systems with security and data minimization in mind.",
+                "Health records and SSNs are high-value targets for attackers. A breach exposes patients to identity theft and discrimination based on medical history. The developer's job is to minimize what's stored and protect what must be.",
               skill: "5.E",
             },
             {
@@ -3309,7 +3309,7 @@ public class UserRecord {
               ],
               correctId: "B",
               explanation:
-                "Appropriate data sets must match the problem. English newspaper articles contain no Swahili text, so they cannot train a Swahili translation model. Data quality and relevance are critical — a model is only as good as its training data.",
+                "The data has to match the problem. English articles contain no Swahili — you can't learn to translate a language from data that never uses it. A model is only as good as the data it learned from.",
               skill: "5.E",
             },
             {
@@ -3323,7 +3323,7 @@ public class UserRecord {
               ],
               correctId: "C",
               explanation:
-                "More data is not always better — irrelevant or mismatched data degrades model quality. A high-quality data set must be accurate, complete, and representative of the problem being solved. Size alone does not determine quality.",
+                "More data sounds better, but irrelevant data adds noise, not signal. Quality over quantity: a good data set is accurate, complete, and representative of the actual population being studied. Garbage in, garbage out.",
               skill: "5.E",
             },
           ],
@@ -3334,7 +3334,7 @@ public class UserRecord {
           title: "Arrays",
           cedTopics: ["4.3", "4.4", "4.5"],
           description:
-            "Array creation, default values, zero-based indexing, traversal patterns, and standard array algorithms.",
+            "Java's built-in list structure: how to create arrays, why indices start at 0, what defaults you get for free, and the loop patterns that power every array algorithm.",
           objectives: [
             "Create arrays with new and with initializer lists",
             "State the default values for int, double, boolean, and reference type arrays",
@@ -3363,7 +3363,7 @@ System.out.println(grades.length);          // 5   (field, no parentheses!)
 
 // grades[5] would throw ArrayIndexOutOfBoundsException — index 5 doesn't exist`,
               explanation:
-                "Arrays in Java are zero-indexed: a 5-element array has indices 0 through 4. Access the length with arr.length (no parentheses — it's a field, not a method). Going out of bounds at runtime throws ArrayIndexOutOfBoundsException.",
+                "Java arrays start at index 0, not 1. A 5-element array goes from index 0 to index 4 — the last valid index is always arr.length - 1. One important syntax trap: arr.length has no parentheses. It's a field, not a method call. Go past the last index and you get ArrayIndexOutOfBoundsException at runtime.",
             },
             {
               id: "4-2-ex2",
@@ -3391,7 +3391,7 @@ for (int i = 0; i < arr.length - 1; i++) {
     // 10 and 20,  20 and 30,  ...
 }`,
               explanation:
-                "Use a standard for loop when you need the index or want to modify elements. Use for-each when you only need to read values. The adjacent-element pattern stops at arr.length - 1 to safely access arr[i + 1] without going out of bounds.",
+                "Use the standard for loop when you need the index or want to modify elements. For-each is cleaner when you're just reading — but you lose the index. For adjacent pairs, stop at arr.length - 1 so arr[i + 1] doesn't go out of bounds.",
             },
             {
               id: "4-2-ex3",
@@ -3427,7 +3427,7 @@ for (int i = 0; i < arr.length / 2; i++) {
 }
 // arr is now {4, 9, 1, 7, 3}`,
               explanation:
-                "Key traps: initialize max/min to arr[0] (not 0, which fails for all-negative arrays); cast to double before dividing to get a decimal average. The reverse algorithm swaps the first and last, second and second-to-last, etc., stopping at the midpoint to avoid double-swapping.",
+                "Two traps that catch nearly everyone. First: initialize max to arr[0], not 0 — if all elements are negative, 0 is larger than everything and stays as 'max' permanently. Second: cast before dividing — (double) sum / arr.length, not (double)(sum / arr.length). The reverse uses a temp variable to hold one value during the swap, and stops at the midpoint so you don't swap elements back to where they started.",
             },
           ],
           conceptChecks: [
@@ -3438,8 +3438,8 @@ for (int i = 0; i < arr.length / 2; i++) {
 System.out.println(nums[0]);
 System.out.println(nums[nums.length - 1]);
 System.out.println(nums[4]); // what happens here?`,
-              answer: "Prints 5, then 20 (index 3 = last element). The final line throws ArrayIndexOutOfBoundsException because valid indices are 0-3; index 4 does not exist in a 4-element array.",
-              hint: "A 4-element array has indices 0, 1, 2, 3.",
+              answer: "Prints 5 (index 0), then 20 (nums.length - 1 = index 3). The third line throws ArrayIndexOutOfBoundsException. A 4-element array has valid indices 0, 1, 2, 3 — index 4 doesn't exist.",
+              hint: "The valid index range is 0 to nums.length - 1.",
             },
             {
               id: "4-2-cc2",
@@ -3450,13 +3450,13 @@ for (int val : arr) {
     total += val;
 }
 System.out.println(total);`,
-              answer: "20. The for-each loop adds each element to total: 0 + 2 = 2, 2 + 4 = 6, 6 + 6 = 12, 12 + 8 = 20.",
-              hint: "Trace each iteration, updating total.",
+              answer: "20. The for-each visits every element in order. total builds up: 0 + 2 = 2, + 4 = 6, + 6 = 12, + 8 = 20.",
+              hint: "Track the value of total after each element is added.",
             },
             {
               id: "4-2-cc3",
               prompt: "Why is initializing max = 0 instead of max = arr[0] a bug for some inputs?",
-              answer: "If all elements are negative (e.g., {-5, -3, -8}), no element is greater than 0, so max stays 0 — which is not even in the array. Initializing to arr[0] ensures max is always a real element. The loop then starts at index 1 to compare the rest.",
+              answer: "Try {-5, -3, -8}: no element is greater than 0, so max never gets updated and stays 0 — which isn't even in the array. That's wrong. Starting at arr[0] means max is always a real element from the data. The loop then starts at index 1 since arr[0] is already accounted for.",
             },
           ],
           mcqs: [
@@ -3471,7 +3471,7 @@ System.out.println(total);`,
               ],
               correctId: "B",
               explanation:
-                "int arrays are initialized to 0 by default. A 6-element array has indices 0–5, both of which are 0 until explicitly assigned.",
+                "int arrays fill with 0 by default. The array has indices 0 through 5 — both are 0 until you assign something else.",
               skill: "2.D",
             },
             {
@@ -3485,7 +3485,7 @@ System.out.println(total);`,
               ],
               correctId: "C",
               explanation:
-                "arr.length is 5, so arr[arr.length] = arr[5], which is index 5. Valid indices are 0–4. This is the classic off-by-one error — always use i < arr.length, not i <= arr.length.",
+                "arr.length is 5. So arr[arr.length] is arr[5]. But valid indices only go up to 4. That's an off-by-one error — use i < arr.length in your loop condition, never i <= arr.length.",
               skill: "2.D",
             },
             {
@@ -3499,7 +3499,7 @@ System.out.println(total);`,
               ],
               correctId: "B",
               explanation:
-                "The enhanced for-each loop copies the value into a local variable (val) — assigning to val does not change the array. The indexed for loop gives you arr[i], which is the actual array element and can be modified.",
+                "The for-each loop gives you a copy of each value in val. Changing val changes the copy, not the array. The indexed for loop gives you arr[i] — a direct reference to the slot in the array. That's the one you need when modifying values.",
               skill: "2.D",
             },
             {
@@ -3519,7 +3519,7 @@ System.out.println(max);`,
               ],
               correctId: "C",
               explanation:
-                "Even though initializing max = 0 is technically wrong for all-negative arrays, here all elements are positive, so the loop correctly finds 9 as the largest element. The output is 9.",
+                "All elements in this array are positive, so starting max at 0 doesn't cause a problem here — every element is greater than 0. The loop correctly finds 9 as the largest. The code is still bad practice for the general case.",
               skill: "2.D",
             },
             {
@@ -3533,7 +3533,7 @@ System.out.println(max);`,
               ],
               correctId: "B",
               explanation:
-                "Arrays use zero-based indexing, so an 8-element array has indices 0 through 7. The last element is at index arr.length - 1 = 7. arr.size() is an ArrayList method — arrays use arr.length.",
+                "Zero-based indexing: 8 elements → indices 0 through 7. Last index = arr.length - 1 = 7. Watch the trap in option D: arr.size() is an ArrayList method. Arrays use arr.length.",
               skill: "2.D",
             },
           ],
@@ -3544,7 +3544,7 @@ System.out.println(max);`,
           title: "Using Text Files (File I/O)",
           cedTopics: ["4.6"],
           description:
-            "Reading text files with File and Scanner: all Quick Reference methods, throws IOException, and common patterns.",
+            "How to read data from a text file using File and Scanner — including the one gotcha that catches almost everyone: what happens after you call nextInt() and then nextLine().",
           objectives: [
             "Create a File object and a Scanner from it",
             "Write a method header with throws IOException",
@@ -3563,7 +3563,7 @@ import java.util.Scanner;
 public class FileReader {
     // 'throws IOException' is REQUIRED — file operations can fail
     public static void readFile() throws IOException {
-        File f = new Scanner("scores.txt");   // locate the file
+        File f = new File("scores.txt");       // locate the file
         Scanner scan = new Scanner(f);         // wrap it in a Scanner
 
         while (scan.hasNext()) {       // true while more tokens remain
@@ -3574,7 +3574,7 @@ public class FileReader {
     }
 }`,
               explanation:
-                "Reading a file requires three steps: create a File object, wrap it in a Scanner, then loop with hasNext(). The method signature must declare 'throws IOException' because file operations can fail (file not found, permission denied, etc.). Always call scan.close() when finished.",
+                "Reading a file takes three steps: create a File object with the filename, wrap it in a Scanner, then loop through tokens with hasNext(). You must add throws IOException to the method signature — the compiler requires it because file operations can fail for reasons outside your code's control. Close the scanner when you're done.",
             },
             {
               id: "4-3-ex2",
@@ -3604,7 +3604,7 @@ public static void readScores() throws IOException {
 // Bob: 78.0
 // Carol: 85.5`,
               explanation:
-                "nextInt() and nextDouble() read only the number — they leave the newline character in the input stream. If you call nextLine() right after, it reads that leftover newline and returns an empty String. Fix: add an extra nextLine() call after nextInt()/nextDouble() to consume the newline before reading the actual next line.",
+                "Here's the trap: nextInt() reads the number but stops before the newline. The newline is still sitting there in the stream. When you call nextLine() next, it reads up to that newline and returns an empty string — not the next line of data. Fix: add a throwaway nextLine() call right after nextInt() or nextDouble() to flush the leftover newline.",
             },
             {
               id: "4-3-ex3",
@@ -3634,19 +3634,19 @@ public static void parseCsv() throws IOException {
 // Bob scored 74 (C)
 // Carol scored 88 (B)`,
               explanation:
-                "String.split(delimiter) breaks a String into an array of tokens. Each part[i] is a String, so use Integer.parseInt() or Double.parseDouble() to convert numeric columns. This pattern — read a line, split it, parse the parts — is the standard way to process CSV (comma-separated value) data files.",
+                "String.split(delimiter) chops a string into pieces, returning an array of strings. Every piece is a String — even if the value looks like a number. Use Integer.parseInt() to convert to int, Double.parseDouble() to convert to double. This read-split-parse pattern is how almost every CSV file gets processed.",
             },
           ],
           conceptChecks: [
             {
               id: "4-3-cc1",
               prompt: "A method reads from a file. What keyword must appear in its method signature, and why?",
-              answer: "The method signature must include 'throws IOException'. File operations can fail at runtime for reasons outside the program's control (file not found, no read permission, disk error). Java requires you to declare this possibility so the caller knows to handle it.",
+              answer: "throws IOException must appear in the method signature. File operations can fail for reasons beyond your code's control — wrong filename, no read permission, disk error. Java forces you to declare this so the caller knows it needs to handle the possibility.",
             },
             {
               id: "4-3-cc2",
               prompt: "What does scan.hasNext() return, and when should it be used as a loop condition?",
-              answer: "hasNext() returns true if there is at least one more token remaining in the input. Use it as the loop condition when reading a file of unknown length — the loop continues as long as there is more data and stops automatically when the file ends.",
+              answer: "hasNext() returns true when there's at least one more token to read. Use it as your loop condition when you don't know how long the file is — the loop runs until the file ends and stops automatically.",
             },
             {
               id: "4-3-cc3",
@@ -3654,8 +3654,8 @@ public static void parseCsv() throws IOException {
               code: `Scanner scan = new Scanner(new File("data.txt"));
 int n = scan.nextInt();       // reads 5
 String s = scan.nextLine();   // what does this return?`,
-              answer: "nextLine() returns an empty String \"\". nextInt() reads the '5' but leaves the newline character ('\\n') in the stream. The next nextLine() call reads up to that newline and returns everything before it — which is nothing, so it returns \"\". To get \"Hello\", you'd need an extra nextLine() call first to consume the leftover newline.",
-              hint: "nextInt() stops before the newline — it doesn't consume it.",
+              answer: "nextLine() returns an empty string \"\". nextInt() read the '5' but left the newline sitting in the stream. nextLine() reads everything up to the next newline — which is immediately, so it returns nothing. Add an extra nextLine() after nextInt() to discard that leftover, then call nextLine() again to get \"Hello\".",
+              hint: "What's left in the stream right after nextInt() reads '5'?",
             },
           ],
           mcqs: [
@@ -3670,7 +3670,7 @@ String s = scan.nextLine();   // what does this return?`,
               ],
               correctId: "A",
               explanation:
-                "Both imports are needed: java.util.Scanner for the Scanner class, and java.io.File for the File class. Scanner is not in java.lang and File is not in java.util.",
+                "You need both. java.util.Scanner is for the Scanner class; java.io.File is for the File class. Neither is in java.lang, which is the only package automatically imported.",
               skill: "2.D",
             },
             {
@@ -3684,7 +3684,7 @@ String s = scan.nextLine();   // what does this return?`,
               ],
               correctId: "B",
               explanation:
-                "The 'throws' clause in a method signature is a declaration, not a handler. It tells callers that this method may throw an IOException, so they must either handle it (try-catch) or propagate it further. Without it, the code will not compile.",
+                "throws IOException is a declaration, not a solution. It says: 'this method might throw an IOException, and I'm not handling it here — the caller will.' Leave it out and the code won't compile.",
               skill: "2.D",
             },
             {
@@ -3698,7 +3698,7 @@ String s = scan.nextLine();   // what does this return?`,
               ],
               correctId: "C",
               explanation:
-                "hasNextLine() returns true if there is another line to read, which is the most semantically correct condition when using nextLine(). scan.length() does not exist on Scanner. Comparing nextLine() != null is incorrect because nextLine() never returns null — it throws NoSuchElementException at end of file.",
+                "When using nextLine(), use hasNextLine() as the condition — it directly checks whether another line exists. scan.length() isn't a method on Scanner. Don't try nextLine() != null either — nextLine() never returns null, it throws an exception at end of file.",
               skill: "2.D",
             },
             {
@@ -3712,7 +3712,7 @@ String s = scan.nextLine();   // what does this return?`,
               ],
               correctId: "C",
               explanation:
-                "nextInt() reads the integer but stops before the newline. The next nextLine() call reads from the current position to the next newline — which is the leftover newline from nextInt(), so it returns \"\". Solution: add an extra nextLine() after nextInt() to discard the leftover newline.",
+                "nextInt() reads the number and stops right before the newline. The stream still has '\\n' sitting at the front. The next nextLine() gobbles up that newline and returns \"\". Fix: add a throwaway nextLine() right after nextInt() to clear the stream.",
               skill: "2.D",
             },
           ],
@@ -3723,7 +3723,7 @@ String s = scan.nextLine();   // what does this return?`,
           title: "ArrayList",
           cedTopics: ["4.7", "4.8", "4.9", "4.10"],
           description:
-            "Wrapper classes, autoboxing, all ArrayList Quick Reference methods, traversal patterns, and safe removal.",
+            "The resizable alternative to arrays — how to add, access, modify, and remove elements, and the one traversal order that keeps you safe when deleting.",
           objectives: [
             "Explain why ArrayList requires wrapper types, not primitives",
             "Use autoboxing and unboxing",
@@ -3768,7 +3768,7 @@ String removed = names.remove(0);
 System.out.println(removed);      // Alice
 System.out.println(names.size()); // 3`,
               explanation:
-                "ArrayList uses methods instead of bracket syntax. Key differences from arrays: size() not length, get(i) not arr[i], dynamic resizing. The remove() method shifts all subsequent elements left by one, which affects index-based traversal.",
+                "ArrayList swaps bracket syntax for method calls. Four differences to memorize: size() not length, get(i) not arr[i], set(i, val) to replace, and it resizes automatically. When you call remove(i), every element after index i shifts left by one — that's important when you're removing inside a loop.",
             },
             {
               id: "4-4-ex2",
@@ -3796,7 +3796,7 @@ String[] parts = line.split(",");
 // parts[0] = "Alice", parts[1] = "92", parts[2] = "A"
 int score = Integer.parseInt(parts[1]); // 92`,
               explanation:
-                "ArrayList<Integer> stores Integer objects, not int primitives. Autoboxing lets you write nums.add(42) as if it were primitive — Java inserts the wrapping automatically. Integer.parseInt() and Double.parseDouble() convert String data read from files into usable numbers.",
+                "ArrayList can't hold primitives like int — it needs objects. That's why you write ArrayList<Integer>. Autoboxing is Java's shortcut: when you write nums.add(42), Java automatically wraps 42 into an Integer object. Going the other direction — Integer back to int — is called unboxing, and it's also automatic. Integer.parseInt() and Double.parseDouble() are separate tools for converting file data (which is always strings) into numbers.",
             },
             {
               id: "4-4-ex3",
@@ -3826,7 +3826,7 @@ for (int i = nums.size() - 1; i >= 0; i--) {
 // WHY backward? Forward removal at index i shifts element at i+1 to i,
 // so the next iteration skips the element that just moved into position i.`,
               explanation:
-                "When removing elements during traversal, always iterate backward. Going forward, after remove(i), the element that was at i+1 shifts to i — the next iteration increments i and skips it. Traversing backward means removal only affects indices already processed.",
+                "When you remove while looping forward, you create a skip bug: remove(i) shifts the next element into position i, but then i increments — that element never gets visited. Going backward solves this because you only remove indices you've already passed. Going forward will silently skip elements; backward is safe.",
             },
           ],
           conceptChecks: [
@@ -3838,13 +3838,13 @@ list.add("A");
 list.add("B");
 list.add("C");
 String result = list.remove(0);`,
-              answer: "remove(0) removes the element at index 0 (\"A\"), shifts \"B\" to index 0 and \"C\" to index 1, and returns the removed element \"A\". After this call, list.size() is 2 and list.get(0) returns \"B\".",
-              hint: "remove() returns the element it removed and shifts everything else left.",
+              answer: "remove(0) removes \"A\", shifts \"B\" to index 0 and \"C\" to index 1, and returns \"A\" as its return value. After the call: size is 2, get(0) returns \"B\".",
+              hint: "What does the list look like after everything shifts left by one?",
             },
             {
               id: "4-4-cc2",
               prompt: "Why does removing elements while traversing forward with an index loop cause elements to be skipped?",
-              answer: "When you call list.remove(i), all elements after index i shift left by one. On the next iteration, i is incremented to i+1, but the element that was at i+1 is now at i — so the loop never visits it. Traversing backward avoids this because removal only shifts elements at indices already processed.",
+              answer: "After remove(i), the element that was at i+1 is now at i. But on the next iteration, i increments to i+1 — skipping the element that just moved. Going backward works because removal only shifts elements at higher indices, which you've already visited.",
             },
             {
               id: "4-4-cc3",
@@ -3855,8 +3855,8 @@ nums.add(20);
 nums.add(30);
 nums.add(1, 15);
 System.out.println(nums.get(2));`,
-              answer: "20. add(1, 15) inserts 15 at index 1, shifting the existing elements right: [10, 15, 20, 30]. So index 2 is now 20.",
-              hint: "add(index, obj) inserts — it doesn't replace.",
+              answer: "20. add(1, 15) inserts 15 at index 1, pushing the rest right: the list becomes [10, 15, 20, 30]. Index 2 is now 20.",
+              hint: "Does add(index, obj) replace the element or insert before it?",
             },
           ],
           mcqs: [
@@ -3871,7 +3871,7 @@ System.out.println(nums.get(2));`,
               ],
               correctId: "B",
               explanation:
-                "Java generics (the <T> in ArrayList<T>) require object types, not primitives. Since int is a primitive, you must use its wrapper class Integer. Autoboxing makes the conversion transparent in most cases.",
+                "Java generics only work with object types, not primitives. int is a primitive, so ArrayList<int> won't compile. Use Integer — the wrapper class for int. Autoboxing takes care of the conversion automatically in most situations.",
               skill: "2.D",
             },
             {
@@ -3885,7 +3885,7 @@ System.out.println(nums.get(2));`,
               ],
               correctId: "C",
               explanation:
-                "add(index, obj) inserts a new element at the given index and shifts all elements at that index and beyond one position to the right. The list grows by one — it is not a replacement. list.set(1, \"X\") would replace without growing.",
+                "add(index, obj) inserts — it doesn't replace. Everything at that index and beyond shifts right by one, and the list grows. If you want to replace without growing, use set(1, \"X\") instead.",
               skill: "2.D",
             },
             {
@@ -3899,7 +3899,7 @@ System.out.println(nums.get(2));`,
               ],
               correctId: "C",
               explanation:
-                "Integer.parseInt(String) parses the string and returns a primitive int. It's essential for converting file data (which is always read as strings) into numbers for computation.",
+                "Integer.parseInt(String) converts a string to a primitive int. File data always comes in as strings, so this is how you turn a text '47' into the number 47 for math.",
               skill: "2.D",
             },
             {
@@ -3913,7 +3913,7 @@ System.out.println(nums.get(2));`,
               ],
               correctId: "A",
               explanation:
-                "remove(2) removes the element at index 2, which is 8. The element at index 3 (value 2) shifts left to index 2. The remaining list is [5, 3, 2].",
+                "remove(2) removes the element at index 2, which is 8. The value 2 (previously at index 3) shifts left to index 2. Remaining list: [5, 3, 2].",
               skill: "2.D",
             },
             {
@@ -3927,7 +3927,7 @@ System.out.println(nums.get(2));`,
               ],
               correctId: "B",
               explanation:
-                "Backward traversal is safe for removal because removing index i only affects indices at i and above — indices below i (already visited) are unaffected. Forward traversal (A) skips elements after a removal. For-each (C) throws ConcurrentModificationException when you modify the list while iterating it.",
+                "Going backward is the safe removal pattern. When you remove index i, only elements at i and above shift — you've already processed those lower indices, so nothing gets skipped. Forward traversal (A) causes skipping after every removal. For-each (C) throws ConcurrentModificationException the moment you modify the list while iterating it.",
               skill: "2.D",
             },
           ],
@@ -3938,7 +3938,7 @@ System.out.println(nums.get(2));`,
           title: "2D Arrays",
           cedTopics: ["4.11", "4.12", "4.13"],
           description:
-            "2D array creation, row/column access, row-major and column-major traversal, and 2D algorithms.",
+            "Storing data in a grid: how to think about rows and columns, the two traversal orders, and how the same sum/max/count algorithms you know from 1D arrays extend to two dimensions.",
           objectives: [
             "Create a 2D array with new int[rows][cols] and with an initializer list",
             "Access elements with grid[row][col]",
@@ -3974,7 +3974,7 @@ System.out.println(matrix[0].length); // 3 — number of columns
 matrix[0][0] = 99;
 System.out.println(matrix[0][0]); // 99`,
               explanation:
-                "A 2D array is an array of arrays. grid[r][c] accesses row r, column c. grid.length gives the number of rows; grid[0].length gives the number of columns. Both dimensions are zero-indexed.",
+                "A 2D array is an array whose elements are themselves arrays. Think of it as a table: the first index is the row, the second is the column — both starting at 0. grid.length is the number of rows. grid[0].length is the number of columns.",
             },
             {
               id: "4-5-ex2",
@@ -4013,7 +4013,7 @@ for (int c = 0; c < grid[0].length; c++) {
 }
 // 1 4 7 2 5 8 3 6 9`,
               explanation:
-                "Row-major (outer = rows, inner = columns) is the standard order. Column-major (outer = columns, inner = rows) visits elements column by column. The for-each version uses int[] row as the loop variable to represent each row array.",
+                "Row-major (outer loop = rows, inner = columns) is the default way to read a 2D array — left to right, top to bottom. Column-major flips the loops: outer = columns, inner = rows. In the for-each version, the outer variable is int[] row because each element of a 2D array is itself an array (one row).",
             },
             {
               id: "4-5-ex3",
@@ -4051,15 +4051,15 @@ for (int[] row : grid) {
 }
 System.out.println("Count > 5: " + count); // 4  (7, 9, 8, 6)`,
               explanation:
-                "2D array algorithms follow the same patterns as 1D algorithms but with nested loops. The outer loop handles rows; the inner loop handles columns within each row. Always initialize max to grid[0][0], not 0.",
+                "Every 1D algorithm you know works in 2D — just add a second loop. The outer loop handles rows; the inner handles columns within each row. The only change from 1D: initialize max to grid[0][0] instead of arr[0].",
             },
           ],
           conceptChecks: [
             {
               id: "4-5-cc1",
               prompt: "Given: int[][] m = {{1,2,3},{4,5,6},{7,8,9}}; — what is the value of m[2][0]? What is m.length and m[0].length?",
-              answer: "m[2][0] = 7 (row 2, column 0 — the first element of the last row). m.length = 3 (three rows). m[0].length = 3 (three columns in row 0).",
-              hint: "First index is row, second is column. Both are zero-based.",
+              answer: "m[2][0] = 7. Row 2 is {7, 8, 9}, and column 0 of that row is 7. m.length = 3 (three rows). m[0].length = 3 (three columns).",
+              hint: "grid[row][column]. Which row is the last row? What's the first element of that row?",
             },
             {
               id: "4-5-cc2",
@@ -4070,13 +4070,13 @@ for (int c = 0; c < grid[0].length; c++) {
         System.out.print(grid[r][c] + " ");
     }
 }`,
-              answer: "1 3 5 2 4 6. The outer loop goes through columns 0 and 1. For column 0: rows 0,1,2 give values 1, 3, 5. For column 1: rows 0,1,2 give values 2, 4, 6.",
-              hint: "Column-major: outer loop = columns, inner = rows.",
+              answer: "1 3 5 2 4 6. The outer loop iterates over columns (0 then 1). For column 0, rows 0, 1, 2 give values 1, 3, 5. For column 1, rows 0, 1, 2 give values 2, 4, 6.",
+              hint: "The outer loop controls which column you're in.",
             },
             {
               id: "4-5-cc3",
               prompt: "A 2D array has 4 rows and 6 columns. How many total elements does it contain, and what is the index of the last element?",
-              answer: "4 × 6 = 24 total elements. The last element is at grid[3][5] — row index 3 (last of 4) and column index 5 (last of 6), using zero-based indexing.",
+              answer: "4 rows × 6 columns = 24 total elements. The last element is at grid[3][5]: row 3 is the 4th row (zero-based), column 5 is the 6th column.",
             },
           ],
           mcqs: [
@@ -4091,7 +4091,7 @@ for (int c = 0; c < grid[0].length; c++) {
               ],
               correctId: "B",
               explanation:
-                "grid.length returns the number of rows, which is the first dimension: 5. To get the number of columns, use grid[0].length, which returns 3.",
+                "grid.length is always the number of rows — the first dimension. Here that's 5. To get columns, use grid[0].length, which gives 3.",
               skill: "2.D",
             },
             {
@@ -4108,7 +4108,7 @@ for (int c = 0; c < grid[0].length; c++) {
               ],
               correctId: "C",
               explanation:
-                "m[1][2] means row 1, column 2. Row 1 is {40, 50, 60}. Column 2 of that row is 60.",
+                "Read it as [row][column]. Row 1 is the second row: {40, 50, 60}. Column 2 of that row is 60.",
               skill: "2.D",
             },
             {
@@ -4122,7 +4122,7 @@ for (int c = 0; c < grid[0].length; c++) {
               ],
               correctId: "C",
               explanation:
-                "Column-major order means the outer loop iterates over columns and the inner loop iterates over rows for that column. Options A and B are row-major; D is reverse row-major.",
+                "Column-major means outer loop = columns, inner loop = rows. Option C does exactly that: outer iterates c over columns, inner iterates r over rows. Options A and B are row-major; D is reverse row-major.",
               skill: "2.D",
             },
             {
@@ -4136,7 +4136,7 @@ for (int c = 0; c < grid[0].length; c++) {
               ],
               correctId: "B",
               explanation:
-                "2 + 4 = 6, 6 + 8 = 14, 1 + 3 = 4. Total = 6 + 14 + 4 = 24.",
+                "Row by row: 2 + 4 = 6. 6 + 8 = 14. 1 + 3 = 4. Grand total: 6 + 14 + 4 = 24.",
               skill: "2.D",
             },
           ],
@@ -4147,7 +4147,7 @@ for (int c = 0; c < grid[0].length; c++) {
           title: "Searching & Sorting Algorithms",
           cedTopics: ["4.14", "4.15"],
           description:
-            "Linear search, selection sort, and insertion sort — the only three required algorithms.",
+            "The three algorithms you must know: how to find an element with linear search, how selection sort repeatedly claims the minimum, and how insertion sort builds a sorted section one element at a time.",
           objectives: [
             "Implement and trace linear search on arrays and ArrayLists",
             "Explain that linear search works on unsorted data",
@@ -4181,7 +4181,7 @@ System.out.println(linearSearch(data, 4)); // -1 (not found)
 // Best case: target is first element — checks 1 element
 // Average: checks n/2 elements — O(n) overall`,
               explanation:
-                "Linear search checks each element one at a time from the beginning. It works on unsorted data, which makes it universally applicable. The downside is O(n) time — for 1,000,000 elements, it may check all 1,000,000. Return -1 (not an index) to signal 'not found'.",
+                "Linear search checks every element from the start until it finds the target or runs out of array. It works on any data — sorted or not — which is its main advantage. The cost: in the worst case, it checks every element. Return -1 to mean 'not found' — it can never be a valid index.",
             },
             {
               id: "4-6-ex2",
@@ -4211,7 +4211,7 @@ public static void selectionSort(int[] arr) {
 // Pass 2: min=3 at idx 4 → swap with idx 2 → {1, 2, 3, 5, 4}
 // Pass 3: min=4 at idx 4 → swap with idx 3 → {1, 2, 3, 4, 5}`,
               explanation:
-                "Selection sort divides the array into a sorted left portion and an unsorted right portion. Each pass finds the smallest element in the unsorted portion and swaps it to the end of the sorted portion. It always makes exactly n-1 passes regardless of input order — O(n²).",
+                "Think of selection sort as moving a wall between the sorted and unsorted parts. Each pass, you scan the entire unsorted portion to find the minimum, then swap it to the boundary. After each pass, the wall moves one step right. Whether the array is already sorted or completely backwards, it always takes exactly n-1 passes — O(n²) no matter what.",
             },
             {
               id: "4-6-ex3",
@@ -4237,27 +4237,27 @@ public static void insertionSort(int[] arr) {
 // i=2: key=4, shift 5 right → {1, 5, 5, 2}, insert 4 → {1, 4, 5, 2}
 // i=3: key=2, shift 5,4 right → {1, 4, 4, 5}, insert 2 → {1, 2, 4, 5}`,
               explanation:
-                "Insertion sort builds the sorted portion from left to right. For each new element, it shifts larger elements right to make room, then drops the element into position. Best case O(n) when already sorted (no shifts needed); worst case O(n²) for reverse-sorted input.",
+                "Insertion sort is like sorting a hand of cards: pick up the next card and slide it left until it's in the right spot. Each new element (the 'key') compares against elements to its left, shifting them right until it finds where it belongs. If the array is already sorted, nothing shifts — O(n) best case. Reverse-sorted data requires the maximum number of shifts — O(n²) worst case.",
             },
           ],
           conceptChecks: [
             {
               id: "4-6-cc1",
               prompt: "What does linearSearch({3, 7, 2, 9, 5}, 9) return, and how many comparisons does it make?",
-              answer: "Returns 3 (the index of 9). It makes 4 comparisons: arr[0]=3 (no), arr[1]=7 (no), arr[2]=2 (no), arr[3]=9 (yes, return 3). Linear search stops as soon as it finds the target.",
-              hint: "Start at index 0 and count comparisons until you find the target.",
+              answer: "Returns 3. Linear search starts at index 0 and checks each element: 3 (no), 7 (no), 2 (no), 9 (yes — return index 3). It made 4 comparisons and stopped as soon as it found the target.",
+              hint: "Work through the array one element at a time from the beginning.",
             },
             {
               id: "4-6-cc2",
               prompt: "After the first pass of selection sort on {8, 3, 6, 1, 5}, what does the array look like?",
-              answer: "{1, 3, 6, 8, 5}. The first pass scans all 5 elements to find the minimum (1 at index 3), then swaps it with arr[0] (the value 8). The sorted portion is now just {1}.",
-              hint: "Pass 0: find the minimum of the entire array, swap it with arr[0].",
+              answer: "{1, 3, 6, 8, 5}. Pass 0 scans all 5 elements: the minimum is 1 at index 3. Swap arr[0] (which is 8) with arr[3] (which is 1). Sorted portion: {1}. Unsorted: {3, 6, 8, 5}.",
+              hint: "Find the smallest element in the whole array. Where does it go?",
             },
             {
               id: "4-6-cc3",
               prompt: "During insertion sort on {2, 5, 4}, when i=2 and key=4: what elements get shifted right, and where does 4 land?",
-              answer: "The value 5 (at index 1) is greater than key=4, so it shifts right: arr[2] = arr[1] = 5. Now j=0, and arr[0]=2 is not greater than 4, so the while loop stops. arr[j+1] = arr[1] = 4. Final array: {2, 4, 5}.",
-              hint: "The while loop shifts arr[j] right as long as arr[j] > key.",
+              answer: "key = 4, j starts at index 1. arr[1] = 5 > 4, so 5 shifts right: arr[2] = 5. Now j = 0. arr[0] = 2, which is not greater than 4, so the while loop stops. key (4) goes into arr[j+1] = arr[1]. Final array: {2, 4, 5}.",
+              hint: "Keep shifting right as long as the element to the left is bigger than key.",
             },
           ],
           mcqs: [
@@ -4272,7 +4272,7 @@ public static void insertionSort(int[] arr) {
               ],
               correctId: "C",
               explanation:
-                "Linear search makes no assumptions about order — it simply checks each element sequentially. This makes it universally applicable but O(n), while binary search is O(log n) but requires sorted data.",
+                "Linear search has no prerequisites — it works on any array regardless of order. That universality is its strength. The downside is efficiency: O(n) means it may check every element. Binary search is faster at O(log n) but requires sorted data first.",
               skill: "2.D",
             },
             {
@@ -4286,7 +4286,7 @@ public static void insertionSort(int[] arr) {
               ],
               correctId: "B",
               explanation:
-                "Pass 0 scans the entire array for the minimum. The minimum is 1 at index 4. It swaps arr[0]=6 with arr[4]=1, giving {1, 4, 2, 8, 6}. The sorted portion is now just {1}; the rest is still unsorted.",
+                "Pass 0: scan all 5 elements for the minimum. The minimum is 1 at index 4. Swap arr[0]=6 with arr[4]=1 → {1, 4, 2, 8, 6}. The sorted portion is just {1}. The rest (4, 2, 8, 6) remains unsorted.",
               skill: "2.D",
             },
             {
@@ -4300,7 +4300,7 @@ public static void insertionSort(int[] arr) {
               ],
               correctId: "C",
               explanation:
-                "Insertion sort takes each new element (the 'key') and slides larger elements one position to the right until it finds the correct position for the key. Option A describes selection sort; B describes bubble sort; D describes merge sort.",
+                "Insertion sort picks up each element as a 'key,' shifts larger elements right to make room, then places the key in the correct spot — that's option C. Option A describes selection sort (find min, swap). Option B is bubble sort. Option D is merge sort.",
               skill: "2.D",
             },
             {
@@ -4314,7 +4314,7 @@ public static void insertionSort(int[] arr) {
               ],
               correctId: "C",
               explanation:
-                "Insertion sort's best case is O(n) — when the array is already sorted, the inner while loop never executes. For nearly-sorted data, only a few shifts are needed per element. Selection sort is always O(n²) regardless of input order because it always scans the entire unsorted portion.",
+                "Insertion sort shines on nearly-sorted data: if an element is already close to its correct position, the inner loop barely runs. Its best case is O(n). Selection sort doesn't care about input order — it always scans the entire unsorted portion every pass, so it's always O(n²).",
               skill: "2.D",
             },
           ],
@@ -4325,7 +4325,7 @@ public static void insertionSort(int[] arr) {
           title: "Recursion (Trace Only)",
           cedTopics: ["4.16", "4.17"],
           description:
-            "Tracing recursive methods, base cases, binary search, and merge sort. Writing recursive methods is not required.",
+            "How to trace a method that calls itself — you need to read recursion, not write it. That includes factorial, mystery methods, binary search, and the idea behind merge sort.",
           objectives: [
             "Identify the base case and recursive call in a recursive method",
             "Trace a recursive method call by hand and determine the return value",
@@ -4357,7 +4357,7 @@ public static int factorial(int n) {
 
 // Each call has its own copy of 'n' — local variables are NOT shared`,
               explanation:
-                "Every recursive method must have at least one base case (a condition where it returns directly without calling itself) and at least one recursive call that makes progress toward the base case. Without a base case, recursion never ends and causes a StackOverflowError.",
+                "Every recursive method needs two things: a base case that stops the chain (returns a value directly), and a recursive call that makes the problem smaller each time. Without a base case, the method calls itself forever until Java runs out of stack space and throws a StackOverflowError. Without the recursive call moving toward the base case, you also never stop.",
             },
             {
               id: "4-7-ex2",
@@ -4383,7 +4383,7 @@ public static int binarySearch(int[] arr, int target, int low, int high) {
 // Call 2: low=3, high=4, mid=3, arr[3]=7 > 6 → search left
 // Call 3: low=3, high=2 → low > high → return -1 (not found)`,
               explanation:
-                "Binary search eliminates half the remaining elements on each call, giving O(log n) performance. For 1,000,000 elements, it takes at most 20 comparisons. The requirement: data must already be sorted. On the AP exam you trace binary search — you don't write it from scratch.",
+                "Each binary search call cuts the search space in half: look at the middle, discard the half that can't contain the target, repeat. For 1,000,000 elements, it takes at most 20 steps — because 2²⁰ > 1,000,000. The requirement: the array must be sorted first, or the 'discard half' logic falls apart. On the AP exam you trace binary search — you don't write it from scratch.",
             },
             {
               id: "4-7-ex3",
@@ -4410,7 +4410,7 @@ public static int binarySearch(int[] arr, int target, int low, int high) {
 //   n total comparisons per level during merge
 //   Total: O(n log n)`,
               explanation:
-                "Merge sort is the most efficient sorting algorithm on the AP exam. It divides the array in half recursively until sub-arrays have 1 element (the base case — a 1-element array is always sorted). It then merges pairs of sorted sub-arrays. You only need to trace merge sort, not write it.",
+                "Merge sort's insight: a 1-element array is already sorted. So keep splitting in half until every piece has one element, then merge pieces back together in order. Each merge level does n comparisons, and there are log(n) levels of splitting, giving O(n log n) overall. You only need to trace merge sort on the AP exam — not write it.",
             },
           ],
           conceptChecks: [
@@ -4421,19 +4421,19 @@ public static int binarySearch(int[] arr, int target, int low, int high) {
     if (n == 0) return 1;
     return n * factorial(n - 1);
 }`,
-              answer: "factorial(3) = 3 * factorial(2) = 3 * (2 * factorial(1)) = 3 * (2 * (1 * factorial(0))) = 3 * (2 * (1 * 1)) = 6. Each call reduces n by 1 until the base case n=0 returns 1.",
-              hint: "Expand each call one level at a time.",
+              answer: "Expand one call at a time. factorial(3) = 3 × factorial(2). factorial(2) = 2 × factorial(1). factorial(1) = 1 × factorial(0). factorial(0) = 1 (base case). Now collapse back: 1 × 1 = 1, then 2 × 1 = 2, then 3 × 2 = 6.",
+              hint: "Write out each call as 'n * factorial(n-1)' until you hit the base case.",
             },
             {
               id: "4-7-cc2",
               prompt: "What are the two required components of every recursive method, and what happens if the base case is missing?",
-              answer: "Every recursive method needs (1) a base case — a condition that returns a value directly without recursing — and (2) a recursive call that makes progress toward the base case. Without a base case, the method calls itself forever, eventually causing a StackOverflowError when the call stack runs out of memory.",
+              answer: "Every recursive method needs (1) a base case: a condition that returns a value without calling itself, stopping the chain; and (2) a recursive call that makes the problem smaller each time, eventually reaching the base case. Without a base case, the method never stops — Java runs out of stack memory and throws a StackOverflowError.",
             },
             {
               id: "4-7-cc3",
               prompt: "Binary search is performed on {2, 5, 8, 12, 16, 23, 30} looking for 23. What is mid on the first call, and which half is searched next?",
-              answer: "low=0, high=6, mid=(0+6)/2=3. arr[3]=12. Since 23 > 12, the right half is searched: low=4, high=6, mid=5, arr[5]=23 — found at index 5. Binary search makes only 2 comparisons here instead of checking all 7 elements.",
-              hint: "mid = (low + high) / 2 (integer division). Compare arr[mid] to target.",
+              answer: "First call: low=0, high=6, mid=3. arr[3]=12. 23 > 12, so search the right half: low=4, high=6. Second call: mid=5. arr[5]=23 — found. Index 5 is returned. Two comparisons instead of potentially seven.",
+              hint: "Compute mid = (low + high) / 2. Is arr[mid] equal to, less than, or greater than the target?",
             },
           ],
           mcqs: [
@@ -4448,7 +4448,7 @@ public static int binarySearch(int[] arr, int target, int low, int high) {
               ],
               correctId: "B",
               explanation:
-                "A base case is a condition where the recursive method returns a value directly, stopping the chain of recursive calls. Without a base case, the method recurses forever and eventually causes a StackOverflowError.",
+                "A base case is the condition that stops the recursion — when it's true, the method returns immediately without making another call. Without it, the chain never ends and Java throws a StackOverflowError.",
               skill: "2.D",
             },
             {
@@ -4466,7 +4466,7 @@ public static int binarySearch(int[] arr, int target, int low, int high) {
               ],
               correctId: "B",
               explanation:
-                "mystery(4) = 4 + mystery(3) = 4 + 3 + mystery(2) = 4 + 3 + 2 + mystery(1) = 4 + 3 + 2 + 1 = 10. This method sums all integers from n down to 1.",
+                "Trace it: mystery(4) = 4 + mystery(3) = 4 + 3 + mystery(2) = 4 + 3 + 2 + mystery(1). mystery(1): 1 <= 1, return 1. Collapse: 4 + 3 + 2 + 1 = 10. The method sums 1 through n.",
               skill: "2.D",
             },
             {
@@ -4480,7 +4480,7 @@ public static int binarySearch(int[] arr, int target, int low, int high) {
               ],
               correctId: "C",
               explanation:
-                "Binary search works by comparing the target to the middle element and discarding half the array. This only works if the array is sorted — otherwise, discarding a half might eliminate the target. Linear search is used when the data is unsorted.",
+                "Binary search's logic depends entirely on the array being sorted. When arr[mid] < target, you know the target must be in the right half — but only because the array is sorted. If it's unsorted, you can't safely discard either half. Use linear search for unsorted data.",
               skill: "2.D",
             },
             {
@@ -4494,7 +4494,7 @@ public static int binarySearch(int[] arr, int target, int low, int high) {
               ],
               correctId: "B",
               explanation:
-                "Merge sort is O(n log n) — faster than selection sort and insertion sort (both O(n²)). It uses divide-and-conquer: split in half recursively, then merge sorted halves. The AP exam requires you to trace merge sort, not write it.",
+                "Merge sort is O(n log n) — the fastest sort on the AP exam. Selection sort and insertion sort are both O(n²). Merge sort uses divide-and-conquer: keep splitting until you have 1-element arrays, then merge them back in order. You trace it on the exam — you don't write it.",
               skill: "2.D",
             },
             {
@@ -4508,7 +4508,7 @@ public static int binarySearch(int[] arr, int target, int low, int high) {
               ],
               correctId: "B",
               explanation:
-                "Each method call — recursive or not — gets its own stack frame with its own local variables. factorial(4) has n=4, factorial(3) has n=3, etc. These are independent copies. When factorial(3) returns, factorial(4)'s n is still 4.",
+                "Each method call — including recursive ones — gets its own stack frame with its own copy of every local variable. factorial(4) has its own n=4; factorial(3) has its own n=3. They don't share memory. When factorial(3) finishes, factorial(4)'s n is still sitting at 4, untouched.",
               skill: "2.D",
             },
           ],

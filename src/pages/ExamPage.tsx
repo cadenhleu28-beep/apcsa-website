@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useRef, useCallback, createContext, useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Clock,
@@ -17,7 +17,32 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import { examMCQs, examFRQs } from "../data/examData";
-import type { OptionId, ExamMode, ExamPhase } from "../types/exam";
+import { examMCQs2, examFRQs2 } from "../data/examData2";
+import { examMCQs3, examFRQs3 } from "../data/examData3";
+import type { ExamMCQ, ExamFRQ, OptionId, ExamMode, ExamPhase } from "../types/exam";
+
+// ── Per-exam data context ─────────────────────────────────────────────────────
+interface ExamDataCtx { mcqs: ExamMCQ[]; frqs: ExamFRQ[]; examNum: number; keys: ReturnType<typeof makeExamKeys> }
+function makeExamKeys(num: number) {
+  const p = num === 3 ? "apcsa-exam3" : num === 2 ? "apcsa-exam2" : "apcsa-exam";
+  return {
+    phase:         `${p}-phase`,
+    mode:          `${p}-mode`,
+    mcqAnswers:    `${p}-mcq-answers`,
+    mcqCurrent:    `${p}-mcq-current`,
+    mcqFlagged:    `${p}-mcq-flagged`,
+    mcqStartTs:    `${p}-mcq-start-ts`,
+    frqAnswers:    `${p}-frq-answers`,
+    frqCurrent:    `${p}-frq-current`,
+    frqSubmitted:  `${p}-frq-submitted`,
+    frqSelfChecks: `${p}-frq-self-checks`,
+    frqShowSample: `${p}-frq-show-sample`,
+    frqStartTs:    `${p}-frq-start-ts`,
+  } as const;
+}
+const EXAM1_CTX: ExamDataCtx = { mcqs: examMCQs, frqs: examFRQs, examNum: 1, keys: makeExamKeys(1) };
+const ExamDataContext = createContext<ExamDataCtx>(EXAM1_CTX);
+function useExamData() { return useContext(ExamDataContext); }
 
 // ── Java syntax highlighter (shared with SubUnitPage) ────────────────────────
 const JAVA_KEYWORDS = new Set([
@@ -124,23 +149,8 @@ function usePersistedState<T>(
   return [state, setState];
 }
 
-const EXAM_KEYS = {
-  phase:         "apcsa-exam-phase",
-  mode:          "apcsa-exam-mode",
-  mcqAnswers:    "apcsa-mcq-answers",
-  frqAnswers:    "apcsa-frq-answers",
-  mcqCurrent:    "apcsa-mcq-current",
-  mcqFlagged:    "apcsa-mcq-flagged",
-  mcqStartTs:    "apcsa-mcq-start-ts",
-  frqCurrent:    "apcsa-frq-current",
-  frqSubmitted:  "apcsa-frq-submitted",
-  frqSelfChecks: "apcsa-frq-self-checks",
-  frqShowSample: "apcsa-frq-show-sample",
-  frqStartTs:    "apcsa-frq-start-ts",
-} as const;
-
-function clearExamStorage() {
-  Object.values(EXAM_KEYS).forEach((k) => localStorage.removeItem(k));
+function clearExamStorage(keys: ReturnType<typeof makeExamKeys>) {
+  Object.values(keys).forEach((k) => localStorage.removeItem(k));
 }
 
 // ── Unit color badges ─────────────────────────────────────────────────────────
@@ -155,6 +165,7 @@ const UNIT_COLORS: Record<number, string> = {
 // LANDING PAGE
 // ─────────────────────────────────────────────────────────────────────────────
 function ExamLanding({ onProceed }: { onProceed: () => void }) {
+  const { frqs, examNum } = useExamData();
   return (
     <div className="min-h-screen bg-[#0d1117] text-[#e6edf3] flex flex-col items-center justify-center px-4 py-16">
       <motion.div
@@ -172,7 +183,7 @@ function ExamLanding({ onProceed }: { onProceed: () => void }) {
             AP Computer Science A
           </h1>
           <p className="text-xl text-[#8b949e] font-mono">
-            Full-Length Practice Exam
+            Full-Length Practice Exam {examNum}
           </p>
         </div>
 
@@ -216,7 +227,7 @@ function ExamLanding({ onProceed }: { onProceed: () => void }) {
             FREE RESPONSE — FIXED STRUCTURE
           </p>
           <div className="space-y-2">
-            {examFRQs.map((f) => (
+            {frqs.map((f) => (
               <div
                 key={f.id}
                 className="flex items-center justify-between text-sm"
@@ -391,8 +402,9 @@ function MCQSection({
   onAnswer: (qId: number, opt: OptionId) => void;
   onComplete: () => void;
 }) {
-  const [current, setCurrent] = usePersistedState(EXAM_KEYS.mcqCurrent, 0);
-  const [flaggedArr, setFlaggedArr] = usePersistedState<number[]>(EXAM_KEYS.mcqFlagged, []);
+  const { mcqs, keys } = useExamData();
+  const [current, setCurrent] = usePersistedState(keys.mcqCurrent, 0);
+  const [flaggedArr, setFlaggedArr] = usePersistedState<number[]>(keys.mcqFlagged, []);
   const flagged = new Set(flaggedArr);
   const setFlagged = (updater: (prev: Set<number>) => Set<number>) =>
     setFlaggedArr((prev) => [...updater(new Set(prev))]);
@@ -400,10 +412,10 @@ function MCQSection({
   // Timer: store absolute start timestamp so remaining survives refresh
   const [startTs] = useState<number>(() => {
     if (mode !== "timed") return 0;
-    const stored = localStorage.getItem(EXAM_KEYS.mcqStartTs);
+    const stored = localStorage.getItem(keys.mcqStartTs);
     if (stored) return Number(stored);
     const now = Date.now();
-    localStorage.setItem(EXAM_KEYS.mcqStartTs, String(now));
+    localStorage.setItem(keys.mcqStartTs, String(now));
     return now;
   });
   const [remaining, setRemaining] = useState<number>(() => {
@@ -445,8 +457,8 @@ function MCQSection({
     return () => clearInterval(id);
   }, [mode, onComplete]);
 
-  const q = examMCQs[current];
-  const prevQ = current > 0 ? examMCQs[current - 1] : null;
+  const q = mcqs[current];
+  const prevQ = current > 0 ? mcqs[current - 1] : null;
   const isNewQS =
     q.questionSetId && q.questionSetId !== prevQ?.questionSetId;
 
@@ -477,7 +489,7 @@ function MCQSection({
                 Section I — Multiple Choice
               </span>
               <span className="ml-3 text-xs font-mono text-[#6e7681]">
-                {answeredCount} / {examMCQs.length} answered
+                {answeredCount} / {mcqs.length} answered
                 {flaggedCount > 0 && (
                   <span className="ml-2 text-yellow-500">
                     · {flaggedCount} flagged
@@ -496,7 +508,7 @@ function MCQSection({
             <div
               className="h-full bg-[#58a6ff] rounded-full transition-all duration-300"
               style={{
-                width: `${((current + 1) / examMCQs.length) * 100}%`,
+                width: `${((current + 1) / mcqs.length) * 100}%`,
               }}
             />
           </div>
@@ -526,7 +538,7 @@ function MCQSection({
             {q.questionSetId &&
               !isNewQS &&
               q.sharedCode === undefined && (() => {
-                const setQ = examMCQs.find(
+                const setQ = mcqs.find(
                   (m) => m.questionSetId === q.questionSetId && m.sharedCode
                 );
                 return setQ?.sharedCode ? (
@@ -542,7 +554,7 @@ function MCQSection({
             {/* Question header */}
             <div className="flex items-center gap-3 mb-3">
               <span className="font-mono text-sm text-[#8b949e]">
-                Question {current + 1} of {examMCQs.length}
+                Question {current + 1} of {mcqs.length}
               </span>
               <span
                 className={`text-xs font-mono px-2 py-0.5 rounded border ${
@@ -634,7 +646,7 @@ function MCQSection({
 
           {/* Question dots (compact) */}
           <div className="flex gap-1 flex-wrap justify-center max-w-sm">
-            {examMCQs.map((mq, idx) => (
+            {mcqs.map((mq, idx) => (
               <button
                 key={mq.id}
                 onClick={() => setCurrent(idx)}
@@ -652,9 +664,9 @@ function MCQSection({
             ))}
           </div>
 
-          {current < examMCQs.length - 1 ? (
+          {current < mcqs.length - 1 ? (
             <button
-              onClick={() => setCurrent((c) => Math.min(examMCQs.length - 1, c + 1))}
+              onClick={() => setCurrent((c) => Math.min(mcqs.length - 1, c + 1))}
               className="flex items-center gap-1.5 px-4 py-2 rounded-lg border border-[#30363d] text-sm text-[#8b949e] hover:text-[#e6edf3] hover:border-[#8b949e] transition-colors"
             >
               Next <ChevronRight size={15} />
@@ -687,11 +699,11 @@ function MCQSection({
             >
               <h3 className="font-bold text-lg mb-1">Submit Section I?</h3>
               <p className="text-sm text-[#8b949e] mb-4">
-                {answeredCount} of {examMCQs.length} answered ·{" "}
-                {examMCQs.length - answeredCount} unanswered
+                {answeredCount} of {mcqs.length} answered ·{" "}
+                {mcqs.length - answeredCount} unanswered
                 {flaggedCount > 0 && ` · ${flaggedCount} flagged`}
               </p>
-              {examMCQs.length - answeredCount > 0 && (
+              {mcqs.length - answeredCount > 0 && (
                 <p className="text-xs text-yellow-400 font-mono mb-4">
                   ⚠ Unanswered questions count as incorrect.
                 </p>
@@ -773,18 +785,19 @@ function FRQSection({
   onSavePart: (frqId: number, letter: string, text: string) => void;
   onComplete: () => void;
 }) {
-  const [currentFRQ, setCurrentFRQ] = usePersistedState(EXAM_KEYS.frqCurrent, 0);
-  const [submittedParts, setSubmittedParts] = usePersistedState<Record<string, boolean>>(EXAM_KEYS.frqSubmitted, {});
-  const [showSample, setShowSample] = usePersistedState<Record<string, boolean>>(EXAM_KEYS.frqShowSample, {});
-  const [selfChecks, setSelfChecks] = usePersistedState<Record<string, boolean[]>>(EXAM_KEYS.frqSelfChecks, {});
+  const { frqs, keys } = useExamData();
+  const [currentFRQ, setCurrentFRQ] = usePersistedState(keys.frqCurrent, 0);
+  const [submittedParts, setSubmittedParts] = usePersistedState<Record<string, boolean>>(keys.frqSubmitted, {});
+  const [showSample, setShowSample] = usePersistedState<Record<string, boolean>>(keys.frqShowSample, {});
+  const [selfChecks, setSelfChecks] = usePersistedState<Record<string, boolean[]>>(keys.frqSelfChecks, {});
 
   // Timer: store absolute start timestamp so remaining survives refresh
   const [startTs] = useState<number>(() => {
     if (mode !== "timed") return 0;
-    const stored = localStorage.getItem(EXAM_KEYS.frqStartTs);
+    const stored = localStorage.getItem(keys.frqStartTs);
     if (stored) return Number(stored);
     const now = Date.now();
-    localStorage.setItem(EXAM_KEYS.frqStartTs, String(now));
+    localStorage.setItem(keys.frqStartTs, String(now));
     return now;
   });
   const [remaining, setRemaining] = useState<number>(() => {
@@ -797,7 +810,7 @@ function FRQSection({
   const [showJQR, setShowJQR] = useState(false);
   const warningsShown = useRef(new Set<string>());
 
-  const frq = examFRQs[currentFRQ];
+  const frq = frqs[currentFRQ];
 
   // Timer
   useEffect(() => {
@@ -854,7 +867,7 @@ function FRQSection({
   const allPartsSubmitted = frq.parts.every((p) =>
     submittedParts[partKey(frq.id, p.letter)]
   );
-  const isLastFRQ = currentFRQ === examFRQs.length - 1;
+  const isLastFRQ = currentFRQ === frqs.length - 1;
 
   return (
     <div className="min-h-screen bg-[#0d1117] text-[#e6edf3] flex flex-col">
@@ -868,7 +881,7 @@ function FRQSection({
               Section II — Free Response
             </span>
             <span className="ml-3 text-xs font-mono text-[#6e7681]">
-              FRQ {currentFRQ + 1} of {examFRQs.length}
+              FRQ {currentFRQ + 1} of {frqs.length}
             </span>
           </div>
           <div className="flex items-center gap-3">
@@ -1128,7 +1141,7 @@ Integer.MIN_VALUE      Integer.MAX_VALUE
 
           {/* FRQ dots */}
           <div className="flex gap-2">
-            {examFRQs.map((f, i) => (
+            {frqs.map((f, i) => (
               <button
                 key={f.id}
                 onClick={() => setCurrentFRQ(i)}
@@ -1136,7 +1149,7 @@ Integer.MIN_VALUE      Integer.MAX_VALUE
                 className={`w-7 h-7 rounded-full text-xs font-mono font-bold border transition-colors ${
                   i === currentFRQ
                     ? "bg-[#58a6ff] border-[#58a6ff] text-[#0d1117]"
-                    : examFRQs[i].parts.every((p) =>
+                    : frqs[i].parts.every((p) =>
                         submittedParts[partKey(f.id, p.letter)]
                       )
                     ? "bg-[#3fb950]/20 border-[#3fb950]/60 text-[#3fb950]"
@@ -1150,7 +1163,7 @@ Integer.MIN_VALUE      Integer.MAX_VALUE
 
           {!isLastFRQ ? (
             <button
-              onClick={() => setCurrentFRQ((c) => Math.min(examFRQs.length - 1, c + 1))}
+              onClick={() => setCurrentFRQ((c) => Math.min(frqs.length - 1, c + 1))}
               className="flex items-center gap-1.5 px-4 py-2 rounded-lg border border-[#30363d] text-sm text-[#8b949e] hover:text-[#e6edf3] hover:border-[#8b949e] transition-colors"
             >
               Next FRQ <ChevronRight size={15} />
@@ -1226,11 +1239,12 @@ function ResultsDashboard({
   onRetake: () => void;
 }) {
   const navigate = useNavigate();
+  const { mcqs } = useExamData();
 
-  const totalCorrect = examMCQs.filter(
+  const totalCorrect = mcqs.filter(
     (q) => mcqAnswers[q.id] === q.correctId
   ).length;
-  const totalPct = Math.round((totalCorrect / examMCQs.length) * 100);
+  const totalPct = Math.round((totalCorrect / mcqs.length) * 100);
 
   // AP score prediction (based on MCQ only, weighted to ~55% of total)
   const apScore =
@@ -1246,7 +1260,7 @@ function ResultsDashboard({
 
   // Topic breakdown grouped by unit
   const topicBreakdown = ([1, 2, 3, 4] as const).map((u) => {
-    const unitQs = examMCQs.filter((q) => q.unit === u);
+    const unitQs = mcqs.filter((q) => q.unit === u);
     const topics = [...new Set(unitQs.map((q) => q.cedTopic))].sort((a, b) => {
       const [, at] = a.split(".").map(Number);
       const [, bt] = b.split(".").map(Number);
@@ -1267,7 +1281,7 @@ function ResultsDashboard({
 
   // Error analysis — find traps students fell into
   const missedByTrap: Record<string, number> = {};
-  examMCQs.forEach((q) => {
+  mcqs.forEach((q) => {
     if (mcqAnswers[q.id] && mcqAnswers[q.id] !== q.correctId && q.trap) {
       missedByTrap[q.trap] = (missedByTrap[q.trap] ?? 0) + 1;
     }
@@ -1277,7 +1291,7 @@ function ResultsDashboard({
     .slice(0, 4);
 
   // Missed questions list
-  const missed = examMCQs.filter(
+  const missed = mcqs.filter(
     (q) => mcqAnswers[q.id] && mcqAnswers[q.id] !== q.correctId
   );
 
@@ -1320,7 +1334,7 @@ function ResultsDashboard({
               {apScore}
             </div>
             <p className="text-sm text-[#8b949e]">
-              MCQ: {totalCorrect} / {examMCQs.length} correct ({totalPct}%)
+              MCQ: {totalCorrect} / {mcqs.length} correct ({totalPct}%)
             </p>
             <p className="text-xs text-[#6e7681] mt-1">
               Score reflects MCQ performance only. Add your self-reported FRQ
@@ -1537,12 +1551,21 @@ function ResultsDashboard({
 // ROOT EXAM PAGE — state machine
 // ─────────────────────────────────────────────────────────────────────────────
 export default function ExamPage() {
-  const [phase, setPhase] = usePersistedState<ExamPhase>(EXAM_KEYS.phase, "landing");
-  const [mode, setMode] = usePersistedState<ExamMode>(EXAM_KEYS.mode, "untimed");
-  const [mcqAnswers, setMcqAnswers] = usePersistedState<Record<number, OptionId>>(EXAM_KEYS.mcqAnswers, {});
+  const { examId } = useParams<{ examId: string }>();
+  const examNum = examId === "3" ? 3 : examId === "2" ? 2 : 1;
+  const examCtx: ExamDataCtx = examNum === 3
+    ? { mcqs: examMCQs3, frqs: examFRQs3, examNum: 3, keys: makeExamKeys(3) }
+    : examNum === 2
+    ? { mcqs: examMCQs2, frqs: examFRQs2, examNum: 2, keys: makeExamKeys(2) }
+    : EXAM1_CTX;
+  const { keys } = examCtx;
+
+  const [phase, setPhase] = usePersistedState<ExamPhase>(keys.phase, "landing");
+  const [mode, setMode] = usePersistedState<ExamMode>(keys.mode, "untimed");
+  const [mcqAnswers, setMcqAnswers] = usePersistedState<Record<number, OptionId>>(keys.mcqAnswers, {});
   const [frqAnswers, setFrqAnswers] = usePersistedState<
     Record<number, { parts: Record<string, string>; selfScores: Record<string, boolean[]> }>
-  >(EXAM_KEYS.frqAnswers, {});
+  >(keys.frqAnswers, {});
 
   const handleMCQAnswer = useCallback(
     (qId: number, opt: OptionId) =>
@@ -1564,7 +1587,7 @@ export default function ExamPage() {
   );
 
   const handleRetake = () => {
-    clearExamStorage();
+    clearExamStorage(keys);
     setPhase("landing");
     setMcqAnswers({});
     setFrqAnswers({});
@@ -1572,6 +1595,7 @@ export default function ExamPage() {
   };
 
   return (
+    <ExamDataContext.Provider value={examCtx}>
     <AnimatePresence mode="wait">
       {phase === "landing" && (
         <motion.div key="landing" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -1622,5 +1646,6 @@ export default function ExamPage() {
         </motion.div>
       )}
     </AnimatePresence>
+    </ExamDataContext.Provider>
   );
 }

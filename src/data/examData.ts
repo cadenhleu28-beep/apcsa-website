@@ -309,10 +309,10 @@ System.out.println(count);`,
       { id: "C", text: "6" },
       { id: "D", text: "32" },
     ],
-    correctId: "B",
+    correctId: "C",
     explanation:
-      "n progresses: 1 → 2 → 4 → 8 → 16 → 32. The condition n <= 32 is still true when n=32, so the loop runs once more making n=64 and count=5. Then n=64 > 32, loop exits.",
-    trap: "off-by-one: loop runs when n equals the boundary",
+      "n progresses: 1 → 2 → 4 → 8 → 16 → 32 → 64. The loop runs once for each starting value of n (1, 2, 4, 8, 16, 32) — including when n=32 because 32 ≤ 32 is true. That gives 6 iterations; then n=64 > 32 and the loop exits with count=6.",
+    trap: "off-by-one: the loop still runs when n equals the boundary value (32 ≤ 32 is true)",
   },
   {
     id: 15,
@@ -847,7 +847,7 @@ System.out.println(nums);`,
     ],
     correctId: "B",
     explanation:
-      "Trace: [1,2,4,5,6]. i=0: 1 odd, skip. i=1: 2 even, remove(1) → [1,4,5,6]. i=2: get(2)=5 (4 was skipped because removal shifted indices). i=3: get(3)=6 even, remove(3) → [1,4,5]. i=4: 4 < 4 false, stop. 4 was never checked.",
+      "Trace: [1,2,4,5,6]. i=0: 1 odd, skip. i=1: 2 even, remove(1) → [1,4,5,6]. i=2: get(2)=5 (4 was skipped because removal shifted indices). i=3: get(3)=6 even, remove(3) → [1,4,5]. i=4: 4 < 3 false (size is now 3), stop. 4 was never checked.",
     trap: "forward removal skips the element after the removed one — use backward traversal",
   },
   {

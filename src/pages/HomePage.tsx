@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { Box, GitBranch, Code2, Database, ChevronRight, BookOpen, ClipboardList, LogIn, LogOut, User, Trophy } from "lucide-react";
+import { Box, GitBranch, Code2, Database, ChevronRight, BookOpen, ClipboardList, LogIn, LogOut, User, Trophy, Brain, Map } from "lucide-react";
 import confetti from "canvas-confetti";
 import { curriculum } from "../data/curriculum";
 import { useAuth } from "../context/AuthContext";
@@ -148,6 +148,14 @@ export default function HomePage() {
             Interactive lessons, code examples, and exam-style MCQs — organized
             around the official 2025–2026 College Board curriculum.
           </p>
+          <button
+            onClick={() => navigate("/guide")}
+            className="inline-flex items-center gap-2 mt-5 text-sm font-mono text-[#58a6ff] hover:text-[#79c0ff] bg-blue-900/10 hover:bg-blue-900/20 border border-blue-500/30 hover:border-blue-400/50 px-4 py-2 rounded-lg transition-all duration-150"
+          >
+            <Map size={14} />
+            How to use this site
+            <ChevronRight size={13} />
+          </button>
         </motion.div>
 
         {/* Stats row */}
@@ -252,39 +260,68 @@ export default function HomePage() {
           })}
         </motion.div>
 
-        {/* ── Practice Exam CTA ───────────────────────────────────── */}
+        {/* ── Practice Exam CTAs ──────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="mt-8"
+          className="mt-8 flex flex-col gap-3"
         >
+          {/* MCQ Bank */}
           <button
-            onClick={() => navigate("/exam")}
-            className="
-              w-full group flex items-center justify-between
-              bg-[#161b22] border border-[#238636]/50
-              hover:border-[#3fb950]/70 hover:bg-[#1c2128]
-              rounded-xl px-6 py-5 transition-all duration-200
-              hover:shadow-lg hover:shadow-black/30
-            "
+            onClick={() => navigate("/mcq-bank")}
+            className="w-full group flex items-center justify-between bg-[#161b22] border border-violet-500/50 hover:border-violet-400/70 hover:bg-[#1c2128] rounded-xl px-6 py-5 transition-all duration-200 hover:shadow-lg hover:shadow-black/30"
           >
             <div className="flex items-center gap-4">
-              <div className="p-2.5 rounded-lg bg-[#238636]/20 text-[#3fb950]">
-                <ClipboardList size={22} />
+              <div className="p-2.5 rounded-lg bg-violet-900/30 text-violet-400">
+                <Brain size={22} />
               </div>
               <div className="text-left">
-                <p className="font-semibold text-[#3fb950]">Full-Length Practice Exam</p>
+                <p className="font-semibold text-violet-400">MCQ Bank</p>
                 <p className="text-xs text-[#8b949e] mt-0.5 font-mono">
-                  42 MCQs · 4 FRQs · Timed or untimed · Performance dashboard
+                  Drill by topic or full unit · Instant feedback
                 </p>
               </div>
             </div>
             <ChevronRight
               size={18}
-              className="text-[#6e7681] group-hover:text-[#3fb950] transition-colors"
+              className="text-[#6e7681] group-hover:text-violet-400 transition-colors"
             />
           </button>
+
+          {[
+            { num: 1, path: "/exam/1", label: "Practice Exam 1" },
+            { num: 2, path: "/exam/2", label: "Practice Exam 2" },
+            { num: 3, path: "/exam/3", label: "Practice Exam 3" },
+          ].map(({ path, label }) => (
+            <button
+              key={path}
+              onClick={() => navigate(path)}
+              className="
+                w-full group flex items-center justify-between
+                bg-[#161b22] border border-[#238636]/50
+                hover:border-[#3fb950]/70 hover:bg-[#1c2128]
+                rounded-xl px-6 py-5 transition-all duration-200
+                hover:shadow-lg hover:shadow-black/30
+              "
+            >
+              <div className="flex items-center gap-4">
+                <div className="p-2.5 rounded-lg bg-[#238636]/20 text-[#3fb950]">
+                  <ClipboardList size={22} />
+                </div>
+                <div className="text-left">
+                  <p className="font-semibold text-[#3fb950]">{label}</p>
+                  <p className="text-xs text-[#8b949e] mt-0.5 font-mono">
+                    42 MCQs · 4 FRQs · Timed or untimed · Performance dashboard
+                  </p>
+                </div>
+              </div>
+              <ChevronRight
+                size={18}
+                className="text-[#6e7681] group-hover:text-[#3fb950] transition-colors"
+              />
+            </button>
+          ))}
         </motion.div>
 
         {/* ── Bottom note ─────────────────────────────────────────── */}
