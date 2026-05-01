@@ -15,6 +15,7 @@ import {
   EyeOff,
   RotateCcw,
   ArrowLeft,
+  LogOut,
 } from "lucide-react";
 import { examMCQs, examFRQs } from "../data/examData";
 import { examMCQs2, examFRQs2 } from "../data/examData2";
@@ -32,12 +33,14 @@ function makeExamKeys(num: number) {
     mcqCurrent:    `${p}-mcq-current`,
     mcqFlagged:    `${p}-mcq-flagged`,
     mcqStartTs:    `${p}-mcq-start-ts`,
+    mcqRemaining:  `${p}-mcq-remaining`,
     frqAnswers:    `${p}-frq-answers`,
     frqCurrent:    `${p}-frq-current`,
     frqSubmitted:  `${p}-frq-submitted`,
     frqSelfChecks: `${p}-frq-self-checks`,
     frqShowSample: `${p}-frq-show-sample`,
     frqStartTs:    `${p}-frq-start-ts`,
+    frqRemaining:  `${p}-frq-remaining`,
   } as const;
 }
 const EXAM1_CTX: ExamDataCtx = { mcqs: examMCQs, frqs: examFRQs, examNum: 1, keys: makeExamKeys(1) };
@@ -396,11 +399,13 @@ function MCQSection({
   answers,
   onAnswer,
   onComplete,
+  onExit,
 }: {
   mode: ExamMode;
   answers: Record<number, OptionId>;
   onAnswer: (qId: number, opt: OptionId) => void;
   onComplete: () => void;
+  onExit: () => void;
 }) {
   const { mcqs, keys } = useExamData();
   const [current, setCurrent] = usePersistedState(keys.mcqCurrent, 0);
@@ -409,43 +414,27 @@ function MCQSection({
   const setFlagged = (updater: (prev: Set<number>) => Set<number>) =>
     setFlaggedArr((prev) => [...updater(new Set(prev))]);
 
-  // Timer: store absolute start timestamp so remaining survives refresh
-  const [startTs] = useState<number>(() => {
-    if (mode !== "timed") return 0;
-    const stored = localStorage.getItem(keys.mcqStartTs);
-    if (stored) return Number(stored);
-    const now = Date.now();
-    localStorage.setItem(keys.mcqStartTs, String(now));
-    return now;
-  });
-  const [remaining, setRemaining] = useState<number>(() => {
-    if (mode !== "timed") return SECTION_TIME;
-    const elapsed = Math.floor((Date.now() - startTs) / 1000);
-    return Math.max(0, SECTION_TIME - elapsed);
-  });
+  // Timer — persisted so remaining survives exit; only ticks when the tab is visible
+  const [remaining, setRemaining] = usePersistedState(keys.mcqRemaining, SECTION_TIME);
 
   const [toast, setToast] = useState<string | null>(null);
   const [showReview, setShowReview] = useState(false);
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
   const warningsShown = useRef(new Set<string>());
 
-  // Timer
   useEffect(() => {
     if (mode !== "timed") return;
-    const id = setInterval(() => {
+    let id: ReturnType<typeof setInterval> | null = null;
+
+    const tick = () => {
       setRemaining((r) => {
         const next = r - 1;
-        if (next <= 0) {
-          clearInterval(id);
-          onComplete();
-          return 0;
-        }
-        // 30-min remaining warning
+        if (next <= 0) { stopTimer(); onComplete(); return 0; }
         if (next === 30 * 60 && !warningsShown.current.has("30")) {
           warningsShown.current.add("30");
           setToast("⏱ 30 minutes remaining in Section I");
           setTimeout(() => setToast(null), 5000);
         }
-        // 5-min remaining warning
         if (next === 5 * 60 && !warningsShown.current.has("5")) {
           warningsShown.current.add("5");
           setToast("⚠️ 5 minutes remaining — begin wrapping up");
@@ -453,8 +442,16 @@ function MCQSection({
         }
         return next;
       });
-    }, 1000);
-    return () => clearInterval(id);
+    };
+
+    const startTimer = () => { if (id === null) id = setInterval(tick, 1000); };
+    const stopTimer  = () => { if (id !== null) { clearInterval(id); id = null; } };
+
+    const handleVisibility = () => { document.hidden ? stopTimer() : startTimer(); };
+    document.addEventListener("visibilitychange", handleVisibility);
+    if (!document.hidden) startTimer();
+
+    return () => { stopTimer(); document.removeEventListener("visibilitychange", handleVisibility); };
   }, [mode, onComplete]);
 
   const q = mcqs[current];
@@ -497,11 +494,20 @@ function MCQSection({
                 )}
               </span>
             </div>
-            {mode === "timed" && (
-              <div className="w-40">
-                <TimerBar remaining={remaining} total={SECTION_TIME} />
-              </div>
-            )}
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setShowExitConfirm(true)}
+                className="flex items-center gap-1 text-xs font-mono text-[#8b949e] hover:text-[#ff7b72] border border-[#30363d] hover:border-[#ff7b72]/40 px-2 py-1 rounded transition-colors"
+              >
+                <LogOut size={12} />
+                Exit
+              </button>
+              {mode === "timed" && (
+                <div className="w-40">
+                  <TimerBar remaining={remaining} total={SECTION_TIME} />
+                </div>
+              )}
+            </div>
           </div>
           {/* Progress bar */}
           <div className="h-1 bg-[#21262d] rounded-full overflow-hidden">
@@ -726,6 +732,44 @@ function MCQSection({
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Exit confirmation */}
+      <AnimatePresence>
+        {showExitConfirm && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/70 flex items-center justify-center z-40 px-4"
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="bg-[#161b22] border border-[#30363d] rounded-xl p-6 w-full max-w-sm"
+            >
+              <h3 className="font-bold text-lg mb-2">Exit Exam?</h3>
+              <p className="text-sm text-[#8b949e] mb-6">
+                Your progress is automatically saved. Return to this exam to resume right where you left off.
+              </p>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowExitConfirm(false)}
+                  className="flex-1 py-2 rounded-lg border border-[#30363d] text-sm text-[#8b949e] hover:text-[#e6edf3] transition-colors"
+                >
+                  Stay
+                </button>
+                <button
+                  onClick={onExit}
+                  className="flex-1 py-2 rounded-lg bg-[#21262d] hover:bg-[#30363d] border border-[#30363d] text-sm font-semibold text-[#e6edf3] transition-colors"
+                >
+                  Exit to Home
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -779,11 +823,13 @@ function FRQSection({
   frqAnswers,
   onSavePart,
   onComplete,
+  onExit,
 }: {
   mode: ExamMode;
   frqAnswers: Record<number, { parts: Record<string, string>; selfScores: Record<string, boolean[]> }>;
   onSavePart: (frqId: number, letter: string, text: string) => void;
   onComplete: () => void;
+  onExit: () => void;
 }) {
   const { frqs, keys } = useExamData();
   const [currentFRQ, setCurrentFRQ] = usePersistedState(keys.frqCurrent, 0);
@@ -791,34 +837,24 @@ function FRQSection({
   const [showSample, setShowSample] = usePersistedState<Record<string, boolean>>(keys.frqShowSample, {});
   const [selfChecks, setSelfChecks] = usePersistedState<Record<string, boolean[]>>(keys.frqSelfChecks, {});
 
-  // Timer: store absolute start timestamp so remaining survives refresh
-  const [startTs] = useState<number>(() => {
-    if (mode !== "timed") return 0;
-    const stored = localStorage.getItem(keys.frqStartTs);
-    if (stored) return Number(stored);
-    const now = Date.now();
-    localStorage.setItem(keys.frqStartTs, String(now));
-    return now;
-  });
-  const [remaining, setRemaining] = useState<number>(() => {
-    if (mode !== "timed") return SECTION_TIME;
-    const elapsed = Math.floor((Date.now() - startTs) / 1000);
-    return Math.max(0, SECTION_TIME - elapsed);
-  });
+  // Timer — persisted so remaining survives exit; only ticks when the tab is visible
+  const [remaining, setRemaining] = usePersistedState(keys.frqRemaining, SECTION_TIME);
 
   const [toast, setToast] = useState<string | null>(null);
   const [showJQR, setShowJQR] = useState(false);
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
   const warningsShown = useRef(new Set<string>());
 
   const frq = frqs[currentFRQ];
 
-  // Timer
   useEffect(() => {
     if (mode !== "timed") return;
-    const id = setInterval(() => {
+    let id: ReturnType<typeof setInterval> | null = null;
+
+    const tick = () => {
       setRemaining((r) => {
         const next = r - 1;
-        if (next <= 0) { clearInterval(id); onComplete(); return 0; }
+        if (next <= 0) { stopTimer(); onComplete(); return 0; }
         if (next === 30 * 60 && !warningsShown.current.has("30")) {
           warningsShown.current.add("30");
           setToast("⏱ 30 minutes remaining in Section II");
@@ -831,8 +867,16 @@ function FRQSection({
         }
         return next;
       });
-    }, 1000);
-    return () => clearInterval(id);
+    };
+
+    const startTimer = () => { if (id === null) id = setInterval(tick, 1000); };
+    const stopTimer  = () => { if (id !== null) { clearInterval(id); id = null; } };
+
+    const handleVisibility = () => { document.hidden ? stopTimer() : startTimer(); };
+    document.addEventListener("visibilitychange", handleVisibility);
+    if (!document.hidden) startTimer();
+
+    return () => { stopTimer(); document.removeEventListener("visibilitychange", handleVisibility); };
   }, [mode, onComplete]);
 
   const partKey = (frqId: number, letter: string) => `${frqId}-${letter}`;
@@ -890,6 +934,13 @@ function FRQSection({
               className="text-xs font-mono text-[#8b949e] hover:text-[#58a6ff] border border-[#30363d] hover:border-[#58a6ff]/40 px-2 py-1 rounded transition-colors"
             >
               {showJQR ? "Hide" : "Show"} Java Quick Reference
+            </button>
+            <button
+              onClick={() => setShowExitConfirm(true)}
+              className="flex items-center gap-1 text-xs font-mono text-[#8b949e] hover:text-[#ff7b72] border border-[#30363d] hover:border-[#ff7b72]/40 px-2 py-1 rounded transition-colors"
+            >
+              <LogOut size={12} />
+              Exit
             </button>
             {mode === "timed" && (
               <div className="w-36">
@@ -1179,6 +1230,44 @@ Integer.MIN_VALUE      Integer.MAX_VALUE
           )}
         </div>
       </footer>
+
+      {/* Exit confirmation */}
+      <AnimatePresence>
+        {showExitConfirm && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/70 flex items-center justify-center z-40 px-4"
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="bg-[#161b22] border border-[#30363d] rounded-xl p-6 w-full max-w-sm"
+            >
+              <h3 className="font-bold text-lg mb-2">Exit Exam?</h3>
+              <p className="text-sm text-[#8b949e] mb-6">
+                Your progress is automatically saved. Return to this exam to resume right where you left off.
+              </p>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowExitConfirm(false)}
+                  className="flex-1 py-2 rounded-lg border border-[#30363d] text-sm text-[#8b949e] hover:text-[#e6edf3] transition-colors"
+                >
+                  Stay
+                </button>
+                <button
+                  onClick={onExit}
+                  className="flex-1 py-2 rounded-lg bg-[#21262d] hover:bg-[#30363d] border border-[#30363d] text-sm font-semibold text-[#e6edf3] transition-colors"
+                >
+                  Exit to Home
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -1552,6 +1641,7 @@ function ResultsDashboard({
 // ─────────────────────────────────────────────────────────────────────────────
 export default function ExamPage() {
   const { examId } = useParams<{ examId: string }>();
+  const navigate = useNavigate();
   const examNum = examId === "3" ? 3 : examId === "2" ? 2 : 1;
   const examCtx: ExamDataCtx = examNum === 3
     ? { mcqs: examMCQs3, frqs: examFRQs3, examNum: 3, keys: makeExamKeys(3) }
@@ -1619,6 +1709,7 @@ export default function ExamPage() {
             answers={mcqAnswers}
             onAnswer={handleMCQAnswer}
             onComplete={() => setPhase("frq-intro")}
+            onExit={() => navigate("/")}
           />
         </motion.div>
       )}
@@ -1634,6 +1725,7 @@ export default function ExamPage() {
             frqAnswers={frqAnswers}
             onSavePart={handleSaveFRQPart}
             onComplete={() => setPhase("results")}
+            onExit={() => navigate("/")}
           />
         </motion.div>
       )}

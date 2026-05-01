@@ -236,6 +236,7 @@ export default function MCQBankPage() {
               <p className="text-sm text-[#8b949e] font-mono mb-8">
                 Comprehensive question bank across all 4 units — choose a mode to begin.
               </p>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <button
                   onClick={() => {

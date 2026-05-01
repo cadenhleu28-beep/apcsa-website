@@ -65,6 +65,18 @@ export default function HomePage() {
     }
   }, [user]);
 
+  const examProgress = [1, 2, 3].map((num) => {
+    const prefix = num === 1 ? "apcsa-exam" : `apcsa-exam${num}`;
+    try {
+      const phase = JSON.parse(localStorage.getItem(`${prefix}-phase`) ?? '"landing"') as string;
+      if (!phase || phase === "landing" || phase === "mode") return null;
+      const mcqAnswers = JSON.parse(localStorage.getItem(`${prefix}-mcq-answers`) ?? "{}") as Record<string, unknown>;
+      return { phase, answeredCount: Object.keys(mcqAnswers).length };
+    } catch {
+      return null;
+    }
+  });
+
   const completedSlugs = new Set(
     progress.filter((p) => p.completed).map((p) => p.subUnitSlug)
   );
@@ -293,35 +305,54 @@ export default function HomePage() {
             { num: 1, path: "/exam/1", label: "Practice Exam 1" },
             { num: 2, path: "/exam/2", label: "Practice Exam 2" },
             { num: 3, path: "/exam/3", label: "Practice Exam 3" },
-          ].map(({ path, label }) => (
-            <button
-              key={path}
-              onClick={() => navigate(path)}
-              className="
-                w-full group flex items-center justify-between
-                bg-[#161b22] border border-[#238636]/50
-                hover:border-[#3fb950]/70 hover:bg-[#1c2128]
-                rounded-xl px-6 py-5 transition-all duration-200
-                hover:shadow-lg hover:shadow-black/30
-              "
-            >
-              <div className="flex items-center gap-4">
-                <div className="p-2.5 rounded-lg bg-[#238636]/20 text-[#3fb950]">
-                  <ClipboardList size={22} />
+          ].map(({ num, path, label }) => {
+            const ep = examProgress[num - 1];
+            const isCompleted = ep?.phase === "results";
+            const statusLabel = !ep ? null
+              : isCompleted ? "Completed"
+              : ep.phase === "frq" || ep.phase === "frq-intro" ? "In Progress · FRQ"
+              : `In Progress · ${ep.answeredCount}/42 MCQs`;
+            return (
+              <button
+                key={path}
+                onClick={() => navigate(path)}
+                className="
+                  w-full group flex items-center justify-between
+                  bg-[#161b22] border border-[#238636]/50
+                  hover:border-[#3fb950]/70 hover:bg-[#1c2128]
+                  rounded-xl px-6 py-5 transition-all duration-200
+                  hover:shadow-lg hover:shadow-black/30
+                "
+              >
+                <div className="flex items-center gap-4">
+                  <div className="p-2.5 rounded-lg bg-[#238636]/20 text-[#3fb950]">
+                    <ClipboardList size={22} />
+                  </div>
+                  <div className="text-left">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <p className="font-semibold text-[#3fb950]">{label}</p>
+                      {statusLabel && (
+                        <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${
+                          isCompleted
+                            ? "border-[#3fb950]/40 bg-[#3fb950]/10 text-[#3fb950]"
+                            : "border-[#d29922]/40 bg-[#d29922]/10 text-[#d29922]"
+                        }`}>
+                          {statusLabel}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs text-[#8b949e] mt-0.5 font-mono">
+                      42 MCQs · 4 FRQs · Timed or untimed · Performance dashboard
+                    </p>
+                  </div>
                 </div>
-                <div className="text-left">
-                  <p className="font-semibold text-[#3fb950]">{label}</p>
-                  <p className="text-xs text-[#8b949e] mt-0.5 font-mono">
-                    42 MCQs · 4 FRQs · Timed or untimed · Performance dashboard
-                  </p>
-                </div>
-              </div>
-              <ChevronRight
-                size={18}
-                className="text-[#6e7681] group-hover:text-[#3fb950] transition-colors"
-              />
-            </button>
-          ))}
+                <ChevronRight
+                  size={18}
+                  className="text-[#6e7681] group-hover:text-[#3fb950] transition-colors"
+                />
+              </button>
+            );
+          })}
         </motion.div>
 
         {/* ── Bottom note ─────────────────────────────────────────── */}

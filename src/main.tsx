@@ -3,7 +3,6 @@ import type { ReactNode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
-import App from "./App";
 
 class ErrorBoundary extends Component<{ children: ReactNode }, { error: Error | null }> {
   state = { error: null };
@@ -12,7 +11,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { error: Error | 
     if (this.state.error) {
       return (
         <div style={{ padding: 32, color: "#ff7b72", fontFamily: "monospace", background: "#0d1117", minHeight: "100vh" }}>
-          <h2 style={{ color: "#f0e68c" }}>Runtime Error</h2>
+          <h2 style={{ color: "#f0e68c" }}>Runtime Error (React)</h2>
           <pre style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
             {(this.state.error as Error).message}
             {"\n\n"}
@@ -25,12 +24,27 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { error: Error | 
   }
 }
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <ErrorBoundary>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ErrorBoundary>
-  </StrictMode>
-);
+const root = createRoot(document.getElementById("root")!);
+
+import("./App").then(({ default: App }) => {
+  root.render(
+    <StrictMode>
+      <ErrorBoundary>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ErrorBoundary>
+    </StrictMode>
+  );
+}).catch((err) => {
+  root.render(
+    <div style={{ padding: 32, color: "#ff7b72", fontFamily: "monospace", background: "#0d1117", minHeight: "100vh" }}>
+      <h2 style={{ color: "#f0e68c" }}>Module Load Error</h2>
+      <pre style={{ whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
+        {String(err)}
+        {"\n\n"}
+        {(err as Error).stack ?? ""}
+      </pre>
+    </div>
+  );
+});
