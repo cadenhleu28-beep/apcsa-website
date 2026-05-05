@@ -2,6 +2,7 @@ import { StrictMode, Component } from "react";
 import type { ReactNode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import "./index.css";
 
 class ErrorBoundary extends Component<{ children: ReactNode }, { error: Error | null }> {
@@ -32,6 +33,7 @@ import("./App").then(({ default: App }) => {
       <ErrorBoundary>
         <BrowserRouter>
           <App />
+          <Analytics />
         </BrowserRouter>
       </ErrorBoundary>
     </StrictMode>
