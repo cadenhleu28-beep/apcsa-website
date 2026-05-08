@@ -1122,15 +1122,26 @@ export const examFRQs3: ExamFRQ[] = [
         totalChars = 0;
     }
 
-    /** Returns the number of non-space characters in line. */
+    /**
+     * Returns the number of non-space characters in line.
+     * Precondition: line is not null
+     */
     public int charCount(String line) { /* implementation not shown */ }
 
     /** Adds n to the running total of characters processed. */
     public void addToTotal(int n) { totalChars += n; }
 
-    // Part (a): write processLine here
+    /** Returns the capped character count for line, as described in part (a). */
+    public int processLine(String line)
+    { /* to be implemented in part (a) */ }
 
-    // Part (b): write countOverLimit here
+    /**
+     * Returns the number of lines in lines whose processed character count
+     * equals maxLength, as described in part (b).
+     * Precondition: lines is not null
+     */
+    public int countOverLimit(String[] lines)
+    { /* to be implemented in part (b) */ }
 }`,
     parts: [
       {
@@ -1171,7 +1182,7 @@ export const examFRQs3: ExamFRQ[] = [
         letter: "B",
         points: 3,
         prompt:
-          "Write the method countOverLimit(String[] lines). The method should call processLine for each String in the lines array. Count and return the number of lines whose processed character count equals maxLength (i.e., lines that were at or over the cap).",
+          "Write the method countOverLimit(String[] lines). The method should call processLine for each String in the lines array. Count and return the number of lines whose processed character count equals maxLength (i.e., lines that were at or over the cap). Assume that processLine works as intended, regardless of what you wrote in part (a). You must call processLine appropriately in order to receive full credit.",
         sampleAnswer: `public int countOverLimit(String[] lines) {
     int overCount = 0;
     for (String line : lines) {
@@ -1188,11 +1199,11 @@ export const examFRQs3: ExamFRQ[] = [
             points: 1,
           },
           {
-            text: "Calls processLine(line) exactly once per element and uses the return value",
+            text: "Calls processLine(line) exactly once per iteration with the current element — not a constant, index, or the wrong variable — and uses the return value",
             points: 1,
           },
           {
-            text: "Correctly counts lines where processed == maxLength and returns the count",
+            text: "Correctly counts lines where the return value equals maxLength and returns the count",
             points: 1,
           },
         ],

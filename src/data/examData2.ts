@@ -1043,15 +1043,26 @@ export const examFRQs2: ExamFRQ[] = [
         totalWords = 0;
     }
 
-    /** Returns the number of words in the given line. */
+    /**
+     * Returns the number of words in the given line.
+     * Precondition: line is not null
+     */
     public int countWords(String line) { /* implementation not shown */ }
 
     /** Adds n to the running total of words processed. */
     public void addToTotal(int n) { totalWords += n; }
 
-    // Part (a): write processLine here
+    /** Returns the capped word count for line, as described in part (a). */
+    public int processLine(String line)
+    { /* to be implemented in part (a) */ }
 
-    // Part (b): write countLongLines here
+    /**
+     * Returns the number of lines in lines whose processed word count
+     * equals maxWordsPerLine, as described in part (b).
+     * Precondition: lines is not null
+     */
+    public int countLongLines(String[] lines)
+    { /* to be implemented in part (b) */ }
 }`,
     parts: [
       {
@@ -1091,7 +1102,7 @@ export const examFRQs2: ExamFRQ[] = [
         letter: "B",
         points: 3,
         prompt:
-          "Write the method countLongLines(String[] lines). The method should call processLine for each String in the lines array. Count and return the number of lines whose processed word count equals maxWordsPerLine (i.e., lines that were at or over the cap).",
+          "Write the method countLongLines(String[] lines). The method should call processLine for each String in the lines array. Count and return the number of lines whose processed word count equals maxWordsPerLine (i.e., lines that were at or over the cap). Assume that processLine works as intended, regardless of what you wrote in part (a). You must call processLine appropriately in order to receive full credit.",
         sampleAnswer: `public int countLongLines(String[] lines) {
     int longCount = 0;
     for (String line : lines) {
@@ -1108,11 +1119,11 @@ export const examFRQs2: ExamFRQ[] = [
             points: 1,
           },
           {
-            text: "Calls processLine(line) exactly once per element and uses the return value",
+            text: "Calls processLine(line) exactly once per iteration with the current element — not a constant, index, or the wrong variable — and uses the return value",
             points: 1,
           },
           {
-            text: "Correctly counts lines where processed == maxWordsPerLine and returns the count",
+            text: "Correctly counts lines where the return value equals maxWordsPerLine and returns the count",
             points: 1,
           },
         ],

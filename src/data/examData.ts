@@ -1045,22 +1045,35 @@ export const examFRQs: ExamFRQ[] = [
     private String libraryName;
     private int maxDailyCheckouts;
 
+    /** Postcondition: All instance variables have been initialized. */
     public LibrarySystem(String name, int max) {
         libraryName = name;
         maxDailyCheckouts = max;
     }
 
-    /** Returns the number of books available to check out at the given hour.
-     *  Precondition: 0 <= hour <= 23
+    /**
+     * Returns the number of books available to check out at the given hour.
+     * Precondition: 0 <= hour <= 23
      */
     public int getBooksAvailable(int hour) { /* implementation not shown */ }
 
-    /** Records that count books were checked out at the given hour. */
+    /**
+     * Records that count books were checked out at the given hour.
+     * Precondition: 0 <= hour <= 23; count >= 0
+     */
     public void recordCheckout(int hour, int count) { /* implementation not shown */ }
 
-    // Part (a): write processHourlyCheckout here
+    /** Returns the number of books checked out at hour, as described in part (a). */
+    public int processHourlyCheckout(int hour)
+    { /* to be implemented in part (a) */ }
 
-    // Part (b): write calculateDailyRevenue here
+    /**
+     * Returns total revenue earned from openHour to closeHour, inclusive,
+     * as described in part (b).
+     * Precondition: 0 <= openHour <= closeHour <= 23
+     */
+    public double calculateDailyRevenue(int openHour, int closeHour)
+    { /* to be implemented in part (b) */ }
 }`,
     parts: [
       {
@@ -1100,7 +1113,7 @@ export const examFRQs: ExamFRQ[] = [
         letter: "B",
         points: 3,
         prompt:
-          "Write the method calculateDailyRevenue(int openHour, int closeHour). The library is open from openHour to closeHour inclusive. For each hour, call processHourlyCheckout to get the books checked out that hour. Each book earns $2.50 in revenue. If the number checked out equals maxDailyCheckouts, add a $1.00 bonus for that hour. Return the total revenue as a double.",
+          "Write the method calculateDailyRevenue(int openHour, int closeHour). The library is open from openHour to closeHour inclusive. For each hour, call processHourlyCheckout to get the books checked out that hour. Each book earns $2.50 in revenue. If the number checked out equals maxDailyCheckouts, add a $1.00 bonus for that hour. Return the total revenue as a double.\n\nAssume that processHourlyCheckout works as intended, regardless of what you wrote in part (a). You must call processHourlyCheckout appropriately in order to receive full credit.",
         sampleAnswer: `public double calculateDailyRevenue(int openHour, int closeHour) {
     double total = 0.0;
     for (int hour = openHour; hour <= closeHour; hour++) {
@@ -1114,15 +1127,15 @@ export const examFRQs: ExamFRQ[] = [
 }`,
         rubricPoints: [
           {
-            text: "Loop executes for each hour from openHour to closeHour inclusive",
+            text: "Loop executes for each hour from openHour to closeHour inclusive (correct bounds and loop variable)",
             points: 1,
           },
           {
-            text: "Calls processHourlyCheckout(hour) exactly once per iteration and uses the result",
+            text: "Calls processHourlyCheckout(hour) exactly once per loop iteration and uses the return value — not called with a constant or the wrong variable",
             points: 1,
           },
           {
-            text: "Correctly accumulates revenue (checked * 2.50) with bonus condition (+ 1.00 when checked == maxDailyCheckouts)",
+            text: "Correctly accumulates revenue (checked * 2.50) with bonus condition (+1.00 when checked == maxDailyCheckouts) and returns the total",
             points: 1,
           },
         ],
@@ -1239,77 +1252,118 @@ export const examFRQs: ExamFRQ[] = [
     id: 3,
     type: "Data Analysis with ArrayList",
     totalPoints: 5,
-    title: "Playlist",
+    title: "SurveyAnalysis",
     scenario:
-      "A Playlist class manages a list of songs stored as an ArrayList of Strings. The class already has two instance variables declared: an ArrayList<String> named songs, and an int named maxSize. You will write the constructor and a method to remove duplicate songs.",
-    givenCode: `public class Playlist {
-    private ArrayList<String> songs;
-    private int maxSize;
+      "A SurveyAnalysis class analyzes survey responses submitted by users. Each response is stored as a String in a Survey object. The SurveyAnalysis class has one instance variable: a Survey[] array named allResponses, initialized in the constructor. You will write two methods of the SurveyAnalysis class.",
+    givenCode: `public class Survey {
+    private int score;        // 1–5 rating
+    private String comment;   // user comment, may be empty string ""
 
-    // Part (a): write the constructor here
+    /** Precondition: 1 <= s <= 5; c is not null */
+    public Survey(int s, String c) { score = s; comment = c; }
 
-    // Part (b): write removeDuplicates here
+    public int getScore() { return score; }
+    public String getComment() { return comment; }
+}
+
+public class SurveyAnalysis {
+    /** All survey responses to be analyzed. Guaranteed non-null. */
+    private Survey[] allResponses;
+
+    /** Initializes allResponses to contain all Survey objects to be analyzed.
+     * Precondition: allResponses contains at least one Survey.
+     */
+    public SurveyAnalysis() { /* implementation not shown */ }
+
+    /**
+     * Returns the average score of all responses, as described in part (a).
+     * Precondition: allResponses contains at least one Survey.
+     *               No element of allResponses is null.
+     */
+    public double getAverageScore()
+    { /* to be implemented in part (a) */ }
+
+    /**
+     * Returns an ArrayList of formatted comments from high-scoring responses,
+     * as described in part (b).
+     * Precondition: allResponses contains at least one Survey.
+     *               No element of allResponses is null.
+     * Postcondition: allResponses is unchanged.
+     */
+    public ArrayList<String> collectHighScoreComments(int minScore)
+    { /* to be implemented in part (b) */ }
 }`,
     parts: [
       {
         letter: "A",
         points: 2,
         prompt:
-          "Write the constructor Playlist(String[] initialSongs, int max). The constructor should initialize the songs ArrayList (do NOT redeclare its type — the instance variable is already declared above), set maxSize to max, and add each song from the initialSongs array to the list.",
-        sampleAnswer: `public Playlist(String[] initialSongs, int max) {
-    songs = new ArrayList<String>();
-    maxSize = max;
-    for (String song : initialSongs) {
-        songs.add(song);
+          "Write the SurveyAnalysis method getAverageScore, which returns the arithmetic mean of all scores in allResponses as a double.",
+        sampleAnswer: `public double getAverageScore() {
+    double total = 0;
+    for (Survey s : allResponses) {
+        total += s.getScore();
     }
+    return total / allResponses.length;
 }`,
         rubricPoints: [
           {
-            text: "Initializes songs with new ArrayList<String>() WITHOUT redeclaring the type (no ArrayList<String> songs = ...)",
+            text: "Accumulates scores across all elements of allResponses using getScore()",
             points: 1,
           },
           {
-            text: "Sets maxSize = max and adds each element of initialSongs to songs using a loop",
+            text: "Returns the sum divided by allResponses.length as a double (not integer division)",
             points: 1,
           },
         ],
         commonMistakes: [
-          "Writing ArrayList<String> songs = new ArrayList<String>() — this creates a local variable, not the instance variable",
-          "Using a regular for loop with wrong bounds (should use initialSongs.length or for-each)",
-          "Not adding each song (only adding first, or skipping the loop entirely)",
+          "Using integer division: total / allResponses.length when total is int — cast to double or declare total as double",
+          "Using allResponses.size() — arrays use .length, not .size()",
+          "Calling getScore without () or using getComment() by mistake",
+          "Not dividing by the count (returning the sum instead of average)",
         ],
       },
       {
         letter: "B",
         points: 3,
         prompt:
-          "Write the method removeDuplicates() that removes all duplicate songs from the playlist, keeping only the FIRST occurrence of each song. The method should return the songs ArrayList after removing duplicates.",
-        sampleAnswer: `public ArrayList<String> removeDuplicates() {
-    for (int i = 0; i < songs.size(); i++) {
-        for (int j = songs.size() - 1; j > i; j--) {
-            if (songs.get(j).equals(songs.get(i))) {
-                songs.remove(j);
+          "Write the SurveyAnalysis method collectHighScoreComments(int minScore), which returns an ArrayList<String> of formatted comments from responses whose score is at least minScore AND whose comment is not the empty string. Each string added to the ArrayList should have the format: index + \"-\" + comment. If the comment does not already end with '.' or '!', append a '.' to it. An empty ArrayList is returned if no qualifying responses exist.\n\nFor example, if allResponses[2] has score 5 and comment \"Great service\", the formatted string is \"2-Great service.\" If the comment is \"Amazing!\", it is \"2-Amazing!\" with no period added.\n\nAssume that getAverageScore works as intended, regardless of what you wrote in part (a).",
+        sampleAnswer: `public ArrayList<String> collectHighScoreComments(int minScore) {
+    ArrayList<String> result = new ArrayList<String>();
+    for (int i = 0; i < allResponses.length; i++) {
+        Survey s = allResponses[i];
+        if (s.getScore() >= minScore && !s.getComment().equals("")) {
+            String c = s.getComment();
+            char last = c.charAt(c.length() - 1);
+            if (last != '.' && last != '!') {
+                c = c + ".";
             }
+            result.add(i + "-" + c);
         }
     }
-    return songs;
+    return result;
 }`,
         rubricPoints: [
           {
-            text: "Uses .equals() (not ==) to compare String elements",
+            text: "Creates a new ArrayList<String> to accumulate results (not reusing allResponses)",
             points: 1,
           },
           {
-            text: "Correctly identifies and removes duplicates while preserving the first occurrence (inner loop goes backward from end to i+1, OR equivalent correct logic)",
+            text: "Correctly filters: score >= minScore AND comment is not the empty string, using getScore() and getComment()",
             points: 1,
           },
-          { text: "Returns the modified songs ArrayList", points: 1 },
+          {
+            text: "Formats each entry as index + \"-\" + comment and appends '.' when comment doesn't end in '.' or '!'; returns the ArrayList",
+            points: 1,
+          },
         ],
         commonMistakes: [
-          "Using == to compare Strings instead of .equals()",
-          "Forward inner-loop removal that skips elements (same bug as MCQ Q34)",
-          "Modifying songs while iterating forward without compensating for index shifts",
-          "Not returning songs at the end",
+          "Using == to compare comment to \"\" instead of .equals(\"\")",
+          "Using i instead of the Survey index in the formatted string (should be the array index i, not some counter)",
+          "Forgetting to check the last character before appending '.' (always appending '.' even when it ends in '!')",
+          "Using .length instead of .length() — allResponses is an array (.length), comment is a String (.length())",
+          "Not returning result at the end of the method",
+          "Returning allResponses.length instead of result (common confusion between the input array and the output list)",
         ],
       },
     ],
@@ -1322,13 +1376,25 @@ export const examFRQs: ExamFRQ[] = [
     totalPoints: 6,
     title: "RainfallTracker",
     scenario:
-      "A RainfallTracker class stores daily rainfall data in a 2D array, where each row represents a week and each column represents a day within that week. The class has one instance variable: a 2D double array named rainfall. You will write the constructor and a method to compute a weekly total.",
+      "A RainfallTracker class stores daily rainfall data in a 2D array, where each row represents a week and each column represents a day of the week (0 = Monday, 1 = Tuesday, … 6 = Sunday). The class has one instance variable: a 2D double array named rainfall. You will write the constructor and a method that sums rainfall for a specific day of the week across all recorded weeks.",
     givenCode: `public class RainfallTracker {
     private double[][] rainfall;
 
-    // Part (a): write the constructor here
+    /**
+     * Allocates rainfall as a 2D double array with the given number of weeks
+     * (rows) and days per week (columns). All values are initialized to 0.0.
+     * Precondition: weeks > 0; daysPerWeek > 0
+     */
+    public RainfallTracker(int weeks, int daysPerWeek)
+    { /* to be implemented in part (a) */ }
 
-    // Part (b): write getWeeklyTotal here
+    /**
+     * Returns the total rainfall recorded on the given day of the week,
+     * summed across all weeks.
+     * Precondition: 0 <= day < daysPerWeek
+     */
+    public double getDayTotal(int day)
+    { /* to be implemented in part (b) */ }
 }`,
     parts: [
       {
@@ -1369,29 +1435,32 @@ export const examFRQs: ExamFRQ[] = [
         letter: "B",
         points: 3,
         prompt:
-          "Write the method getWeeklyTotal(int week). The method should sum all rainfall values in the given row (the row at index week) and return the total as a double.",
-        sampleAnswer: `public double getWeeklyTotal(int week) {
+          "Write the method getDayTotal(int day). The method should sum the rainfall values for column day across all rows (weeks) and return the total as a double. For example, if day is 0, the method returns the total Monday rainfall across every recorded week.",
+        sampleAnswer: `public double getDayTotal(int day) {
     double total = 0.0;
-    for (int day = 0; day < rainfall[0].length; day++) {
+    for (int week = 0; week < rainfall.length; week++) {
         total += rainfall[week][day];
     }
     return total;
 }`,
         rubricPoints: [
           {
-            text: "Accumulator initialized to 0.0",
+            text: "Loop iterates over all rows using rainfall.length (not rainfall[0].length — the column count)",
             points: 1,
           },
           {
-            text: "Loop iterates over columns of the correct row: uses rainfall[week][day] with the week parameter",
+            text: "Accesses rainfall[week][day] with row index first and the day parameter as the column — not rainfall[day][week]",
             points: 1,
           },
-          { text: "Returns the accumulated total", points: 1 },
+          {
+            text: "Accumulator correctly initialized to 0.0 and total returned",
+            points: 1,
+          },
         ],
         commonMistakes: [
-          "Looping over rows (rainfall.length) instead of columns (rainfall[0].length)",
-          "Using a hardcoded row index instead of the week parameter",
-          "Accessing rainfall[day][week] (row and column swapped)",
+          "Looping with rainfall[0].length instead of rainfall.length — iterates over the wrong dimension",
+          "Accessing rainfall[day][week] — row and column indices swapped",
+          "Using a hardcoded column index instead of the day parameter",
           "Not initializing total before the loop",
           "Not returning the total",
         ],
