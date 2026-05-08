@@ -769,35 +769,28 @@ System.out.println(result);`,
     id: 32,
     unit: 4,
     cedTopic: "4.6",
-    skill: "2.A",
+    skill: "2.B",
     question:
-      "Which of the following correctly creates a Scanner to read from a text file named \"scores.txt\"?",
+      "A text file named \"data.txt\" contains the following values on a single line:\n\n12  7  25  3\n\nThe following code segment is executed. What is printed?",
+    code: `Scanner sc = new Scanner(new File("data.txt"));
+int sum = 0;
+while (sc.hasNextInt()) {
+    int val = sc.nextInt();
+    if (val > 10) {
+        sum += val;
+    }
+}
+System.out.println(sum);`,
     options: [
-      {
-        id: "A",
-        text: "Scanner sc = new Scanner(System.in);",
-        isCode: true,
-      },
-      {
-        id: "B",
-        text: 'Scanner sc = new Scanner(new File("scores.txt"));',
-        isCode: true,
-      },
-      {
-        id: "C",
-        text: 'Scanner sc = new Scanner("scores.txt");',
-        isCode: true,
-      },
-      {
-        id: "D",
-        text: 'File f = new File("scores.txt"); String line = f.nextLine();',
-        isCode: true,
-      },
+      { id: "A", text: "47" },
+      { id: "B", text: "37" },
+      { id: "C", text: "25" },
+      { id: "D", text: "2" },
     ],
     correctId: "B",
     explanation:
-      "To read a file, Scanner must be constructed with a File object: new Scanner(new File(\"filename\")). Option A reads from standard input. Option C passes a String literal (Scanner would treat it as data, not a filename). Option D — File has no nextLine() method.",
-    trap: "Scanner(File) for files vs Scanner(System.in) for keyboard",
+      "The loop reads each integer with hasNextInt()/nextInt(). Only values greater than 10 are added to sum. 12 > 10 → sum = 12. 7 is not > 10. 25 > 10 → sum = 37. 3 is not > 10. Result: 37. Option A (47) is the sum of all four values — the condition is ignored. Option C (25) is just the largest value. Option D (2) is the count of values > 10.",
+    trap: "Reading all values vs. conditionally accumulating — the if (val > 10) filters which values contribute to sum",
   },
   {
     id: 33,

@@ -1110,37 +1110,38 @@ export const examFRQs3: ExamFRQ[] = [
     id: 1,
     type: "Methods and Control Structures",
     totalPoints: 7,
-    title: "SentenceProcessor",
+    title: "ScoreFileReader",
     scenario:
-      "A SentenceProcessor object is used to track the character counts of lines in an essay. The class has two private instance variables: maxLength (the maximum allowed character count for a single line) and totalChars (a running total of all characters processed so far). One helper method is provided: charCount(String line) returns the number of non-space characters in the given line. Another method, addToTotal(int n), is already fully implemented and adds n to totalChars. You will write two new methods for this class.",
-    givenCode: `public class SentenceProcessor {
-    private int maxLength;
-    private int totalChars;
+      "A ScoreFileReader object reads integer test scores one at a time from a Scanner that is already open on a file. The class has three private instance variables: scoreScanner (a Scanner connected to the score file), maxScore (the highest score that will be recorded — any score above this is capped), and readCount (a running count of scores read so far, starting at 0). You will write two methods for this class.",
+    givenCode: `import java.util.Scanner;
 
-    public SentenceProcessor(int max) {
-        maxLength = max;
-        totalChars = 0;
+public class ScoreFileReader {
+    private Scanner scoreScanner;  // already opened on the score file
+    private int maxScore;
+    private int readCount;
+
+    public ScoreFileReader(Scanner sc, int max) {
+        scoreScanner = sc;
+        maxScore = max;
+        readCount = 0;
     }
 
     /**
-     * Returns the number of non-space characters in line.
-     * Precondition: line is not null
+     * Returns true if there is at least one more integer left to read
+     * in the file; false otherwise.
      */
-    public int charCount(String line) { /* implementation not shown */ }
+    public boolean hasMore() { return scoreScanner.hasNextInt(); }
 
-    /** Adds n to the running total of characters processed. */
-    public void addToTotal(int n) { totalChars += n; }
-
-    /** Returns the capped character count for line, as described in part (a). */
-    public int processLine(String line)
+    /** Reads and returns the next integer score, as described in part (a). */
+    public int readNextScore()
     { /* to be implemented in part (a) */ }
 
     /**
-     * Returns the number of lines in lines whose processed character count
-     * equals maxLength, as described in part (b).
-     * Precondition: lines is not null
+     * Returns the count of scores (read via readNextScore) that exceed
+     * threshold, as described in part (b).
+     * Precondition: threshold >= 0
      */
-    public int countOverLimit(String[] lines)
+    public int countAboveThreshold(double threshold)
     { /* to be implemented in part (b) */ }
 }`,
     parts: [
@@ -1148,71 +1149,73 @@ export const examFRQs3: ExamFRQ[] = [
         letter: "A",
         points: 4,
         prompt:
-          "Write the method processLine(String line). The method should count the non-space characters in line using the provided helper. If the count exceeds maxLength, cap it at maxLength. Add the capped count to the running total using addToTotal. Return the capped count.",
-        sampleAnswer: `public int processLine(String line) {
-    int count = charCount(line);
-    int capped = Math.min(count, maxLength);
-    addToTotal(capped);
-    return capped;
+          "Write the method readNextScore(). The method should read the next integer from scoreScanner using nextInt(). If the value exceeds maxScore, use maxScore instead (cap it). Increment readCount by 1. Return the capped score.",
+        sampleAnswer: `public int readNextScore() {
+    int score = scoreScanner.nextInt();
+    if (score > maxScore) {
+        score = maxScore;
+    }
+    readCount++;
+    return score;
 }`,
         rubricPoints: [
           {
-            text: "Calls charCount(line) and stores or uses the result",
+            text: "Reads the next integer by calling scoreScanner.nextInt() and storing or using the result",
             points: 1,
           },
           {
-            text: "Correctly caps the count at maxLength (Math.min or equivalent if/else)",
+            text: "Correctly caps the score at maxScore (if score > maxScore use maxScore, or Math.min equivalent)",
             points: 1,
           },
           {
-            text: "Calls addToTotal with the capped value",
+            text: "Increments readCount by 1",
             points: 1,
           },
-          { text: "Returns the capped character count", points: 1 },
+          { text: "Returns the capped score", points: 1 },
         ],
         commonMistakes: [
-          "Calling charCount() without passing line as the argument",
-          "Passing the uncapped count (not the capped value) to addToTotal()",
-          "Using Math.max instead of Math.min for capping (max would return the larger value, not the cap)",
-          "Not returning a value (method must return int)",
-          "Calling addToTotal with maxLength always, instead of the capped result",
+          "Calling scoreScanner.nextLine() instead of nextInt() — reads a String, not an int",
+          "Capping with Math.max(score, maxScore) — this returns the larger value, not the cap",
+          "Forgetting to increment readCount",
+          "Returning the uncapped score instead of the capped one",
+          "Calling hasNextInt() inside this method — Part A reads exactly one value; the loop belongs in Part B",
         ],
       },
       {
         letter: "B",
         points: 3,
         prompt:
-          "Write the method countOverLimit(String[] lines). The method should call processLine for each String in the lines array. Count and return the number of lines whose processed character count equals maxLength (i.e., lines that were at or over the cap). Assume that processLine works as intended, regardless of what you wrote in part (a). You must call processLine appropriately in order to receive full credit.",
-        sampleAnswer: `public int countOverLimit(String[] lines) {
-    int overCount = 0;
-    for (String line : lines) {
-        int processed = processLine(line);
-        if (processed == maxLength) {
-            overCount++;
+          "Write the method countAboveThreshold(double threshold). The method should repeatedly call readNextScore() while more scores remain in the file. Count and return the number of scores whose capped value exceeds threshold. Assume that readNextScore works as intended, regardless of what you wrote in part (a). You must call readNextScore appropriately in order to receive full credit.",
+        sampleAnswer: `public int countAboveThreshold(double threshold) {
+    int count = 0;
+    while (hasMore()) {
+        int score = readNextScore();
+        if (score > threshold) {
+            count++;
         }
     }
-    return overCount;
+    return count;
 }`,
         rubricPoints: [
           {
-            text: "Loop correctly iterates over every element in the lines array",
+            text: "Loop continues while hasMore() (or scoreScanner.hasNextInt()) is true — loop runs until all scores are read",
             points: 1,
           },
           {
-            text: "Calls processLine(line) exactly once per iteration with the current element — not a constant, index, or the wrong variable — and uses the return value",
+            text: "Calls readNextScore() exactly once per iteration — not scoreScanner.nextInt() directly — and uses the return value",
             points: 1,
           },
           {
-            text: "Correctly counts lines where the return value equals maxLength and returns the count",
+            text: "Correctly counts iterations where return value > threshold and returns the count",
             points: 1,
           },
         ],
         commonMistakes: [
-          "Calling processLine with the wrong argument (e.g., the index instead of the element)",
-          "Calling processLine twice per loop iteration and using different calls for the comparison and the count",
-          "Using > maxLength instead of == maxLength (only counting lines that exceeded the cap, not those that hit it exactly)",
-          "Not returning overCount at the end",
-          "Using lines.size() instead of lines.length (String[] uses .length, not .size())",
+          "Calling scoreScanner.nextInt() directly instead of readNextScore() — bypasses the cap logic and misses the required call",
+          "Using a for loop with a fixed count instead of a while (hasMore()) loop — file length is unknown",
+          "Comparing score >= threshold instead of score > threshold",
+          "Not returning count at the end of the method",
+          "Calling readNextScore() twice per iteration — once for the comparison and once for the count — which skips scores",
         ],
       },
     ],
