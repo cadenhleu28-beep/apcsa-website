@@ -23,6 +23,14 @@ interface QuizResult {
   correct: boolean;
 }
 
+function splitExplanation(text: string): string[] {
+  const parts = text
+    .split(/(?<=[.!?])\s+(?=[A-Z"'(])/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  return parts.length > 1 ? parts : [text];
+}
+
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -510,9 +518,13 @@ export default function MCQBankPage() {
                                 ? "Correct!"
                                 : `Incorrect — correct answer: ${currentQuestion.answer}`}
                             </p>
-                            <p className="text-sm text-[#8b949e] leading-relaxed">
-                              {currentQuestion.explanation}
-                            </p>
+                            <div className="mt-1 space-y-2">
+                              {splitExplanation(currentQuestion.explanation).map((sentence, i) => (
+                                <p key={i} className="text-sm text-[#8b949e] leading-relaxed">
+                                  {sentence}
+                                </p>
+                              ))}
+                            </div>
                           </div>
                         </div>
                       </motion.div>

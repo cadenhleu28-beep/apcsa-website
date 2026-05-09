@@ -156,6 +156,15 @@ function clearExamStorage(keys: ReturnType<typeof makeExamKeys>) {
   Object.values(keys).forEach((k) => localStorage.removeItem(k));
 }
 
+// ── Explanation text splitter ─────────────────────────────────────────────────
+function splitExplanation(text: string): string[] {
+  const parts = text
+    .split(/(?<=[.!?])\s+(?=[A-Z"'(])/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  return parts.length > 1 ? parts : [text];
+}
+
 // ── Unit color badges ─────────────────────────────────────────────────────────
 const UNIT_COLORS: Record<number, string> = {
   1: "bg-blue-500/20 text-blue-400 border-blue-500/30",
@@ -1602,9 +1611,13 @@ function ResultsDashboard({
                               <span className="font-mono">{q.correctId}</span>{" "}
                               — {q.options.find((o) => o.id === q.correctId)?.text}
                             </p>
-                            <p className="text-[#8b949e] italic mt-1">
-                              {q.explanation}
-                            </p>
+                            <div className="mt-2 space-y-1.5 not-italic">
+                              {splitExplanation(q.explanation).map((sentence, i) => (
+                                <p key={i} className="text-[#8b949e] leading-relaxed">
+                                  {sentence}
+                                </p>
+                              ))}
+                            </div>
                           </div>
                         </div>
                       ))}

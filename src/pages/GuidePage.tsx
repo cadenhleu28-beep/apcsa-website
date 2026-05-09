@@ -1,104 +1,170 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { BookOpen, ClipboardList, Brain, ArrowLeft, ChevronRight, RotateCcw, Trophy, ArrowDown } from "lucide-react";
+import {
+  ClipboardList, Brain, ArrowLeft,
+  ChevronRight, RotateCcw, Trophy, BookOpen,
+} from "lucide-react";
 
 const steps = [
   {
     num: 1,
     icon: BookOpen,
-    color: "blue",
+    accent: "#58a6ff",
+    border: "border-blue-500/25",
+    badge: "text-blue-400 bg-blue-500/10 border-blue-500/20",
+    iconBg: "bg-blue-500/10 text-blue-400",
     title: "Review the Lessons",
     subtitle: "Optional but recommended",
     description:
-      "Start by browsing the 4 unit lessons. Read the explanations, study the code examples, and answer the inline concept checks. Focus on topics you're not already confident in — you can always skip ahead if you know the material.",
+      "Start by browsing the 4 unit lessons. Read the explanations, study the code examples, and answer the inline concept checks. Focus on topics you're not confident in — skip ahead if you know the material.",
     action: { label: "Go to Lessons", path: "/" },
-    border: "border-blue-500/40",
-    badge: "bg-blue-500/10 text-blue-400",
-    iconBg: "bg-blue-900/30 text-blue-400",
-    glow: "shadow-blue-900/20",
   },
   {
     num: 2,
     icon: ClipboardList,
-    color: "green",
+    accent: "#3fb950",
+    border: "border-green-500/25",
+    badge: "text-green-400 bg-green-500/10 border-green-500/20",
+    iconBg: "bg-green-500/10 text-green-400",
     title: "Take Practice Exam 1",
     subtitle: "Treat it like the real thing",
     description:
-      "Go in cold — don't look anything up. After you finish, review the performance breakdown to see exactly which topics and units you struggled with. This tells you where to focus your energy.",
+      "Go in cold — don't look anything up. After you finish, review the performance breakdown to see exactly which topics you struggled with. This tells you where to focus next.",
     action: { label: "Practice Exam 1", path: "/exam/1" },
-    border: "border-green-500/40",
-    badge: "bg-green-500/10 text-green-400",
-    iconBg: "bg-green-900/30 text-green-400",
-    glow: "shadow-green-900/20",
   },
   {
     num: 3,
     icon: Brain,
-    color: "violet",
+    accent: "#bc8cff",
+    border: "border-violet-500/25",
+    badge: "text-violet-400 bg-violet-500/10 border-violet-500/20",
+    iconBg: "bg-violet-500/10 text-violet-400",
     title: "Drill the MCQ Bank",
     subtitle: "Target your weak spots",
     description:
-      "Use the MCQ Bank to drill the specific topics where you lost points. Filter by unit or topic to focus your practice. If you're still fuzzy on a concept, re-read the relevant lesson for a deeper explanation.",
+      "Use the MCQ Bank to drill specific topics where you lost points. Filter by unit or topic. If you're fuzzy on a concept, re-read the relevant lesson for a deeper explanation.",
     action: { label: "Open MCQ Bank", path: "/mcq-bank" },
-    border: "border-violet-500/40",
-    badge: "bg-violet-500/10 text-violet-400",
-    iconBg: "bg-violet-900/30 text-violet-400",
-    glow: "shadow-violet-900/20",
   },
   {
     num: 4,
     icon: RotateCcw,
-    color: "orange",
+    accent: "#f78166",
+    border: "border-orange-500/25",
+    badge: "text-orange-400 bg-orange-500/10 border-orange-500/20",
+    iconBg: "bg-orange-500/10 text-orange-400",
     title: "Repeat with Exams 2 & 3",
     subtitle: "Keep the cycle going",
     description:
-      "Once you feel confident on the topics you drilled, move on to Practice Exam 2. Review that breakdown, drill again with the MCQ Bank, then take Practice Exam 3. Each cycle tightens your knowledge gaps.",
+      "Once you feel confident on the topics you drilled, move on to Practice Exam 2. Review that breakdown, drill again, then take Exam 3. Each cycle closes knowledge gaps.",
     action: { label: "Practice Exam 2", path: "/exam/2" },
-    border: "border-orange-500/40",
-    badge: "bg-orange-500/10 text-orange-400",
-    iconBg: "bg-orange-900/30 text-orange-400",
-    glow: "shadow-orange-900/20",
   },
 ];
 
+function StepCard({
+  step, idx, onAction,
+}: {
+  step: typeof steps[0];
+  idx: number;
+  onAction: (path: string) => void;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-5%" });
+  const Icon = step.icon;
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 16 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.4, delay: idx * 0.06, ease: "easeOut" }}
+    >
+      <div
+        className={`rounded-lg border bg-[#161b22] ${step.border} p-5 hover:bg-[#1a1f27] transition-colors duration-200`}
+        style={{ borderLeftWidth: "3px", borderLeftColor: step.accent }}
+      >
+        <div className="flex items-start gap-4">
+          <div className="flex flex-col items-center gap-2 shrink-0">
+            <div className={`p-2 rounded-md ${step.iconBg}`}>
+              <Icon size={18} />
+            </div>
+            <span className={`text-xs font-mono px-1.5 py-0.5 rounded border ${step.badge}`}>
+              {String(step.num).padStart(2, "0")}
+            </span>
+          </div>
+
+          <div className="flex-1 min-w-0">
+            <div className="flex items-baseline gap-2 mb-1 flex-wrap">
+              <h2 className="font-semibold text-[#e6edf3]">{step.title}</h2>
+              <span className="text-xs font-mono text-[#484f58]">{step.subtitle}</span>
+            </div>
+            <p className="text-sm text-[#8b949e] leading-relaxed mb-4">{step.description}</p>
+            <button
+              onClick={() => onAction(step.action.path)}
+              className={`inline-flex items-center gap-1 text-xs font-mono px-2.5 py-1.5 rounded border transition-all duration-150 hover:opacity-100 opacity-80 ${step.badge}`}
+            >
+              {step.action.label}
+              <ChevronRight size={11} />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Connector */}
+      {idx < steps.length - 1 && (
+        <div className="flex justify-center py-2">
+          <div className="w-px h-6 bg-[#30363d]/60" />
+        </div>
+      )}
+    </motion.div>
+  );
+}
+
 export default function GuidePage() {
   const navigate = useNavigate();
+  const heroRef = useRef<HTMLDivElement>(null);
+  const tipRef = useRef<HTMLDivElement>(null);
+  const tipInView = useInView(tipRef, { once: true, margin: "-5%" });
 
   return (
     <div className="min-h-screen bg-[#0d1117] text-[#e6edf3] flex flex-col">
 
       {/* Header */}
-      <header className="border-b border-[#30363d] px-6 py-3 flex items-center gap-3">
-        <BookOpen size={18} className="text-[#58a6ff]" />
-        <span className="text-sm font-mono text-[#8b949e]">
-          AP Computer Science A
-          <span className="mx-2 text-[#30363d]">/</span>
-          <span className="text-[#e6edf3]">Study Plan</span>
-        </span>
+      <header className="sticky top-0 z-40 border-b border-[#30363d]/60 bg-[#0d1117]/90 backdrop-blur-sm px-5 py-2.5 flex items-center gap-2">
+        <span className="w-2 h-2 rounded-full bg-[#58a6ff]" />
+        <button
+          onClick={() => navigate("/")}
+          className="text-xs font-mono text-[#6e7681] hover:text-[#e6edf3] transition-colors"
+        >
+          apcsa
+        </button>
+        <span className="text-xs font-mono text-[#30363d]">/</span>
+        <span className="text-xs font-mono text-[#e6edf3]">guide</span>
         <div className="ml-auto">
-          <span className="text-xs font-mono text-[#3fb950] bg-green-900/20 border border-green-800/40 px-2 py-0.5 rounded-full">
+          <span className="text-xs font-mono text-[#3fb950] bg-green-900/15 border border-green-800/30 px-2 py-0.5 rounded">
             2025–2026 CED
           </span>
         </div>
       </header>
 
-      {/* Back button */}
-      <div className="px-6 pt-6 max-w-2xl mx-auto w-full">
+      <div className="max-w-2xl mx-auto w-full px-5 sm:px-8 py-10">
+
+        {/* Back */}
         <button
           onClick={() => navigate("/")}
-          className="flex items-center gap-1.5 text-sm font-mono text-[#8b949e] hover:text-[#e6edf3] transition-colors"
+          className="flex items-center gap-1.5 text-sm font-mono text-[#6e7681] hover:text-[#e6edf3] transition-colors mb-8 group"
         >
-          <ArrowLeft size={14} />
+          <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform" />
           Back to home
         </button>
-      </div>
 
-      {/* Hero */}
-      <section className="px-6 pt-8 pb-6 max-w-2xl mx-auto w-full text-center">
+        {/* Hero */}
         <motion.div
-          initial={{ opacity: 0, y: -12 }}
+          ref={heroRef}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
+          className="mb-10"
         >
           <p className="text-xs font-mono tracking-widest text-[#58a6ff] uppercase mb-3">
             Recommended Study Plan
@@ -106,124 +172,66 @@ export default function GuidePage() {
           <h1 className="text-3xl sm:text-4xl font-bold mb-3">
             How to Use <span className="text-[#58a6ff]">This Site</span>
           </h1>
-          <p className="text-[#8b949e] leading-relaxed max-w-lg mx-auto">
+          <p className="text-[#8b949e] leading-relaxed text-sm sm:text-base">
             Follow this cycle to make the most of the lessons, MCQ bank, and practice exams — and walk into the AP exam confident.
           </p>
         </motion.div>
-      </section>
 
-      {/* Steps */}
-      <main className="flex-1 px-6 pb-16 max-w-2xl mx-auto w-full">
-        <div className="flex flex-col items-center">
-          {steps.map((step, i) => {
-            const Icon = step.icon;
-            return (
-              <motion.div
-                key={step.num}
-                className="w-full"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.12, duration: 0.4 }}
-              >
-                {/* Step card */}
-                <div
-                  className={`
-                    rounded-xl border bg-[#161b22] ${step.border}
-                    p-6 hover:bg-[#1c2128] transition-colors duration-200
-                    hover:shadow-lg ${step.glow}
-                  `}
-                >
-                  <div className="flex items-start gap-4">
-                    {/* Step number + icon */}
-                    <div className="flex flex-col items-center gap-2 shrink-0">
-                      <div className={`p-2.5 rounded-lg ${step.iconBg}`}>
-                        <Icon size={20} />
-                      </div>
-                      <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded-md ${step.badge}`}>
-                        Step {step.num}
-                      </span>
-                    </div>
-
-                    {/* Content */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-baseline gap-2 mb-1 flex-wrap">
-                        <h2 className="font-semibold text-[#e6edf3]">{step.title}</h2>
-                        <span className="text-xs font-mono text-[#6e7681]">{step.subtitle}</span>
-                      </div>
-                      <p className="text-sm text-[#8b949e] leading-relaxed mb-4">
-                        {step.description}
-                      </p>
-                      <button
-                        onClick={() => navigate(step.action.path)}
-                        className={`
-                          inline-flex items-center gap-1.5 text-xs font-mono
-                          px-3 py-1.5 rounded-lg border transition-all duration-150
-                          ${step.badge} border-current/20
-                          hover:bg-current/10
-                        `}
-                      >
-                        {step.action.label}
-                        <ChevronRight size={12} />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Connector arrow between steps */}
-                {i < steps.length - 1 && (
-                  <div className="flex justify-center py-2 text-[#30363d]">
-                    <ArrowDown size={20} />
-                  </div>
-                )}
-              </motion.div>
-            );
-          })}
+        {/* Steps */}
+        <div className="mb-4">
+          {steps.map((step, i) => (
+            <StepCard
+              key={step.num}
+              step={step}
+              idx={i}
+              onAction={(path) => navigate(path)}
+            />
+          ))}
 
           {/* Final state */}
+          <div className="flex justify-center py-2">
+            <div className="w-px h-6 bg-[#30363d]/60" />
+          </div>
           <motion.div
-            className="w-full mt-2"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: steps.length * 0.12, duration: 0.4 }}
+            transition={{ delay: 0.5, duration: 0.4 }}
+            className="rounded-lg border border-[#3fb950]/25 bg-[#161b22] p-5 text-center"
+            style={{ borderLeftWidth: "3px", borderLeftColor: "#3fb950" }}
           >
-            <div className="flex justify-center py-2 text-[#30363d]">
-              <ArrowDown size={20} />
+            <div className="inline-flex items-center justify-center p-2.5 rounded-md bg-[#3fb950]/10 text-[#3fb950] mb-3">
+              <Trophy size={20} />
             </div>
-            <div className="rounded-xl border border-[#3fb950]/50 bg-[#161b22] p-6 text-center">
-              <div className="inline-flex items-center justify-center p-3 rounded-full bg-[#3fb950]/10 text-[#3fb950] mb-3">
-                <Trophy size={24} />
-              </div>
-              <h2 className="font-semibold text-[#3fb950] mb-1">You're Exam-Ready</h2>
-              <p className="text-sm text-[#8b949e]">
-                After completing all three practice exams and drilling your weak topics, you've seen every question type and closed your knowledge gaps. Go get that 5.
-              </p>
-            </div>
+            <h2 className="font-semibold text-[#3fb950] mb-1">Exam-Ready</h2>
+            <p className="text-sm text-[#8b949e] leading-relaxed">
+              After all three practice exams and drilling your weak topics, you've seen every question type. Go get that 5.
+            </p>
           </motion.div>
         </div>
 
-        {/* Quick tip */}
+        {/* Pro tip */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.7 }}
-          className="mt-10 rounded-lg border border-[#30363d] bg-[#161b22]/60 px-5 py-4"
+          ref={tipRef}
+          initial={{ opacity: 0, y: 10 }}
+          animate={tipInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.4 }}
+          className="mt-8 rounded-md border border-[#30363d]/60 bg-[#161b22]/60 px-4 py-4"
         >
-          <p className="text-xs font-mono text-[#58a6ff] mb-1 uppercase tracking-widest">Pro tip</p>
+          <p className="text-xs font-mono text-[#58a6ff] mb-1.5 uppercase tracking-widest">Pro tip</p>
           <p className="text-sm text-[#8b949e] leading-relaxed">
-            Don't skip straight to Practice Exam 2 after finishing Exam 1. Even if your score was high, use the MCQ Bank to drill any topic you got wrong. One missed concept on the real exam costs more than 10 minutes of drilling now.
+            Don't skip to Practice Exam 2 after Exam 1 — even with a high score. Use the MCQ Bank to drill every topic you got wrong. One missed concept on the real exam costs more than 10 minutes of drilling now.
           </p>
         </motion.div>
 
         <div className="mt-8 text-center">
           <button
             onClick={() => navigate("/")}
-            className="inline-flex items-center gap-2 text-sm font-mono text-[#8b949e] hover:text-[#e6edf3] transition-colors"
+            className="text-sm font-mono text-[#6e7681] hover:text-[#e6edf3] transition-colors"
           >
-            <ArrowLeft size={14} />
-            Back to home
+            ← Back to home
           </button>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

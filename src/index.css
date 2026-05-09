@@ -12,24 +12,73 @@
   body {
     margin: 0;
     min-height: 100vh;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: #0d1117; }
-  ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: #58a6ff; }
-
-  /* Code blocks */
-  pre, code {
+  pre, code, .font-mono {
     font-family: "JetBrains Mono", "Fira Code", monospace;
+  }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: #0d1117; }
+  ::-webkit-scrollbar-thumb { background: #21262d; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #58a6ff40; }
+
+  ::selection {
+    background: #58a6ff30;
+    color: #e6edf3;
   }
 }
 
 @layer components {
-  .unit-card-blue  { --card-color: #58a6ff; }
-  .unit-card-green { --card-color: #3fb950; }
-  .unit-card-purple { --card-color: #bc8cff; }
-  .unit-card-orange { --card-color: #f78166; }
+  /* Unit accent colors */
+  .unit-card-blue  { --unit-color: #58a6ff; }
+  .unit-card-green { --unit-color: #3fb950; }
+  .unit-card-purple { --unit-color: #bc8cff; }
+  .unit-card-orange { --unit-color: #f78166; }
+
+  /* Dot grid background */
+  .dot-grid {
+    background-image: radial-gradient(circle, #30363d 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  /* Code syntax colors */
+  .token-keyword { color: #ff7b72; }
+  .token-string  { color: #a5d6ff; }
+  .token-comment { color: #8b949e; }
+  .token-number  { color: #79c0ff; }
+}
+
+@layer utilities {
+  /* Blinking cursor */
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  .animate-blink {
+    animation: blink 1.1s step-end infinite;
+  }
+
+  /* Shimmer animation */
+  @keyframes shimmer {
+    from { transform: translateX(-100%); }
+    to   { transform: translateX(300%); }
+  }
+  .animate-shimmer {
+    animation: shimmer 2.4s linear infinite;
+  }
+
+  /* Subtle scan line for hero */
+  @keyframes scan {
+    0%   { transform: translateY(-100%); opacity: 0; }
+    10%  { opacity: 0.04; }
+    90%  { opacity: 0.04; }
+    100% { transform: translateY(1000%); opacity: 0; }
+  }
+  .animate-scan {
+    animation: scan 8s linear infinite;
+  }
 }
