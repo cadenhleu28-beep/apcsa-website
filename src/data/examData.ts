@@ -47,11 +47,11 @@ System.out.println(x % y);`,
 System.out.println(s.substring(1, 4));`,
     options: [
       { id: "A", text: '"APCS"' },
-      { id: "B", text: '"PCS"' },
+      { id: "B", text: '"APC"' },
       { id: "C", text: '"PCSA"' },
-      { id: "D", text: '"APC"' },
+      { id: "D", text: '"PCS"' },
     ],
-    correctId: "B",
+    correctId: "D",
     explanation:
       'substring(1, 4) returns characters from index 1 up to but NOT including index 4: indices 1, 2, 3 → "P", "C", "S" → "PCS". The end index is exclusive.',
     trap: "substring end index is exclusive",
@@ -67,12 +67,12 @@ System.out.println(s.substring(1, 4));`,
 System.out.println(word.length());
 System.out.println(word.charAt(2));`,
     options: [
-      { id: "A", text: "4\nv" },
+      { id: "A", text: "5\na" },
       { id: "B", text: "4\na" },
       { id: "C", text: "3\nv" },
-      { id: "D", text: "5\na" },
+      { id: "D", text: "4\nv" },
     ],
-    correctId: "A",
+    correctId: "D",
     explanation:
       '"Java" has 4 characters so length() returns 4. Indices: J=0, a=1, v=2, a=3. charAt(2) returns \'v\'.',
     trap: "zero-based string indexing",
@@ -88,12 +88,12 @@ System.out.println(word.charAt(2));`,
 int n = (int) d;
 System.out.println(n);`,
     options: [
-      { id: "A", text: "9" },
+      { id: "A", text: "9.0" },
       { id: "B", text: "10" },
       { id: "C", text: "9.99" },
-      { id: "D", text: "9.0" },
+      { id: "D", text: "9" },
     ],
-    correctId: "A",
+    correctId: "D",
     explanation:
       "Casting a double to int truncates the decimal portion — it does NOT round. (int)9.99 drops the .99 and yields 9.",
     trap: "casting truncates, does not round",
@@ -111,12 +111,12 @@ a *= 2;
 a -= 5;
 System.out.println(a);`,
     options: [
-      { id: "A", text: "21" },
-      { id: "B", text: "31" },
+      { id: "A", text: "31" },
+      { id: "B", text: "21" },
       { id: "C", text: "26" },
       { id: "D", text: "20" },
     ],
-    correctId: "A",
+    correctId: "B",
     explanation:
       "Step by step: a=10 → a+=3 → 13 → a*=2 → 26 → a-=5 → 21. Compound operators execute left to right, modifying a each time.",
     trap: "compound operator ordering",
@@ -132,12 +132,12 @@ System.out.println(a);`,
 System.out.println(s.indexOf("put"));
 System.out.println(s.indexOf("z"));`,
     options: [
-      { id: "A", text: "3\n-1" },
+      { id: "A", text: "4\n-1" },
       { id: "B", text: "3\n0" },
-      { id: "C", text: "4\n-1" },
+      { id: "C", text: "3\n-1" },
       { id: "D", text: "2\n-1" },
     ],
-    correctId: "A",
+    correctId: "C",
     explanation:
       '"computer": c=0,o=1,m=2,p=3,u=4,t=5,e=6,r=7. "put" begins at index 3. indexOf returns -1 when the substring is not found.',
     trap: 'indexOf returns -1 for "not found"',
@@ -152,12 +152,12 @@ System.out.println(s.indexOf("z"));`,
     code: `System.out.println(Math.abs(-7));
 System.out.println(Math.pow(2, 4));`,
     options: [
-      { id: "A", text: "7\n16.0" },
-      { id: "B", text: "-7\n16.0" },
+      { id: "A", text: "-7\n16.0" },
+      { id: "B", text: "7\n16.0" },
       { id: "C", text: "7\n16" },
       { id: "D", text: "7\n8.0" },
     ],
-    correctId: "A",
+    correctId: "B",
     explanation:
       "Math.abs(-7) = 7. Math.pow returns a double, so 2^4 prints as 16.0, not 16. Math.pow(2, 3) would be 8.0.",
     trap: "Math.pow always returns double",
@@ -174,12 +174,12 @@ int b = 4;
 System.out.println("Sum: " + a + b);
 System.out.println(a + b + " is the sum");`,
     options: [
-      { id: "A", text: '"Sum: 34"\n"7 is the sum"' },
-      { id: "B", text: '"Sum: 7"\n"7 is the sum"' },
+      { id: "A", text: '"Sum: 7"\n"7 is the sum"' },
+      { id: "B", text: '"Sum: 34"\n"7 is the sum"' },
       { id: "C", text: '"Sum: 7"\n"34 is the sum"' },
       { id: "D", text: '"Sum: 34"\n"34 is the sum"' },
     ],
-    correctId: "A",
+    correctId: "B",
     explanation:
       'Line 1: "Sum: " + a evaluates left-to-right → "Sum: 3", then + b → "Sum: 34". Line 2: a + b is evaluated first (both ints) → 7, then + " is the sum" → "7 is the sum".',
     trap: "string concatenation is left-to-right; int+int evaluates before string concat",
@@ -194,11 +194,11 @@ System.out.println(a + b + " is the sum");`,
     code: `int result = (int)(Math.random() * 10) + 1;`,
     options: [
       { id: "A", text: "Integers from 0 to 10, inclusive" },
-      { id: "B", text: "Integers from 1 to 10, inclusive" },
-      { id: "C", text: "Integers from 0 to 9, inclusive" },
+      { id: "B", text: "Integers from 0 to 9, inclusive" },
+      { id: "C", text: "Integers from 1 to 10, inclusive" },
       { id: "D", text: "Integers from 1 to 11, inclusive" },
     ],
-    correctId: "B",
+    correctId: "C",
     explanation:
       "Math.random() returns [0.0, 1.0). Multiplied by 10 gives [0.0, 10.0). Casting to int gives 0–9. Adding 1 gives 1–10.",
     trap: "Math.random() upper bound is exclusive",
@@ -236,12 +236,12 @@ System.out.println(s.length());`,
 boolean b = (x > 5) && (x % 2 == 0);
 System.out.println(b);`,
     options: [
-      { id: "A", text: "true" },
+      { id: "A", text: "1" },
       { id: "B", text: "false" },
-      { id: "C", text: "1" },
+      { id: "C", text: "true" },
       { id: "D", text: "0" },
     ],
-    correctId: "A",
+    correctId: "C",
     explanation:
       "x > 5 is true (8 > 5). x % 2 == 0 is true (8 is even). true && true = true.",
     trap: "boolean prints as true/false not 1/0",
@@ -261,12 +261,12 @@ else if (score >= 70) grade = "C";
 else grade = "D";
 System.out.println(grade);`,
     options: [
-      { id: "A", text: '"B"' },
-      { id: "B", text: '"C"' },
+      { id: "A", text: '"C"' },
+      { id: "B", text: '"B"' },
       { id: "C", text: '"D"' },
       { id: "D", text: '"A"' },
     ],
-    correctId: "B",
+    correctId: "A",
     explanation:
       "75 is not >= 90, not >= 80, but IS >= 70, so grade = \"C\". Once a branch executes, the remaining else-if branches are skipped.",
     trap: "only the first matching branch executes",
@@ -305,11 +305,11 @@ while (n <= 32) {
 System.out.println(count);`,
     options: [
       { id: "A", text: "4" },
-      { id: "B", text: "5" },
-      { id: "C", text: "6" },
+      { id: "B", text: "6" },
+      { id: "C", text: "5" },
       { id: "D", text: "32" },
     ],
-    correctId: "C",
+    correctId: "B",
     explanation:
       "n progresses: 1 → 2 → 4 → 8 → 16 → 32 → 64. The loop runs once for each starting value of n (1, 2, 4, 8, 16, 32) — including when n=32 because 32 ≤ 32 is true. That gives 6 iterations; then n=64 > 32 and the loop exits with count=6.",
     trap: "off-by-one: the loop still runs when n equals the boundary value (32 ≤ 32 is true)",
@@ -329,12 +329,12 @@ System.out.println(count);`,
 }`,
     question: "What is printed as a result of executing the code segment above?",
     options: [
-      { id: "A", text: "1 \n1 2 \n1 2 3" },
+      { id: "A", text: "1 \n2 \n3" },
       { id: "B", text: "1 2 3 \n1 2 \n1" },
-      { id: "C", text: "1 \n2 \n3" },
+      { id: "C", text: "1 \n1 2 \n1 2 3" },
       { id: "D", text: "1 2 3 \n1 2 3 \n1 2 3" },
     ],
-    correctId: "A",
+    correctId: "C",
     explanation:
       "i=1: inner loop j runs 1 time → prints \"1 \" then newline. i=2: j runs twice → \"1 2 \" then newline. i=3: j runs 3 times → \"1 2 3 \" then newline. The inner loop bound is j <= i.",
     trap: "inner loop bound depends on outer loop variable",
@@ -421,12 +421,12 @@ while (i < s.length()) {
 }
 System.out.println(count);`,
     options: [
-      { id: "A", text: "1" },
-      { id: "B", text: "2" },
+      { id: "A", text: "2" },
+      { id: "B", text: "1" },
       { id: "C", text: "3" },
       { id: "D", text: "0" },
     ],
-    correctId: "B",
+    correctId: "A",
     explanation:
       "\"hello\": h=0, e=1, l=2, l=3, o=4. 'l' appears at indices 2 and 3, so count = 2.",
     trap: "count occurrences — must trace all positions",
@@ -469,11 +469,11 @@ boolean result = (x != 0) && (10 / x > 2);
 System.out.println(result);`,
     options: [
       { id: "A", text: "true" },
-      { id: "B", text: "false" },
+      { id: "B", text: "The code does not compile" },
       { id: "C", text: "An ArithmeticException is thrown" },
-      { id: "D", text: "The code does not compile" },
+      { id: "D", text: "false" },
     ],
-    correctId: "B",
+    correctId: "D",
     explanation:
       "Short-circuit evaluation: (x != 0) evaluates to false. With &&, if the left side is false, the right side is NEVER evaluated. So 10/x is never computed and no exception is thrown. result = false.",
     trap: "&& short-circuits: right side not evaluated when left is false",
@@ -486,12 +486,12 @@ System.out.println(result);`,
     question:
       "A method contains two nested for loops, each iterating n times. Which of the following correctly describes the number of operations the method performs relative to n?",
     options: [
-      { id: "A", text: "O(n)" },
+      { id: "A", text: "O(n²)" },
       { id: "B", text: "O(n + n)" },
-      { id: "C", text: "O(n²)" },
+      { id: "C", text: "O(n)" },
       { id: "D", text: "O(2n)" },
     ],
-    correctId: "C",
+    correctId: "A",
     explanation:
       "The outer loop runs n times. For each outer iteration, the inner loop runs n times. Total: n × n = n² operations → O(n²).",
     trap: "nested loops multiply (n²), not add (2n)",
@@ -523,12 +523,12 @@ System.out.println(result);`,
 Box b = new Box(4, 6);
 System.out.println(b.area());`,
     options: [
-      { id: "A", text: "10" },
-      { id: "B", text: "24" },
+      { id: "A", text: "24" },
+      { id: "B", text: "10" },
       { id: "C", text: "46" },
       { id: "D", text: "12" },
     ],
-    correctId: "B",
+    correctId: "A",
     explanation:
       "new Box(4, 6) sets width=4 and height=6. area() returns width * height = 4 * 6 = 24.",
     trap: "trace constructor assignment then method call",
@@ -660,12 +660,12 @@ Thing t = new Thing();
 t.show();
 t.getX();`,
     options: [
-      { id: "A", text: "10\n10" },
+      { id: "A", text: "20\n10" },
       { id: "B", text: "20\n20" },
-      { id: "C", text: "20\n10" },
+      { id: "C", text: "10\n10" },
       { id: "D", text: "10\n20" },
     ],
-    correctId: "C",
+    correctId: "A",
     explanation:
       "In show(), the local variable x=20 shadows the instance variable x=10. System.out.println(x) prints the local 20. In getX(), there is no local x, so x refers to the instance variable x=10.",
     trap: "local variable shadows instance variable in its own method scope",
@@ -731,12 +731,12 @@ t.getX();`,
 System.out.println(arr[0]);
 System.out.println(arr[4]);`,
     options: [
-      { id: "A", text: "0\n0" },
+      { id: "A", text: "1\n5" },
       { id: "B", text: "null\nnull" },
       { id: "C", text: "An ArrayIndexOutOfBoundsException is thrown" },
-      { id: "D", text: "1\n5" },
+      { id: "D", text: "0\n0" },
     ],
-    correctId: "A",
+    correctId: "D",
     explanation:
       "In Java, integer arrays are automatically initialized to 0. arr[4] is the last valid index (indices 0–4 for a size-5 array), so no exception is thrown.",
     trap: "int arrays default to 0, not null",
@@ -755,12 +755,12 @@ for (int i = 0; i < data.length; i++) {
 }
 System.out.println(result);`,
     options: [
-      { id: "A", text: "2" },
-      { id: "B", text: "9" },
+      { id: "A", text: "9" },
+      { id: "B", text: "2" },
       { id: "C", text: "28" },
       { id: "D", text: "3" },
     ],
-    correctId: "B",
+    correctId: "A",
     explanation:
       "Standard maximum-finding algorithm. result starts at 0. As the loop progresses: 2>0 → result=2, 5>2 → result=5, 8>5 → result=8, 1<8, 9>8 → result=9, 3<9. Final: 9.",
     trap: "max-finding algorithm — result stays highest value seen",
@@ -783,13 +783,13 @@ while (sc.hasNextInt()) {
 System.out.println(sum);`,
     options: [
       { id: "A", text: "47" },
-      { id: "B", text: "37" },
+      { id: "B", text: "2" },
       { id: "C", text: "25" },
-      { id: "D", text: "2" },
+      { id: "D", text: "37" },
     ],
-    correctId: "B",
+    correctId: "D",
     explanation:
-      "The loop reads each integer with hasNextInt()/nextInt(). Only values greater than 10 are added to sum. 12 > 10 → sum = 12. 7 is not > 10. 25 > 10 → sum = 37. 3 is not > 10. Result: 37. Option A (47) is the sum of all four values — the condition is ignored. Option C (25) is just the largest value. Option D (2) is the count of values > 10.",
+      "The loop reads each integer with hasNextInt()/nextInt(). Only values greater than 10 are added to sum. 12 > 10 → sum = 12. 7 is not > 10. 25 > 10 → sum = 37. 3 is not > 10. Result: 37. Option A (47) is the sum of all four values — the condition is ignored. Option C (25) is just the largest value. Option B (2) is the count of values > 10.",
     trap: "Reading all values vs. conditionally accumulating — the if (val > 10) filters which values contribute to sum",
   },
   {
@@ -834,11 +834,11 @@ for (int i = 0; i < nums.size(); i++) {
 System.out.println(nums);`,
     options: [
       { id: "A", text: "[1, 5]" },
-      { id: "B", text: "[1, 4, 5]" },
+      { id: "B", text: "[1, 3, 5]" },
       { id: "C", text: "[1, 2, 4, 5, 6]" },
-      { id: "D", text: "[1, 3, 5]" },
+      { id: "D", text: "[1, 4, 5]" },
     ],
-    correctId: "B",
+    correctId: "D",
     explanation:
       "Trace: [1,2,4,5,6]. i=0: 1 odd, skip. i=1: 2 even, remove(1) → [1,4,5,6]. i=2: get(2)=5 (4 was skipped because removal shifted indices). i=3: get(3)=6 even, remove(3) → [1,4,5]. i=4: 4 < 3 false (size is now 3), stop. 4 was never checked.",
     trap: "forward removal skips the element after the removed one — use backward traversal",
@@ -859,12 +859,12 @@ words.remove(0);
 System.out.println(words.get(0));
 System.out.println(words.size());`,
     options: [
-      { id: "A", text: '"apple"\n2' },
-      { id: "B", text: '"blueberry"\n2' },
+      { id: "A", text: '"blueberry"\n2' },
+      { id: "B", text: '"apple"\n2' },
       { id: "C", text: '"banana"\n2' },
       { id: "D", text: '"blueberry"\n3' },
     ],
-    correctId: "B",
+    correctId: "A",
     explanation:
       'Start: [apple, banana, cherry]. set(1, "blueberry") → [apple, blueberry, cherry]. remove(0) → [blueberry, cherry]. get(0) = "blueberry". size() = 2.',
     trap: "trace set() then remove() in order — indices shift after remove",
@@ -881,11 +881,11 @@ System.out.println(grid.length);
 System.out.println(grid[0].length);`,
     options: [
       { id: "A", text: "4\n3" },
-      { id: "B", text: "3\n4" },
+      { id: "B", text: "12\n0" },
       { id: "C", text: "3\n3" },
-      { id: "D", text: "12\n0" },
+      { id: "D", text: "3\n4" },
     ],
-    correctId: "B",
+    correctId: "D",
     explanation:
       "new int[3][4] creates 3 rows and 4 columns. grid.length is the number of rows = 3. grid[0].length is the number of columns = 4.",
     trap: "grid.length = rows; grid[0].length = columns",
@@ -953,10 +953,10 @@ System.out.println(sum);`,
     options: [
       { id: "A", text: "1000" },
       { id: "B", text: "500" },
-      { id: "C", text: "1" },
-      { id: "D", text: "10" },
+      { id: "C", text: "10" },
+      { id: "D", text: "1" },
     ],
-    correctId: "C",
+    correctId: "D",
     explanation:
       "In the best case, the target is exactly the middle element. Binary search compares it on the first check and returns immediately — 1 comparison. The worst case is O(log n) ≈ 10 for 1000 elements.",
     trap: "best case binary search = 1 comparison (middle element)",
@@ -975,10 +975,10 @@ System.out.println(sum);`,
     options: [
       { id: "A", text: "4" },
       { id: "B", text: "8" },
-      { id: "C", text: "10" },
-      { id: "D", text: "24" },
+      { id: "C", text: "24" },
+      { id: "D", text: "10" },
     ],
-    correctId: "D",
+    correctId: "C",
     explanation:
       "mystery(4) = 4 * mystery(3) = 4 * 3 * mystery(2) = 4 * 3 * 2 * mystery(1) = 4 * 3 * 2 * 1 = 24. This is the factorial function.",
     trap: "trace recursive calls all the way to the base case",

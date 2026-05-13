@@ -26,12 +26,12 @@ int b = 2;
 System.out.println("sum: " + a + b);
 System.out.println(a + b + " total");`,
     options: [
-      { id: "A", text: '"sum: 12"\n"3 total"' },
+      { id: "A", text: '"sum: 12"\n"12 total"' },
       { id: "B", text: '"sum: 3"\n"3 total"' },
-      { id: "C", text: '"sum: 12"\n"12 total"' },
+      { id: "C", text: '"sum: 12"\n"3 total"' },
       { id: "D", text: '"sum: 3"\n"12 total"' },
     ],
-    correctId: "A",
+    correctId: "C",
     explanation:
       'Line 1: "sum: " + a evaluates left-to-right → "sum: 1", then + b → "sum: 12" (String concat, not addition). Line 2: a + b evaluates first (both ints) → 3, then 3 + " total" → "3 total". Once a String appears on the LEFT of +, all remaining additions become concatenation.',
     trap: "when a String appears first in +, all subsequent + operations are concatenation; when ints appear first they add numerically",
@@ -44,14 +44,14 @@ System.out.println(a + b + " total");`,
     question:
       "Which of the following assignments will cause a compile error in Java?",
     options: [
-      { id: "A", text: "double d = 5;", isCode: true },
-      { id: "B", text: "int n = 5.0;", isCode: true },
+      { id: "A", text: "int n = 5.0;", isCode: true },
+      { id: "B", text: "double d = 5;", isCode: true },
       { id: "C", text: "int m = 'A';", isCode: true },
       { id: "D", text: "boolean flag = false;", isCode: true },
     ],
-    correctId: "B",
+    correctId: "A",
     explanation:
-      "5.0 is a double literal. Assigning a double to an int requires an explicit cast because precision could be lost (narrowing conversion). Java prohibits this without a cast: int n = (int) 5.0; would compile. Options A, C, and D are valid: double can receive an int (widening), int can receive a char (char is an integral type, 'A' = 65), and boolean assignment of a boolean literal is always valid.",
+      "5.0 is a double literal. Assigning a double to an int requires an explicit cast because precision could be lost (narrowing conversion). Java prohibits this without a cast: int n = (int) 5.0; would compile. Options B, C, and D are valid: double can receive an int (widening), int can receive a char (char is an integral type, 'A' = 65), and boolean assignment of a boolean literal is always valid.",
     trap: "widening conversions (int→double, char→int) are automatic; narrowing conversions (double→int) require an explicit cast",
   },
   {
@@ -65,12 +65,12 @@ System.out.println(a + b + " total");`,
 int t = (int) temp;
 System.out.println(t);`,
     options: [
-      { id: "A", text: "-5" },
+      { id: "A", text: "-5.8" },
       { id: "B", text: "-6" },
-      { id: "C", text: "-5.8" },
+      { id: "C", text: "-5" },
       { id: "D", text: "5" },
     ],
-    correctId: "A",
+    correctId: "C",
     explanation:
       "Casting a double to int truncates toward zero — it removes the decimal portion without rounding. (int)(-5.8) drops the .8 and yields -5, not -6. Floor(-5.8) would be -6, but integer casting is not the same as Math.floor().",
     trap: "casting truncates toward zero, not toward negative infinity — (int)(-5.8) = -5, not -6",
@@ -89,11 +89,11 @@ x /= 2;
 System.out.println(x);`,
     options: [
       { id: "A", text: "6" },
-      { id: "B", text: "7" },
+      { id: "B", text: "5" },
       { id: "C", text: "8" },
-      { id: "D", text: "5" },
+      { id: "D", text: "7" },
     ],
-    correctId: "B",
+    correctId: "D",
     explanation:
       "Step by step: x=10 → x++ → 11 → x+=3 → 14 → x/=2 → 7 (integer division: 14/2 = 7 exactly, no truncation needed here). Compound operators modify x in place, left to right.",
     trap: "trace each operator in order: x++ increments first, then += adds, then /= divides",
@@ -108,12 +108,12 @@ System.out.println(x);`,
     code: `System.out.println(Math.abs(-7));
 System.out.println(Math.pow(2, 4));`,
     options: [
-      { id: "A", text: "7\n16.0" },
+      { id: "A", text: "7\n8.0" },
       { id: "B", text: "-7\n16.0" },
       { id: "C", text: "7\n16" },
-      { id: "D", text: "7\n8.0" },
+      { id: "D", text: "7\n16.0" },
     ],
-    correctId: "A",
+    correctId: "D",
     explanation:
       "Math.abs(-7) returns 7 (an int, since the argument is int). Math.pow(2, 4) returns 2^4 = 16 as a double, so it prints as 16.0. Math.pow always returns double. Math.pow(2,4) is not 8 — that would be 2^3.",
     trap: "Math.pow always returns double → prints 16.0 not 16; Math.pow(2,4) = 2⁴ = 16, not 2×4 = 8",
@@ -129,12 +129,12 @@ System.out.println(Math.pow(2, 4));`,
 System.out.println(s.charAt(4));
 System.out.println(s.length());`,
     options: [
-      { id: "A", text: "P\n8" },
+      { id: "A", text: "a\n8" },
       { id: "B", text: "P\n7" },
-      { id: "C", text: "a\n8" },
+      { id: "C", text: "P\n8" },
       { id: "D", text: "r\n8" },
     ],
-    correctId: "A",
+    correctId: "C",
     explanation:
       '"JavaProg": J=0, a=1, v=2, a=3, P=4, r=5, o=6, g=7. charAt(4) returns \'P\'. length() counts all 8 characters.',
     trap: "charAt uses zero-based indexing — index 4 is the 5th character",
@@ -152,12 +152,12 @@ if (name == null) {
 }
 System.out.println(name);`,
     options: [
-      { id: "A", text: '"default"' },
+      { id: "A", text: "A NullPointerException is thrown" },
       { id: "B", text: "null" },
       { id: "C", text: '""' },
-      { id: "D", text: "A NullPointerException is thrown" },
+      { id: "D", text: '"default"' },
     ],
-    correctId: "A",
+    correctId: "D",
     explanation:
       'name starts as null. The condition name == null is true (null == null is always true for reference comparisons). Inside the if block, name is reassigned to "default". No NullPointerException occurs here because we only compare the reference, not call a method on it.',
     trap: "null == null is valid; a NullPointerException only occurs when you call a method ON a null reference",
@@ -228,12 +228,12 @@ int idx = word.indexOf("put");
 System.out.println(idx);
 System.out.println(word.substring(idx, idx + 3));`,
     options: [
-      { id: "A", text: '3\n"put"' },
+      { id: "A", text: '3\n"pute"' },
       { id: "B", text: '2\n"mpu"' },
       { id: "C", text: '4\n"ute"' },
-      { id: "D", text: '3\n"pute"' },
+      { id: "D", text: '3\n"put"' },
     ],
-    correctId: "A",
+    correctId: "D",
     explanation:
       '"computer": c=0, o=1, m=2, p=3, u=4, t=5, e=6, r=7. The substring "put" starts at index 3 (p→3, u→4, t→5). substring(3, 3+3) = substring(3, 6) extracts indices 3,4,5 → "put". The end index in substring is exclusive.',
     trap: "indexOf returns the starting index of the first character of the match; substring end is exclusive",
@@ -251,12 +251,12 @@ System.out.println(word.substring(idx, idx + 3));`,
 boolean result = (x != 0) && (10 / x > 1);
 System.out.println(result);`,
     options: [
-      { id: "A", text: "true" },
+      { id: "A", text: "An ArithmeticException is thrown" },
       { id: "B", text: "false" },
-      { id: "C", text: "An ArithmeticException is thrown" },
+      { id: "C", text: "true" },
       { id: "D", text: "1" },
     ],
-    correctId: "A",
+    correctId: "C",
     explanation:
       "x != 0 → 4 != 0 → true. Because the left operand of && is true, the right operand IS evaluated: 10 / 4 = 2 (integer division), 2 > 1 → true. true && true = true. In Java, booleans print as true/false, not 1/0.",
     trap: "&& evaluates the right side only when the left is true (short-circuit); here x != 0 is true so both sides are checked",
@@ -278,10 +278,10 @@ System.out.println(grade);`,
     options: [
       { id: "A", text: '"A"' },
       { id: "B", text: '"B"' },
-      { id: "C", text: '"C"' },
-      { id: "D", text: '"F"' },
+      { id: "C", text: '"F"' },
+      { id: "D", text: '"C"' },
     ],
-    correctId: "C",
+    correctId: "D",
     explanation:
       '72 is not >= 90 (skip). 72 is not >= 80 (skip). 72 IS >= 70 → grade = "C". The remaining else branch is skipped. Only the first matching branch executes.',
     trap: "once a matching branch is found, all subsequent else-if branches are skipped regardless of whether they would also match",
@@ -323,12 +323,12 @@ if (x > 0) {
     question:
       "Which of the following expressions is equivalent to !(a > 5 && b < 10)?",
     options: [
-      { id: "A", text: "a <= 5 || b >= 10", isCode: true },
+      { id: "A", text: "!(a <= 5) || !(b >= 10)", isCode: true },
       { id: "B", text: "a <= 5 && b >= 10", isCode: true },
       { id: "C", text: "a > 5 || b < 10", isCode: true },
-      { id: "D", text: "!(a <= 5) || !(b >= 10)", isCode: true },
+      { id: "D", text: "a <= 5 || b >= 10", isCode: true },
     ],
-    correctId: "A",
+    correctId: "D",
     explanation:
       "De Morgan's Law: !(P && Q) = !P || !Q. Negating (a > 5) gives (a <= 5). Negating (b < 10) gives (b >= 10). The && flips to ||: a <= 5 || b >= 10.",
     trap: "De Morgan's: NOT(A AND B) = NOT A OR NOT B — the operator flips from && to ||",
@@ -350,12 +350,12 @@ System.out.println(sum);
 System.out.println(x);`,
     question: "What is printed as a result of executing the code segment above?",
     options: [
-      { id: "A", text: "15\n6" },
+      { id: "A", text: "10\n5" },
       { id: "B", text: "15\n5" },
-      { id: "C", text: "10\n5" },
+      { id: "C", text: "15\n6" },
       { id: "D", text: "14\n6" },
     ],
-    correctId: "A",
+    correctId: "C",
     explanation:
       "The loop runs while x <= 5. x takes values 1, 2, 3, 4, 5. sum = 1+2+3+4+5 = 15. After x=5 is processed, x++ makes x=6, then the condition x <= 5 (6 <= 5) is false and the loop exits. sum=15, x=6.",
     trap: "after the last iteration x is incremented to 6 before the condition is re-checked — x prints as 6, not 5",
@@ -390,12 +390,12 @@ System.out.println(x);`,
     System.out.print(i + " ");
 }`,
     options: [
-      { id: "A", text: '"5 4 3 2 1 "' },
+      { id: "A", text: '"1 2 3 4 "' },
       { id: "B", text: '"1 2 3 4 5 "' },
       { id: "C", text: '"5 4 3 2 "' },
-      { id: "D", text: '"1 2 3 4 "' },
+      { id: "D", text: '"5 4 3 2 1 "' },
     ],
-    correctId: "A",
+    correctId: "D",
     explanation:
       "The loop starts at i=5 and decrements (i--) as long as i >= 1. i takes values: 5, 4, 3, 2, 1. Each iteration prints i followed by a space. Condition i >= 1 is true when i=1 (so 1 is printed), then i becomes 0 and the loop exits.",
     trap: "i >= 1 means i=1 is included — the count goes down to 1, not stopping before it",
@@ -414,12 +414,12 @@ for (int i = arr.length - 1; i >= 0; i--) {
 }
 System.out.println(total);`,
     options: [
-      { id: "A", text: "15" },
-      { id: "B", text: "14" },
+      { id: "A", text: "14" },
+      { id: "B", text: "15" },
       { id: "C", text: "5" },
       { id: "D", text: "An ArrayIndexOutOfBoundsException is thrown" },
     ],
-    correctId: "A",
+    correctId: "B",
     explanation:
       "The loop traverses the array from the last index (arr.length-1 = 4) down to index 0. It visits arr[4]=5, arr[3]=4, arr[2]=3, arr[1]=2, arr[0]=1. total = 5+4+3+2+1 = 15. The sum is the same regardless of traversal direction.",
     trap: "starting at arr.length-1 = 4 (not arr.length = 5) prevents an out-of-bounds exception; the sum is 15 not 14",
@@ -441,11 +441,11 @@ for (int i = 1; i < data.length; i++) {
 System.out.println(min);`,
     options: [
       { id: "A", text: "8" },
-      { id: "B", text: "3" },
-      { id: "C", text: "2" },
+      { id: "B", text: "2" },
+      { id: "C", text: "3" },
       { id: "D", text: "11" },
     ],
-    correctId: "C",
+    correctId: "B",
     explanation:
       "Standard minimum-finding algorithm. min starts at data[0]=8. i=1: 3 < 8 → min=3. i=2: 11 < 3? No. i=3: 5 < 3? No. i=4: 2 < 3 → min=2. i=5: 9 < 2? No. Final min=2.",
     trap: "trace all elements — min is updated every time a smaller value is found, not just the first time",
@@ -491,12 +491,12 @@ System.out.println(vowelCount);`,
 }
 System.out.println();`,
     options: [
-      { id: "A", text: '"XXXXXX"' },
+      { id: "A", text: '"XXX"' },
       { id: "B", text: '"X"\n"XX"\n"XXX"' },
-      { id: "C", text: '"XXX"' },
+      { id: "C", text: '"XXXXXX"' },
       { id: "D", text: '"XXXXXXXXX"' },
     ],
-    correctId: "A",
+    correctId: "C",
     explanation:
       "i=0: inner loop runs 0+1=1 time → 1 X. i=1: inner loop runs 1+1=2 times → 2 X's. i=2: inner loop runs 2+1=3 times → 3 X's. All 1+2+3=6 X's are printed by System.out.print (no newlines between them). The final println() only adds a newline after all X's.",
     trap: "System.out.print does not add a newline — all X's appear on one line; println() at the end adds only the trailing newline",
@@ -509,12 +509,12 @@ System.out.println();`,
     question:
       "A method contains a single for loop that iterates exactly n times. The loop body performs one comparison and one assignment — both constant-time operations. Which of the following best describes the time complexity of this method?",
     options: [
-      { id: "A", text: "O(1)" },
+      { id: "A", text: "O(n)" },
       { id: "B", text: "O(log n)" },
-      { id: "C", text: "O(n)" },
+      { id: "C", text: "O(1)" },
       { id: "D", text: "O(n²)" },
     ],
-    correctId: "C",
+    correctId: "A",
     explanation:
       "A single loop that iterates n times, with constant-time work inside, performs n total operations. This is linear time: O(n). O(1) would require no loop at all. O(log n) arises from halving (binary search). O(n²) arises from nested loops.",
     trap: "one loop → O(n); nested loops → O(n²); halving each iteration → O(log n); no loop → O(1)",
@@ -580,12 +580,12 @@ System.out.println();`,
 Rectangle r = new Rectangle(4, 6);
 System.out.println(r.area());`,
     options: [
-      { id: "A", text: "10" },
+      { id: "A", text: "24" },
       { id: "B", text: "20" },
-      { id: "C", text: "24" },
+      { id: "C", text: "10" },
       { id: "D", text: "48" },
     ],
-    correctId: "C",
+    correctId: "A",
     explanation:
       "new Rectangle(4, 6) sets width=4 and height=6. area() returns width * height = 4 * 6 = 24.",
     trap: "the constructor parameters are width and height (4 and 6) — area is the product, not the sum",
@@ -654,11 +654,11 @@ c.increment();
 System.out.println(c.getCount());`,
     options: [
       { id: "A", text: "5" },
-      { id: "B", text: "6" },
-      { id: "C", text: "7" },
+      { id: "B", text: "7" },
+      { id: "C", text: "6" },
       { id: "D", text: "10" },
     ],
-    correctId: "C",
+    correctId: "B",
     explanation:
       "new Counter(5) sets count=5. c.increment() runs twice: count becomes 6, then 7. getCount() returns 7.",
     trap: "increment() is called TWICE, so count increases by 2 (from 5 to 7), not 1",
@@ -680,12 +680,12 @@ System.out.println(c.getCount());`,
 System.out.println(Converter.celsiusToFahrenheit(0));
 System.out.println(Converter.celsiusToFahrenheit(100));`,
     options: [
-      { id: "A", text: "32.0\n212.0" },
+      { id: "A", text: "32.0\n100.0" },
       { id: "B", text: "32\n212" },
       { id: "C", text: "0.0\n100.0" },
-      { id: "D", text: "32.0\n100.0" },
+      { id: "D", text: "32.0\n212.0" },
     ],
-    correctId: "A",
+    correctId: "D",
     explanation:
       "0°C → 0 × 9.0/5.0 + 32 = 0 + 32 = 32.0 (double). 100°C → 100 × 9.0/5.0 + 32 = 180.0 + 32 = 212.0. Because the method returns double, both print with a decimal point. Static methods are called on the class name: Converter.celsiusToFahrenheit().",
     trap: "the return type is double, so output always includes a decimal point (32.0, not 32)",
@@ -730,7 +730,7 @@ e.printX(99);`,
     options: [
       {
         id: "A",
-        text: "A NullPointerException in the scheduling algorithm",
+        text: "Algorithmic bias that systematically disadvantages lower-income patients",
       },
       {
         id: "B",
@@ -738,14 +738,14 @@ e.printX(99);`,
       },
       {
         id: "C",
-        text: "Algorithmic bias that systematically disadvantages lower-income patients",
+        text: "A NullPointerException in the scheduling algorithm",
       },
       {
         id: "D",
         text: "A compile-time error in the patient database query",
       },
     ],
-    correctId: "C",
+    correctId: "A",
     explanation:
       "When an algorithm consistently produces unequal outcomes correlated with a protected or socioeconomic characteristic — regardless of intent — this is algorithmic bias. It is an ethical concern about computing's societal impact, not a programming error. Runtime errors and compile errors are technical faults; this is a design/fairness concern.",
     trap: "disparate outcomes from an algorithm are an ethical issue, not a runtime or syntax error",
@@ -765,12 +765,12 @@ nums[4] = 20;
 System.out.println(nums[2]);
 System.out.println(nums[0] + nums[4]);`,
     options: [
-      { id: "A", text: "0\n30" },
+      { id: "A", text: "0\n15" },
       { id: "B", text: "5\n30" },
       { id: "C", text: "null\n30" },
-      { id: "D", text: "0\n15" },
+      { id: "D", text: "0\n30" },
     ],
-    correctId: "A",
+    correctId: "D",
     explanation:
       "new int[5] allocates an array of 5 ints and initializes all elements to 0 (the default for int). nums[0] is set to 10, nums[4] to 20. nums[2] was never assigned, so it remains 0. nums[0] + nums[4] = 10 + 20 = 30.",
     trap: "int arrays default to 0 (not null — that's for reference types like String[])",
@@ -787,12 +787,12 @@ for (String f : fruits) {
     System.out.println(f.length());
 }`,
     options: [
-      { id: "A", text: "5\n6\n6" },
+      { id: "A", text: '"apple"\n"banana"\n"cherry"' },
       { id: "B", text: "5\n7\n6" },
-      { id: "C", text: '"apple"\n"banana"\n"cherry"' },
+      { id: "C", text: "5\n6\n6" },
       { id: "D", text: "3" },
     ],
-    correctId: "A",
+    correctId: "C",
     explanation:
       '"apple".length() = 5. "banana".length() = 6. "cherry".length() = 6. The for-each loop iterates over each String in fruits and calls length() on it.',
     trap: 'count characters carefully: "banana" has 6 letters (b-a-n-a-n-a), not 7',
@@ -807,12 +807,12 @@ for (String f : fruits) {
     options: [
       {
         id: "A",
-        text: "int maxIdx = 0;\nfor (int i = 1; i < arr.length; i++) {\n    if (arr[i] > arr[maxIdx]) maxIdx = i;\n}",
+        text: "int maxIdx = 0;\nfor (int i = 0; i < arr.length; i++) {\n    if (arr[i] > arr[maxIdx]) maxIdx = arr[i];\n}",
         isCode: true,
       },
       {
         id: "B",
-        text: "int maxIdx = 0;\nfor (int i = 0; i < arr.length; i++) {\n    if (arr[i] > arr[maxIdx]) maxIdx = arr[i];\n}",
+        text: "int maxIdx = 0;\nfor (int i = 1; i < arr.length; i++) {\n    if (arr[i] > arr[maxIdx]) maxIdx = i;\n}",
         isCode: true,
       },
       {
@@ -826,7 +826,7 @@ for (String f : fruits) {
         isCode: true,
       },
     ],
-    correctId: "A",
+    correctId: "B",
     explanation:
       "A: maxIdx starts as the index 0. When a larger element is found at index i, maxIdx is updated to i (the index, not the value). This correctly tracks the position of the maximum. B: assigns arr[i] (the value, not the index) to maxIdx — incorrect. C: initializes maxIdx to arr[0] (a value) then uses it as an index in arr[maxIdx] — likely out of bounds or wrong. D: loop bound i <= arr.length causes ArrayIndexOutOfBoundsException when i equals arr.length.",
     trap: "store the INDEX, not the value; loop bound must be < arr.length (not <=)",
@@ -841,12 +841,12 @@ for (String f : fruits) {
     options: [
       {
         id: "A",
-        text: 'Scanner sc = new Scanner(new File("numbers.txt"));\nwhile (sc.hasNextInt()) {\n    int n = sc.nextInt();\n}',
+        text: 'Scanner sc = new Scanner("numbers.txt");\nwhile (sc.hasNextInt()) {\n    int n = sc.nextInt();\n}',
         isCode: true,
       },
       {
         id: "B",
-        text: 'Scanner sc = new Scanner("numbers.txt");\nwhile (sc.hasNextInt()) {\n    int n = sc.nextInt();\n}',
+        text: 'Scanner sc = new Scanner(new File("numbers.txt"));\nwhile (sc.hasNextInt()) {\n    int n = sc.nextInt();\n}',
         isCode: true,
       },
       {
@@ -860,9 +860,9 @@ for (String f : fruits) {
         isCode: true,
       },
     ],
-    correctId: "A",
+    correctId: "B",
     explanation:
-      'A Scanner must be constructed with a File object to read from a file: new Scanner(new File("numbers.txt")). hasNextInt() checks for another integer token. Option B passes a String literal — the Scanner treats the string itself as the input stream (not the file). Option C calls scanner methods on a File object — File has no hasNextInt() or nextInt() methods. Option D reads from standard input (keyboard), not a file.',
+      'A Scanner must be constructed with a File object to read from a file: new Scanner(new File("numbers.txt")). hasNextInt() checks for another integer token. Option A passes a String literal — the Scanner treats the string itself as the input stream (not the file). Option C calls scanner methods on a File object — File has no hasNextInt() or nextInt() methods. Option D reads from standard input (keyboard), not a file.',
     trap: 'Scanner(new File("name")) reads from a file; Scanner("text") treats the string as the data itself',
   },
   {
@@ -878,15 +878,15 @@ nums.add(10);
 int sum = nums.get(0) + nums.get(1);
 System.out.println(sum);`,
     options: [
-      { id: "A", text: "15" },
-      { id: "B", text: "510" },
+      { id: "A", text: "510" },
+      { id: "B", text: "15" },
       {
         id: "C",
         text: "A compile error — Integer objects cannot be added with +",
       },
       { id: "D", text: "5" },
     ],
-    correctId: "A",
+    correctId: "B",
     explanation:
       "nums.get(0) returns the Integer 5 and nums.get(1) returns the Integer 10. Java automatically unboxes these Integer objects to primitive ints when the + operator is applied. 5 + 10 = 15. Autoboxing/unboxing makes Integer and int interchangeable in arithmetic expressions.",
     trap: "Java automatically unboxes Integer to int for arithmetic — no manual conversion needed",
@@ -984,12 +984,12 @@ for (int r = 0; r < grid.length; r++) {
 }
 System.out.println(colSum);`,
     options: [
-      { id: "A", text: "6" },
-      { id: "B", text: "15" },
+      { id: "A", text: "15" },
+      { id: "B", text: "6" },
       { id: "C", text: "24" },
       { id: "D", text: "5" },
     ],
-    correctId: "B",
+    correctId: "A",
     explanation:
       "The loop iterates over all rows and accesses column 1 each time. grid[0][1]=2, grid[1][1]=5, grid[2][1]=8. colSum = 2+5+8 = 15.",
     trap: "grid[r][1] fixes the column at 1 (the middle column) — this sums a column, not all elements",
@@ -1002,12 +1002,12 @@ System.out.println(colSum);`,
     question:
       "Consider selection sort applied to the array {9, 4, 7, 2, 6}. After the first pass (finding the minimum and placing it in position 0), what is the array state?",
     options: [
-      { id: "A", text: "{2, 4, 7, 9, 6}" },
+      { id: "A", text: "{2, 4, 7, 6, 9}" },
       { id: "B", text: "{4, 9, 7, 2, 6}" },
-      { id: "C", text: "{2, 4, 7, 6, 9}" },
+      { id: "C", text: "{2, 4, 7, 9, 6}" },
       { id: "D", text: "{9, 4, 7, 2, 6}" },
     ],
-    correctId: "A",
+    correctId: "C",
     explanation:
       "Selection sort finds the minimum of the entire unsorted portion (indices 0–4) and swaps it with the element at the current position (index 0). The minimum is 2, at index 3. Swapping arr[0]=9 and arr[3]=2 gives {2, 4, 7, 9, 6}. The rest of the array is untouched.",
     trap: "selection sort swaps only the minimum with position 0 — the middle elements (4, 7) are unchanged after the first pass",
@@ -1026,10 +1026,10 @@ System.out.println(colSum);`,
     options: [
       { id: "A", text: "4" },
       { id: "B", text: "10" },
-      { id: "C", text: "24" },
-      { id: "D", text: "16" },
+      { id: "C", text: "16" },
+      { id: "D", text: "24" },
     ],
-    correctId: "C",
+    correctId: "D",
     explanation:
       "Trace: mystery(4) = 4 × mystery(3) = 4 × (3 × mystery(2)) = 4 × (3 × (2 × mystery(1))) = 4 × (3 × (2 × 1)) = 4 × 6 = 24. This is the factorial function (4! = 24).",
     trap: "trace all the way to the base case (n<=1 returns 1) and multiply back up — mystery(4) = 4! = 24, not 4+3+2+1 = 10",
