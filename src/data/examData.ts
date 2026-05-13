@@ -481,20 +481,25 @@ System.out.println(result);`,
   {
     id: 22,
     unit: 2,
-    cedTopic: "2.12",
-    skill: "4.A",
+    cedTopic: "2.11",
+    skill: "3.B",
     question:
-      "A method contains two nested for loops, each iterating n times. Which of the following correctly describes the number of operations the method performs relative to n?",
+      "How many times is the statement System.out.print(\"*\") executed when the following code segment is run?",
+    code: `for (int i = 0; i < 5; i++) {
+    for (int j = 0; j < 3; j++) {
+        System.out.print("*");
+    }
+}`,
     options: [
-      { id: "A", text: "O(n²)" },
-      { id: "B", text: "O(n + n)" },
-      { id: "C", text: "O(n)" },
-      { id: "D", text: "O(2n)" },
+      { id: "A", text: "15" },
+      { id: "B", text: "8" },
+      { id: "C", text: "3" },
+      { id: "D", text: "5" },
     ],
     correctId: "A",
     explanation:
-      "The outer loop runs n times. For each outer iteration, the inner loop runs n times. Total: n × n = n² operations → O(n²).",
-    trap: "nested loops multiply (n²), not add (2n)",
+      "Each iteration of the outer loop (5 total) triggers a full pass of the inner loop (3 iterations). The inner statement runs 5 × 3 = 15 times.",
+    trap: "nested loops multiply: outer iterations × inner iterations, not outer + inner",
   },
 
   // ── UNIT 3 ──────────────────────────────────────────────────────────────
@@ -958,7 +963,7 @@ System.out.println(sum);`,
     ],
     correctId: "D",
     explanation:
-      "In the best case, the target is exactly the middle element. Binary search compares it on the first check and returns immediately — 1 comparison. The worst case is O(log n) ≈ 10 for 1000 elements.",
+      "In the best case, the target is exactly the middle element. Binary search compares it on the first check and returns immediately — 1 comparison. (Worst case would need about 10 comparisons, since each step halves the remaining 1000 elements.)",
     trap: "best case binary search = 1 comparison (middle element)",
   },
   {

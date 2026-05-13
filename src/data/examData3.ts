@@ -504,20 +504,25 @@ System.out.println();`,
   {
     id: 22,
     unit: 2,
-    cedTopic: "2.12",
-    skill: "4.A",
+    cedTopic: "2.11",
+    skill: "3.B",
     question:
-      "A method contains a single for loop that iterates exactly n times. The loop body performs one comparison and one assignment — both constant-time operations. Which of the following best describes the time complexity of this method?",
+      "How many times is the body of the inner loop executed when the following code segment is run?",
+    code: `for (int i = 0; i < 3; i++) {
+    for (int j = i; j < 5; j++) {
+        System.out.println(i + "," + j);
+    }
+}`,
     options: [
-      { id: "A", text: "O(n)" },
-      { id: "B", text: "O(log n)" },
-      { id: "C", text: "O(1)" },
-      { id: "D", text: "O(n²)" },
+      { id: "A", text: "12" },
+      { id: "B", text: "15" },
+      { id: "C", text: "9" },
+      { id: "D", text: "8" },
     ],
     correctId: "A",
     explanation:
-      "A single loop that iterates n times, with constant-time work inside, performs n total operations. This is linear time: O(n). O(1) would require no loop at all. O(log n) arises from halving (binary search). O(n²) arises from nested loops.",
-    trap: "one loop → O(n); nested loops → O(n²); halving each iteration → O(log n); no loop → O(1)",
+      "The inner loop starts at j=i and runs while j < 5. i=0: j goes 0..4 → 5 iterations. i=1: j goes 1..4 → 4 iterations. i=2: j goes 2..4 → 3 iterations. Total: 5 + 4 + 3 = 12.",
+    trap: "the inner bound starts at i, not 0, so each successive outer iteration shrinks the inner range by one",
   },
 
   // ── UNIT 3 ──────────────────────────────────────────────────────────────

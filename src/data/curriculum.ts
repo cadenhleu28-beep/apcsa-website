@@ -2193,14 +2193,14 @@ double avg = (double) sum / count;`,
         {
           id: "2-6",
           slug: "nested-iteration-runtime",
-          title: "Nested Iteration & Runtime Analysis",
+          title: "Nested Iteration & Counting Executions",
           cedTopics: ["2.11", "2.12"],
           description:
-            "How nested loops multiply work — and why that matters for how fast your program runs as the input size grows.",
+            "How nested loops multiply work — and how to count exactly how many times a statement runs as the input size grows.",
           objectives: [
             "Trace nested loops and count total iterations",
             "Determine the total number of times a statement inside nested loops executes",
-            "Informally classify an algorithm as O(n) or O(n²) based on loop structure",
+            "Describe informally how the work of a loop grows as n grows (proportional to n, n × n, etc.)",
           ],
           codeExamples: [
             {
@@ -2242,15 +2242,15 @@ for (int i = 1; i <= n; i++) {       // i goes 1..5
             },
             {
               id: "2-6-ex3",
-              title: "O(n) vs O(n²) Informal Analysis",
-              code: `// O(n) — one loop through n elements
+              title: "How Loop Work Grows with n",
+              code: `// One loop through n elements
 // Work grows proportionally to n
 for (int i = 0; i < n; i++) {
     System.out.println(i);    // runs n times
 }
 
-// O(n²) — nested loop, both over n
-// Work grows proportionally to n * n
+// Nested loop, both over n
+// Work grows proportionally to n × n
 for (int i = 0; i < n; i++) {
     for (int j = 0; j < n; j++) {
         System.out.println(i + "," + j);  // runs n² times
@@ -2258,13 +2258,13 @@ for (int i = 0; i < n; i++) {
 }
 
 // Example: n = 10
-//   O(n)  → ~10 operations
-//   O(n²) → ~100 operations
+//   single loop → ~10 operations
+//   nested loop → ~100 operations
 // Example: n = 100
-//   O(n)  → ~100 operations
-//   O(n²) → ~10,000 operations`,
+//   single loop → ~100 operations
+//   nested loop → ~10,000 operations`,
               explanation:
-                "One loop over n items: linear growth, O(n). Two loops each over n items: quadratic growth, O(n²). Double n and the O(n) algorithm does twice the work. Double n and the O(n²) algorithm does four times the work — that difference matters enormously at scale. On the AP exam, you won't need Big-O notation — describing the growth as 'proportional to n' or 'proportional to n²' is enough.",
+                "One loop over n items: work grows in step with n (double n, double the work). Two loops each over n items: work grows like n × n (double n, do four times the work). That gap matters enormously at scale. On the AP exam you describe the growth informally — 'proportional to n' or 'proportional to n²' — or count exact statement executions. You don't need asymptotic notation.",
             },
           ],
           conceptChecks: [
@@ -2294,12 +2294,13 @@ for (int i = 0; i < n; i++) {
             },
             {
               id: "2-6-cc3",
-              prompt: "Is this algorithm O(n) or O(n²)? Explain.",
+              prompt:
+                "How does the number of times println runs grow as n grows? If n doubles, what happens to the work?",
               code: `for (int i = 0; i < n; i++) {
     System.out.println(i * 2);
 }`,
               answer:
-                "O(n) — linear growth. One loop, runs n times. Double n and the program does twice the work. No nesting means no n² behavior.",
+                "The loop runs n times, so the work grows in step with n (proportional to n). If n doubles, the work doubles. There's no nesting, so the work does not grow like n × n.",
             },
           ],
           mcqs: [
@@ -2338,12 +2339,13 @@ for (int i = 0; i < n; i++) {
               ],
               correctId: "C",
               explanation:
-                "Both loops are bounded by n. For each of the n outer iterations, the inner body runs n times. Total: n × n = n². That's what makes this O(n²).",
+                "Both loops are bounded by n. For each of the n outer iterations, the inner body runs n times. Total: n × n = n².",
               skill: "2.B",
             },
             {
               id: "2-6-mcq3",
-              question: "Which code has O(n²) runtime?",
+              question:
+                "If n is doubled, the body of which code segment runs roughly four times as often?",
               options: [
                 { id: "A", text: "for (int i = 0; i < n; i++) { sum += i; }" },
                 { id: "B", text: "for (int i = 0; i < n; i++) { for (int j = 0; j < 10; j++) { sum++; } }" },
@@ -2352,7 +2354,7 @@ for (int i = 0; i < n; i++) {
               ],
               correctId: "C",
               explanation:
-                "Option C is the answer: both loops bounded by n → n² operations. Option A is a single loop → O(n). Option B looks nested but the inner loop always runs exactly 10 times (a constant) → still O(n). Option D is a one-line formula, no loop → O(1).",
+                "Option C runs n × n times. Doubling n turns n² into (2n)² = 4n² — four times the work. Option A runs n times, so doubling n only doubles the work. Option B's inner loop is fixed at 10, so the total is 10n; doubling n doubles the work. Option D has no loop — the work is constant regardless of n.",
               skill: "2.B",
             },
             {
@@ -4179,7 +4181,7 @@ System.out.println(linearSearch(data, 4)); // -1 (not found)
 
 // Worst case: target is last element or not present — checks ALL n elements
 // Best case: target is first element — checks 1 element
-// Average: checks n/2 elements — O(n) overall`,
+// Average: checks about n/2 elements`,
               explanation:
                 "Linear search checks every element from the start until it finds the target or runs out of array. It works on any data — sorted or not — which is its main advantage. The cost: in the worst case, it checks every element. Return -1 to mean 'not found' — it can never be a valid index.",
             },
@@ -4211,13 +4213,13 @@ public static void selectionSort(int[] arr) {
 // Pass 2: min=3 at idx 4 → swap with idx 2 → {1, 2, 3, 5, 4}
 // Pass 3: min=4 at idx 4 → swap with idx 3 → {1, 2, 3, 4, 5}`,
               explanation:
-                "Think of selection sort as moving a wall between the sorted and unsorted parts. Each pass, you scan the entire unsorted portion to find the minimum, then swap it to the boundary. After each pass, the wall moves one step right. Whether the array is already sorted or completely backwards, it always takes exactly n-1 passes — O(n²) no matter what.",
+                "Think of selection sort as moving a wall between the sorted and unsorted parts. Each pass, you scan the entire unsorted portion to find the minimum, then swap it to the boundary. After each pass, the wall moves one step right. Whether the array is already sorted or completely backwards, it always takes exactly n-1 passes — and each pass still scans the entire unsorted portion.",
             },
             {
               id: "4-6-ex3",
               title: "Insertion Sort",
               code: `// Insertion sort — take next element, insert into correct position in sorted portion
-// Efficient for nearly-sorted arrays; same O(n²) worst case as selection sort
+// Efficient for nearly-sorted arrays
 
 public static void insertionSort(int[] arr) {
     for (int i = 1; i < arr.length; i++) {
@@ -4237,7 +4239,7 @@ public static void insertionSort(int[] arr) {
 // i=2: key=4, shift 5 right → {1, 5, 5, 2}, insert 4 → {1, 4, 5, 2}
 // i=3: key=2, shift 5,4 right → {1, 4, 4, 5}, insert 2 → {1, 2, 4, 5}`,
               explanation:
-                "Insertion sort is like sorting a hand of cards: pick up the next card and slide it left until it's in the right spot. Each new element (the 'key') compares against elements to its left, shifting them right until it finds where it belongs. If the array is already sorted, nothing shifts — O(n) best case. Reverse-sorted data requires the maximum number of shifts — O(n²) worst case.",
+                "Insertion sort is like sorting a hand of cards: pick up the next card and slide it left until it's in the right spot. Each new element (the 'key') compares against elements to its left, shifting them right until it finds where it belongs. If the array is already sorted, nothing shifts — that's the best case. Reverse-sorted data requires the maximum number of shifts — that's the worst case.",
             },
           ],
           conceptChecks: [
@@ -4266,13 +4268,13 @@ public static void insertionSort(int[] arr) {
               question: "Which of the following is true about linear search?",
               options: [
                 { id: "A", text: "It requires the array to be sorted before searching" },
-                { id: "B", text: "It always finds the element in O(log n) comparisons" },
+                { id: "B", text: "It always finds the element in a single comparison" },
                 { id: "C", text: "It works on both sorted and unsorted arrays" },
                 { id: "D", text: "It is always faster than binary search" },
               ],
               correctId: "C",
               explanation:
-                "Linear search has no prerequisites — it works on any array regardless of order. That universality is its strength. The downside is efficiency: O(n) means it may check every element. Binary search is faster at O(log n) but requires sorted data first.",
+                "Linear search has no prerequisites — it works on any array regardless of order. That universality is its strength. The downside: it may have to check every element in the worst case, while binary search can finish in far fewer comparisons (but requires the array to be sorted first).",
               skill: "2.D",
             },
             {
@@ -4309,12 +4311,12 @@ public static void insertionSort(int[] arr) {
               options: [
                 { id: "A", text: "Selection sort — it always finds the minimum quickly" },
                 { id: "B", text: "Linear search — it can handle any order" },
-                { id: "C", text: "Insertion sort — it runs in near O(n) time on nearly-sorted data" },
+                { id: "C", text: "Insertion sort — when elements are already near their correct positions, the inner shift loop barely runs" },
                 { id: "D", text: "Both selection and insertion sort take the same time on nearly-sorted data" },
               ],
               correctId: "C",
               explanation:
-                "Insertion sort shines on nearly-sorted data: if an element is already close to its correct position, the inner loop barely runs. Its best case is O(n). Selection sort doesn't care about input order — it always scans the entire unsorted portion every pass, so it's always O(n²).",
+                "Insertion sort shines on nearly-sorted data: if an element is already close to its correct position, the inner shift loop barely runs, so each element is placed with very few comparisons. Selection sort doesn't care about input order — it always scans the entire unsorted portion every pass, so it does the same amount of work regardless of how sorted the input already is.",
               skill: "2.D",
             },
           ],
@@ -4331,7 +4333,7 @@ public static void insertionSort(int[] arr) {
             "Trace a recursive method call by hand and determine the return value",
             "Explain that each recursive call has its own local variables",
             "Describe binary search and explain why the data must be sorted first",
-            "Explain merge sort's divide-and-conquer approach and O(n log n) efficiency",
+            "Explain merge sort's divide-and-conquer approach",
           ],
           codeExamples: [
             {
@@ -4363,7 +4365,7 @@ public static int factorial(int n) {
               id: "4-7-ex2",
               title: "Tracing Binary Search (Recursive)",
               code: `// Binary search — data MUST be sorted first!
-// Repeatedly cuts the search space in half → O(log n)
+// Repeatedly cuts the search space in half
 
 public static int binarySearch(int[] arr, int target, int low, int high) {
     if (low > high) return -1;              // BASE CASE: not found
@@ -4390,7 +4392,7 @@ public static int binarySearch(int[] arr, int target, int low, int high) {
               title: "Merge Sort: Divide and Conquer",
               code: `// Merge sort — recursively splits the array in half,
 // then merges sorted halves back together
-// O(n log n) — most efficient sort on the AP exam
+// The fastest sort you'll see on the AP exam
 
 // High-level idea (tracing, not writing):
 // mergeSort({5, 2, 8, 1, 9, 3})
@@ -4405,12 +4407,11 @@ public static int binarySearch(int[] arr, int target, int low, int high) {
 //     merge {1, 9} and {3} → {1, 3, 9}
 //   merge {2, 5, 8} and {1, 3, 9} → {1, 2, 3, 5, 8, 9}
 
-// Complexity:
-//   log(n) levels of splitting
-//   n total comparisons per level during merge
-//   Total: O(n log n)`,
+// Performance idea:
+//   The array is halved repeatedly until each piece has 1 element
+//   Each level of merging walks through all n elements once`,
               explanation:
-                "Merge sort's insight: a 1-element array is already sorted. So keep splitting in half until every piece has one element, then merge pieces back together in order. Each merge level does n comparisons, and there are log(n) levels of splitting, giving O(n log n) overall. You only need to trace merge sort on the AP exam — not write it.",
+                "Merge sort's insight: a 1-element array is already sorted. So keep splitting in half until every piece has one element, then merge pieces back together in order. Because the array is split in half each step, the number of split levels grows very slowly — far fewer than n. That's why merge sort runs much faster than selection or insertion sort on large arrays. You only need to trace merge sort on the AP exam — not write it.",
             },
           ],
           conceptChecks: [
@@ -4487,14 +4488,14 @@ public static int binarySearch(int[] arr, int target, int low, int high) {
               id: "4-7-mcq4",
               question: "Which statement about merge sort is correct?",
               options: [
-                { id: "A", text: "Merge sort is O(n²) in the worst case" },
-                { id: "B", text: "Merge sort is O(n log n) and is the most efficient sort on the AP exam" },
+                { id: "A", text: "Merge sort iterates through the array a single time and is always faster than insertion sort" },
+                { id: "B", text: "Merge sort splits the array in half, sorts each half recursively, and merges the sorted halves back together" },
                 { id: "C", text: "Merge sort works by finding and swapping the minimum element each pass" },
                 { id: "D", text: "Writing a merge sort implementation is required on the AP exam" },
               ],
               correctId: "B",
               explanation:
-                "Merge sort is O(n log n) — the fastest sort on the AP exam. Selection sort and insertion sort are both O(n²). Merge sort uses divide-and-conquer: keep splitting until you have 1-element arrays, then merge them back in order. You trace it on the exam — you don't write it.",
+                "Merge sort is a divide-and-conquer algorithm: keep splitting the array in half until each piece has one element (already sorted), then merge the pieces back together in sorted order. Option A misstates the algorithm — merge sort uses recursive splitting, not a single pass. Option C describes selection sort. Option D is incorrect: the CED only requires you to trace merge sort, not write it.",
               skill: "2.D",
             },
             {

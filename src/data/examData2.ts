@@ -486,20 +486,26 @@ System.out.println(x);`,
   {
     id: 22,
     unit: 2,
-    cedTopic: "2.12",
-    skill: "4.A",
+    cedTopic: "2.11",
+    skill: "3.B",
     question:
-      "A method has an outer loop that iterates n times and an inner loop that iterates n / 2 times for each outer iteration. Which of the following correctly describes the time complexity?",
+      "How many times is the statement count++ executed when the following code segment is run?",
+    code: `int count = 0;
+for (int i = 1; i <= 4; i++) {
+    for (int j = 0; j < i; j++) {
+        count++;
+    }
+}`,
     options: [
-      { id: "A", text: "O(n²)" },
-      { id: "B", text: "O(n / 2)" },
-      { id: "C", text: "O(n)" },
-      { id: "D", text: "O(log n)" },
+      { id: "A", text: "16" },
+      { id: "B", text: "10" },
+      { id: "C", text: "4" },
+      { id: "D", text: "8" },
     ],
-    correctId: "A",
+    correctId: "B",
     explanation:
-      "The total number of iterations is n × (n/2) = n²/2. In Big-O notation, constant factors are dropped: O(n²/2) = O(n²).",
-    trap: "nested loops multiply; O(n × n/2) drops the constant 1/2 → O(n²)",
+      "The inner loop runs i times for each outer iteration. i=1 → 1 increment, i=2 → 2, i=3 → 3, i=4 → 4. Total: 1 + 2 + 3 + 4 = 10.",
+    trap: "the inner bound depends on i, so the total is a triangular sum (1+2+3+4), not 4 × 4",
   },
 
   // ── UNIT 3 ──────────────────────────────────────────────────────────────
@@ -958,8 +964,8 @@ System.out.println(total);`,
     ],
     correctId: "A",
     explanation:
-      "Binary search halves the search space each step. The worst case is O(log₂ n). log₂(64) = 6. After 6 comparisons, the search space is reduced to 1 element.",
-    trap: "binary search worst case is log₂(n), not n/2 and not n",
+      "Binary search halves the search space each step. Starting with 64 elements: after 1 comparison, 32 candidates remain; then 16, 8, 4, 2, 1. That's 6 halvings, so at most 6 comparisons are needed to find the target or rule it out.",
+    trap: "binary search counts halvings (64 → 32 → 16 → 8 → 4 → 2 → 1), not n or n/2",
   },
   {
     id: 40,
