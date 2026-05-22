@@ -6,6 +6,7 @@ import SubUnitPage from "./pages/SubUnitPage";
 import ExamPage from "./pages/ExamPage";
 import AuthPage from "./pages/AuthPage";
 import MCQBankPage from "./pages/MCQBankPage";
+import ScrollFeedPage from "./pages/ScrollFeedPage";
 import GuidePage from "./pages/GuidePage";
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/exam" element={<ExamPage />} />
         <Route path="/exam/:examId" element={<ExamPage />} />
         <Route path="/mcq-bank" element={<MCQBankPage />} />
+        <Route path="/scroll" element={<ScrollFeedPage />} />
       </Routes>
     </AuthProvider>
   );

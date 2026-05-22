@@ -81,4 +81,13 @@
   .animate-scan {
     animation: scan 8s linear infinite;
   }
+
+  /* Hide scrollbars (used by Scroll Feed) */
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }

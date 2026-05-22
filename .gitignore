@@ -4,3 +4,16 @@ dist/
 *.tsbuildinfo
 .DS_Store
 .vercel
+
+# Editor / tool dirs
+.claude/
+.playwright-mcp/
+.vscode/
+
+# Local working files (not part of the build)
+.explanations/
+*.bak
+SKILL.md
+
+# Screenshots / scratch images at repo root
+/*.png

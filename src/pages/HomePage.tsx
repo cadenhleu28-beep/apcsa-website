@@ -5,7 +5,7 @@ import {
   Box, GitBranch, Code2, Database,
   ChevronRight, BookOpen, ClipboardList,
   LogIn, LogOut, User, Trophy, Brain, Map,
-  ArrowRight,
+  ArrowRight, Zap,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { curriculum } from "../data/curriculum";
@@ -514,6 +514,34 @@ export default function HomePage() {
           </div>
 
           <div className="flex flex-col gap-3">
+            {/* Scroll Feed */}
+            <button
+              onClick={() => navigate("/scroll")}
+              className="
+                group w-full flex items-center justify-between
+                bg-[#161b22] border border-rose-500/25
+                hover:border-rose-400/50 hover:bg-[#1a1f27]
+                rounded-lg px-5 py-4 transition-all duration-200
+                hover:shadow-lg hover:shadow-rose-900/10
+              "
+            >
+              <div className="flex items-center gap-4">
+                <div className="p-2 rounded-md bg-rose-500/10 text-rose-400">
+                  <Zap size={18} />
+                </div>
+                <div className="text-left">
+                  <p className="font-semibold text-[#e6edf3] mb-0.5">Scroll Feed</p>
+                  <p className="text-xs font-mono text-[#6e7681]">
+                    15 questions · Tap, scroll, repeat · Instant feedback
+                  </p>
+                </div>
+              </div>
+              <ChevronRight
+                size={16}
+                className="text-[#484f58] group-hover:text-rose-400 group-hover:translate-x-0.5 transition-all duration-150"
+              />
+            </button>
+
             {/* MCQ Bank */}
             <button
               onClick={() => navigate("/mcq-bank")}
