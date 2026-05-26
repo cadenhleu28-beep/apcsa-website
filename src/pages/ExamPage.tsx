@@ -1390,10 +1390,12 @@ function ResultsDashboard({
     .sort((a, b) => b[1] - a[1])
     .slice(0, 4);
 
-  // Missed questions list
+  // Missed = wrong + unanswered. Track which is which for display.
   const missed = mcqs.filter(
-    (q) => mcqAnswers[q.id] && mcqAnswers[q.id] !== q.correctId
+    (q) => mcqAnswers[q.id] !== q.correctId
   );
+  const wrongCount = missed.filter((q) => mcqAnswers[q.id] !== undefined).length;
+  const skippedCount = missed.length - wrongCount;
 
   const [showMissed, setShowMissed] = useState(false);
   const [openUnits, setOpenUnits] = useState<Set<number>>(new Set([1, 2, 3, 4]));
@@ -1562,14 +1564,21 @@ function ResultsDashboard({
             </div>
           )}
 
-          {/* Missed questions review */}
+          {/* Missed questions review (wrong + skipped) */}
           {missed.length > 0 && (
             <div className="bg-[#161b22] border border-[#30363d] rounded-xl p-5 mb-8">
               <button
                 onClick={() => setShowMissed((v) => !v)}
                 className="w-full flex items-center justify-between text-sm font-semibold"
               >
-                <span>Review Missed Questions ({missed.length})</span>
+                <span>
+                  Review Missed Questions ({missed.length})
+                  {skippedCount > 0 && (
+                    <span className="ml-2 text-xs font-mono text-[#8b949e]">
+                      · {wrongCount} wrong · {skippedCount} skipped
+                    </span>
+                  )}
+                </span>
                 {showMissed ? <EyeOff size={15} /> : <Eye size={15} />}
               </button>
               <AnimatePresence>
@@ -1581,48 +1590,61 @@ function ResultsDashboard({
                     className="overflow-hidden"
                   >
                     <div className="mt-4 space-y-5">
-                      {missed.map((q) => (
-                        <div
-                          key={q.id}
-                          className="border border-[#30363d] rounded-lg p-4 space-y-2"
-                        >
-                          <div className="flex items-center gap-2">
-                            <span className="text-xs font-mono text-[#8b949e]">
-                              Q{q.id}
-                            </span>
-                            <span
-                              className={`text-xs font-mono px-1.5 py-0.5 rounded border ${UNIT_COLORS[q.unit]}`}
-                            >
-                              Unit {q.unit}
-                            </span>
-                          </div>
-                          <p className="text-sm text-[#e6edf3]">
-                            {q.question}
-                          </p>
-                          {q.code && <JavaCode code={q.code} compact />}
-                          <div className="text-xs space-y-1">
-                            <p className="text-red-400">
-                              Your answer:{" "}
-                              <span className="font-mono">
-                                {mcqAnswers[q.id]}
-                              </span>{" "}
-                              — {q.options.find((o) => o.id === mcqAnswers[q.id])?.text}
+                      {missed.map((q) => {
+                        const userAnswer = mcqAnswers[q.id];
+                        const wasSkipped = userAnswer === undefined;
+                        return (
+                          <div
+                            key={q.id}
+                            className="border border-[#30363d] rounded-lg p-4 space-y-2"
+                          >
+                            <div className="flex items-center gap-2">
+                              <span className="text-xs font-mono text-[#8b949e]">
+                                Q{q.id}
+                              </span>
+                              <span
+                                className={`text-xs font-mono px-1.5 py-0.5 rounded border ${UNIT_COLORS[q.unit]}`}
+                              >
+                                Unit {q.unit}
+                              </span>
+                              {wasSkipped && (
+                                <span className="text-xs font-mono px-1.5 py-0.5 rounded border border-amber-500/40 bg-amber-500/10 text-amber-400">
+                                  Skipped
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-sm text-[#e6edf3]">
+                              {q.question}
                             </p>
-                            <p className="text-[#3fb950]">
-                              Correct:{" "}
-                              <span className="font-mono">{q.correctId}</span>{" "}
-                              — {q.options.find((o) => o.id === q.correctId)?.text}
-                            </p>
-                            <div className="mt-2 space-y-1.5 not-italic">
-                              {splitExplanation(q.explanation).map((sentence, i) => (
-                                <p key={i} className="text-[#8b949e] leading-relaxed">
-                                  {sentence}
+                            {q.code && <JavaCode code={q.code} compact />}
+                            <div className="text-xs space-y-1">
+                              {wasSkipped ? (
+                                <p className="text-amber-400">
+                                  Not answered
                                 </p>
-                              ))}
+                              ) : (
+                                <p className="text-red-400">
+                                  Your answer:{" "}
+                                  <span className="font-mono">{userAnswer}</span>{" "}
+                                  — {q.options.find((o) => o.id === userAnswer)?.text}
+                                </p>
+                              )}
+                              <p className="text-[#3fb950]">
+                                Correct:{" "}
+                                <span className="font-mono">{q.correctId}</span>{" "}
+                                — {q.options.find((o) => o.id === q.correctId)?.text}
+                              </p>
+                              <div className="mt-2 space-y-1.5 not-italic">
+                                {splitExplanation(q.explanation).map((sentence, i) => (
+                                  <p key={i} className="text-[#8b949e] leading-relaxed">
+                                    {sentence}
+                                  </p>
+                                ))}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </motion.div>
                 )}
