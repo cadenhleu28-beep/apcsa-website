@@ -45,18 +45,20 @@ System.out.println((double) a / b);`,
     skill: "3.A",
     question:
       "What is printed as a result of executing the following code segment?",
-    code: `String s = "Workshop";
-System.out.println(s.substring(4));`,
+    code: `String s = "abracadabra";
+int start = s.indexOf("cad");
+int end = s.indexOf("bra", start);
+System.out.println(s.substring(start, end));`,
     options: [
-      { id: "A", text: '"hop"' },
-      { id: "B", text: '"Work"' },
-      { id: "C", text: '"kshop"' },
-      { id: "D", text: '"shop"' },
+      { id: "A", text: '"cada"' },
+      { id: "B", text: '"cadab"' },
+      { id: "C", text: '"cadabra"' },
+      { id: "D", text: '"acad"' },
     ],
-    correctId: "D",
+    correctId: "A",
     explanation:
-      '"Workshop": W=0,o=1,r=2,k=3,s=4,h=5,o=6,p=7. substring(4) returns from index 4 to the end: "shop". The single-argument form goes to the end of the String.',
-    trap: "substring(n) returns from index n to end; substring(0,4) would give the first four characters",
+      '"abracadabra": a=0,b=1,r=2,a=3,c=4,a=5,d=6,a=7,b=8,r=9,a=10. indexOf("cad") finds c at index 4, so start=4. indexOf("bra", 4) searches for "bra" starting at index 4; the b at index 1 is skipped, and the next "bra" begins at index 8, so end=8. substring(4, 8) returns characters at indices 4,5,6,7 → "cada" (end index 8 is exclusive).',
+    trap: "indexOf(str, fromIndex) skips occurrences before fromIndex; substring end index is exclusive — substring(4,8) is 4 characters, not 5",
   },
   {
     id: 3,
@@ -108,21 +110,24 @@ System.out.println(result);`,
     skill: "3.A",
     question:
       "What is printed as a result of executing the following code segment?",
-    code: `int n = 5;
-n *= 3;
-n -= 4;
-n /= 2;
-System.out.println(n);`,
+    code: `int[] vals = {8, 3, 11, 6, 2};
+int a = vals[1];
+int b = vals[vals.length - 2];
+a += b;
+a *= 2;
+a -= vals[0];
+a /= 3;
+System.out.println(a);`,
     options: [
-      { id: "A", text: "6" },
-      { id: "B", text: "5" },
-      { id: "C", text: "5.5" },
-      { id: "D", text: "4" },
+      { id: "A", text: "3" },
+      { id: "B", text: "4" },
+      { id: "C", text: "5" },
+      { id: "D", text: "10" },
     ],
-    correctId: "B",
+    correctId: "A",
     explanation:
-      "Step by step: n=5 → n*=3 → 15 → n-=4 → 11 → n/=2 → 5 (integer division: 11/2 truncates to 5). Compound operators apply left to right.",
-    trap: "integer division truncates: 11/2 = 5, not 5.5",
+      "vals = {8, 3, 11, 6, 2}, length 5. a = vals[1] = 3. b = vals[5-2] = vals[3] = 6 (NOT vals[4]). Then a += b → 9, a *= 2 → 18, a -= vals[0] → 18 - 8 = 10, a /= 3 → 10/3 = 3 (integer division truncates).",
+    trap: "vals.length-2 indexes the second-to-last element (index 3), not the last (index 4); the final division is integer division: 10/3 = 3, not 3.33",
   },
   {
     id: 6,
@@ -152,18 +157,19 @@ System.out.println(s.indexOf("gram"));`,
     skill: "3.A",
     question:
       "What is printed as a result of executing the following code segment?",
-    code: `System.out.println(Math.max(3, 7));
-System.out.println(Math.sqrt(16));`,
+    code: `int x = 50;
+int result = (int) Math.pow((int) Math.sqrt(x), 2) + (int) Math.sqrt(x);
+System.out.println(result);`,
     options: [
-      { id: "A", text: "7\n256.0" },
-      { id: "B", text: "3\n4.0" },
-      { id: "C", text: "7\n4" },
-      { id: "D", text: "7\n4.0" },
+      { id: "A", text: "57" },
+      { id: "B", text: "50" },
+      { id: "C", text: "55" },
+      { id: "D", text: "56" },
     ],
-    correctId: "D",
+    correctId: "A",
     explanation:
-      "Math.max(3, 7) = 7. Math.sqrt returns a double, so sqrt(16) prints as 4.0, not 4. Math.pow(16, 2) would be 256.0.",
-    trap: "Math.sqrt always returns double → prints 4.0 not 4",
+      "Math.sqrt(50) returns ~7.0710678 (a double). (int) Math.sqrt(50) truncates to 7. Math.pow(7, 2) returns 49.0 (a double); cast to int gives 49. The second (int) Math.sqrt(x) is also 7. Final: 49 + 7 = 57. Note that (int)Math.pow(...) is needed because Math.pow returns a double, and (int)Math.sqrt(x) truncates before squaring rather than after.",
+    trap: "Math.sqrt returns double — casting (int) truncates BEFORE squaring, losing the fractional part; (int)(Math.sqrt(50))^2 ≠ 50",
   },
   {
     id: 8,
@@ -193,18 +199,18 @@ System.out.println("count: " + p + q);`,
     cedTopic: "1.11",
     skill: "4.A",
     question:
-      "Consider the following code segment. Which of the following best describes the set of possible values of roll?",
-    code: `int roll = (int)(Math.random() * 6);`,
+      "Consider the following code segment. Which of the values listed below is NEVER assigned to k?",
+    code: `int k = (int)(Math.random() * 8) + 3;`,
     options: [
-      { id: "A", text: "Integers from 1 to 6, inclusive" },
-      { id: "B", text: "Integers from 1 to 5, inclusive" },
-      { id: "C", text: "Integers from 0 to 6, inclusive" },
-      { id: "D", text: "Integers from 0 to 5, inclusive" },
+      { id: "A", text: "3" },
+      { id: "B", text: "10" },
+      { id: "C", text: "11" },
+      { id: "D", text: "5" },
     ],
-    correctId: "D",
+    correctId: "C",
     explanation:
-      "Math.random() returns [0.0, 1.0). Multiplied by 6 gives [0.0, 6.0). Casting to int gives 0–5. Because there is no + 1, the minimum value is 0, not 1.",
-    trap: "without + 1 after the cast, the range starts at 0, not 1",
+      "Math.random() returns a double in [0.0, 1.0) — strictly less than 1. Multiplied by 8 gives [0.0, 8.0). Casting to int truncates the fractional part, producing integers 0 through 7 inclusive (8 is excluded because the upper bound is exclusive). Adding 3 shifts the range to 3 through 10 inclusive. So 11 is never produced; 3, 5, and 10 are all possible.",
+    trap: "Math.random()*n produces integers 0..n-1 (upper bound exclusive); with +offset the max value is offset + n − 1, NOT offset + n",
   },
   {
     id: 10,
@@ -1075,33 +1081,44 @@ export const examFRQs2: ExamFRQ[] = [
         letter: "A",
         points: 4,
         prompt:
-          "Write the method processLine(String line). The method should count the words in line using the provided helper. If the count exceeds maxWordsPerLine, use maxWordsPerLine instead (i.e., cap it). Add the capped count to the running total using addToTotal. Return the capped count.",
+          "Write the method processLine(String line). The method should count the words in line using the provided helper. The processed count is determined as follows: if the raw word count is less than or equal to maxWordsPerLine, the processed count equals the raw count; otherwise, the processed count is maxWordsPerLine (the count is capped). In addition, every time a line exceeds maxWordsPerLine, a penalty of 1 must be added to the running total (using addToTotal). The processed count itself must also be added to the running total (using addToTotal). Return the processed count. Each call to addToTotal must use the smallest correct argument; do not combine the processed count and the penalty into a single addToTotal call.",
         sampleAnswer: `public int processLine(String line) {
     int count = countWords(line);
-    int processed = Math.min(count, maxWordsPerLine);
+    int processed;
+    if (count > maxWordsPerLine) {
+        processed = maxWordsPerLine;
+        addToTotal(1);
+    } else {
+        processed = count;
+    }
     addToTotal(processed);
     return processed;
 }`,
         rubricPoints: [
           {
-            text: "Calls countWords(line) and stores or uses the result",
+            text: "Calls countWords(line) and stores the result for later use",
             points: 1,
           },
           {
-            text: "Correctly caps the count at maxWordsPerLine (Math.min or equivalent if/else)",
+            text: "Conditional correctly distinguishes count > maxWordsPerLine from count <= maxWordsPerLine and assigns processed accordingly (count in the under/equal case, maxWordsPerLine in the over case)",
             points: 1,
           },
           {
-            text: "Calls addToTotal(processed) with the capped value",
+            text: "Calls addToTotal(1) only when the line exceeded maxWordsPerLine (penalty is applied exactly when over the cap)",
             points: 1,
           },
-          { text: "Returns the capped word count", points: 1 },
+          {
+            text: "Calls addToTotal(processed) with the capped value AND returns the processed count",
+            points: 1,
+          },
         ],
         commonMistakes: [
-          "Calling countWords() without passing line as the argument",
-          "Using the raw count (not the capped value) in the call to addToTotal()",
-          "Calling addToTotal without any argument or with the wrong value",
-          "Not returning a value (method must return int)",
+          "Applying the penalty unconditionally (calling addToTotal(1) outside the if-branch)",
+          "Using >= instead of > so the penalty fires when count equals maxWordsPerLine",
+          "Passing the raw count to addToTotal instead of the capped value",
+          "Combining the penalty and processed count into a single addToTotal(processed + 1) call — the rubric requires separate calls",
+          "Returning the raw count instead of the capped (processed) count",
+          "Forgetting to return a value (method must return int)",
         ],
       },
       {

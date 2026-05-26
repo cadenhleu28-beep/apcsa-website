@@ -21,20 +21,22 @@ export const examMCQs: ExamMCQ[] = [
     skill: "3.A",
     question:
       "What is printed as a result of executing the following code segment?",
-    code: `int x = 17;
-int y = 5;
-System.out.println(x / y);
-System.out.println(x % y);`,
+    code: `int a = 29;
+int b = 6;
+int step = a / b;
+a = a % b * step + step;
+System.out.println(step);
+System.out.println(a);`,
     options: [
-      { id: "A", text: "3\n2" },
-      { id: "B", text: "3.4\n2" },
-      { id: "C", text: "3\n2.0" },
-      { id: "D", text: "3.4\n2.0" },
+      { id: "A", text: "4\n29" },
+      { id: "B", text: "4\n24" },
+      { id: "C", text: "4\n28" },
+      { id: "D", text: "5\n29" },
     ],
-    correctId: "A",
+    correctId: "B",
     explanation:
-      "Integer division truncates: 17 / 5 = 3 (not 3.4). The remainder 17 % 5 = 2. Both x and y are int, so the results stay int.",
-    trap: "integer division truncation",
+      "Line 3: step = 29 / 6 = 4 (integer truncation drops the .833). Line 4 has *, /, % at higher precedence than +, all evaluated left-to-right: a % b = 29 % 6 = 5, then 5 * step = 5 * 4 = 20, then 20 + step = 20 + 4 = 24. The first print shows step (still 4 — unchanged), the second shows the new a (24). Distractor A keeps the original a = 29. Distractor C treats / as exact division (29 / 6 = 4.833... rounded). Distractor D incorrectly rounds 29/6 to 5.",
+    trap: "operator precedence (% and * before +); intermediate value used after reassignment",
   },
   {
     id: 2,
@@ -43,18 +45,20 @@ System.out.println(x % y);`,
     skill: "3.A",
     question:
       "What is printed as a result of executing the following code segment?",
-    code: `String s = "APCSA";
-System.out.println(s.substring(1, 4));`,
+    code: `String s = "abracadabra";
+String part = s.substring(s.indexOf("ra"), s.indexOf("dab"));
+System.out.println(part);
+System.out.println(part.substring(part.length() - 2));`,
     options: [
-      { id: "A", text: '"APCS"' },
-      { id: "B", text: '"APC"' },
-      { id: "C", text: '"PCSA"' },
-      { id: "D", text: '"PCS"' },
+      { id: "A", text: "raca\nca" },
+      { id: "B", text: "racad\nad" },
+      { id: "C", text: "rac\nac" },
+      { id: "D", text: "abraca\nca" },
     ],
-    correctId: "D",
+    correctId: "A",
     explanation:
-      'substring(1, 4) returns characters from index 1 up to but NOT including index 4: indices 1, 2, 3 → "P", "C", "S" → "PCS". The end index is exclusive.',
-    trap: "substring end index is exclusive",
+      'Indices in "abracadabra": a=0,b=1,r=2,a=3,c=4,a=5,d=6,a=7,b=8,r=9,a=10. s.indexOf("ra") returns the FIRST occurrence: index 2. s.indexOf("dab") = 6. substring(2, 6) returns indices 2,3,4,5 → "raca". For the second print, part = "raca" has length 4, so part.length() - 2 = 2, and part.substring(2) returns characters from index 2 to end → "ca". Distractor B includes the end index (inclusive mistake). Distractor C uses substring length off-by-one. Distractor D starts indexOf from the wrong position.',
+    trap: "substring end index is exclusive; chained substring on a substring",
   },
   {
     id: 3,
@@ -63,19 +67,22 @@ System.out.println(s.substring(1, 4));`,
     skill: "3.A",
     question:
       "What is printed as a result of executing the following code segment?",
-    code: `String word = "Java";
-System.out.println(word.length());
-System.out.println(word.charAt(2));`,
+    code: `String word = "computer";
+String result = "";
+for (int i = 0; i < word.length() / 2; i++) {
+    result += word.charAt(word.length() - 1 - i);
+}
+System.out.println(result);`,
     options: [
-      { id: "A", text: "5\na" },
-      { id: "B", text: "4\na" },
-      { id: "C", text: "3\nv" },
-      { id: "D", text: "4\nv" },
+      { id: "A", text: "retupmoc" },
+      { id: "B", text: "retu" },
+      { id: "C", text: "comp" },
+      { id: "D", text: "etup" },
     ],
-    correctId: "D",
+    correctId: "B",
     explanation:
-      '"Java" has 4 characters so length() returns 4. Indices: J=0, a=1, v=2, a=3. charAt(2) returns \'v\'.',
-    trap: "zero-based string indexing",
+      'word.length() is 8, so the loop runs for i = 0, 1, 2, 3 (4 iterations). Indices in "computer": c=0,o=1,m=2,p=3,u=4,t=5,e=6,r=7. Each iteration reads word.charAt(7 - i): i=0 → \'r\', i=1 → \'e\', i=2 → \'t\', i=3 → \'u\'. Concatenated: "retu". Distractor A reverses the ENTIRE string (forgets the /2 bound). Distractor C reads the first half left-to-right. Distractor D reads the second half left-to-right.',
+    trap: "loop bound length()/2 with dynamically-computed index from the end",
   },
   {
     id: 4,
@@ -84,19 +91,22 @@ System.out.println(word.charAt(2));`,
     skill: "3.A",
     question:
       "What is printed as a result of executing the following code segment?",
-    code: `double d = 9.99;
-int n = (int) d;
-System.out.println(n);`,
+    code: `double a = 7.8;
+double b = 2.5;
+int x = (int) (a / b);
+int y = (int) a / (int) b;
+int z = (int) (Math.pow(a, 2) / b);
+System.out.println(x + " " + y + " " + z);`,
     options: [
-      { id: "A", text: "9.0" },
-      { id: "B", text: "10" },
-      { id: "C", text: "9.99" },
-      { id: "D", text: "9" },
+      { id: "A", text: "3 3 24" },
+      { id: "B", text: "3 2 24" },
+      { id: "C", text: "4 3 25" },
+      { id: "D", text: "3 3 25" },
     ],
-    correctId: "D",
+    correctId: "A",
     explanation:
-      "Casting a double to int truncates the decimal portion — it does NOT round. (int)9.99 drops the .99 and yields 9.",
-    trap: "casting truncates, does not round",
+      "x: 7.8 / 2.5 = 3.12, cast to int truncates → 3. y: (int)7.8 = 7 and (int)2.5 = 2 BEFORE the division, so 7 / 2 = 3 (integer division also truncates). z: Math.pow(7.8, 2) = 60.84, divided by 2.5 = 24.336, cast to int → 24. Distractor B forgets that 7/2 in integer division is 3, not 2. Distractor C rounds rather than truncates. Distractor D mis-truncates the final value.",
+    trap: "cast applies only to the parenthesized expression; (int) truncates each operand separately when casts come before /",
   },
   {
     id: 5,
@@ -190,18 +200,24 @@ System.out.println(a + b + " is the sum");`,
     cedTopic: "1.11",
     skill: "4.A",
     question:
-      "Consider the following code segment. Which of the following best describes the set of possible values of result?",
-    code: `int result = (int)(Math.random() * 10) + 1;`,
+      "Consider the following code segment that simulates rolling a six-sided die five times and counting the total. Which of the following describes the set of all possible values of total after the loop completes?",
+    code: `int total = 0;
+for (int i = 0; i < 5; i++) {
+    int roll = (int)(Math.random() * 6) + 1;
+    if (roll > 3) {
+        total += roll;
+    }
+}`,
     options: [
-      { id: "A", text: "Integers from 0 to 10, inclusive" },
-      { id: "B", text: "Integers from 0 to 9, inclusive" },
-      { id: "C", text: "Integers from 1 to 10, inclusive" },
-      { id: "D", text: "Integers from 1 to 11, inclusive" },
+      { id: "A", text: "Integers from 0 to 30, inclusive" },
+      { id: "B", text: "Integers from 4 to 30, inclusive, plus 0" },
+      { id: "C", text: "Integers from 5 to 30, inclusive, plus 0" },
+      { id: "D", text: "Integers from 0 to 35, inclusive" },
     ],
-    correctId: "C",
+    correctId: "B",
     explanation:
-      "Math.random() returns [0.0, 1.0). Multiplied by 10 gives [0.0, 10.0). Casting to int gives 0–9. Adding 1 gives 1–10.",
-    trap: "Math.random() upper bound is exclusive",
+      "Math.random() returns [0.0, 1.0); * 6 gives [0.0, 6.0); cast to int gives 0–5; + 1 gives roll ∈ {1,2,3,4,5,6}. Only rolls > 3 (i.e. 4, 5, or 6) are added. If no roll exceeds 3, total stays 0. Otherwise the minimum non-zero total is one qualifying roll of 4 (the rest ≤ 3) = 4. The maximum is five rolls of 6 = 30. So possible totals are 0 or any integer from 4 to 30. Distractor A omits the gap between 0 and 4. Distractor C uses the wrong minimum (5 ignores the lone-roll case). Distractor D mistakenly includes the value 6 × 5 + something — confuses inclusive upper bound.",
+    trap: "Math.random()*N upper bound exclusive; conditional accumulation creates a gap of impossible totals",
   },
   {
     id: 10,
@@ -209,19 +225,22 @@ System.out.println(a + b + " is the sum");`,
     cedTopic: "1.14",
     skill: "3.D",
     question:
-      "What happens when the following code segment is executed?",
-    code: `String s = null;
-System.out.println(s.length());`,
+      "Which line of the following code segment causes a NullPointerException to be thrown when the code is executed?",
+    code: `String a = "hello";                  // line 1
+String b = a.length() > 3 ? null : a; // line 2
+String c = b == null ? a : b;        // line 3
+int len = c.length() + b.length();   // line 4
+System.out.println(len);             // line 5`,
     options: [
-      { id: "A", text: "Prints 0" },
-      { id: "B", text: "Prints null" },
-      { id: "C", text: "A NullPointerException is thrown at runtime" },
-      { id: "D", text: "A compiler error prevents the code from running" },
+      { id: "A", text: "Line 2" },
+      { id: "B", text: "Line 3" },
+      { id: "C", text: "Line 4" },
+      { id: "D", text: "No exception is thrown" },
     ],
     correctId: "C",
     explanation:
-      "Calling a method on a null reference throws a NullPointerException at runtime. The compiler cannot detect this because s is declared as a valid String type.",
-    trap: "null reference throws NullPointerException, not a compile error",
+      'Line 2: a.length() = 5 > 3 is true, so b = null. (Assigning null is fine — no exception.) Line 3: b == null is true, so c = a = "hello". (Reading b == null is allowed; comparison with == on a null reference does NOT throw.) Line 4: c.length() succeeds (c = "hello"), but b.length() dereferences null → NullPointerException. Distractor A confuses assignment of null with dereference. Distractor B confuses == null with method-call dereference. Distractor D ignores that b is still null on line 4.',
+    trap: "== null and assignment do NOT throw NPE; only METHOD CALLS / field access on null do",
   },
 
   // ── UNIT 2 ──────────────────────────────────────────────────────────────
@@ -365,22 +384,26 @@ System.out.println(count);`,
     skill: "3.D",
     question:
       "What is the result of executing the following code segment?",
-    code: `int[] arr = {4, 8, 2, 6, 1};
-int max = arr[0];
-for (int i = 1; i <= arr.length; i++) {
-    if (arr[i] > max) max = arr[i];
+    code: `int[] arr = {3, 7, 2, 9, 5};
+int idx = 0;
+for (int i = 0; i < arr.length; i++) {
+    if (arr[i] % 2 == 1) {
+        if (arr[i + 1] > arr[i]) {
+            idx = i + 1;
+        }
+    }
 }
-System.out.println(max);`,
+System.out.println(arr[idx]);`,
     options: [
-      { id: "A", text: "Prints 8" },
-      { id: "B", text: "Prints 6" },
-      { id: "C", text: "An ArrayIndexOutOfBoundsException is thrown" },
-      { id: "D", text: "Prints 4" },
+      { id: "A", text: "9" },
+      { id: "B", text: "5" },
+      { id: "C", text: "7" },
+      { id: "D", text: "An ArrayIndexOutOfBoundsException is thrown" },
     ],
-    correctId: "C",
+    correctId: "D",
     explanation:
-      "The condition i <= arr.length allows i to reach 5. Valid indices for a 5-element array are 0–4. Accessing arr[5] throws an ArrayIndexOutOfBoundsException. The correct condition is i < arr.length.",
-    trap: "< vs <= with array.length: use < to avoid out-of-bounds",
+      "Trace: i=0, arr[0]=3 (odd); arr[1]=7 > 3 → idx=1. i=1, arr[1]=7 (odd); arr[2]=2 > 7 is false. i=2, arr[2]=2 (even), skip. i=3, arr[3]=9 (odd); arr[4]=5 > 9 is false. i=4, arr[4]=5 (odd); inner condition reads arr[i+1] = arr[5]. The OUTER bound i < arr.length lets i reach 4 safely, but the inner access arr[i+1] is out of bounds when i = 4 AND arr[i] is odd. Since arr[4]=5 IS odd, the inner check triggers and throws an ArrayIndexOutOfBoundsException. (If arr[4] had been even, no exception would occur.) Distractor A is the value that idx would have held briefly if execution continued. Distractor B is arr[4]. Distractor C is arr[1].",
+    trap: "exception depends on data — the i+1 access is only reached when the outer condition is true at the last iteration",
   },
   {
     id: 18,
@@ -464,19 +487,24 @@ System.out.println(min);`,
     skill: "3.A",
     question:
       "What is printed as a result of executing the following code segment?",
-    code: `int x = 0;
-boolean result = (x != 0) && (10 / x > 2);
-System.out.println(result);`,
+    code: `int count = 0;
+int[] data = {3, 0, 4, 0, 2, 6};
+for (int i = 0; i < data.length; i++) {
+    if (data[i] != 0 && 12 / data[i] >= 2) {
+        count++;
+    }
+}
+System.out.println(count);`,
     options: [
-      { id: "A", text: "true" },
-      { id: "B", text: "The code does not compile" },
+      { id: "A", text: "4" },
+      { id: "B", text: "3" },
       { id: "C", text: "An ArithmeticException is thrown" },
-      { id: "D", text: "false" },
+      { id: "D", text: "6" },
     ],
-    correctId: "D",
+    correctId: "A",
     explanation:
-      "Short-circuit evaluation: (x != 0) evaluates to false. With &&, if the left side is false, the right side is NEVER evaluated. So 10/x is never computed and no exception is thrown. result = false.",
-    trap: "&& short-circuits: right side not evaluated when left is false",
+      "Short-circuit &&: when data[i] == 0, 12 / data[i] is NEVER evaluated, so no division-by-zero exception. Trace: i=0, data[0]=3, 3≠0; 12/3=4 ≥ 2 true → count=1. i=1, data[1]=0 → skip (no exception). i=2, data[2]=4, 4≠0; 12/4=3 ≥ 2 true → count=2. i=3, data[3]=0 → skip. i=4, data[4]=2, 2≠0; 12/2=6 ≥ 2 true → count=3. i=5, data[5]=6, 6≠0; 12/6=2 ≥ 2 true → count=4. Final: 4. Distractor B excludes the 12/6=2 case (treats ≥ as >). Distractor C forgets short-circuit. Distractor D counts every element.",
+    trap: "&& short-circuits when first operand is false; division-by-zero never reached",
   },
   {
     id: 22,
@@ -542,35 +570,34 @@ System.out.println(b.area());`,
     id: 24,
     unit: 3,
     cedTopic: "3.5",
-    skill: "2.B",
+    skill: "3.C",
     question:
-      "Which of the following method signatures correctly declares a public accessor for a private String field named name?",
+      "Assume the following class definition exists. What is printed when the code segment executes?",
+    code: `public class Account {
+    private int balance;
+
+    public Account(int b) { balance = b; }
+    public int getBalance() { return balance; }
+    public void setBalance(int b) { balance = b; }
+    public void deposit(int amt) { setBalance(getBalance() + amt); }
+}
+
+// Code segment:
+Account a = new Account(50);
+a.deposit(20);
+a.setBalance(a.getBalance() * 2);
+a.deposit(a.getBalance() / 7);
+System.out.println(a.getBalance());`,
     options: [
-      {
-        id: "A",
-        text: "public String getName() { return name; }",
-        isCode: true,
-      },
-      {
-        id: "B",
-        text: "private String getName() { return name; }",
-        isCode: true,
-      },
-      {
-        id: "C",
-        text: "public void getName() { return name; }",
-        isCode: true,
-      },
-      {
-        id: "D",
-        text: "public String name() { return getName; }",
-        isCode: true,
-      },
+      { id: "A", text: "160" },
+      { id: "B", text: "140" },
+      { id: "C", text: "150" },
+      { id: "D", text: "240" },
     ],
     correctId: "A",
     explanation:
-      "An accessor (getter) should be public so callers can access it, return the same type as the field (String), and return the field value. Option B is private. Option C is void but tries to return a value. Option D has a syntax error.",
-    trap: "accessor must be public with matching return type",
+      "balance starts at 50. deposit(20) → setBalance(getBalance() + 20) → setBalance(70) → balance = 70. setBalance(getBalance() * 2) → setBalance(70 * 2) → setBalance(140) → balance = 140. deposit(getBalance() / 7) → getBalance() returns 140, so deposit(140 / 7) = deposit(20) → setBalance(140 + 20) → 160. Distractor B stops one step early. Distractor C forgets that integer division 140/7 = 20 exactly. Distractor D doubles balance again instead of adding.",
+    trap: "trace getter/setter chains; integer division inside method argument",
   },
   {
     id: 25,
@@ -954,17 +981,17 @@ System.out.println(sum);`,
     cedTopic: "4.15",
     skill: "4.A",
     question:
-      "A sorted array contains 1000 elements. In the best case, binary search finds the target element in how many comparisons?",
+      "The array {2, 5, 9, 13, 17, 21, 28, 34, 40} is searched for the value 27 using the standard binary search algorithm with mid = (low + high) / 2 (integer division). What are the values of low and high after exactly three iterations of the search loop?",
     options: [
-      { id: "A", text: "1000" },
-      { id: "B", text: "500" },
-      { id: "C", text: "10" },
-      { id: "D", text: "1" },
+      { id: "A", text: "low = 5, high = 5" },
+      { id: "B", text: "low = 5, high = 8" },
+      { id: "C", text: "low = 6, high = 5" },
+      { id: "D", text: "low = 4, high = 8" },
     ],
-    correctId: "D",
+    correctId: "C",
     explanation:
-      "In the best case, the target is exactly the middle element. Binary search compares it on the first check and returns immediately — 1 comparison. (Worst case would need about 10 comparisons, since each step halves the remaining 1000 elements.)",
-    trap: "best case binary search = 1 comparison (middle element)",
+      "Indices 0–8. Start: low=0, high=8. Iter 1: mid=(0+8)/2=4, arr[4]=17 < 27, so low = mid+1 = 5. (low=5, high=8). Iter 2: mid=(5+8)/2=6, arr[6]=28 > 27, so high = mid-1 = 5. (low=5, high=5). Iter 3: mid=(5+5)/2=5, arr[5]=21 < 27, so low = mid+1 = 6. (low=6, high=5) — now low > high, so the next iteration would exit. Distractor A is the state after two iterations. Distractor B is after one iteration. Distractor D is the initial state.",
+    trap: "binary search bound updates: low = mid+1 when arr[mid] < target; high = mid-1 when arr[mid] > target",
   },
   {
     id: 40,
@@ -1010,19 +1037,29 @@ System.out.println(sum);`,
     id: 42,
     unit: 4,
     cedTopic: "4.2",
-    skill: "1.B",
+    skill: "3.A",
     question:
-      "A program reads an unknown number of student test scores from a file and computes the class average. Which data structure is most appropriate for storing the scores before processing?",
+      "What is printed as a result of executing the following code segment?",
+    code: `int[] arr = new int[3];
+ArrayList<Integer> list = new ArrayList<Integer>();
+for (int i = 0; i < 3; i++) {
+    arr[i] = i + 1;
+    list.add(i + 1);
+}
+for (int i = 0; i < 2; i++) {
+    list.add(list.get(i) + arr[i]);
+}
+System.out.println(arr.length + " " + list.size() + " " + list.get(4));`,
     options: [
-      { id: "A", text: "A single int variable" },
-      { id: "B", text: "A String variable" },
-      { id: "C", text: "A 2D int array" },
-      { id: "D", text: "An ArrayList<Integer>" },
+      { id: "A", text: "3 5 4" },
+      { id: "B", text: "5 5 4" },
+      { id: "C", text: "3 5 6" },
+      { id: "D", text: "3 3 4" },
     ],
-    correctId: "D",
+    correctId: "A",
     explanation:
-      "An ArrayList<Integer> is ideal because the number of scores is unknown — ArrayList grows dynamically. A single int stores only one value. A String is not appropriate for numeric computation. A 2D array would be overkill for a flat list of scores.",
-    trap: "unknown count → ArrayList; known fixed count → array",
+      "After the first loop: arr = {1, 2, 3} (fixed size 3), list = [1, 2, 3]. The second loop runs for i = 0, 1. i=0: list.add(list.get(0) + arr[0]) = list.add(1 + 1) = list.add(2) → list = [1,2,3,2]. i=1: list.add(list.get(1) + arr[1]) = list.add(2 + 2) = list.add(4) → list = [1,2,3,2,4]. arr.length is still 3 (arrays have FIXED size — cannot grow). list.size() = 5 (ArrayList grew). list.get(4) = 4. Distractor B mistakenly grows arr.length. Distractor C miscomputes list.get(4) as if the second loop used new elements. Distractor D thinks list stays size 3 like arr.",
+    trap: "arrays have fixed length; ArrayList grows with each add — list.size() != arr.length after adds",
   },
 ];
 
@@ -1078,33 +1115,47 @@ export const examFRQs: ExamFRQ[] = [
         letter: "A",
         points: 4,
         prompt:
-          "Write the method processHourlyCheckout(int hour). The method should determine how many books will be checked out: the smaller of the books available that hour and the library's maxDailyCheckouts. It should record the checkout using the provided helper method and return the number of books checked out.",
+          "Write the method processHourlyCheckout(int hour). The method should determine how many books will be checked out and record the checkout, using the following rules:\n\n  - Let available be the number of books available at the given hour (use getBooksAvailable).\n  - Also check the PRIOR hour (hour - 1). If available at hour is at least available at hour - 1, the library is having a high-demand hour and the checkout is the minimum of available and maxDailyCheckouts.\n  - Otherwise (demand is lower than the prior hour), the checkout is half of available (using integer division) — but not more than maxDailyCheckouts.\n  - Special case: if hour == 0, treat the prior hour's availability as 0 (so the first hour always counts as high-demand).\n  - Record the checkout using recordCheckout and return the number of books checked out.",
         sampleAnswer: `public int processHourlyCheckout(int hour) {
     int available = getBooksAvailable(hour);
-    int checkout = Math.min(available, maxDailyCheckouts);
+    int prior = 0;
+    if (hour > 0) {
+        prior = getBooksAvailable(hour - 1);
+    }
+    int checkout;
+    if (available >= prior) {
+        checkout = Math.min(available, maxDailyCheckouts);
+    } else {
+        checkout = Math.min(available / 2, maxDailyCheckouts);
+    }
     recordCheckout(hour, checkout);
     return checkout;
 }`,
         rubricPoints: [
           {
-            text: "Calls getBooksAvailable(hour) and stores or uses the result",
+            text: "Calls getBooksAvailable(hour) and uses the result; also handles the prior hour correctly (calls getBooksAvailable(hour - 1) only when hour > 0, or otherwise treats prior as 0)",
             points: 1,
           },
           {
-            text: "Correctly computes the minimum of available books and maxDailyCheckouts",
+            text: "Branches on the comparison between current and prior availability (available >= prior vs. available < prior)",
             points: 1,
           },
           {
-            text: "Calls recordCheckout(hour, checkout) with correct arguments",
+            text: "Computes the correct checkout in each branch: min(available, maxDailyCheckouts) for high-demand; min(available / 2, maxDailyCheckouts) for low-demand (integer division acceptable)",
             points: 1,
           },
-          { text: "Returns the number of books checked out", points: 1 },
+          {
+            text: "Calls recordCheckout(hour, checkout) with correct arguments AND returns the checkout value",
+            points: 1,
+          },
         ],
         commonMistakes: [
-          "Calling getBooksAvailable without parentheses or with wrong argument",
-          "Using if/else instead of Math.min() (acceptable, but must be logically correct)",
-          "Calling recordCheckout with the wrong argument order",
-          "Not returning a value (method must return int)",
+          "Calling getBooksAvailable(hour - 1) when hour == 0, violating the precondition 0 <= hour <= 23 of the helper",
+          "Using > instead of >= when comparing available to prior (boundary case mishandled)",
+          "Forgetting to cap the low-demand branch at maxDailyCheckouts (returning available / 2 even when it exceeds the limit)",
+          "Using available * 0.5 (double) instead of available / 2 (int) and forgetting to cast back to int",
+          "Calling recordCheckout with the wrong argument order, or omitting the recordCheckout call entirely",
+          "Returning available or maxDailyCheckouts instead of the computed checkout",
         ],
       },
       {

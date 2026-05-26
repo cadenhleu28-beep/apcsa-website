@@ -21,20 +21,21 @@ export const examMCQs3: ExamMCQ[] = [
     skill: "3.A",
     question:
       "What is printed as a result of executing the following code segment?",
-    code: `int a = 1;
+    code: `String s = "ProgrammingClass";
+int a = 3;
 int b = 2;
-System.out.println("sum: " + a + b);
-System.out.println(a + b + " total");`,
+String result = s.substring(a, a + b + 4) + "_" + (a + b);
+System.out.println(result);`,
     options: [
-      { id: "A", text: '"sum: 12"\n"12 total"' },
-      { id: "B", text: '"sum: 3"\n"3 total"' },
-      { id: "C", text: '"sum: 12"\n"3 total"' },
-      { id: "D", text: '"sum: 3"\n"12 total"' },
+      { id: "A", text: '"gramm_5"' },
+      { id: "B", text: '"grammi_5"' },
+      { id: "C", text: '"grammi_32"' },
+      { id: "D", text: '"rammin_5"' },
     ],
-    correctId: "C",
+    correctId: "B",
     explanation:
-      'Line 1: "sum: " + a evaluates left-to-right → "sum: 1", then + b → "sum: 12" (String concat, not addition). Line 2: a + b evaluates first (both ints) → 3, then 3 + " total" → "3 total". Once a String appears on the LEFT of +, all remaining additions become concatenation.',
-    trap: "when a String appears first in +, all subsequent + operations are concatenation; when ints appear first they add numerically",
+      '"ProgrammingClass" indices: P=0, r=1, o=2, g=3, r=4, a=5, m=6, m=7, i=8, n=9. substring(a, a + b + 4) = substring(3, 9). Because the end index is exclusive, substring(3, 9) returns characters at indices 3,4,5,6,7,8 → g,r,a,m,m,i → "grammi" (6 characters). Then "grammi" + "_" gives "grammi_". Finally (a + b) is parenthesized so the ints add first → 5, and concatenating "grammi_" + 5 → "grammi_5". Option A is the off-by-one (treating the end index as inclusive, giving 5 letters). Option C forgets the parentheses and concatenates 3 and 2 as "32". Option D miscounts the start index.',
+    trap: "substring end index is EXCLUSIVE — substring(3, 9) gives 6 characters from index 3 to 8; parentheses around (a + b) force numeric addition before concatenation",
   },
   {
     id: 2,
@@ -146,21 +147,26 @@ System.out.println(s.length());`,
     skill: "3.A",
     question:
       "What is printed as a result of executing the following code segment?",
-    code: `String name = null;
-if (name == null) {
-    name = "default";
+    code: `String a = "Hi";
+String b = null;
+String c = null;
+if (a.length() > 1) {
+    c = a;
 }
-System.out.println(name);`,
+if (b == null) {
+    b = c.substring(0, 1);
+}
+System.out.println(b + "-" + c.length());`,
     options: [
-      { id: "A", text: "A NullPointerException is thrown" },
-      { id: "B", text: "null" },
-      { id: "C", text: '""' },
-      { id: "D", text: '"default"' },
+      { id: "A", text: '"H-2"' },
+      { id: "B", text: '"Hi-2"' },
+      { id: "C", text: "A NullPointerException is thrown" },
+      { id: "D", text: '"null-0"' },
     ],
-    correctId: "D",
+    correctId: "A",
     explanation:
-      'name starts as null. The condition name == null is true (null == null is always true for reference comparisons). Inside the if block, name is reassigned to "default". No NullPointerException occurs here because we only compare the reference, not call a method on it.',
-    trap: "null == null is valid; a NullPointerException only occurs when you call a method ON a null reference",
+      'a = "Hi", b = null, c = null. First if: a.length() = 2 > 1 is true → c = a, so c now references "Hi". Second if: b == null is true → b = c.substring(0, 1). Because c was reassigned to "Hi", c.substring(0, 1) is safe and returns "H", so b = "H". Final print: b + "-" + c.length() → "H" + "-" + 2 → "H-2". No NPE because c is no longer null by the time substring is called. Option C is the trap if you assume c is still null when substring runs.',
+    trap: "trace assignments carefully — c is conditionally reassigned before being dereferenced, so the NullPointerException distractor is wrong; a method call on a reference that was reassigned to a non-null value is safe",
   },
   {
     id: 8,
@@ -268,23 +274,23 @@ System.out.println(result);`,
     skill: "3.A",
     question:
       "What is printed as a result of executing the following code segment?",
-    code: `int score = 72;
-String grade;
-if (score >= 90) grade = "A";
-else if (score >= 80) grade = "B";
-else if (score >= 70) grade = "C";
-else grade = "F";
-System.out.println(grade);`,
+    code: `int n = 20;
+String label;
+if (n > 10) label = "big";
+if (n > 15) label = "huge";
+else if (n >= 20) label = "massive";
+else label = "small";
+System.out.println(label);`,
     options: [
-      { id: "A", text: '"A"' },
-      { id: "B", text: '"B"' },
-      { id: "C", text: '"F"' },
-      { id: "D", text: '"C"' },
+      { id: "A", text: '"big"' },
+      { id: "B", text: '"huge"' },
+      { id: "C", text: '"massive"' },
+      { id: "D", text: '"small"' },
     ],
-    correctId: "D",
+    correctId: "B",
     explanation:
-      '72 is not >= 90 (skip). 72 is not >= 80 (skip). 72 IS >= 70 → grade = "C". The remaining else branch is skipped. Only the first matching branch executes.',
-    trap: "once a matching branch is found, all subsequent else-if branches are skipped regardless of whether they would also match",
+      'The first if is an INDEPENDENT statement (not chained): n > 10 → 20 > 10 → true, so label = "big". The second if begins a separate if/else-if/else chain: n > 15 → 20 > 15 → true, so label = "huge". Because the second condition matched, the else-if (n >= 20) is skipped — even though it would ALSO be true for n = 20. The final value of label is "huge". The first assignment to "big" is overwritten by the second statement.',
+    trap: "two separate if statements both execute; once an else-if chain matches earlier, later branches are skipped even when their condition would also be true",
   },
   {
     id: 13,
@@ -484,22 +490,25 @@ System.out.println(vowelCount);`,
     skill: "3.A",
     question:
       "What is printed as a result of executing the following code segment?",
-    code: `for (int i = 0; i < 3; i++) {
-    for (int j = 0; j < i + 1; j++) {
-        System.out.print("X");
+    code: `int total = 0;
+for (int i = 1; i <= 3; i++) {
+    for (int j = i; j <= 3; j++) {
+        for (int k = 1; k <= j; k++) {
+            total++;
+        }
     }
 }
-System.out.println();`,
+System.out.println(total);`,
     options: [
-      { id: "A", text: '"XXX"' },
-      { id: "B", text: '"X"\n"XX"\n"XXX"' },
-      { id: "C", text: '"XXXXXX"' },
-      { id: "D", text: '"XXXXXXXXX"' },
+      { id: "A", text: "14" },
+      { id: "B", text: "13" },
+      { id: "C", text: "18" },
+      { id: "D", text: "9" },
     ],
-    correctId: "C",
+    correctId: "A",
     explanation:
-      "i=0: inner loop runs 0+1=1 time → 1 X. i=1: inner loop runs 1+1=2 times → 2 X's. i=2: inner loop runs 2+1=3 times → 3 X's. All 1+2+3=6 X's are printed by System.out.print (no newlines between them). The final println() only adds a newline after all X's.",
-    trap: "System.out.print does not add a newline — all X's appear on one line; println() at the end adds only the trailing newline",
+      "Trace each (i, j) pair and count the innermost iterations (k runs from 1 to j, so j times). i=1: j=1 → k runs 1 time; j=2 → 2 times; j=3 → 3 times. Subtotal = 1+2+3 = 6. i=2: j=2 → 2 times; j=3 → 3 times. Subtotal = 2+3 = 5. i=3: j=3 → 3 times. Subtotal = 3. Grand total = 6 + 5 + 3 = 14. Option B is the off-by-one if you stop j at j < 3 instead of j <= 3. Option C is the result if j started at 0 (or i started at 0). Option D is incorrect if you only count outer-loop iterations.",
+    trap: "the middle loop starts at j = i (depends on the outer variable), and the innermost loop bound depends on j — substitute the current value before counting iterations",
   },
   {
     id: 22,
