@@ -2,36 +2,36 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import {
-  ClipboardList, Brain, ArrowLeft,
-  ChevronRight, RotateCcw, Trophy, BookOpen,
+  Brain, ArrowLeft, ChevronRight, RotateCcw, Trophy,
+  BookOpen, Target, Zap, BarChart3,
 } from "lucide-react";
 
 const steps = [
   {
     num: 1,
+    icon: Target,
+    accent: "#3fb950",
+    border: "border-green-500/25",
+    badge: "text-green-400 bg-green-500/10 border-green-500/20",
+    iconBg: "bg-green-500/10 text-green-400",
+    title: "Take a diagnostic",
+    subtitle: "Practice Exam 1, cold",
+    description:
+      "Go in without looking anything up. The score breakdown tells you which units to focus on first, and every answer you log here also feeds the picker that runs your Scroll Feed later. Don't stress the number — this is just your baseline.",
+    action: { label: "Practice Exam 1", path: "/exam/1" },
+  },
+  {
+    num: 2,
     icon: BookOpen,
     accent: "#58a6ff",
     border: "border-blue-500/25",
     badge: "text-blue-400 bg-blue-500/10 border-blue-500/20",
     iconBg: "bg-blue-500/10 text-blue-400",
-    title: "Review the Lessons",
-    subtitle: "Optional but recommended",
+    title: "Patch the weak units",
+    subtitle: "Lessons, but only the ones you need",
     description:
-      "Start by browsing the 4 unit lessons. Read the explanations, study the code examples, and answer the inline concept checks. Focus on topics you're not confident in — skip ahead if you know the material.",
-    action: { label: "Go to Lessons", path: "/" },
-  },
-  {
-    num: 2,
-    icon: ClipboardList,
-    accent: "#3fb950",
-    border: "border-green-500/25",
-    badge: "text-green-400 bg-green-500/10 border-green-500/20",
-    iconBg: "bg-green-500/10 text-green-400",
-    title: "Take Practice Exam 1",
-    subtitle: "Treat it like the real thing",
-    description:
-      "Go in cold — don't look anything up. After you finish, review the performance breakdown to see exactly which topics you struggled with. This tells you where to focus next.",
-    action: { label: "Practice Exam 1", path: "/exam/1" },
+      "Open the unit lessons for whatever you bombed. Read the explanations, study the code examples, hit the inline concept checks. Skip the topics you already know — the goal is closing gaps, not re-reading material you've mastered.",
+    action: { label: "Browse units", path: "/" },
   },
   {
     num: 3,
@@ -40,23 +40,49 @@ const steps = [
     border: "border-violet-500/25",
     badge: "text-violet-400 bg-violet-500/10 border-violet-500/20",
     iconBg: "bg-violet-500/10 text-violet-400",
-    title: "Drill the MCQ Bank",
-    subtitle: "Target your weak spots",
+    title: "Drill on purpose",
+    subtitle: "MCQ Bank · when you've got 15+ min",
     description:
-      "Use the MCQ Bank to drill specific topics where you lost points. Filter by unit or topic. If you're fuzzy on a concept, re-read the relevant lesson for a deeper explanation.",
+      "Pick a unit, pick a topic, pick how many questions, and grind. Every answer comes with a full breakdown so you actually learn from the misses. Use this when you already know what's tripping you up and want focused reps.",
     action: { label: "Open MCQ Bank", path: "/mcq-bank" },
   },
   {
     num: 4,
+    icon: Zap,
+    accent: "#f43f5e",
+    border: "border-rose-500/25",
+    badge: "text-rose-400 bg-rose-500/10 border-rose-500/20",
+    iconBg: "bg-rose-500/10 text-rose-400",
+    title: "Drill on the go",
+    subtitle: "Scroll Feed · 5 min between classes",
+    description:
+      "The Scroll Feed is built for short windows. The algorithm pulls from every question you've answered across the site — exams, MCQ Bank, sub-units — and serves up the topics you keep missing. Swipe up for the next question, swipe right (after answering) for the full explanation.",
+    action: { label: "Open Scroll Feed", path: "/scroll" },
+  },
+  {
+    num: 5,
+    icon: BarChart3,
+    accent: "#38bdf8",
+    border: "border-sky-500/25",
+    badge: "text-sky-400 bg-sky-500/10 border-sky-500/20",
+    iconBg: "bg-sky-500/10 text-sky-400",
+    title: "Check the scoreboard",
+    subtitle: "Your Stats · every few sessions",
+    description:
+      "The Stats page shows your predicted AP score, accuracy across every unit, and which topics are quietly pulling you down. Check it every few sessions to see what's improving and what still needs work. Let the weak-spot list shape what you drill next.",
+    action: { label: "View Stats", path: "/stats" },
+  },
+  {
+    num: 6,
     icon: RotateCcw,
     accent: "#f78166",
     border: "border-orange-500/25",
     badge: "text-orange-400 bg-orange-500/10 border-orange-500/20",
     iconBg: "bg-orange-500/10 text-orange-400",
-    title: "Repeat with Exams 2 & 3",
-    subtitle: "Keep the cycle going",
+    title: "Re-test and recalibrate",
+    subtitle: "Practice Exams 2 & 3",
     description:
-      "Once you feel confident on the topics you drilled, move on to Practice Exam 2. Review that breakdown, drill again, then take Exam 3. Each cycle closes knowledge gaps.",
+      "Once you've drilled for a stretch, sit Practice Exam 2 to measure real progress. Use the result to recalibrate — back to the Bank, back to the Feed — then save Practice Exam 3 for a final dress rehearsal closer to test day.",
     action: { label: "Practice Exam 2", path: "/exam/2" },
   },
 ];
@@ -173,7 +199,7 @@ export default function GuidePage() {
             How to Use <span className="text-[#58a6ff]">This Site</span>
           </h1>
           <p className="text-[#8b949e] leading-relaxed text-sm sm:text-base">
-            Follow this cycle to make the most of the lessons, MCQ bank, and practice exams — and walk into the AP exam confident.
+            Six steps that turn the lessons, the MCQ Bank, the Scroll Feed, and the practice exams into one feedback loop. Diagnose → patch → drill → measure → repeat. Sign in so the algorithm and your Stats page can track everything across sessions.
           </p>
         </motion.div>
 
@@ -209,18 +235,32 @@ export default function GuidePage() {
           </motion.div>
         </div>
 
-        {/* Pro tip */}
+        {/* Pro tips */}
         <motion.div
           ref={tipRef}
           initial={{ opacity: 0, y: 10 }}
           animate={tipInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.4 }}
-          className="mt-8 rounded-md border border-[#30363d]/60 bg-[#161b22]/60 px-4 py-4"
+          className="mt-8 space-y-3"
         >
-          <p className="text-xs font-mono text-[#58a6ff] mb-1.5 uppercase tracking-widest">Pro tip</p>
-          <p className="text-sm text-[#8b949e] leading-relaxed">
-            Don't skip to Practice Exam 2 after Exam 1 — even with a high score. Use the MCQ Bank to drill every topic you got wrong. One missed concept on the real exam costs more than 10 minutes of drilling now.
-          </p>
+          <div className="rounded-md border border-[#30363d]/60 bg-[#161b22]/60 px-4 py-4">
+            <p className="text-xs font-mono text-[#58a6ff] mb-1.5 uppercase tracking-widest">Pro tip 1 · The daily Scroll Feed habit</p>
+            <p className="text-sm text-[#8b949e] leading-relaxed">
+              Open Scroll Feed once a day, even for one 15-question session. The algorithm needs reps to learn what you're weak on — the more you feed it, the sharper the question selection gets. Two minutes a day beats a one-hour cram every two weeks.
+            </p>
+          </div>
+          <div className="rounded-md border border-[#30363d]/60 bg-[#161b22]/60 px-4 py-4">
+            <p className="text-xs font-mono text-[#58a6ff] mb-1.5 uppercase tracking-widest">Pro tip 2 · Don't skip ahead</p>
+            <p className="text-sm text-[#8b949e] leading-relaxed">
+              After Practice Exam 1, resist jumping straight to Exam 2 even if your score was solid. Drill every topic you missed in the MCQ Bank first. One missed concept on the real exam costs more than 10 minutes of drilling now.
+            </p>
+          </div>
+          <div className="rounded-md border border-[#30363d]/60 bg-[#161b22]/60 px-4 py-4">
+            <p className="text-xs font-mono text-[#58a6ff] mb-1.5 uppercase tracking-widest">Pro tip 3 · Let Stats drive the plan</p>
+            <p className="text-sm text-[#8b949e] leading-relaxed">
+              Stop guessing what to study. Open the Stats page, look at your bottom-3 weak topics, and spend the next session drilling those in the MCQ Bank. Re-check Stats after a few sessions — if a topic moved out of the weak list, it's working.
+            </p>
+          </div>
         </motion.div>
 
         <div className="mt-8 text-center">
