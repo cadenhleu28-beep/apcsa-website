@@ -74,14 +74,14 @@ for (int i = 0; i < word.length() / 2; i++) {
 }
 System.out.println(result);`,
     options: [
-      { id: "A", text: "retupmoc" },
-      { id: "B", text: "retu" },
-      { id: "C", text: "comp" },
-      { id: "D", text: "etup" },
+      { id: "A", text: "retu" },
+      { id: "B", text: "comp" },
+      { id: "C", text: "etup" },
+      { id: "D", text: "retupmoc" },
     ],
-    correctId: "B",
+    correctId: "A",
     explanation:
-      'word.length() is 8, so the loop runs for i = 0, 1, 2, 3 (4 iterations). Indices in "computer": c=0,o=1,m=2,p=3,u=4,t=5,e=6,r=7. Each iteration reads word.charAt(7 - i): i=0 → \'r\', i=1 → \'e\', i=2 → \'t\', i=3 → \'u\'. Concatenated: "retu". Distractor A reverses the ENTIRE string (forgets the /2 bound). Distractor C reads the first half left-to-right. Distractor D reads the second half left-to-right.',
+      'word.length() is 8, so the loop runs for i = 0, 1, 2, 3 (4 iterations). Indices in "computer": c=0,o=1,m=2,p=3,u=4,t=5,e=6,r=7. Each iteration reads word.charAt(7 - i): i=0 → \'r\', i=1 → \'e\', i=2 → \'t\', i=3 → \'u\'. Concatenated: "retu". Distractor D reverses the ENTIRE string (forgets the /2 bound). Distractor B reads the first half left-to-right. Distractor C reads the second half left-to-right.',
     trap: "loop bound length()/2 with dynamically-computed index from the end",
   },
   {
@@ -98,14 +98,14 @@ int y = (int) a / (int) b;
 int z = (int) (Math.pow(a, 2) / b);
 System.out.println(x + " " + y + " " + z);`,
     options: [
-      { id: "A", text: "3 3 24" },
-      { id: "B", text: "3 2 24" },
-      { id: "C", text: "4 3 25" },
-      { id: "D", text: "3 3 25" },
+      { id: "A", text: "4 3 25" },
+      { id: "B", text: "3 3 25" },
+      { id: "C", text: "3 3 24" },
+      { id: "D", text: "3 2 24" },
     ],
-    correctId: "A",
+    correctId: "C",
     explanation:
-      "x: 7.8 / 2.5 = 3.12, cast to int truncates → 3. y: (int)7.8 = 7 and (int)2.5 = 2 BEFORE the division, so 7 / 2 = 3 (integer division also truncates). z: Math.pow(7.8, 2) = 60.84, divided by 2.5 = 24.336, cast to int → 24. Distractor B forgets that 7/2 in integer division is 3, not 2. Distractor C rounds rather than truncates. Distractor D mis-truncates the final value.",
+      "x: 7.8 / 2.5 = 3.12, cast to int truncates → 3. y: (int)7.8 = 7 and (int)2.5 = 2 BEFORE the division, so 7 / 2 = 3 (integer division also truncates). z: Math.pow(7.8, 2) = 60.84, divided by 2.5 = 24.336, cast to int → 24. Distractor D forgets that 7/2 in integer division is 3, not 2. Distractor A rounds rather than truncates. Distractor B mis-truncates the final value.",
     trap: "cast applies only to the parenthesized expression; (int) truncates each operand separately when casts come before /",
   },
   {
@@ -121,12 +121,12 @@ a *= 2;
 a -= 5;
 System.out.println(a);`,
     options: [
-      { id: "A", text: "31" },
-      { id: "B", text: "21" },
-      { id: "C", text: "26" },
-      { id: "D", text: "20" },
+      { id: "A", text: "20" },
+      { id: "B", text: "31" },
+      { id: "C", text: "21" },
+      { id: "D", text: "26" },
     ],
-    correctId: "B",
+    correctId: "C",
     explanation:
       "Step by step: a=10 → a+=3 → 13 → a*=2 → 26 → a-=5 → 21. Compound operators execute left to right, modifying a each time.",
     trap: "compound operator ordering",
@@ -142,12 +142,12 @@ System.out.println(a);`,
 System.out.println(s.indexOf("put"));
 System.out.println(s.indexOf("z"));`,
     options: [
-      { id: "A", text: "4\n-1" },
-      { id: "B", text: "3\n0" },
-      { id: "C", text: "3\n-1" },
-      { id: "D", text: "2\n-1" },
+      { id: "A", text: "2\n-1" },
+      { id: "B", text: "4\n-1" },
+      { id: "C", text: "3\n0" },
+      { id: "D", text: "3\n-1" },
     ],
-    correctId: "C",
+    correctId: "D",
     explanation:
       '"computer": c=0,o=1,m=2,p=3,u=4,t=5,e=6,r=7. "put" begins at index 3. indexOf returns -1 when the substring is not found.',
     trap: 'indexOf returns -1 for "not found"',
@@ -162,12 +162,12 @@ System.out.println(s.indexOf("z"));`,
     code: `System.out.println(Math.abs(-7));
 System.out.println(Math.pow(2, 4));`,
     options: [
-      { id: "A", text: "-7\n16.0" },
-      { id: "B", text: "7\n16.0" },
-      { id: "C", text: "7\n16" },
-      { id: "D", text: "7\n8.0" },
+      { id: "A", text: "7\n8.0" },
+      { id: "B", text: "-7\n16.0" },
+      { id: "C", text: "7\n16.0" },
+      { id: "D", text: "7\n16" },
     ],
-    correctId: "B",
+    correctId: "C",
     explanation:
       "Math.abs(-7) = 7. Math.pow returns a double, so 2^4 prints as 16.0, not 16. Math.pow(2, 3) would be 8.0.",
     trap: "Math.pow always returns double",
@@ -209,14 +209,14 @@ for (int i = 0; i < 5; i++) {
     }
 }`,
     options: [
-      { id: "A", text: "Integers from 0 to 30, inclusive" },
-      { id: "B", text: "Integers from 4 to 30, inclusive, plus 0" },
-      { id: "C", text: "Integers from 5 to 30, inclusive, plus 0" },
-      { id: "D", text: "Integers from 0 to 35, inclusive" },
+      { id: "A", text: "Integers from 0 to 35, inclusive" },
+      { id: "B", text: "Integers from 0 to 30, inclusive" },
+      { id: "C", text: "Integers from 4 to 30, inclusive, plus 0" },
+      { id: "D", text: "Integers from 5 to 30, inclusive, plus 0" },
     ],
-    correctId: "B",
+    correctId: "C",
     explanation:
-      "Math.random() returns [0.0, 1.0); * 6 gives [0.0, 6.0); cast to int gives 0–5; + 1 gives roll ∈ {1,2,3,4,5,6}. Only rolls > 3 (i.e. 4, 5, or 6) are added. If no roll exceeds 3, total stays 0. Otherwise the minimum non-zero total is one qualifying roll of 4 (the rest ≤ 3) = 4. The maximum is five rolls of 6 = 30. So possible totals are 0 or any integer from 4 to 30. Distractor A omits the gap between 0 and 4. Distractor C uses the wrong minimum (5 ignores the lone-roll case). Distractor D mistakenly includes the value 6 × 5 + something — confuses inclusive upper bound.",
+      "Math.random() returns [0.0, 1.0); * 6 gives [0.0, 6.0); cast to int gives 0–5; + 1 gives roll ∈ {1,2,3,4,5,6}. Only rolls > 3 (i.e. 4, 5, or 6) are added. If no roll exceeds 3, total stays 0. Otherwise the minimum non-zero total is one qualifying roll of 4 (the rest ≤ 3) = 4. The maximum is five rolls of 6 = 30. So possible totals are 0 or any integer from 4 to 30. Distractor B omits the gap between 0 and 4. Distractor D uses the wrong minimum (5 ignores the lone-roll case). Distractor A mistakenly includes the value 6 × 5 + something — confuses inclusive upper bound.",
     trap: "Math.random()*N upper bound exclusive; conditional accumulation creates a gap of impossible totals",
   },
   {
@@ -255,12 +255,12 @@ System.out.println(len);             // line 5`,
 boolean b = (x > 5) && (x % 2 == 0);
 System.out.println(b);`,
     options: [
-      { id: "A", text: "1" },
-      { id: "B", text: "false" },
-      { id: "C", text: "true" },
-      { id: "D", text: "0" },
+      { id: "A", text: "true" },
+      { id: "B", text: "0" },
+      { id: "C", text: "1" },
+      { id: "D", text: "false" },
     ],
-    correctId: "C",
+    correctId: "A",
     explanation:
       "x > 5 is true (8 > 5). x % 2 == 0 is true (8 is even). true && true = true.",
     trap: "boolean prints as true/false not 1/0",
@@ -280,12 +280,12 @@ else if (score >= 70) grade = "C";
 else grade = "D";
 System.out.println(grade);`,
     options: [
-      { id: "A", text: '"C"' },
-      { id: "B", text: '"B"' },
-      { id: "C", text: '"D"' },
-      { id: "D", text: '"A"' },
+      { id: "A", text: '"D"' },
+      { id: "B", text: '"A"' },
+      { id: "C", text: '"C"' },
+      { id: "D", text: '"B"' },
     ],
-    correctId: "A",
+    correctId: "C",
     explanation:
       "75 is not >= 90, not >= 80, but IS >= 70, so grade = \"C\". Once a branch executes, the remaining else-if branches are skipped.",
     trap: "only the first matching branch executes",
@@ -323,12 +323,12 @@ while (n <= 32) {
 }
 System.out.println(count);`,
     options: [
-      { id: "A", text: "4" },
-      { id: "B", text: "6" },
-      { id: "C", text: "5" },
-      { id: "D", text: "32" },
+      { id: "A", text: "5" },
+      { id: "B", text: "32" },
+      { id: "C", text: "4" },
+      { id: "D", text: "6" },
     ],
-    correctId: "B",
+    correctId: "D",
     explanation:
       "n progresses: 1 → 2 → 4 → 8 → 16 → 32 → 64. The loop runs once for each starting value of n (1, 2, 4, 8, 16, 32) — including when n=32 because 32 ≤ 32 is true. That gives 6 iterations; then n=64 > 32 and the loop exits with count=6.",
     trap: "off-by-one: the loop still runs when n equals the boundary value (32 ≤ 32 is true)",
@@ -348,12 +348,12 @@ System.out.println(count);`,
 }`,
     question: "What is printed as a result of executing the code segment above?",
     options: [
-      { id: "A", text: "1 \n2 \n3" },
-      { id: "B", text: "1 2 3 \n1 2 \n1" },
-      { id: "C", text: "1 \n1 2 \n1 2 3" },
-      { id: "D", text: "1 2 3 \n1 2 3 \n1 2 3" },
+      { id: "A", text: "1 2 3 \n1 2 \n1" },
+      { id: "B", text: "1 \n1 2 \n1 2 3" },
+      { id: "C", text: "1 2 3 \n1 2 3 \n1 2 3" },
+      { id: "D", text: "1 \n2 \n3" },
     ],
-    correctId: "C",
+    correctId: "B",
     explanation:
       "i=1: inner loop j runs 1 time → prints \"1 \" then newline. i=2: j runs twice → \"1 2 \" then newline. i=3: j runs 3 times → \"1 2 3 \" then newline. The inner loop bound is j <= i.",
     trap: "inner loop bound depends on outer loop variable",
@@ -367,12 +367,12 @@ System.out.println(count);`,
     question:
       "How many total integer values are printed by the code segment above?",
     options: [
-      { id: "A", text: "3" },
-      { id: "B", text: "6" },
-      { id: "C", text: "9" },
-      { id: "D", text: "4" },
+      { id: "A", text: "4" },
+      { id: "B", text: "3" },
+      { id: "C", text: "6" },
+      { id: "D", text: "9" },
     ],
-    correctId: "B",
+    correctId: "C",
     explanation:
       "When i=1, 1 value is printed. When i=2, 2 values. When i=3, 3 values. Total: 1 + 2 + 3 = 6 values.",
     trap: "sum the inner loop iterations: 1+2+3=6",
@@ -419,12 +419,12 @@ for (int n : nums) {
 }
 System.out.println(sum);`,
     options: [
-      { id: "A", text: "24" },
-      { id: "B", text: "23" },
-      { id: "C", text: "25" },
-      { id: "D", text: "14" },
+      { id: "A", text: "14" },
+      { id: "B", text: "24" },
+      { id: "C", text: "23" },
+      { id: "D", text: "25" },
     ],
-    correctId: "A",
+    correctId: "B",
     explanation: "3 + 7 + 1 + 9 + 4 = 24. The for-each loop visits every element exactly once.",
     trap: "basic for-each accumulation",
   },
@@ -470,12 +470,12 @@ for (int i = 1; i < values.length; i++) {
 }
 System.out.println(min);`,
     options: [
-      { id: "A", text: "5" },
-      { id: "B", text: "1" },
-      { id: "C", text: "3" },
-      { id: "D", text: "8" },
+      { id: "A", text: "8" },
+      { id: "B", text: "5" },
+      { id: "C", text: "1" },
+      { id: "D", text: "3" },
     ],
-    correctId: "B",
+    correctId: "C",
     explanation:
       "Standard minimum-finding algorithm. Starts with min=5, compares 3 (new min), then 8 (no), then 1 (new min), then 7 (no). Final min = 1.",
     trap: "standard min algorithm — must initialize to arr[0]",
@@ -496,14 +496,14 @@ for (int i = 0; i < data.length; i++) {
 }
 System.out.println(count);`,
     options: [
-      { id: "A", text: "4" },
-      { id: "B", text: "3" },
-      { id: "C", text: "An ArithmeticException is thrown" },
-      { id: "D", text: "6" },
+      { id: "A", text: "6" },
+      { id: "B", text: "4" },
+      { id: "C", text: "3" },
+      { id: "D", text: "An ArithmeticException is thrown" },
     ],
-    correctId: "A",
+    correctId: "B",
     explanation:
-      "Short-circuit &&: when data[i] == 0, 12 / data[i] is NEVER evaluated, so no division-by-zero exception. Trace: i=0, data[0]=3, 3≠0; 12/3=4 ≥ 2 true → count=1. i=1, data[1]=0 → skip (no exception). i=2, data[2]=4, 4≠0; 12/4=3 ≥ 2 true → count=2. i=3, data[3]=0 → skip. i=4, data[4]=2, 2≠0; 12/2=6 ≥ 2 true → count=3. i=5, data[5]=6, 6≠0; 12/6=2 ≥ 2 true → count=4. Final: 4. Distractor B excludes the 12/6=2 case (treats ≥ as >). Distractor C forgets short-circuit. Distractor D counts every element.",
+      "Short-circuit &&: when data[i] == 0, 12 / data[i] is NEVER evaluated, so no division-by-zero exception. Trace: i=0, data[0]=3, 3≠0; 12/3=4 ≥ 2 true → count=1. i=1, data[1]=0 → skip (no exception). i=2, data[2]=4, 4≠0; 12/4=3 ≥ 2 true → count=2. i=3, data[3]=0 → skip. i=4, data[4]=2, 2≠0; 12/2=6 ≥ 2 true → count=3. i=5, data[5]=6, 6≠0; 12/6=2 ≥ 2 true → count=4. Final: 4. Distractor C excludes the 12/6=2 case (treats ≥ as >). Distractor D forgets short-circuit. Distractor A counts every element.",
     trap: "&& short-circuits when first operand is false; division-by-zero never reached",
   },
   {
@@ -519,12 +519,12 @@ System.out.println(count);`,
     }
 }`,
     options: [
-      { id: "A", text: "15" },
-      { id: "B", text: "8" },
-      { id: "C", text: "3" },
-      { id: "D", text: "5" },
+      { id: "A", text: "3" },
+      { id: "B", text: "5" },
+      { id: "C", text: "15" },
+      { id: "D", text: "8" },
     ],
-    correctId: "A",
+    correctId: "C",
     explanation:
       "Each iteration of the outer loop (5 total) triggers a full pass of the inner loop (3 iterations). The inner statement runs 5 × 3 = 15 times.",
     trap: "nested loops multiply: outer iterations × inner iterations, not outer + inner",
@@ -556,12 +556,12 @@ System.out.println(count);`,
 Box b = new Box(4, 6);
 System.out.println(b.area());`,
     options: [
-      { id: "A", text: "24" },
-      { id: "B", text: "10" },
-      { id: "C", text: "46" },
-      { id: "D", text: "12" },
+      { id: "A", text: "10" },
+      { id: "B", text: "46" },
+      { id: "C", text: "12" },
+      { id: "D", text: "24" },
     ],
-    correctId: "A",
+    correctId: "D",
     explanation:
       "new Box(4, 6) sets width=4 and height=6. area() returns width * height = 4 * 6 = 24.",
     trap: "trace constructor assignment then method call",
@@ -589,14 +589,14 @@ a.setBalance(a.getBalance() * 2);
 a.deposit(a.getBalance() / 7);
 System.out.println(a.getBalance());`,
     options: [
-      { id: "A", text: "160" },
-      { id: "B", text: "140" },
-      { id: "C", text: "150" },
-      { id: "D", text: "240" },
+      { id: "A", text: "140" },
+      { id: "B", text: "150" },
+      { id: "C", text: "240" },
+      { id: "D", text: "160" },
     ],
-    correctId: "A",
+    correctId: "D",
     explanation:
-      "balance starts at 50. deposit(20) → setBalance(getBalance() + 20) → setBalance(70) → balance = 70. setBalance(getBalance() * 2) → setBalance(70 * 2) → setBalance(140) → balance = 140. deposit(getBalance() / 7) → getBalance() returns 140, so deposit(140 / 7) = deposit(20) → setBalance(140 + 20) → 160. Distractor B stops one step early. Distractor C forgets that integer division 140/7 = 20 exactly. Distractor D doubles balance again instead of adding.",
+      "balance starts at 50. deposit(20) → setBalance(getBalance() + 20) → setBalance(70) → balance = 70. setBalance(getBalance() * 2) → setBalance(70 * 2) → setBalance(140) → balance = 140. deposit(getBalance() / 7) → getBalance() returns 140, so deposit(140 / 7) = deposit(20) → setBalance(140 + 20) → 160. Distractor A stops one step early. Distractor B forgets that integer division 140/7 = 20 exactly. Distractor C doubles balance again instead of adding.",
     trap: "trace getter/setter chains; integer division inside method argument",
   },
   {
@@ -657,12 +657,12 @@ System.out.println(Counter.getTotal());`,
 Rectangle r = new Rectangle(5, 3);
 System.out.println(r.getWidth());`,
     options: [
-      { id: "A", text: "5" },
-      { id: "B", text: "3" },
-      { id: "C", text: "0" },
-      { id: "D", text: "This code does not compile" },
+      { id: "A", text: "This code does not compile" },
+      { id: "B", text: "5" },
+      { id: "C", text: "3" },
+      { id: "D", text: "0" },
     ],
-    correctId: "C",
+    correctId: "D",
     explanation:
       "Without this., the statement width = width assigns the parameter to itself. The instance variable width is never assigned, so it retains its default value of 0.",
     trap: "missing this. assigns parameter to itself; instance variable stays default (0)",
@@ -692,12 +692,12 @@ Thing t = new Thing();
 t.show();
 t.getX();`,
     options: [
-      { id: "A", text: "20\n10" },
-      { id: "B", text: "20\n20" },
-      { id: "C", text: "10\n10" },
-      { id: "D", text: "10\n20" },
+      { id: "A", text: "20\n20" },
+      { id: "B", text: "10\n10" },
+      { id: "C", text: "10\n20" },
+      { id: "D", text: "20\n10" },
     ],
-    correctId: "A",
+    correctId: "D",
     explanation:
       "In show(), the local variable x=20 shadows the instance variable x=10. System.out.println(x) prints the local 20. In getX(), there is no local x, so x refers to the instance variable x=10.",
     trap: "local variable shadows instance variable in its own method scope",
@@ -763,12 +763,12 @@ t.getX();`,
 System.out.println(arr[0]);
 System.out.println(arr[4]);`,
     options: [
-      { id: "A", text: "1\n5" },
-      { id: "B", text: "null\nnull" },
-      { id: "C", text: "An ArrayIndexOutOfBoundsException is thrown" },
-      { id: "D", text: "0\n0" },
+      { id: "A", text: "0\n0" },
+      { id: "B", text: "1\n5" },
+      { id: "C", text: "null\nnull" },
+      { id: "D", text: "An ArrayIndexOutOfBoundsException is thrown" },
     ],
-    correctId: "D",
+    correctId: "A",
     explanation:
       "In Java, integer arrays are automatically initialized to 0. arr[4] is the last valid index (indices 0–4 for a size-5 array), so no exception is thrown.",
     trap: "int arrays default to 0, not null",
@@ -838,12 +838,12 @@ list.add(1, 15);
 System.out.println(list.size());
 System.out.println(list.get(1));`,
     options: [
-      { id: "A", text: "2\n15" },
-      { id: "B", text: "3\n15" },
-      { id: "C", text: "3\n20" },
-      { id: "D", text: "2\n20" },
+      { id: "A", text: "3\n15" },
+      { id: "B", text: "3\n20" },
+      { id: "C", text: "2\n20" },
+      { id: "D", text: "2\n15" },
     ],
-    correctId: "B",
+    correctId: "A",
     explanation:
       "After add(10) and add(20): [10, 20]. add(1, 15) inserts 15 at index 1, shifting 20 right: [10, 15, 20]. size() = 3. get(1) = 15.",
     trap: "add(index, element) inserts at that index, shifting elements right",
@@ -865,12 +865,12 @@ for (int i = 0; i < nums.size(); i++) {
 }
 System.out.println(nums);`,
     options: [
-      { id: "A", text: "[1, 5]" },
-      { id: "B", text: "[1, 3, 5]" },
-      { id: "C", text: "[1, 2, 4, 5, 6]" },
-      { id: "D", text: "[1, 4, 5]" },
+      { id: "A", text: "[1, 4, 5]" },
+      { id: "B", text: "[1, 5]" },
+      { id: "C", text: "[1, 3, 5]" },
+      { id: "D", text: "[1, 2, 4, 5, 6]" },
     ],
-    correctId: "D",
+    correctId: "A",
     explanation:
       "Trace: [1,2,4,5,6]. i=0: 1 odd, skip. i=1: 2 even, remove(1) → [1,4,5,6]. i=2: get(2)=5 (4 was skipped because removal shifted indices). i=3: get(3)=6 even, remove(3) → [1,4,5]. i=4: 4 < 3 false (size is now 3), stop. 4 was never checked.",
     trap: "forward removal skips the element after the removed one — use backward traversal",
@@ -891,12 +891,12 @@ words.remove(0);
 System.out.println(words.get(0));
 System.out.println(words.size());`,
     options: [
-      { id: "A", text: '"blueberry"\n2' },
-      { id: "B", text: '"apple"\n2' },
-      { id: "C", text: '"banana"\n2' },
-      { id: "D", text: '"blueberry"\n3' },
+      { id: "A", text: '"apple"\n2' },
+      { id: "B", text: '"banana"\n2' },
+      { id: "C", text: '"blueberry"\n3' },
+      { id: "D", text: '"blueberry"\n2' },
     ],
-    correctId: "A",
+    correctId: "D",
     explanation:
       'Start: [apple, banana, cherry]. set(1, "blueberry") → [apple, blueberry, cherry]. remove(0) → [blueberry, cherry]. get(0) = "blueberry". size() = 2.',
     trap: "trace set() then remove() in order — indices shift after remove",
@@ -946,12 +946,12 @@ for (int r = 0; r < matrix.length; r++) {
 }
 System.out.println(sum);`,
     options: [
-      { id: "A", text: "45" },
-      { id: "B", text: "6" },
-      { id: "C", text: "15" },
-      { id: "D", text: "9" },
+      { id: "A", text: "6" },
+      { id: "B", text: "15" },
+      { id: "C", text: "9" },
+      { id: "D", text: "45" },
     ],
-    correctId: "C",
+    correctId: "B",
     explanation:
       "r == c selects the main diagonal: matrix[0][0]=1, matrix[1][1]=5, matrix[2][2]=9. Sum = 1 + 5 + 9 = 15.",
     trap: "r==c selects the main diagonal only",
@@ -965,12 +965,12 @@ System.out.println(sum);`,
     question:
       "Using the matrix defined above, what is the value of matrix[2][1]?",
     options: [
-      { id: "A", text: "7" },
-      { id: "B", text: "8" },
-      { id: "C", text: "9" },
-      { id: "D", text: "6" },
+      { id: "A", text: "8" },
+      { id: "B", text: "9" },
+      { id: "C", text: "6" },
+      { id: "D", text: "7" },
     ],
-    correctId: "B",
+    correctId: "A",
     explanation:
       "matrix[row][col]. Row 2 is {7, 8, 9}. Column 1 of that row is 8. matrix[2][1] = 8.",
     trap: "matrix[row][col] — first index is row, second is column",
@@ -983,14 +983,14 @@ System.out.println(sum);`,
     question:
       "The array {2, 5, 9, 13, 17, 21, 28, 34, 40} is searched for the value 27 using the standard binary search algorithm with mid = (low + high) / 2 (integer division). What are the values of low and high after exactly three iterations of the search loop?",
     options: [
-      { id: "A", text: "low = 5, high = 5" },
-      { id: "B", text: "low = 5, high = 8" },
-      { id: "C", text: "low = 6, high = 5" },
-      { id: "D", text: "low = 4, high = 8" },
+      { id: "A", text: "low = 6, high = 5" },
+      { id: "B", text: "low = 4, high = 8" },
+      { id: "C", text: "low = 5, high = 5" },
+      { id: "D", text: "low = 5, high = 8" },
     ],
-    correctId: "C",
+    correctId: "A",
     explanation:
-      "Indices 0–8. Start: low=0, high=8. Iter 1: mid=(0+8)/2=4, arr[4]=17 < 27, so low = mid+1 = 5. (low=5, high=8). Iter 2: mid=(5+8)/2=6, arr[6]=28 > 27, so high = mid-1 = 5. (low=5, high=5). Iter 3: mid=(5+5)/2=5, arr[5]=21 < 27, so low = mid+1 = 6. (low=6, high=5) — now low > high, so the next iteration would exit. Distractor A is the state after two iterations. Distractor B is after one iteration. Distractor D is the initial state.",
+      "Indices 0–8. Start: low=0, high=8. Iter 1: mid=(0+8)/2=4, arr[4]=17 < 27, so low = mid+1 = 5. (low=5, high=8). Iter 2: mid=(5+8)/2=6, arr[6]=28 > 27, so high = mid-1 = 5. (low=5, high=5). Iter 3: mid=(5+5)/2=5, arr[5]=21 < 27, so low = mid+1 = 6. (low=6, high=5) — now low > high, so the next iteration would exit. Distractor C is the state after two iterations. Distractor D is after one iteration. Distractor B is the initial state.",
     trap: "binary search bound updates: low = mid+1 when arr[mid] < target; high = mid-1 when arr[mid] > target",
   },
   {
@@ -1005,12 +1005,12 @@ System.out.println(sum);`,
     return n * mystery(n - 1);
 }`,
     options: [
-      { id: "A", text: "4" },
-      { id: "B", text: "8" },
-      { id: "C", text: "24" },
-      { id: "D", text: "10" },
+      { id: "A", text: "8" },
+      { id: "B", text: "24" },
+      { id: "C", text: "10" },
+      { id: "D", text: "4" },
     ],
-    correctId: "C",
+    correctId: "B",
     explanation:
       "mystery(4) = 4 * mystery(3) = 4 * 3 * mystery(2) = 4 * 3 * 2 * mystery(1) = 4 * 3 * 2 * 1 = 24. This is the factorial function.",
     trap: "trace recursive calls all the way to the base case",
@@ -1051,14 +1051,14 @@ for (int i = 0; i < 2; i++) {
 }
 System.out.println(arr.length + " " + list.size() + " " + list.get(4));`,
     options: [
-      { id: "A", text: "3 5 4" },
-      { id: "B", text: "5 5 4" },
-      { id: "C", text: "3 5 6" },
-      { id: "D", text: "3 3 4" },
+      { id: "A", text: "3 3 4" },
+      { id: "B", text: "3 5 4" },
+      { id: "C", text: "5 5 4" },
+      { id: "D", text: "3 5 6" },
     ],
-    correctId: "A",
+    correctId: "B",
     explanation:
-      "After the first loop: arr = {1, 2, 3} (fixed size 3), list = [1, 2, 3]. The second loop runs for i = 0, 1. i=0: list.add(list.get(0) + arr[0]) = list.add(1 + 1) = list.add(2) → list = [1,2,3,2]. i=1: list.add(list.get(1) + arr[1]) = list.add(2 + 2) = list.add(4) → list = [1,2,3,2,4]. arr.length is still 3 (arrays have FIXED size — cannot grow). list.size() = 5 (ArrayList grew). list.get(4) = 4. Distractor B mistakenly grows arr.length. Distractor C miscomputes list.get(4) as if the second loop used new elements. Distractor D thinks list stays size 3 like arr.",
+      "After the first loop: arr = {1, 2, 3} (fixed size 3), list = [1, 2, 3]. The second loop runs for i = 0, 1. i=0: list.add(list.get(0) + arr[0]) = list.add(1 + 1) = list.add(2) → list = [1,2,3,2]. i=1: list.add(list.get(1) + arr[1]) = list.add(2 + 2) = list.add(4) → list = [1,2,3,2,4]. arr.length is still 3 (arrays have FIXED size — cannot grow). list.size() = 5 (ArrayList grew). list.get(4) = 4. Distractor C mistakenly grows arr.length. Distractor D miscomputes list.get(4) as if the second loop used new elements. Distractor A thinks list stays size 3 like arr.",
     trap: "arrays have fixed length; ArrayList grows with each add — list.size() != arr.length after adds",
   },
 ];
