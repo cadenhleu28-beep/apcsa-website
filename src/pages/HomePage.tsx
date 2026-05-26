@@ -608,7 +608,7 @@ export default function HomePage() {
               <div className="flex items-center gap-2">
                 <HelpPopover
                   accentClass="hover:text-rose-300"
-                  description="It's basically TikTok for AP Computer Science. 15 questions per session, instant explanations on every answer, and the picker leans into the topics you keep missing. Good way to burn 10 minutes between classes."
+                  description="A swipe-based practice feed powered by a weakness-weighted sampling algorithm. Each 15-question session pulls from your full attempt history across sub-units, practice exams, and the MCQ bank, then runs that data through a per-topic accuracy model to decide what you actually need to drill. Recently-missed questions get resurfaced via a recency boost; mastered topics are suppressed. Built like TikTok, tuned like a recommender system."
                 />
                 <ChevronRight
                   size={16}
