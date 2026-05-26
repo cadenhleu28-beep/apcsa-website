@@ -14,6 +14,7 @@ export interface MCQQuestion {
   options: [MCQOption, MCQOption, MCQOption, MCQOption];
   answer: AnswerLetter;
   explanation: string;
+  trap?: string;
 }
 
 export interface MCQTopic {
