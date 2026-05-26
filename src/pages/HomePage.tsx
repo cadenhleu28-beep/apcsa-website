@@ -608,7 +608,7 @@ export default function HomePage() {
               <div className="flex items-center gap-2">
                 <HelpPopover
                   accentClass="hover:text-rose-300"
-                  description="A swipe-based practice feed powered by a weakness-weighted sampling algorithm. Each 15-question session pulls from your full attempt history across sub-units, practice exams, and the MCQ bank, then runs that data through a per-topic accuracy model to decide what you actually need to drill. Recently-missed questions get resurfaced via a recency boost; mastered topics are suppressed. Built like TikTok, tuned like a recommender system."
+                  description="A swipe-based practice feed powered by a weakness-weighted sampling algorithm. Each 15-question session pulls from your full attempt history across sub-units, practice exams, and the MCQ bank, then runs that data through a per-topic accuracy model to decide what you actually need to drill. Recently-missed questions get resurfaced via a recency boost; mastered topics are suppressed. Swipe up vertically to advance to the next question, and once you've locked in your answer, swipe right horizontally to reveal the full explanation. Built like TikTok, tuned like a recommender system."
                 />
                 <ChevronRight
                   size={16}
