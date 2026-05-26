@@ -21,6 +21,8 @@ import { examMCQs, examFRQs } from "../data/examData";
 import { examMCQs2, examFRQs2 } from "../data/examData2";
 import { examMCQs3, examFRQs3 } from "../data/examData3";
 import type { ExamMCQ, ExamFRQ, OptionId, ExamMode, ExamPhase } from "../types/exam";
+import { useAuth } from "../context/AuthContext";
+import { recordAttemptsBatch } from "../lib/attempts";
 
 // ── Per-exam data context ─────────────────────────────────────────────────────
 interface ExamDataCtx { mcqs: ExamMCQ[]; frqs: ExamFRQ[]; examNum: number; keys: ReturnType<typeof makeExamKeys> }
@@ -1655,13 +1657,14 @@ function ResultsDashboard({
 export default function ExamPage() {
   const { examId } = useParams<{ examId: string }>();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const examNum = examId === "3" ? 3 : examId === "2" ? 2 : 1;
   const examCtx: ExamDataCtx = examNum === 3
     ? { mcqs: examMCQs3, frqs: examFRQs3, examNum: 3, keys: makeExamKeys(3) }
     : examNum === 2
     ? { mcqs: examMCQs2, frqs: examFRQs2, examNum: 2, keys: makeExamKeys(2) }
     : EXAM1_CTX;
-  const { keys } = examCtx;
+  const { keys, mcqs: examMcqs } = examCtx;
 
   const [phase, setPhase] = usePersistedState<ExamPhase>(keys.phase, "landing");
   const [mode, setMode] = usePersistedState<ExamMode>(keys.mode, "untimed");
@@ -1697,6 +1700,21 @@ export default function ExamPage() {
     setMode("untimed");
   };
 
+  const handleMCQSectionComplete = useCallback(() => {
+    if (user) {
+      const rows = examMcqs
+        .filter((q) => mcqAnswers[q.id] !== undefined)
+        .map((q) => ({
+          mcqId: `exam${examNum}_q${q.id}`,
+          topicId: q.cedTopic,
+          correct: mcqAnswers[q.id] === q.correctId,
+          source: "exam" as const,
+        }));
+      recordAttemptsBatch(user.id, rows);
+    }
+    setPhase("frq-intro");
+  }, [user, examMcqs, mcqAnswers, examNum, setPhase]);
+
   return (
     <ExamDataContext.Provider value={examCtx}>
     <AnimatePresence mode="wait">
@@ -1721,7 +1739,7 @@ export default function ExamPage() {
             mode={mode}
             answers={mcqAnswers}
             onAnswer={handleMCQAnswer}
-            onComplete={() => setPhase("frq-intro")}
+            onComplete={handleMCQSectionComplete}
             onExit={() => navigate("/")}
           />
         </motion.div>

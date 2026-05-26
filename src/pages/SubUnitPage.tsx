@@ -9,6 +9,7 @@ import { allSubUnits, prevSubUnit, nextSubUnit } from "../data/curriculum";
 import type { MCQ, ConceptCheck, CodeExample } from "../types/curriculum";
 import { useAuth } from "../context/AuthContext";
 import { loadAllProgress, saveSubUnitProgress } from "../lib/progress";
+import { recordAttempt } from "../lib/attempts";
 
 // ── Java syntax highlighter ────────────────────────────────────────────────────
 const JAVA_KEYWORDS = new Set([
@@ -358,6 +359,7 @@ export default function SubUnitPage() {
   const handleAnswer = useCallback(
     (mcqId: string, optionId: string) => {
       if (!user || !entry) return;
+      const previous = mcqAnswers[mcqId];
       const updated = { ...mcqAnswers, [mcqId]: optionId };
       const allAnswered =
         entry.mcqs.length > 0 &&
@@ -365,6 +367,21 @@ export default function SubUnitPage() {
       setMcqAnswers(updated);
       if (allAnswered) setAlreadyComplete(true);
       saveSubUnitProgress(user.id, entry.slug, allAnswered, updated);
+
+      // Only log a new attempt when the selection actually changes.
+      if (previous !== optionId) {
+        const mcq = entry.mcqs.find((m) => m.id === mcqId);
+        if (mcq) {
+          const topicId = entry.cedTopics[0] ?? `${entry.unit.id}.0`;
+          recordAttempt(
+            user.id,
+            mcqId,
+            topicId,
+            optionId === mcq.correctId,
+            "subunit",
+          );
+        }
+      }
     },
     [user, entry, mcqAnswers]
   );

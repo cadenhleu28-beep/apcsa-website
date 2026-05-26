@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import { mcqBank } from "../data/mcqBank";
 import type { MCQQuestion } from "../types/mcq";
+import { useAuth } from "../context/AuthContext";
+import { recordAttempt } from "../lib/attempts";
 
 type Mode = "whole-unit" | "specific-topic";
 type Step = "mode" | "unit" | "count" | "topic" | "quiz" | "summary";
@@ -75,6 +77,7 @@ const fadeUp = {
 
 export default function MCQBankPage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   // Step / selection state
   const [step, setStep] = useState<Step>("mode");
@@ -156,6 +159,16 @@ export default function MCQBankPage() {
     setSelectedAnswer(letter);
     setShowFeedback(true);
     if (mode === "specific-topic") setSessionAnsweredCount((c) => c + 1);
+
+    if (user && currentQuestion) {
+      recordAttempt(
+        user.id,
+        currentQuestion.id,
+        currentQuestion.topicId,
+        letter === currentQuestion.answer,
+        "bank",
+      );
+    }
   };
 
   const commitResult = (prevResults: QuizResult[]): QuizResult[] => [

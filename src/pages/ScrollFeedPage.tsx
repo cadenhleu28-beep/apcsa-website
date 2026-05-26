@@ -8,9 +8,17 @@ import {
   type PanInfo,
 } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { ChevronLeft, ChevronRight, RefreshCw, Home } from "lucide-react";
+import { ChevronLeft, ChevronRight, RefreshCw, Home, Sparkles, LogIn } from "lucide-react";
 import { mcqBank } from "../data/mcqBank";
 import type { MCQQuestion, AnswerLetter } from "../types/mcq";
+import { useAuth } from "../context/AuthContext";
+import {
+  backfillSubUnitAttempts,
+  loadAttempts,
+  pickPersonalizedSession,
+  recordAttempt,
+  isColdStart,
+} from "../lib/attempts";
 
 const SESSION_SIZE = 15;
 
@@ -25,9 +33,10 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
-function buildSession(): MCQQuestion[] {
-  const all = mcqBank.flatMap((u) => u.topics.flatMap((t) => t.questions));
-  return shuffle(all).slice(0, SESSION_SIZE);
+const ALL_QUESTIONS = mcqBank.flatMap((u) => u.topics.flatMap((t) => t.questions));
+
+function randomSession(): MCQQuestion[] {
+  return shuffle(ALL_QUESTIONS).slice(0, SESSION_SIZE);
 }
 
 function splitExplanation(text: string): string[] {
@@ -553,26 +562,56 @@ function ResultsCard({
 
 export default function ScrollFeedPage() {
   const navigate = useNavigate();
+  const { user, loading: authLoading } = useAuth();
   const [sessionId, setSessionId] = useState(0);
-  const cardsInitial = useMemo(
-    () =>
-      buildSession().map<CardState>((q) => ({
-        question: q,
-        selected: null,
-        view: "question",
-      })),
-    // Rebuild whenever sessionId changes (re-shuffle on "Try Another 15")
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [sessionId],
-  );
-  const [cards, setCards] = useState<CardState[]>(cardsInitial);
+  const [cards, setCards] = useState<CardState[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [personalized, setPersonalized] = useState(false);
+
   useEffect(() => {
-    setCards(cardsInitial);
-  }, [cardsInitial]);
+    if (authLoading) return;
+    let cancelled = false;
+
+    async function load() {
+      setLoading(true);
+      let questions: MCQQuestion[];
+      let didPersonalize = false;
+
+      if (user) {
+        // First-load backfill (no-op after first run)
+        await backfillSubUnitAttempts(user.id);
+        const attempts = await loadAttempts(user.id);
+        if (!isColdStart(attempts)) {
+          questions = pickPersonalizedSession(attempts, SESSION_SIZE);
+          didPersonalize = true;
+        } else {
+          questions = randomSession();
+        }
+      } else {
+        questions = randomSession();
+      }
+
+      if (cancelled) return;
+      setCards(
+        questions.map<CardState>((q) => ({
+          question: q,
+          selected: null,
+          view: "question",
+        })),
+      );
+      setPersonalized(didPersonalize);
+      setLoading(false);
+    }
+
+    load();
+    return () => {
+      cancelled = true;
+    };
+  }, [user, authLoading, sessionId]);
 
   const [index, setIndex] = useState(0);
-  // index === SESSION_SIZE means "results card"
-  const showResults = index >= cards.length;
+  // index === SESSION_SIZE means "results card" (only valid once cards are loaded)
+  const showResults = !loading && cards.length > 0 && index >= cards.length;
 
   // Lock page scroll while feed is mounted
   useEffect(() => {
@@ -591,6 +630,10 @@ export default function ScrollFeedPage() {
       if (prev[cardIdx].selected) return prev;
       const next = [...prev];
       next[cardIdx] = { ...next[cardIdx], selected: letter };
+      const q = next[cardIdx].question;
+      if (user) {
+        recordAttempt(user.id, q.id, q.topicId, letter === q.answer, "feed");
+      }
       return next;
     });
   };
@@ -669,12 +712,7 @@ export default function ScrollFeedPage() {
       ) {
         e.preventDefault();
         const letter = upper as AnswerLetter;
-        setCards((prev) => {
-          if (prev[currentIdx].selected) return prev;
-          const next = [...prev];
-          next[currentIdx] = { ...next[currentIdx], selected: letter };
-          return next;
-        });
+        handleSelectAnswer(currentIdx, letter);
       }
     };
     window.addEventListener("keydown", onKey);
@@ -686,11 +724,17 @@ export default function ScrollFeedPage() {
     setIndex(0);
   };
 
+  // Reset to first card whenever a fresh session loads.
+  useEffect(() => {
+    setIndex(0);
+  }, [sessionId]);
+
   const correctCount = cards.filter(
     (c) => c.selected !== null && c.selected === c.question.answer,
   ).length;
 
   const currentCard = !showResults ? cards[index] : null;
+  const showLoading = loading || authLoading;
 
   return (
     <div
@@ -736,14 +780,46 @@ export default function ScrollFeedPage() {
           )}
         </div>
 
-        {/* Right slot kept clean per spec */}
-        <div className="w-9 h-9" aria-hidden />
+        {/* Right slot: personalization badge or sign-in nudge */}
+        {personalized ? (
+          <div
+            className="flex items-center gap-1 px-2.5 h-9 rounded-full bg-rose-500/10 border border-rose-400/30 text-rose-300"
+            title="Questions picked based on what you need to practice"
+          >
+            <Sparkles size={12} />
+            <span className="text-[10px] font-mono uppercase tracking-wide">For you</span>
+          </div>
+        ) : !user && !authLoading ? (
+          <button
+            onClick={() => navigate("/auth")}
+            className="flex items-center gap-1 px-2.5 h-9 rounded-full bg-[#161b22]/80 backdrop-blur border border-[#30363d] text-[#8b949e] hover:text-[#e6edf3] hover:border-[#484f58] transition-colors"
+            title="Sign in to get questions tailored to your weak spots"
+          >
+            <LogIn size={12} />
+            <span className="text-[10px] font-mono uppercase tracking-wide">Personalize</span>
+          </button>
+        ) : (
+          <div className="w-9 h-9" aria-hidden />
+        )}
       </header>
 
       {/* Card stack */}
       <div className="absolute inset-0">
         <AnimatePresence mode="wait">
-          {showResults ? (
+          {showLoading ? (
+            <motion.div
+              key="loading"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 flex items-center justify-center"
+            >
+              <div className="flex flex-col items-center gap-3 text-[#6e7681] font-mono text-xs">
+                <div className="w-6 h-6 rounded-full border-2 border-[#30363d] border-t-rose-400 animate-spin" />
+                <span>{user ? "Picking questions for you…" : "Loading…"}</span>
+              </div>
+            </motion.div>
+          ) : showResults ? (
             <ResultsCard
               key="results"
               correct={correctCount}
