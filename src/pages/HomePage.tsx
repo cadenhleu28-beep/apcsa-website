@@ -5,7 +5,7 @@ import {
   Box, GitBranch, Code2, Database,
   ChevronRight, BookOpen, ClipboardList,
   LogIn, LogOut, User, Trophy, Brain, Map,
-  ArrowRight, Zap, BarChart3,
+  ArrowRight, Zap, BarChart3, HelpCircle, X,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { curriculum } from "../data/curriculum";
@@ -247,6 +247,75 @@ function UnitCard({
         )}
       </div>
     </motion.button>
+  );
+}
+
+// ── Help popover (used on practice-tool cards) ─────────────────────────────────
+function HelpPopover({
+  description,
+  accentClass,
+}: {
+  description: string;
+  accentClass: string;
+}) {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    const onDocClick = () => setOpen(false);
+    document.addEventListener("click", onDocClick);
+    return () => document.removeEventListener("click", onDocClick);
+  }, [open]);
+
+  return (
+    <span
+      className="relative inline-flex"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <span
+        role="button"
+        tabIndex={0}
+        aria-label="What is this?"
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpen((v) => !v);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setOpen((v) => !v);
+          }
+        }}
+        className={`flex items-center justify-center w-6 h-6 rounded-full text-[#6e7681] hover:text-[#e6edf3] hover:bg-[#21262d] transition-colors cursor-pointer ${accentClass}`}
+      >
+        <HelpCircle size={14} />
+      </span>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.12 }}
+            className="absolute right-0 top-full mt-2 z-30 w-72 sm:w-80 p-4 rounded-lg bg-[#0d1117] border border-[#30363d] shadow-xl shadow-black/40 text-left"
+          >
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setOpen(false);
+              }}
+              className="absolute top-2 right-2 text-[#6e7681] hover:text-[#e6edf3]"
+              aria-label="Close"
+            >
+              <X size={14} />
+            </button>
+            <p className="text-xs sm:text-sm text-[#c9d1d9] leading-relaxed pr-4">
+              {description}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </span>
   );
 }
 
@@ -515,10 +584,10 @@ export default function HomePage() {
 
           <div className="flex flex-col gap-3">
             {/* Scroll Feed */}
-            <button
+            <div
               onClick={() => navigate("/scroll")}
               className="
-                group w-full flex items-center justify-between
+                group w-full flex items-center justify-between cursor-pointer
                 bg-[#161b22] border border-rose-500/25
                 hover:border-rose-400/50 hover:bg-[#1a1f27]
                 rounded-lg px-5 py-4 transition-all duration-200
@@ -536,17 +605,23 @@ export default function HomePage() {
                   </p>
                 </div>
               </div>
-              <ChevronRight
-                size={16}
-                className="text-[#484f58] group-hover:text-rose-400 group-hover:translate-x-0.5 transition-all duration-150"
-              />
-            </button>
+              <div className="flex items-center gap-2">
+                <HelpPopover
+                  accentClass="hover:text-rose-300"
+                  description="It's basically TikTok for AP Computer Science. 15 questions per session, instant explanations on every answer, and the picker leans into the topics you keep missing. Good way to burn 10 minutes between classes."
+                />
+                <ChevronRight
+                  size={16}
+                  className="text-[#484f58] group-hover:text-rose-400 group-hover:translate-x-0.5 transition-all duration-150"
+                />
+              </div>
+            </div>
 
             {/* MCQ Bank */}
-            <button
+            <div
               onClick={() => navigate("/mcq-bank")}
               className="
-                group w-full flex items-center justify-between
+                group w-full flex items-center justify-between cursor-pointer
                 bg-[#161b22] border border-violet-500/25
                 hover:border-violet-400/50 hover:bg-[#1a1f27]
                 rounded-lg px-5 py-4 transition-all duration-200
@@ -564,17 +639,23 @@ export default function HomePage() {
                   </p>
                 </div>
               </div>
-              <ChevronRight
-                size={16}
-                className="text-[#484f58] group-hover:text-violet-400 group-hover:translate-x-0.5 transition-all duration-150"
-              />
-            </button>
+              <div className="flex items-center gap-2">
+                <HelpPopover
+                  accentClass="hover:text-violet-300"
+                  description="Pick the unit, the topic, how many questions, and go. Every answer comes with a full breakdown, so you actually understand what you missed instead of just clicking through. Use this when you already know what's tripping you up."
+                />
+                <ChevronRight
+                  size={16}
+                  className="text-[#484f58] group-hover:text-violet-400 group-hover:translate-x-0.5 transition-all duration-150"
+                />
+              </div>
+            </div>
 
             {/* Your Stats */}
-            <button
+            <div
               onClick={() => navigate("/stats")}
               className="
-                group w-full flex items-center justify-between
+                group w-full flex items-center justify-between cursor-pointer
                 bg-[#161b22] border border-sky-500/25
                 hover:border-sky-400/50 hover:bg-[#1a1f27]
                 rounded-lg px-5 py-4 transition-all duration-200
@@ -592,11 +673,17 @@ export default function HomePage() {
                   </p>
                 </div>
               </div>
-              <ChevronRight
-                size={16}
-                className="text-[#484f58] group-hover:text-sky-400 group-hover:translate-x-0.5 transition-all duration-150"
-              />
-            </button>
+              <div className="flex items-center gap-2">
+                <HelpPopover
+                  accentClass="hover:text-sky-300"
+                  description="See where you actually stand. Your predicted AP score, accuracy across every unit, and which topics are quietly dragging you down. You'll know what to study tonight."
+                />
+                <ChevronRight
+                  size={16}
+                  className="text-[#484f58] group-hover:text-sky-400 group-hover:translate-x-0.5 transition-all duration-150"
+                />
+              </div>
+            </div>
 
             {/* Practice Exams */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
