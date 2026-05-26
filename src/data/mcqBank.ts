@@ -3065,7 +3065,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_7_q24",
             topicId: "1.7",
             topicLabel: "Application Program Interface (API) and Libraries",
-            question: "A programmer reads this in API documentation:\npublic static int max(int a, int b)\nReturns the greater of two int values.\nWhich of the following correctly calls this method?",
+            question: "A programmer reads this in API documentation: Returns the greater of two int values. Which of the following correctly calls this method?",
+            code: "public static int max(int a, int b)",
             options: [
               { letter: "A", text: "Math.max(3, 7)" },
               { letter: "B", text: "new Math().max(3, 7)" },
@@ -3244,7 +3245,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_8_q06",
             topicId: "1.8",
             topicLabel: "Documentation with Comments",
-            question: "A programmer writes the following:\n/**\n * Returns the area of a circle.\n * @param radius the radius of the circle\n * @return the area\n */\npublic double circleArea(double radius) { ... }\nWhat type of comment is shown above?",
+            question: "A programmer writes the following: What type of comment is shown above?",
+            code: "/**\n * Returns the area of a circle.\n * @param radius the radius of the circle\n * @return the area\n */\npublic double circleArea(double radius) { ... }",
             options: [
               { letter: "A", text: "An inline comment" },
               { letter: "B", text: "A single-line comment" },
@@ -3461,7 +3463,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_8_q21",
             topicId: "1.8",
             topicLabel: "Documentation with Comments",
-            question: "A programmer writes:\n/**\n * @param n the number to test\n * @return true if n is even, false otherwise\n */\npublic boolean isEven(int n) {\n    return n % 2 == 0;\n}\nAccording to the Javadoc comment, what does the method return when called with argument 7?",
+            question: "A programmer writes: According to the Javadoc comment, what does the method return when called with argument 7?",
+            code: "/**\n * @param n the number to test\n * @return true if n is even, false otherwise\n */\npublic boolean isEven(int n) {\n    return n % 2 == 0;\n}",
             options: [
               { letter: "A", text: "true" },
               { letter: "B", text: "false" },
@@ -3611,7 +3614,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_9_q01",
             topicId: "1.9",
             topicLabel: "Method Signatures",
-            question: "What is the return type of the following method?\npublic static double computeArea(double base, double height)",
+            question: "What is the return type of the following method?",
+            code: "public static double computeArea(double base, double height)",
             options: [
               { letter: "A", text: "double" },
               { letter: "B", text: "static" },
@@ -3625,7 +3629,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_9_q02",
             topicId: "1.9",
             topicLabel: "Method Signatures",
-            question: "How many parameters does the following method have?\npublic static String greet(String name, int times)",
+            question: "How many parameters does the following method have?",
+            code: "public static String greet(String name, int times)",
             options: [
               { letter: "A", text: "2" },
               { letter: "B", text: "3" },
@@ -3639,7 +3644,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_9_q03",
             topicId: "1.9",
             topicLabel: "Method Signatures",
-            question: "What is the return type of a method with this signature?\npublic static void printResult(int n)",
+            question: "What is the return type of a method with this signature?",
+            code: "public static void printResult(int n)",
             options: [
               { letter: "A", text: "void" },
               { letter: "B", text: "static" },
@@ -3653,7 +3659,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_9_q04",
             topicId: "1.9",
             topicLabel: "Method Signatures",
-            question: "Which of the following correctly calls this method?\npublic static int square(int n)",
+            question: "Which of the following correctly calls this method?",
+            code: "public static int square(int n)",
             options: [
               { letter: "A", text: "int result = square(5);" },
               { letter: "B", text: "static square(5);" },
@@ -3695,7 +3702,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_9_q07",
             topicId: "1.9",
             topicLabel: "Method Signatures",
-            question: "A method has the following signature:\npublic static boolean isPositive(int n)\nWhat type of value does this method return?",
+            question: "A method has the following signature: What type of value does this method return?",
+            code: "public static boolean isPositive(int n)",
             options: [
               { letter: "A", text: "void" },
               { letter: "B", text: "int" },
@@ -3709,7 +3717,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_9_q08",
             topicId: "1.9",
             topicLabel: "Method Signatures",
-            question: "Which part of the following method signature is the method name?\npublic static int findMax(int a, int b)",
+            question: "Which part of the following method signature is the method name?",
+            code: "public static int findMax(int a, int b)",
             options: [
               { letter: "A", text: "int" },
               { letter: "B", text: "findMax" },
@@ -3723,7 +3732,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_9_q09",
             topicId: "1.9",
             topicLabel: "Method Signatures",
-            question: "A programmer calls:\ndouble d = computeAverage(10, 20);\nWhich of the following method signatures is consistent with this call?",
+            question: "A programmer calls: Which of the following method signatures is consistent with this call?",
+            code: "double d = computeAverage(10, 20);",
             options: [
               { letter: "A", text: "public static int computeAverage(double a, double b)" },
               { letter: "B", text: "public static String computeAverage(int a, int b)" },
@@ -3751,7 +3761,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_9_q11",
             topicId: "1.9",
             topicLabel: "Method Signatures",
-            question: "Consider the signature:\npublic static String repeat(String s, int n)\nA programmer writes: int result = repeat(\"hi\", 3);\nWhat is wrong with this call?",
+            question: "Consider the signature: What is wrong with this call?",
+            code: "public static String repeat(String s, int n)\nA programmer writes: int result = repeat(\"hi\", 3);",
             options: [
               { letter: "A", text: "Nothing — the call is correct." },
               { letter: "B", text: "The method name is misspelled." },
@@ -3779,7 +3790,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_9_q13",
             topicId: "1.9",
             topicLabel: "Method Signatures",
-            question: "A method has the following signature:\npublic static double average(double a, double b, double c)\nHow should this method be called to find the average of 4.0, 8.0, and 12.0?",
+            question: "A method has the following signature: How should this method be called to find the average of 4.0, 8.0, and 12.0?",
+            code: "public static double average(double a, double b, double c)",
             options: [
               { letter: "A", text: "average(4.0, 8.0);" },
               { letter: "B", text: "double average(4.0, 8.0, 12.0);" },
@@ -3807,7 +3819,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_9_q15",
             topicId: "1.9",
             topicLabel: "Method Signatures",
-            question: "Consider the signature:\npublic static int clamp(int value, int min, int max)\nWhat type does this method return?",
+            question: "Consider the signature: What type does this method return?",
+            code: "public static int clamp(int value, int min, int max)",
             options: [
               { letter: "A", text: "double" },
               { letter: "B", text: "boolean" },
@@ -3821,7 +3834,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_9_q16",
             topicId: "1.9",
             topicLabel: "Method Signatures",
-            question: "A programmer defines:\npublic static void display(String msg)\nWhich of the following calls would cause a compile-time error?",
+            question: "A programmer defines: Which of the following calls would cause a compile-time error?",
+            code: "public static void display(String msg)",
             options: [
               { letter: "A", text: "display(\"Hello\");" },
               { letter: "B", text: "display(\"Test \" + 42);" },
@@ -3835,7 +3849,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_9_q17",
             topicId: "1.9",
             topicLabel: "Method Signatures",
-            question: "How many parameters does this method signature have?\npublic static void printInfo(String name, int age, double gpa)",
+            question: "How many parameters does this method signature have?",
+            code: "public static void printInfo(String name, int age, double gpa)",
             options: [
               { letter: "A", text: "4" },
               { letter: "B", text: "1" },
@@ -3863,7 +3878,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_9_q19",
             topicId: "1.9",
             topicLabel: "Method Signatures",
-            question: "What type must the variable result be in order for the following to compile?\npublic static boolean check(int n)\n// ...\nresult = check(4);",
+            question: "What type must the variable result be in order for the following to compile? // ...",
+            code: "public static boolean check(int n)\nresult = check(4);",
             options: [
               { letter: "A", text: "String" },
               { letter: "B", text: "boolean" },
@@ -3877,7 +3893,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_9_q20",
             topicId: "1.9",
             topicLabel: "Method Signatures",
-            question: "A method signature reads:\npublic static int mystery(int a, int b)\nThe method is called as mystery(3.0, 5). What happens?",
+            question: "A method signature reads: The method is called as mystery(3.0, 5). What happens?",
+            code: "public static int mystery(int a, int b)",
             options: [
               { letter: "A", text: "The method executes normally, treating 3.0 as 3." },
               { letter: "B", text: "A compile-time error occurs because 3.0 is a double, not an int." },
@@ -3891,7 +3908,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_9_q21",
             topicId: "1.9",
             topicLabel: "Method Signatures",
-            question: "Which of the following correctly identifies the parameter types in this signature?\npublic static String format(int n, double d, boolean b)",
+            question: "Which of the following correctly identifies the parameter types in this signature?",
+            code: "public static String format(int n, double d, boolean b)",
             options: [
               { letter: "A", text: "static, String, int" },
               { letter: "B", text: "String, int, double" },
@@ -3905,7 +3923,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_9_q22",
             topicId: "1.9",
             topicLabel: "Method Signatures",
-            question: "Consider the signature:\npublic static double hypotenuse(double a, double b)\nA programmer writes: System.out.println(hypotenuse(3.0, 4.0));\nWhat type of value will be printed?",
+            question: "Consider the signature: What type of value will be printed?",
+            code: "public static double hypotenuse(double a, double b)\nA programmer writes: System.out.println(hypotenuse(3.0, 4.0));",
             options: [
               { letter: "A", text: "int" },
               { letter: "B", text: "boolean" },
@@ -3947,7 +3966,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_9_q25",
             topicId: "1.9",
             topicLabel: "Method Signatures",
-            question: "A programmer reads this documentation:\npublic static int abs(int a)\nReturns the absolute value of an int value.\nWhich of the following correctly calls this method?",
+            question: "A programmer reads this documentation: Returns the absolute value of an int value. Which of the following correctly calls this method?",
+            code: "public static int abs(int a)",
             options: [
               { letter: "A", text: "new Math().abs(-5);" },
               { letter: "B", text: "double result = Math.abs(-5);" },
@@ -3961,7 +3981,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_9_q26",
             topicId: "1.9",
             topicLabel: "Method Signatures",
-            question: "A method is defined with the header:\npublic static int multiply(int x, int y)\nWhat is wrong with the following call?\nmultiply(3, 4, 5);",
+            question: "A method is defined with the header: What is wrong with the following call?",
+            code: "public static int multiply(int x, int y)\nmultiply(3, 4, 5);",
             options: [
               { letter: "A", text: "A runtime error occurs because 3 * 4 * 5 overflows an int." },
               { letter: "B", text: "The method returns void when given three arguments." },
@@ -3975,7 +3996,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_9_q27",
             topicId: "1.9",
             topicLabel: "Method Signatures",
-            question: "Consider this method signature:\npublic static double celsiusToFahrenheit(double celsius)\nWhich of the following is the correct return type?",
+            question: "Consider this method signature: Which of the following is the correct return type?",
+            code: "public static double celsiusToFahrenheit(double celsius)",
             options: [
               { letter: "A", text: "double" },
               { letter: "B", text: "int" },
@@ -3989,7 +4011,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_9_q28",
             topicId: "1.9",
             topicLabel: "Method Signatures",
-            question: "A programmer defines a method with this signature:\npublic static boolean isPrime(int n)\nShe calls it as: int x = isPrime(7);\nWhat is the result?",
+            question: "A programmer defines a method with this signature: What is the result?",
+            code: "public static boolean isPrime(int n)\nShe calls it as: int x = isPrime(7);",
             options: [
               { letter: "A", text: "x is assigned 1 (true represented as 1)." },
               { letter: "B", text: "x is assigned 7." },
@@ -4314,7 +4337,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_10_q20",
             topicId: "1.10",
             topicLabel: "Calling Class Methods",
-            question: "The following method signature belongs to the Integer class:\npublic static int parseInt(String s)\nWhat does this signature indicate about how to call the method?",
+            question: "The following method signature belongs to the Integer class: What does this signature indicate about how to call the method?",
+            code: "public static int parseInt(String s)",
             options: [
               { letter: "A", text: "You call this method on the class name: Integer.parseInt(s)." },
               { letter: "B", text: "The method is called without arguments." },
@@ -5041,7 +5065,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_12_q09",
             topicId: "1.12",
             topicLabel: "Objects: Instances of Classes",
-            question: "Consider the following code:\nString s1 = new String(\"hello\");\nString s2 = new String(\"hello\");\nWhich of the following is true?",
+            question: "Consider the following code: Which of the following is true?",
+            code: "String s1 = new String(\"hello\");\nString s2 = new String(\"hello\");",
             options: [
               { letter: "A", text: "s1 and s2 refer to two different objects that contain the same value." },
               { letter: "B", text: "s1 == s2 is true." },
@@ -5083,7 +5108,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_12_q12",
             topicId: "1.12",
             topicLabel: "Objects: Instances of Classes",
-            question: "How many BankAccount objects are created by the following code?\nBankAccount a = new BankAccount(100);\nBankAccount b = new BankAccount(200);\nBankAccount c = a;",
+            question: "How many BankAccount objects are created by the following code?",
+            code: "BankAccount a = new BankAccount(100);\nBankAccount b = new BankAccount(200);\nBankAccount c = a;",
             options: [
               { letter: "A", text: "3" },
               { letter: "B", text: "4" },
@@ -5154,7 +5180,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_12_q17",
             topicId: "1.12",
             topicLabel: "Objects: Instances of Classes",
-            question: "Consider the following:\nDog d1 = new Dog(\"Rex\");\nDog d2 = d1;\nd2.setName(\"Buddy\");\nSystem.out.println(d1.getName());\nAssuming setName and getName work as expected, what is printed?",
+            question: "Consider the following: Assuming setName and getName work as expected, what is printed?",
+            code: "Dog d1 = new Dog(\"Rex\");\nDog d2 = d1;\nd2.setName(\"Buddy\");\nSystem.out.println(d1.getName());",
             options: [
               { letter: "A", text: "Buddy" },
               { letter: "B", text: "null" },
@@ -5282,7 +5309,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_12_q26",
             topicId: "1.12",
             topicLabel: "Objects: Instances of Classes",
-            question: "A programmer creates three Dog objects:\nDog d1 = new Dog(\"Rex\");\nDog d2 = new Dog(\"Max\");\nDog d3 = d2;\nHow many Dog objects exist in memory?",
+            question: "A programmer creates three Dog objects: How many Dog objects exist in memory?",
+            code: "Dog d1 = new Dog(\"Rex\");\nDog d2 = new Dog(\"Max\");\nDog d3 = d2;",
             options: [
               { letter: "A", text: "2" },
               { letter: "B", text: "3" },
@@ -5389,7 +5417,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_13_q03",
             topicId: "1.13",
             topicLabel: "Object Creation and Storage (Instantiation)",
-            question: "What is the value of the reference variable r after the following statement?\nRectangle r;",
+            question: "What is the value of the reference variable r after the following statement?",
+            code: "Rectangle r;",
             options: [
               { letter: "A", text: "\"\" (empty string)" },
               { letter: "B", text: "A newly created Rectangle with default values" },
@@ -5447,7 +5476,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_13_q07",
             topicId: "1.13",
             topicLabel: "Object Creation and Storage (Instantiation)",
-            question: "A programmer writes:\nRectangle r = new Rectangle(5, 10);\nWhat does the variable r store?",
+            question: "A programmer writes: What does the variable r store?",
+            code: "Rectangle r = new Rectangle(5, 10);",
             options: [
               { letter: "A", text: "The object's width and height values directly" },
               { letter: "B", text: "The memory address of the Rectangle object" },
@@ -5461,7 +5491,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_13_q08",
             topicId: "1.13",
             topicLabel: "Object Creation and Storage (Instantiation)",
-            question: "Consider the following code:\nDog d1 = new Dog(\"Fido\");\nDog d2 = d1;\nWhich of the following is true?",
+            question: "Consider the following code: Which of the following is true?",
+            code: "Dog d1 = new Dog(\"Fido\");\nDog d2 = d1;",
             options: [
               { letter: "A", text: "A compile-time error occurs because two variables cannot reference the same object." },
               { letter: "B", text: "d1 and d2 are two separate Dog objects." },
@@ -5518,7 +5549,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_13_q12",
             topicId: "1.13",
             topicLabel: "Object Creation and Storage (Instantiation)",
-            question: "Consider the following:\nCounter c1 = new Counter(0);\nCounter c2 = c1;\nc1.increment();\nSystem.out.println(c2.getCount());\nAssuming increment() adds 1 and getCount() returns the count, what is printed?",
+            question: "Consider the following: Assuming increment() adds 1 and getCount() returns the count, what is printed?",
+            code: "Counter c1 = new Counter(0);\nCounter c2 = c1;\nc1.increment();\nSystem.out.println(c2.getCount());",
             options: [
               { letter: "A", text: "2" },
               { letter: "B", text: "A compile-time error occurs." },
@@ -5532,7 +5564,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_13_q13",
             topicId: "1.13",
             topicLabel: "Object Creation and Storage (Instantiation)",
-            question: "How many objects are created by the following code?\nString s1 = new String(\"a\");\nString s2 = new String(\"b\");\nString s3 = s1;\ns1 = null;",
+            question: "How many objects are created by the following code?",
+            code: "String s1 = new String(\"a\");\nString s2 = new String(\"b\");\nString s3 = s1;\ns1 = null;",
             options: [
               { letter: "A", text: "3" },
               { letter: "B", text: "4" },
@@ -5605,7 +5638,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_13_q18",
             topicId: "1.13",
             topicLabel: "Object Creation and Storage (Instantiation)",
-            question: "A programmer writes:\nDog d = new Dog(\"Max\");\nd = new Dog(\"Buddy\");\nAfter these two lines, how many Dog objects exist in memory?",
+            question: "A programmer writes: After these two lines, how many Dog objects exist in memory?",
+            code: "Dog d = new Dog(\"Max\");\nd = new Dog(\"Buddy\");",
             options: [
               { letter: "A", text: "3" },
               { letter: "B", text: "0" },
@@ -5663,7 +5697,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_13_q22",
             topicId: "1.13",
             topicLabel: "Object Creation and Storage (Instantiation)",
-            question: "Consider the following code segment:\nString s = null;\nif (s != null) {\n    System.out.println(s.length());\n} else {\n    System.out.println(-1);\n}\nWhat is printed?",
+            question: "Consider the following code segment: What is printed?",
+            code: "String s = null;\nif (s != null) {\n    System.out.println(s.length());\n} else {\n    System.out.println(-1);\n}",
             options: [
               { letter: "A", text: "null" },
               { letter: "B", text: "A runtime error occurs." },
@@ -5734,7 +5769,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_13_q27",
             topicId: "1.13",
             topicLabel: "Object Creation and Storage (Instantiation)",
-            question: "Consider the following:\nCounter c = new Counter(10);\nCounter d = c;\nd.decrement();\nSystem.out.println(c.getCount());\nAssuming decrement() subtracts 1 and getCount() returns the count, what is printed?",
+            question: "Consider the following: Assuming decrement() subtracts 1 and getCount() returns the count, what is printed?",
+            code: "Counter c = new Counter(10);\nCounter d = c;\nd.decrement();\nSystem.out.println(c.getCount());",
             options: [
               { letter: "A", text: "11" },
               { letter: "B", text: "A compile-time error occurs." },
@@ -5748,7 +5784,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_13_q28",
             topicId: "1.13",
             topicLabel: "Object Creation and Storage (Instantiation)",
-            question: "A programmer writes the following code. Which line, if any, causes a compile-time error?\nString a = null;          // Line 1\nString b = new String(\"\"); // Line 2\nString c = a + b;          // Line 3\nSystem.out.println(c);     // Line 4",
+            question: "A programmer writes the following code. Which line, if any, causes a compile-time error?",
+            code: "String a = null;          // Line 1\nString b = new String(\"\"); // Line 2\nString c = a + b;          // Line 3\nSystem.out.println(c);     // Line 4",
             options: [
               { letter: "A", text: "Line 3" },
               { letter: "B", text: "No compile-time error occurs." },
@@ -6498,7 +6535,8 @@ export const mcqBank: MCQUnit[] = [
             id: "1_15_q18",
             topicId: "1.15",
             topicLabel: "String Manipulation",
-            question: "Consider the following code:\nString s = \"programming\";\nSystem.out.println(s.substring(0, 4).equals(\"prog\"));\nWhat is printed?",
+            question: "Consider the following code: What is printed?",
+            code: "String s = \"programming\";\nSystem.out.println(s.substring(0, 4).equals(\"prog\"));",
             options: [
               { letter: "A", text: "false" },
               { letter: "B", text: "true" },
@@ -7096,7 +7134,8 @@ export const mcqBank: MCQUnit[] = [
             id: "2_1_q28",
             topicId: "2.1",
             topicLabel: "Algorithms with Selection and Repetition",
-            question: "Why does the following code segment produce no output?\n\nint x = -1;\nwhile (x > 0) {\n    System.out.println(x);\n    x--;\n}",
+            question: "Why does the following code segment produce no output?",
+            code: "int x = -1;\nwhile (x > 0) {\n    System.out.println(x);\n    x--;\n}",
             options: [
               { letter: "A", text: "A runtime error occurs because x is negative." },
               { letter: "B", text: "The condition x > 0 is false from the start, so the loop body never executes." },
@@ -9715,7 +9754,8 @@ export const mcqBank: MCQUnit[] = [
             id: "2_7_q24",
             topicId: "2.7",
             topicLabel: "while Loops",
-            question: "Which code segment is equivalent to the following for loop?\n\nfor (int i = 0; i < 5; i++) { System.out.println(i); }",
+            question: "Which code segment is equivalent to the following for loop?",
+            code: "for (int i = 0; i < 5; i++) { System.out.println(i); }",
             options: [
               { letter: "A", text: "int i = 0; while (i < 5) { System.out.println(i); i++; }" },
               { letter: "B", text: "int i = 0; while (i <= 5) { System.out.println(i); i++; }" },
@@ -9900,7 +9940,8 @@ export const mcqBank: MCQUnit[] = [
             id: "2_8_q06",
             topicId: "2.8",
             topicLabel: "for Loops",
-            question: "Which while loop is equivalent to the following for loop?\n\nfor (int i = 0; i < 10; i++) { System.out.println(i); }",
+            question: "Which while loop is equivalent to the following for loop?",
+            code: "for (int i = 0; i < 10; i++) { System.out.println(i); }",
             options: [
               { letter: "A", text: "int i = 0; while (i <= 10) { System.out.println(i); i++; }" },
               { letter: "B", text: "int i = 0; while (i < 10) { System.out.println(i); i++; }" },
@@ -12108,7 +12149,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_1_q03",
             topicId: "3.1",
             topicLabel: "Abstraction and Program Design",
-            question: "Consider the following class.\n\npublic class Student {\n    private String name;\n    private int grade;\n    private static int studentCount = 0;\n}\n\nWhich variables are unique to each Student object?",
+            question: "Consider the following class. Which variables are unique to each Student object?",
+            code: "public class Student {\n    private String name;\n    private int grade;\n    private static int studentCount = 0;\n}",
             options: [
               { letter: "A", text: "studentCount only" },
               { letter: "B", text: "name and grade only" },
@@ -12122,7 +12164,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_1_q04",
             topicId: "3.1",
             topicLabel: "Abstraction and Program Design",
-            question: "Assume the Dog class has a constructor that sets the name field and getName()/setName() methods. What is printed?\n\nDog d1 = new Dog(\"Buddy\");\nDog d2 = new Dog(\"Max\");\nd1.setName(\"Rex\");\nSystem.out.println(d2.getName());",
+            question: "Assume the Dog class has a constructor that sets the name field and getName()/setName() methods. What is printed?",
+            code: "Dog d1 = new Dog(\"Buddy\");\nDog d2 = new Dog(\"Max\");\nd1.setName(\"Rex\");\nSystem.out.println(d2.getName());",
             options: [
               { letter: "A", text: "Buddy" },
               { letter: "B", text: "Max" },
@@ -12206,7 +12249,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_1_q10",
             topicId: "3.1",
             topicLabel: "Abstraction and Program Design",
-            question: "Consider the following class.\n\npublic class Counter {\n    private static int count = 0;\n    public Counter() { count++; }\n    public static int getCount() { return count; }\n}\n\nWhat is printed after this code executes?\n\nnew Counter();\nnew Counter();\nnew Counter();\nSystem.out.println(Counter.getCount());",
+            question: "Consider the following class. What is printed after this code executes?",
+            code: "public class Counter {\n    private static int count = 0;\n    public Counter() { count++; }\n    public static int getCount() { return count; }\n}\nnew Counter();\nnew Counter();\nnew Counter();\nSystem.out.println(Counter.getCount());",
             options: [
               { letter: "A", text: "0" },
               { letter: "B", text: "1" },
@@ -12346,7 +12390,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_1_q20",
             topicId: "3.1",
             topicLabel: "Abstraction and Program Design",
-            question: "Using the Counter class from question 10, what is printed after this code executes?\n\nnew Counter();\nnew Counter();\nnew Counter();\nnew Counter();\nSystem.out.println(Counter.getCount());",
+            question: "Using the Counter class from question 10, what is printed after this code executes?",
+            code: "new Counter();\nnew Counter();\nnew Counter();\nnew Counter();\nSystem.out.println(Counter.getCount());",
             options: [
               { letter: "A", text: "1" },
               { letter: "B", text: "3" },
@@ -12374,7 +12419,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_1_q22",
             topicId: "3.1",
             topicLabel: "Abstraction and Program Design",
-            question: "Consider the following class.\n\npublic class BankAccount {\n    private double balance;\n    private String owner;\n}\n\nWhich of the following statements is true?",
+            question: "Consider the following class. Which of the following statements is true?",
+            code: "public class BankAccount {\n    private double balance;\n    private String owner;\n}",
             options: [
               { letter: "A", text: "balance and owner are unique to each BankAccount object" },
               { letter: "B", text: "balance is shared but owner is unique to each object" },
@@ -12402,7 +12448,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_1_q24",
             topicId: "3.1",
             topicLabel: "Abstraction and Program Design",
-            question: "Consider the following class.\n\npublic class Sensor {\n    private static int readingCount = 0;\n    private double value;\n    public Sensor(double v) { value = v; readingCount++; }\n    public static int getReadingCount() { return readingCount; }\n}\n\nWhat does getReadingCount() return after these lines?\n\nnew Sensor(98.6);\nnew Sensor(101.2);\nnew Sensor(99.1);",
+            question: "Consider the following class. What does getReadingCount() return after these lines?",
+            code: "public class Sensor {\n    private static int readingCount = 0;\n    private double value;\n    public Sensor(double v) { value = v; readingCount++; }\n    public static int getReadingCount() { return readingCount; }\n}\nnew Sensor(98.6);\nnew Sensor(101.2);\nnew Sensor(99.1);",
             options: [
               { letter: "A", text: "3" },
               { letter: "B", text: "0" },
@@ -12430,7 +12477,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_1_q26",
             topicId: "3.1",
             topicLabel: "Abstraction and Program Design",
-            question: "What is printed as a result of executing the following code segment?\n\nDog d1 = new Dog(\"Buddy\");\nDog d2 = new Dog(\"Max\");\nd2.setName(\"Rex\");\nSystem.out.println(d1.getName());",
+            question: "What is printed as a result of executing the following code segment?",
+            code: "Dog d1 = new Dog(\"Buddy\");\nDog d2 = new Dog(\"Max\");\nd2.setName(\"Rex\");\nSystem.out.println(d1.getName());",
             options: [
               { letter: "A", text: "Rex" },
               { letter: "B", text: "Max" },
@@ -12960,7 +13008,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_3_q03",
             topicId: "3.3",
             topicLabel: "Anatomy of a Class",
-            question: "Consider the following class.\n\npublic class Circle {\n    private double radius;\n    public double getRadius() { return radius; }\n}\n\nA separate class attempts: double r = c.radius;  (where c is a Circle object). What happens?",
+            question: "Consider the following class. A separate class attempts: double r = c.radius;  (where c is a Circle object). What happens?",
+            code: "public class Circle {\n    private double radius;\n    public double getRadius() { return radius; }\n}",
             options: [
               { letter: "A", text: "r is assigned 0.0 (the default value)" },
               { letter: "B", text: "A compile-time error occurs because radius is private" },
@@ -13016,7 +13065,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_3_q07",
             topicId: "3.3",
             topicLabel: "Anatomy of a Class",
-            question: "Consider the following class definition. Which line declares an instance variable?\n\npublic class Rectangle {\n    private int width;\n    private int height;\n    public int getWidth() { return width; }\n    public int getHeight() { return height; }\n}",
+            question: "Consider the following class definition. Which line declares an instance variable?",
+            code: "public class Rectangle {\n    private int width;\n    private int height;\n    public int getWidth() { return width; }\n    public int getHeight() { return height; }\n}",
             options: [
               { letter: "A", text: "return width;" },
               { letter: "B", text: "public class Rectangle {" },
@@ -13044,7 +13094,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_3_q09",
             topicId: "3.3",
             topicLabel: "Anatomy of a Class",
-            question: "What is printed as a result of executing the following code segment?\n\npublic class Box {\n    private int size;\n    public Box(int s) { size = s; }\n    public int getSize() { return size; }\n}\n\nBox b = new Box(10);\nSystem.out.println(b.getSize());",
+            question: "What is printed as a result of executing the following code segment?",
+            code: "public class Box {\n    private int size;\n    public Box(int s) { size = s; }\n    public int getSize() { return size; }\n}\nBox b = new Box(10);\nSystem.out.println(b.getSize());",
             options: [
               { letter: "A", text: "s" },
               { letter: "B", text: "A compile-time error occurs." },
@@ -13086,7 +13137,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_3_q12",
             topicId: "3.3",
             topicLabel: "Anatomy of a Class",
-            question: "Consider the following code. What is printed?\n\npublic class Person {\n    private String name;\n    public Person(String n) { name = n; }\n    public String getName() { return name; }\n    public void setName(String n) { name = n; }\n}\n\nPerson p = new Person(\"Alice\");\np.setName(\"Bob\");\nSystem.out.println(p.getName());",
+            question: "Consider the following code. What is printed?",
+            code: "public class Person {\n    private String name;\n    public Person(String n) { name = n; }\n    public String getName() { return name; }\n    public void setName(String n) { name = n; }\n}\nPerson p = new Person(\"Alice\");\np.setName(\"Bob\");\nSystem.out.println(p.getName());",
             options: [
               { letter: "A", text: "A compile-time error occurs." },
               { letter: "B", text: "Alice" },
@@ -13128,7 +13180,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_3_q15",
             topicId: "3.3",
             topicLabel: "Anatomy of a Class",
-            question: "Consider the following two classes.\n\npublic class Account {\n    private double balance;\n    public Account(double b) { balance = b; }\n}\n\npublic class Bank {\n    public static void main(String[] args) {\n        Account a = new Account(500.0);\n        System.out.println(a.balance); // line X\n    }\n}\n\nWhat happens at line X?",
+            question: "Consider the following two classes. What happens at line X?",
+            code: "public class Account {\n    private double balance;\n    public Account(double b) { balance = b; }\n}\npublic class Bank {\n    public static void main(String[] args) {\n        Account a = new Account(500.0);\n        System.out.println(a.balance); // line X\n    }\n}",
             options: [
               { letter: "A", text: "500.0 is printed" },
               { letter: "B", text: "0.0 is printed" },
@@ -13170,7 +13223,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_3_q18",
             topicId: "3.3",
             topicLabel: "Anatomy of a Class",
-            question: "Consider the following class. What is printed?\n\npublic class Temperature {\n    private double degrees;\n    public Temperature(double d) { degrees = d; }\n    public double getDegrees() { return degrees; }\n    public void setDegrees(double d) { degrees = d; }\n}\n\nTemperature t = new Temperature(72.0);\nt.setDegrees(98.6);\nSystem.out.println(t.getDegrees());",
+            question: "Consider the following class. What is printed?",
+            code: "public class Temperature {\n    private double degrees;\n    public Temperature(double d) { degrees = d; }\n    public double getDegrees() { return degrees; }\n    public void setDegrees(double d) { degrees = d; }\n}\nTemperature t = new Temperature(72.0);\nt.setDegrees(98.6);\nSystem.out.println(t.getDegrees());",
             options: [
               { letter: "A", text: "98.6" },
               { letter: "B", text: "0.0" },
@@ -13184,7 +13238,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_3_q19",
             topicId: "3.3",
             topicLabel: "Anatomy of a Class",
-            question: "Which of the following is an accessor (getter) method in the given class?\n\npublic class Car {\n    private String model;\n    private int year;\n    public Car(String m, int y) { model = m; year = y; }\n    public String getModel() { return model; }\n    public void setYear(int y) { year = y; }\n}",
+            question: "Which of the following is an accessor (getter) method in the given class?",
+            code: "public class Car {\n    private String model;\n    private int year;\n    public Car(String m, int y) { model = m; year = y; }\n    public String getModel() { return model; }\n    public void setYear(int y) { year = y; }\n}",
             options: [
               { letter: "A", text: "setYear(int y)" },
               { letter: "B", text: "getModel()" },
@@ -13226,7 +13281,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_3_q22",
             topicId: "3.3",
             topicLabel: "Anatomy of a Class",
-            question: "What is the result of calling the following method?\n\npublic class Wallet {\n    private int dollars;\n    public Wallet(int d) { dollars = d; }\n    public int getDollars() { return dollars; }\n    public void addDollars(int amount) { dollars += amount; }\n}\n\nWallet w = new Wallet(20);\nw.addDollars(15);\nSystem.out.println(w.getDollars());",
+            question: "What is the result of calling the following method?",
+            code: "public class Wallet {\n    private int dollars;\n    public Wallet(int d) { dollars = d; }\n    public int getDollars() { return dollars; }\n    public void addDollars(int amount) { dollars += amount; }\n}\nWallet w = new Wallet(20);\nw.addDollars(15);\nSystem.out.println(w.getDollars());",
             options: [
               { letter: "A", text: "35" },
               { letter: "B", text: "A runtime error occurs." },
@@ -13268,7 +13324,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_3_q25",
             topicId: "3.3",
             topicLabel: "Anatomy of a Class",
-            question: "What is printed by the following code?\n\npublic class Score {\n    private int points;\n    public Score() { points = 0; }\n    public void addPoints(int p) { points += p; }\n    public int getPoints() { return points; }\n}\n\nScore s = new Score();\ns.addPoints(10);\ns.addPoints(5);\nSystem.out.println(s.getPoints());",
+            question: "What is printed by the following code?",
+            code: "public class Score {\n    private int points;\n    public Score() { points = 0; }\n    public void addPoints(int p) { points += p; }\n    public int getPoints() { return points; }\n}\nScore s = new Score();\ns.addPoints(10);\ns.addPoints(5);\nSystem.out.println(s.getPoints());",
             options: [
               { letter: "A", text: "10" },
               { letter: "B", text: "15" },
@@ -13338,7 +13395,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_3_q30",
             topicId: "3.3",
             topicLabel: "Anatomy of a Class",
-            question: "Consider the following class.\n\npublic class Timer {\n    private int seconds;\n    public Timer(int s) { seconds = s; }\n    public int getSeconds() { return seconds; }\n    public void tick() { seconds--; }\n}\n\nTimer t = new Timer(5);\nt.tick();\nt.tick();\nt.tick();\nSystem.out.println(t.getSeconds());",
+            question: "Consider the following class.",
+            code: "public class Timer {\n    private int seconds;\n    public Timer(int s) { seconds = s; }\n    public int getSeconds() { return seconds; }\n    public void tick() { seconds--; }\n}\nTimer t = new Timer(5);\nt.tick();\nt.tick();\nt.tick();\nSystem.out.println(t.getSeconds());",
             options: [
               { letter: "A", text: "5" },
               { letter: "B", text: "3" },
@@ -13414,7 +13472,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_4_q05",
             topicId: "3.4",
             topicLabel: "Constructors",
-            question: "What is printed as a result of executing the following code?\n\npublic class Box {\n    private int size;\n    public Box(int s) { size = s; }\n    public int getSize() { return size; }\n}\n\nBox b = new Box(7);\nSystem.out.println(b.getSize());",
+            question: "What is printed as a result of executing the following code?",
+            code: "public class Box {\n    private int size;\n    public Box(int s) { size = s; }\n    public int getSize() { return size; }\n}\nBox b = new Box(7);\nSystem.out.println(b.getSize());",
             options: [
               { letter: "A", text: "A compile-time error occurs." },
               { letter: "B", text: "0" },
@@ -13456,7 +13515,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_4_q08",
             topicId: "3.4",
             topicLabel: "Constructors",
-            question: "Consider the following class.\n\npublic class Dog {\n    private String name;\n    private int age;\n    public Dog() { name = \"Unknown\"; age = 0; }\n    public Dog(String n, int a) { name = n; age = a; }\n    public String getName() { return name; }\n}\n\nWhat is printed?\n\nDog d = new Dog();\nSystem.out.println(d.getName());",
+            question: "Consider the following class. What is printed?",
+            code: "public class Dog {\n    private String name;\n    private int age;\n    public Dog() { name = \"Unknown\"; age = 0; }\n    public Dog(String n, int a) { name = n; age = a; }\n    public String getName() { return name; }\n}\nDog d = new Dog();\nSystem.out.println(d.getName());",
             options: [
               { letter: "A", text: "A compile-time error occurs." },
               { letter: "B", text: "null" },
@@ -13470,7 +13530,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_4_q09",
             topicId: "3.4",
             topicLabel: "Constructors",
-            question: "Using the Dog class from question 8, what is printed?\n\nDog d = new Dog(\"Buddy\", 3);\nSystem.out.println(d.getName());",
+            question: "Using the Dog class from question 8, what is printed?",
+            code: "Dog d = new Dog(\"Buddy\", 3);\nSystem.out.println(d.getName());",
             options: [
               { letter: "A", text: "A compile-time error occurs." },
               { letter: "B", text: "Unknown" },
@@ -13512,7 +13573,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_4_q12",
             topicId: "3.4",
             topicLabel: "Constructors",
-            question: "What is printed by the following code?\n\npublic class Point {\n    private int x;\n    private int y;\n    public Point() { this(0, 0); }\n    public Point(int x, int y) { this.x = x; this.y = y; }\n    public int getX() { return x; }\n    public int getY() { return y; }\n}\n\nPoint p = new Point();\nSystem.out.println(p.getX() + \" \" + p.getY());",
+            question: "What is printed by the following code?",
+            code: "public class Point {\n    private int x;\n    private int y;\n    public Point() { this(0, 0); }\n    public Point(int x, int y) { this.x = x; this.y = y; }\n    public int getX() { return x; }\n    public int getY() { return y; }\n}\nPoint p = new Point();\nSystem.out.println(p.getX() + \" \" + p.getY());",
             options: [
               { letter: "A", text: "A compile-time error occurs." },
               { letter: "B", text: "0 0" },
@@ -13540,7 +13602,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_4_q14",
             topicId: "3.4",
             topicLabel: "Constructors",
-            question: "What is printed by the following code?\n\npublic class Counter {\n    private int count;\n    public Counter(int start) { count = start; }\n    public void increment() { count++; }\n    public int getCount() { return count; }\n}\n\nCounter c = new Counter(5);\nc.increment();\nc.increment();\nSystem.out.println(c.getCount());",
+            question: "What is printed by the following code?",
+            code: "public class Counter {\n    private int count;\n    public Counter(int start) { count = start; }\n    public void increment() { count++; }\n    public int getCount() { return count; }\n}\nCounter c = new Counter(5);\nc.increment();\nc.increment();\nSystem.out.println(c.getCount());",
             options: [
               { letter: "A", text: "2" },
               { letter: "B", text: "5" },
@@ -13582,7 +13645,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_4_q17",
             topicId: "3.4",
             topicLabel: "Constructors",
-            question: "Consider the following class.\n\npublic class Circle {\n    private double radius;\n    public Circle(double r) { radius = r; }\n    public double getArea() { return Math.PI * radius * radius; }\n}\n\nWhat does new Circle(3.0).getArea() return? (Use π ≈ 3.14159)",
+            question: "Consider the following class.",
+            code: "public class Circle {\n    private double radius;\n    public Circle(double r) { radius = r; }\n    public double getArea() { return Math.PI * radius * radius; }\n}\nWhat does new Circle(3.0).getArea() return? (Use π ≈ 3.14159)",
             options: [
               { letter: "A", text: "6.0" },
               { letter: "B", text: "Approximately 28.27" },
@@ -13610,7 +13674,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_4_q19",
             topicId: "3.4",
             topicLabel: "Constructors",
-            question: "What is printed by the following code?\n\npublic class Student {\n    private String name;\n    private int grade;\n    public Student(String n, int g) { name = n; grade = g; }\n    public String toString() { return name + \": \" + grade; }\n}\n\nStudent s = new Student(\"Alex\", 95);\nSystem.out.println(s.toString());",
+            question: "What is printed by the following code?",
+            code: "public class Student {\n    private String name;\n    private int grade;\n    public Student(String n, int g) { name = n; grade = g; }\n    public String toString() { return name + \": \" + grade; }\n}\nStudent s = new Student(\"Alex\", 95);\nSystem.out.println(s.toString());",
             options: [
               { letter: "A", text: "Alex: 95" },
               { letter: "B", text: "name: grade" },
@@ -13638,7 +13703,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_4_q21",
             topicId: "3.4",
             topicLabel: "Constructors",
-            question: "What is the value of count after this code executes?\n\npublic class Inventory {\n    private int count;\n    public Inventory() { count = 100; }\n    public int getCount() { return count; }\n}\n\nInventory i = new Inventory();\nSystem.out.println(i.getCount());",
+            question: "What is the value of count after this code executes?",
+            code: "public class Inventory {\n    private int count;\n    public Inventory() { count = 100; }\n    public int getCount() { return count; }\n}\nInventory i = new Inventory();\nSystem.out.println(i.getCount());",
             options: [
               { letter: "A", text: "null" },
               { letter: "B", text: "A compile-time error occurs." },
@@ -13652,7 +13718,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_4_q22",
             topicId: "3.4",
             topicLabel: "Constructors",
-            question: "Consider the following class with two constructors.\n\npublic class Rectangle {\n    private int width;\n    private int height;\n    public Rectangle(int w, int h) { width = w; height = h; }\n    public Rectangle(int side) { width = side; height = side; }\n    public int getWidth() { return width; }\n}\n\nWhat is printed?\n\nRectangle r = new Rectangle(5);\nSystem.out.println(r.getWidth());",
+            question: "Consider the following class with two constructors. What is printed?",
+            code: "public class Rectangle {\n    private int width;\n    private int height;\n    public Rectangle(int w, int h) { width = w; height = h; }\n    public Rectangle(int side) { width = side; height = side; }\n    public int getWidth() { return width; }\n}\nRectangle r = new Rectangle(5);\nSystem.out.println(r.getWidth());",
             options: [
               { letter: "A", text: "0" },
               { letter: "B", text: "5" },
@@ -13694,7 +13761,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_4_q25",
             topicId: "3.4",
             topicLabel: "Constructors",
-            question: "What is printed by the following code?\n\npublic class Lamp {\n    private boolean isOn;\n    public Lamp() { isOn = false; }\n    public Lamp(boolean state) { isOn = state; }\n    public boolean isOn() { return isOn; }\n}\n\nLamp l = new Lamp(true);\nSystem.out.println(l.isOn());",
+            question: "What is printed by the following code?",
+            code: "public class Lamp {\n    private boolean isOn;\n    public Lamp() { isOn = false; }\n    public Lamp(boolean state) { isOn = state; }\n    public boolean isOn() { return isOn; }\n}\nLamp l = new Lamp(true);\nSystem.out.println(l.isOn());",
             options: [
               { letter: "A", text: "A compile-time error occurs." },
               { letter: "B", text: "false" },
@@ -13722,7 +13790,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_4_q27",
             topicId: "3.4",
             topicLabel: "Constructors",
-            question: "What is printed by the following code?\n\npublic class Pair {\n    private int first;\n    private int second;\n    public Pair(int f, int s) { first = f; second = s; }\n    public int getSum() { return first + second; }\n}\n\nPair p = new Pair(8, 12);\nSystem.out.println(p.getSum());",
+            question: "What is printed by the following code?",
+            code: "public class Pair {\n    private int first;\n    private int second;\n    public Pair(int f, int s) { first = f; second = s; }\n    public int getSum() { return first + second; }\n}\nPair p = new Pair(8, 12);\nSystem.out.println(p.getSum());",
             options: [
               { letter: "A", text: "12" },
               { letter: "B", text: "20" },
@@ -13736,7 +13805,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_4_q28",
             topicId: "3.4",
             topicLabel: "Constructors",
-            question: "Which of the following would cause a compile-time error in this class?\n\npublic class Vehicle {\n    private String brand;\n    public Vehicle(String b) { brand = b; }\n}",
+            question: "Which of the following would cause a compile-time error in this class?",
+            code: "public class Vehicle {\n    private String brand;\n    public Vehicle(String b) { brand = b; }\n}",
             options: [
               { letter: "A", text: "Vehicle v = new Vehicle(\"Ford\"); v.brand;" },
               { letter: "B", text: "Vehicle v = new Vehicle(\"Toyota\");" },
@@ -13750,7 +13820,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_4_q29",
             topicId: "3.4",
             topicLabel: "Constructors",
-            question: "What is printed by the following code?\n\npublic class Account {\n    private double balance;\n    public Account(double b) { balance = b; }\n    public Account() { this(0.0); }\n    public double getBalance() { return balance; }\n}\n\nAccount a = new Account();\nSystem.out.println(a.getBalance());",
+            question: "What is printed by the following code?",
+            code: "public class Account {\n    private double balance;\n    public Account(double b) { balance = b; }\n    public Account() { this(0.0); }\n    public double getBalance() { return balance; }\n}\nAccount a = new Account();\nSystem.out.println(a.getBalance());",
             options: [
               { letter: "A", text: "null" },
               { letter: "B", text: "0" },
@@ -13764,7 +13835,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_4_q30",
             topicId: "3.4",
             topicLabel: "Constructors",
-            question: "After the following code runs, what is the value of p's x field?\n\npublic class Point {\n    private int x;\n    private int y;\n    public Point(int x, int y) { this.x = x; this.y = y; }\n    public int getX() { return x; }\n}\n\nPoint p = new Point(4, 9);\nSystem.out.println(p.getX());",
+            question: "After the following code runs, what is the value of p's x field?",
+            code: "public class Point {\n    private int x;\n    private int y;\n    public Point(int x, int y) { this.x = x; this.y = y; }\n    public int getX() { return x; }\n}\nPoint p = new Point(4, 9);\nSystem.out.println(p.getX());",
             options: [
               { letter: "A", text: "13" },
               { letter: "B", text: "0" },
@@ -13826,7 +13898,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_5_q04",
             topicId: "3.5",
             topicLabel: "Methods: How to Write Them",
-            question: "Consider the following class. Which method is an accessor?\n\npublic class Car {\n    private String model;\n    private int year;\n    public Car(String m, int y) { model = m; year = y; }\n    public String getModel() { return model; }\n    public void setYear(int y) { year = y; }\n    public int getYear() { return year; }\n}",
+            question: "Consider the following class. Which method is an accessor?",
+            code: "public class Car {\n    private String model;\n    private int year;\n    public Car(String m, int y) { model = m; year = y; }\n    public String getModel() { return model; }\n    public void setYear(int y) { year = y; }\n    public int getYear() { return year; }\n}",
             options: [
               { letter: "A", text: "getModel()" },
               { letter: "B", text: "Both getModel() and getYear()" },
@@ -13840,7 +13913,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_5_q05",
             topicId: "3.5",
             topicLabel: "Methods: How to Write Them",
-            question: "What is printed by the following code?\n\npublic class Player {\n    private int score;\n    public Player(int s) { score = s; }\n    public int getScore() { return score; }\n    public void addPoints(int pts) { score += pts; }\n}\n\nPlayer p = new Player(10);\np.addPoints(5);\nSystem.out.println(p.getScore());",
+            question: "What is printed by the following code?",
+            code: "public class Player {\n    private int score;\n    public Player(int s) { score = s; }\n    public int getScore() { return score; }\n    public void addPoints(int pts) { score += pts; }\n}\nPlayer p = new Player(10);\np.addPoints(5);\nSystem.out.println(p.getScore());",
             options: [
               { letter: "A", text: "10" },
               { letter: "B", text: "5" },
@@ -13910,7 +13984,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_5_q10",
             topicId: "3.5",
             topicLabel: "Methods: How to Write Them",
-            question: "What is printed by the following code?\n\npublic class Rectangle {\n    private int width;\n    private int height;\n    public Rectangle(int w, int h) { width = w; height = h; }\n    public int getArea() { return width * height; }\n}\n\nRectangle r = new Rectangle(6, 4);\nSystem.out.println(r.getArea());",
+            question: "What is printed by the following code?",
+            code: "public class Rectangle {\n    private int width;\n    private int height;\n    public Rectangle(int w, int h) { width = w; height = h; }\n    public int getArea() { return width * height; }\n}\nRectangle r = new Rectangle(6, 4);\nSystem.out.println(r.getArea());",
             options: [
               { letter: "A", text: "24" },
               { letter: "B", text: "6" },
@@ -13924,7 +13999,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_5_q11",
             topicId: "3.5",
             topicLabel: "Methods: How to Write Them",
-            question: "Which of the following would cause a compile-time error?\n\npublic class Example {\n    private int value;\n    public Example(int v) { value = v; }\n    public int getValue() { return value; }\n    // line X\n}",
+            question: "Which of the following would cause a compile-time error?",
+            code: "public class Example {\n    private int value;\n    public Example(int v) { value = v; }\n    public int getValue() { return value; }\n    // line X\n}",
             options: [
               { letter: "A", text: "Line X: public int getValue2() { }" },
               { letter: "B", text: "Line X: private void helper() { value++; }" },
@@ -13938,7 +14014,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_5_q12",
             topicId: "3.5",
             topicLabel: "Methods: How to Write Them",
-            question: "What is printed by the following code?\n\npublic class Thermometer {\n    private double temperature;\n    public Thermometer(double t) { temperature = t; }\n    public double getTemperature() { return temperature; }\n    public void setTemperature(double t) { temperature = t; }\n}\n\nThermometer th = new Thermometer(68.0);\nth.setTemperature(98.6);\nSystem.out.println(th.getTemperature());",
+            question: "What is printed by the following code?",
+            code: "public class Thermometer {\n    private double temperature;\n    public Thermometer(double t) { temperature = t; }\n    public double getTemperature() { return temperature; }\n    public void setTemperature(double t) { temperature = t; }\n}\nThermometer th = new Thermometer(68.0);\nth.setTemperature(98.6);\nSystem.out.println(th.getTemperature());",
             options: [
               { letter: "A", text: "0.0" },
               { letter: "B", text: "68.0" },
@@ -13980,7 +14057,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_5_q15",
             topicId: "3.5",
             topicLabel: "Methods: How to Write Them",
-            question: "What is printed by the following code?\n\npublic class BankAccount {\n    private double balance;\n    public BankAccount(double b) { balance = b; }\n    public void deposit(double amount) { balance += amount; }\n    public void withdraw(double amount) { balance -= amount; }\n    public double getBalance() { return balance; }\n}\n\nBankAccount a = new BankAccount(100.0);\na.deposit(50.0);\na.withdraw(30.0);\nSystem.out.println(a.getBalance());",
+            question: "What is printed by the following code?",
+            code: "public class BankAccount {\n    private double balance;\n    public BankAccount(double b) { balance = b; }\n    public void deposit(double amount) { balance += amount; }\n    public void withdraw(double amount) { balance -= amount; }\n    public double getBalance() { return balance; }\n}\nBankAccount a = new BankAccount(100.0);\na.deposit(50.0);\na.withdraw(30.0);\nSystem.out.println(a.getBalance());",
             options: [
               { letter: "A", text: "120.0" },
               { letter: "B", text: "150.0" },
@@ -14022,7 +14100,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_5_q18",
             topicId: "3.5",
             topicLabel: "Methods: How to Write Them",
-            question: "What is printed by the following code?\n\npublic class Light {\n    private String color;\n    public Light(String c) { color = c; }\n    public String getColor() { return color; }\n    public void changeColor(String c) { color = c; }\n}\n\nLight l = new Light(\"red\");\nl.changeColor(\"green\");\nSystem.out.println(l.getColor());",
+            question: "What is printed by the following code?",
+            code: "public class Light {\n    private String color;\n    public Light(String c) { color = c; }\n    public String getColor() { return color; }\n    public void changeColor(String c) { color = c; }\n}\nLight l = new Light(\"red\");\nl.changeColor(\"green\");\nSystem.out.println(l.getColor());",
             options: [
               { letter: "A", text: "null" },
               { letter: "B", text: "redgreen" },
@@ -14050,7 +14129,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_5_q20",
             topicId: "3.5",
             topicLabel: "Methods: How to Write Them",
-            question: "What is printed by the following code?\n\npublic class StringHolder {\n    private String text;\n    public StringHolder(String t) { text = t; }\n    public int getLength() { return text.length(); }\n}\n\nStringHolder sh = new StringHolder(\"Hello\");\nSystem.out.println(sh.getLength());",
+            question: "What is printed by the following code?",
+            code: "public class StringHolder {\n    private String text;\n    public StringHolder(String t) { text = t; }\n    public int getLength() { return text.length(); }\n}\nStringHolder sh = new StringHolder(\"Hello\");\nSystem.out.println(sh.getLength());",
             options: [
               { letter: "A", text: "5" },
               { letter: "B", text: "A NullPointerException is thrown." },
@@ -14078,7 +14158,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_5_q22",
             topicId: "3.5",
             topicLabel: "Methods: How to Write Them",
-            question: "What is printed by the following code?\n\npublic class Circle {\n    private double radius;\n    public Circle(double r) { radius = r; }\n    public double getDiameter() { return radius * 2; }\n    public double getCircumference() { return Math.PI * getDiameter(); }\n}\n\nCircle c = new Circle(5.0);\nSystem.out.println(c.getDiameter());",
+            question: "What is printed by the following code?",
+            code: "public class Circle {\n    private double radius;\n    public Circle(double r) { radius = r; }\n    public double getDiameter() { return radius * 2; }\n    public double getCircumference() { return Math.PI * getDiameter(); }\n}\nCircle c = new Circle(5.0);\nSystem.out.println(c.getDiameter());",
             options: [
               { letter: "A", text: "10.0" },
               { letter: "B", text: "25.0" },
@@ -14106,7 +14187,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_5_q24",
             topicId: "3.5",
             topicLabel: "Methods: How to Write Them",
-            question: "What is printed by the following code?\n\npublic class Grade {\n    private int score;\n    public Grade(int s) { score = s; }\n    public boolean isPassing() { return score >= 60; }\n}\n\nGrade g = new Grade(75);\nSystem.out.println(g.isPassing());",
+            question: "What is printed by the following code?",
+            code: "public class Grade {\n    private int score;\n    public Grade(int s) { score = s; }\n    public boolean isPassing() { return score >= 60; }\n}\nGrade g = new Grade(75);\nSystem.out.println(g.isPassing());",
             options: [
               { letter: "A", text: "75" },
               { letter: "B", text: "60" },
@@ -14134,7 +14216,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_5_q26",
             topicId: "3.5",
             topicLabel: "Methods: How to Write Them",
-            question: "What is printed by the following code?\n\npublic class Inventory {\n    private int count;\n    public Inventory(int c) { count = c; }\n    public int getCount() { return count; }\n    public void remove(int n) { count -= n; }\n    public boolean isEmpty() { return count == 0; }\n}\n\nInventory inv = new Inventory(3);\ninv.remove(3);\nSystem.out.println(inv.isEmpty());",
+            question: "What is printed by the following code?",
+            code: "public class Inventory {\n    private int count;\n    public Inventory(int c) { count = c; }\n    public int getCount() { return count; }\n    public void remove(int n) { count -= n; }\n    public boolean isEmpty() { return count == 0; }\n}\nInventory inv = new Inventory(3);\ninv.remove(3);\nSystem.out.println(inv.isEmpty());",
             options: [
               { letter: "A", text: "true" },
               { letter: "B", text: "false" },
@@ -14162,7 +14245,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_5_q28",
             topicId: "3.5",
             topicLabel: "Methods: How to Write Them",
-            question: "What is printed by the following code?\n\npublic class Multiplier {\n    private int factor;\n    public Multiplier(int f) { factor = f; }\n    public int multiply(int n) { return n * factor; }\n}\n\nMultiplier m = new Multiplier(3);\nSystem.out.println(m.multiply(7));",
+            question: "What is printed by the following code?",
+            code: "public class Multiplier {\n    private int factor;\n    public Multiplier(int f) { factor = f; }\n    public int multiply(int n) { return n * factor; }\n}\nMultiplier m = new Multiplier(3);\nSystem.out.println(m.multiply(7));",
             options: [
               { letter: "A", text: "10" },
               { letter: "B", text: "21" },
@@ -14190,7 +14274,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_5_q30",
             topicId: "3.5",
             topicLabel: "Methods: How to Write Them",
-            question: "What is printed by the following code?\n\npublic class Token {\n    private char symbol;\n    public Token(char s) { symbol = s; }\n    public char getSymbol() { return symbol; }\n    public boolean isLetter() { return Character.isLetter(symbol); }\n}\n\nToken t = new Token('A');\nSystem.out.println(t.isLetter());",
+            question: "What is printed by the following code?",
+            code: "public class Token {\n    private char symbol;\n    public Token(char s) { symbol = s; }\n    public char getSymbol() { return symbol; }\n    public boolean isLetter() { return Character.isLetter(symbol); }\n}\nToken t = new Token('A');\nSystem.out.println(t.isLetter());",
             options: [
               { letter: "A", text: "false" },
               { letter: "B", text: "A compile-time error occurs." },
@@ -14224,7 +14309,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_6_q02",
             topicId: "3.6",
             topicLabel: "Methods: Passing and Returning References of an Object",
-            question: "What is printed by the following code?\n\npublic static void addOne(int x) { x++; }\n\nint n = 5;\naddOne(n);\nSystem.out.println(n);",
+            question: "What is printed by the following code?",
+            code: "public static void addOne(int x) { x++; }\nint n = 5;\naddOne(n);\nSystem.out.println(n);",
             options: [
               { letter: "A", text: "5" },
               { letter: "B", text: "6" },
@@ -14252,7 +14338,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_6_q04",
             topicId: "3.6",
             topicLabel: "Methods: Passing and Returning References of an Object",
-            question: "What is printed by the following code?\n\npublic class Dog {\n    private String name;\n    public Dog(String n) { name = n; }\n    public String getName() { return name; }\n    public void setName(String n) { name = n; }\n}\n\npublic static void rename(Dog d) { d.setName(\"Rex\"); }\n\nDog myDog = new Dog(\"Spot\");\nrename(myDog);\nSystem.out.println(myDog.getName());",
+            question: "What is printed by the following code?",
+            code: "public class Dog {\n    private String name;\n    public Dog(String n) { name = n; }\n    public String getName() { return name; }\n    public void setName(String n) { name = n; }\n}\npublic static void rename(Dog d) { d.setName(\"Rex\"); }\nDog myDog = new Dog(\"Spot\");\nrename(myDog);\nSystem.out.println(myDog.getName());",
             options: [
               { letter: "A", text: "Rex" },
               { letter: "B", text: "null" },
@@ -14266,7 +14353,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_6_q05",
             topicId: "3.6",
             topicLabel: "Methods: Passing and Returning References of an Object",
-            question: "What is printed by the following code?\n\npublic class Dog {\n    private String name;\n    public Dog(String n) { name = n; }\n    public String getName() { return name; }\n}\n\npublic static void replaceRef(Dog d) { d = new Dog(\"Max\"); }\n\nDog myDog = new Dog(\"Spot\");\nreplaceRef(myDog);\nSystem.out.println(myDog.getName());",
+            question: "What is printed by the following code?",
+            code: "public class Dog {\n    private String name;\n    public Dog(String n) { name = n; }\n    public String getName() { return name; }\n}\npublic static void replaceRef(Dog d) { d = new Dog(\"Max\"); }\nDog myDog = new Dog(\"Spot\");\nreplaceRef(myDog);\nSystem.out.println(myDog.getName());",
             options: [
               { letter: "A", text: "null" },
               { letter: "B", text: "A compile-time error occurs." },
@@ -14294,7 +14382,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_6_q07",
             topicId: "3.6",
             topicLabel: "Methods: Passing and Returning References of an Object",
-            question: "What is printed by the following code?\n\npublic class Point {\n    private int x;\n    public Point(int x) { this.x = x; }\n    public int getX() { return x; }\n    public void setX(int x) { this.x = x; }\n}\n\nPoint a = new Point(3);\nPoint b = a;\nb.setX(99);\nSystem.out.println(a.getX());",
+            question: "What is printed by the following code?",
+            code: "public class Point {\n    private int x;\n    public Point(int x) { this.x = x; }\n    public int getX() { return x; }\n    public void setX(int x) { this.x = x; }\n}\nPoint a = new Point(3);\nPoint b = a;\nb.setX(99);\nSystem.out.println(a.getX());",
             options: [
               { letter: "A", text: "3" },
               { letter: "B", text: "99" },
@@ -14308,7 +14397,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_6_q08",
             topicId: "3.6",
             topicLabel: "Methods: Passing and Returning References of an Object",
-            question: "What is printed by the following code?\n\npublic static void triple(int x) { x = x * 3; }\n\nint num = 4;\ntriple(num);\nSystem.out.println(num);",
+            question: "What is printed by the following code?",
+            code: "public static void triple(int x) { x = x * 3; }\nint num = 4;\ntriple(num);\nSystem.out.println(num);",
             options: [
               { letter: "A", text: "12" },
               { letter: "B", text: "3" },
@@ -14322,7 +14412,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_6_q09",
             topicId: "3.6",
             topicLabel: "Methods: Passing and Returning References of an Object",
-            question: "Consider the following class.\n\npublic class Box {\n    private int size;\n    public Box(int s) { size = s; }\n    public int getSize() { return size; }\n    public void setSize(int s) { size = s; }\n}\n\npublic static void doubleSize(Box b) { b.setSize(b.getSize() * 2); }\n\nBox box = new Box(5);\ndoubleSize(box);\nSystem.out.println(box.getSize());",
+            question: "Consider the following class.",
+            code: "public class Box {\n    private int size;\n    public Box(int s) { size = s; }\n    public int getSize() { return size; }\n    public void setSize(int s) { size = s; }\n}\npublic static void doubleSize(Box b) { b.setSize(b.getSize() * 2); }\nBox box = new Box(5);\ndoubleSize(box);\nSystem.out.println(box.getSize());",
             options: [
               { letter: "A", text: "5" },
               { letter: "B", text: "10" },
@@ -14350,7 +14441,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_6_q11",
             topicId: "3.6",
             topicLabel: "Methods: Passing and Returning References of an Object",
-            question: "What is printed by the following code?\n\npublic class Counter {\n    private int n;\n    public Counter(int n) { this.n = n; }\n    public int getN() { return n; }\n    public void increment() { n++; }\n}\n\npublic static void bump(Counter c) { c.increment(); c.increment(); }\n\nCounter cnt = new Counter(0);\nbump(cnt);\nSystem.out.println(cnt.getN());",
+            question: "What is printed by the following code?",
+            code: "public class Counter {\n    private int n;\n    public Counter(int n) { this.n = n; }\n    public int getN() { return n; }\n    public void increment() { n++; }\n}\npublic static void bump(Counter c) { c.increment(); c.increment(); }\nCounter cnt = new Counter(0);\nbump(cnt);\nSystem.out.println(cnt.getN());",
             options: [
               { letter: "A", text: "1" },
               { letter: "B", text: "2" },
@@ -14378,7 +14470,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_6_q13",
             topicId: "3.6",
             topicLabel: "Methods: Passing and Returning References of an Object",
-            question: "What is printed by the following code?\n\nString s = null;\nSystem.out.println(s.length());",
+            question: "What is printed by the following code?",
+            code: "String s = null;\nSystem.out.println(s.length());",
             options: [
               { letter: "A", text: "A NullPointerException is thrown at runtime." },
               { letter: "B", text: "0" },
@@ -14406,7 +14499,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_6_q15",
             topicId: "3.6",
             topicLabel: "Methods: Passing and Returning References of an Object",
-            question: "What is printed by the following code?\n\npublic class Wallet {\n    private int dollars;\n    public Wallet(int d) { dollars = d; }\n    public int getDollars() { return dollars; }\n    public void setDollars(int d) { dollars = d; }\n}\n\nWallet w1 = new Wallet(50);\nWallet w2 = w1;\nw2.setDollars(200);\nSystem.out.println(w1.getDollars());",
+            question: "What is printed by the following code?",
+            code: "public class Wallet {\n    private int dollars;\n    public Wallet(int d) { dollars = d; }\n    public int getDollars() { return dollars; }\n    public void setDollars(int d) { dollars = d; }\n}\nWallet w1 = new Wallet(50);\nWallet w2 = w1;\nw2.setDollars(200);\nSystem.out.println(w1.getDollars());",
             options: [
               { letter: "A", text: "A NullPointerException is thrown." },
               { letter: "B", text: "50" },
@@ -14434,7 +14528,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_6_q17",
             topicId: "3.6",
             topicLabel: "Methods: Passing and Returning References of an Object",
-            question: "What is printed by the following code?\n\npublic class Flag {\n    private boolean raised;\n    public Flag(boolean r) { raised = r; }\n    public boolean isRaised() { return raised; }\n    public void raise() { raised = true; }\n}\n\npublic static void raiseIt(Flag f) { f.raise(); }\n\nFlag flag = new Flag(false);\nraiseIt(flag);\nSystem.out.println(flag.isRaised());",
+            question: "What is printed by the following code?",
+            code: "public class Flag {\n    private boolean raised;\n    public Flag(boolean r) { raised = r; }\n    public boolean isRaised() { return raised; }\n    public void raise() { raised = true; }\n}\npublic static void raiseIt(Flag f) { f.raise(); }\nFlag flag = new Flag(false);\nraiseIt(flag);\nSystem.out.println(flag.isRaised());",
             options: [
               { letter: "A", text: "null" },
               { letter: "B", text: "A NullPointerException is thrown." },
@@ -14448,7 +14543,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_6_q18",
             topicId: "3.6",
             topicLabel: "Methods: Passing and Returning References of an Object",
-            question: "Consider two integer variables passed to a swap method:\n\npublic static void swap(int a, int b) { int temp = a; a = b; b = temp; }\n\nint x = 1, y = 2;\nswap(x, y);\nSystem.out.println(x + \" \" + y);\n\nWhat is printed?",
+            question: "Consider two integer variables passed to a swap method: What is printed?",
+            code: "public static void swap(int a, int b) { int temp = a; a = b; b = temp; }\nint x = 1, y = 2;\nswap(x, y);\nSystem.out.println(x + \" \" + y);",
             options: [
               { letter: "A", text: "1 2" },
               { letter: "B", text: "1 1" },
@@ -14462,7 +14558,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_6_q19",
             topicId: "3.6",
             topicLabel: "Methods: Passing and Returning References of an Object",
-            question: "What is printed by the following code?\n\npublic class Score {\n    private int points;\n    public Score(int p) { points = p; }\n    public int getPoints() { return points; }\n    public void setPoints(int p) { points = p; }\n}\n\nScore s1 = new Score(10);\nScore s2 = new Score(20);\nScore s3 = s1;\ns3.setPoints(99);\nSystem.out.println(s2.getPoints());",
+            question: "What is printed by the following code?",
+            code: "public class Score {\n    private int points;\n    public Score(int p) { points = p; }\n    public int getPoints() { return points; }\n    public void setPoints(int p) { points = p; }\n}\nScore s1 = new Score(10);\nScore s2 = new Score(20);\nScore s3 = s1;\ns3.setPoints(99);\nSystem.out.println(s2.getPoints());",
             options: [
               { letter: "A", text: "99" },
               { letter: "B", text: "A NullPointerException is thrown." },
@@ -14476,7 +14573,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_6_q20",
             topicId: "3.6",
             topicLabel: "Methods: Passing and Returning References of an Object",
-            question: "After this code runs, what does x hold?\n\nScore s1 = new Score(10);\nScore s2 = new Score(20);\nScore s3 = s1;\ns3.setPoints(99);\nint x = s1.getPoints();",
+            question: "After this code runs, what does x hold?",
+            code: "Score s1 = new Score(10);\nScore s2 = new Score(20);\nScore s3 = s1;\ns3.setPoints(99);\nint x = s1.getPoints();",
             options: [
               { letter: "A", text: "10" },
               { letter: "B", text: "20" },
@@ -14504,7 +14602,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_6_q22",
             topicId: "3.6",
             topicLabel: "Methods: Passing and Returning References of an Object",
-            question: "What is printed by the following code?\n\npublic class Tank {\n    private int fuel;\n    public Tank(int f) { fuel = f; }\n    public int getFuel() { return fuel; }\n    public void addFuel(int f) { fuel += f; }\n}\n\npublic static Tank fill(Tank t) {\n    t.addFuel(50);\n    return t;\n}\n\nTank myTank = new Tank(20);\nTank result = fill(myTank);\nSystem.out.println(result.getFuel());",
+            question: "What is printed by the following code?",
+            code: "public class Tank {\n    private int fuel;\n    public Tank(int f) { fuel = f; }\n    public int getFuel() { return fuel; }\n    public void addFuel(int f) { fuel += f; }\n}\npublic static Tank fill(Tank t) {\n    t.addFuel(50);\n    return t;\n}\nTank myTank = new Tank(20);\nTank result = fill(myTank);\nSystem.out.println(result.getFuel());",
             options: [
               { letter: "A", text: "A compile-time error occurs." },
               { letter: "B", text: "20" },
@@ -14518,7 +14617,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_6_q23",
             topicId: "3.6",
             topicLabel: "Methods: Passing and Returning References of an Object",
-            question: "What is printed by the following code?\n\npublic class Circle {\n    private double r;\n    public Circle(double r) { this.r = r; }\n    public double getR() { return r; }\n    public void setR(double r) { this.r = r; }\n}\n\nCircle c1 = new Circle(5.0);\nCircle c2 = new Circle(10.0);\nc2 = c1;\nSystem.out.println(c2.getR());",
+            question: "What is printed by the following code?",
+            code: "public class Circle {\n    private double r;\n    public Circle(double r) { this.r = r; }\n    public double getR() { return r; }\n    public void setR(double r) { this.r = r; }\n}\nCircle c1 = new Circle(5.0);\nCircle c2 = new Circle(10.0);\nc2 = c1;\nSystem.out.println(c2.getR());",
             options: [
               { letter: "A", text: "10.0" },
               { letter: "B", text: "5.0" },
@@ -14532,7 +14632,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_6_q24",
             topicId: "3.6",
             topicLabel: "Methods: Passing and Returning References of an Object",
-            question: "A method creates a new object and returns it. Consider:\n\npublic static Dog createDog(String name) {\n    return new Dog(name);\n}\n\nDog d = createDog(\"Fido\");\nSystem.out.println(d.getName());\n\nWhat is printed?",
+            question: "A method creates a new object and returns it. Consider: What is printed?",
+            code: "public static Dog createDog(String name) {\n    return new Dog(name);\n}\nDog d = createDog(\"Fido\");\nSystem.out.println(d.getName());",
             options: [
               { letter: "A", text: "A compile-time error occurs." },
               { letter: "B", text: "null" },
@@ -14546,7 +14647,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_6_q25",
             topicId: "3.6",
             topicLabel: "Methods: Passing and Returning References of an Object",
-            question: "What is printed by the following code?\n\npublic static void zeroOut(int[] arr) { arr[0] = 0; }\n\nint[] nums = {5, 10, 15};\nzeroOut(nums);\nSystem.out.println(nums[0]);",
+            question: "What is printed by the following code?",
+            code: "public static void zeroOut(int[] arr) { arr[0] = 0; }\nint[] nums = {5, 10, 15};\nzeroOut(nums);\nSystem.out.println(nums[0]);",
             options: [
               { letter: "A", text: "10" },
               { letter: "B", text: "A compile-time error occurs." },
@@ -14574,7 +14676,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_6_q27",
             topicId: "3.6",
             topicLabel: "Methods: Passing and Returning References of an Object",
-            question: "What is printed by the following code?\n\npublic class Card {\n    private String suit;\n    public Card(String s) { suit = s; }\n    public String getSuit() { return suit; }\n}\n\nCard c1 = new Card(\"Hearts\");\nCard c2 = c1;\nc1 = new Card(\"Spades\");\nSystem.out.println(c2.getSuit());",
+            question: "What is printed by the following code?",
+            code: "public class Card {\n    private String suit;\n    public Card(String s) { suit = s; }\n    public String getSuit() { return suit; }\n}\nCard c1 = new Card(\"Hearts\");\nCard c2 = c1;\nc1 = new Card(\"Spades\");\nSystem.out.println(c2.getSuit());",
             options: [
               { letter: "A", text: "Hearts" },
               { letter: "B", text: "null" },
@@ -14602,7 +14705,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_6_q29",
             topicId: "3.6",
             topicLabel: "Methods: Passing and Returning References of an Object",
-            question: "What is printed by the following code?\n\npublic class Ball {\n    private int size;\n    public Ball(int s) { size = s; }\n    public int getSize() { return size; }\n    public void setSize(int s) { size = s; }\n}\n\npublic static void changeSize(Ball b, int newSize) {\n    b.setSize(newSize);\n    b = new Ball(100);\n}\n\nBall myBall = new Ball(5);\nchangeSize(myBall, 50);\nSystem.out.println(myBall.getSize());",
+            question: "What is printed by the following code?",
+            code: "public class Ball {\n    private int size;\n    public Ball(int s) { size = s; }\n    public int getSize() { return size; }\n    public void setSize(int s) { size = s; }\n}\npublic static void changeSize(Ball b, int newSize) {\n    b.setSize(newSize);\n    b = new Ball(100);\n}\nBall myBall = new Ball(5);\nchangeSize(myBall, 50);\nSystem.out.println(myBall.getSize());",
             options: [
               { letter: "A", text: "100" },
               { letter: "B", text: "A compile-time error occurs." },
@@ -14664,7 +14768,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_7_q03",
             topicId: "3.7",
             topicLabel: "Class Variables and Methods",
-            question: "What is printed by the following code?\n\npublic class Counter {\n    private static int count = 0;\n    public Counter() { count++; }\n    public static int getCount() { return count; }\n}\n\nnew Counter();\nnew Counter();\nnew Counter();\nSystem.out.println(Counter.getCount());",
+            question: "What is printed by the following code?",
+            code: "public class Counter {\n    private static int count = 0;\n    public Counter() { count++; }\n    public static int getCount() { return count; }\n}\nnew Counter();\nnew Counter();\nnew Counter();\nSystem.out.println(Counter.getCount());",
             options: [
               { letter: "A", text: "0" },
               { letter: "B", text: "1" },
@@ -14706,7 +14811,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_7_q06",
             topicId: "3.7",
             topicLabel: "Class Variables and Methods",
-            question: "Consider the following class.\n\npublic class Widget {\n    private int id;\n    private static int count = 0;\n    public Widget(int id) { this.id = id; count++; }\n    public static int getCount() {\n        return id; // line X\n    }\n}\n\nWhat happens at line X?",
+            question: "Consider the following class. What happens at line X?",
+            code: "public class Widget {\n    private int id;\n    private static int count = 0;\n    public Widget(int id) { this.id = id; count++; }\n    public static int getCount() {\n        return id; // line X\n    }\n}",
             options: [
               { letter: "A", text: "The method returns the id of the most recently created Widget" },
               { letter: "B", text: "The method returns 0 (default int value)" },
@@ -14720,7 +14826,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_7_q07",
             topicId: "3.7",
             topicLabel: "Class Variables and Methods",
-            question: "What is printed by the following code?\n\npublic class ID {\n    private static int nextId = 1;\n    private int id;\n    public ID() { id = nextId; nextId++; }\n    public int getId() { return id; }\n    public static int getNextId() { return nextId; }\n}\n\nID a = new ID();\nID b = new ID();\nID c = new ID();\nSystem.out.println(a.getId() + \" \" + c.getId());",
+            question: "What is printed by the following code?",
+            code: "public class ID {\n    private static int nextId = 1;\n    private int id;\n    public ID() { id = nextId; nextId++; }\n    public int getId() { return id; }\n    public static int getNextId() { return nextId; }\n}\nID a = new ID();\nID b = new ID();\nID c = new ID();\nSystem.out.println(a.getId() + \" \" + c.getId());",
             options: [
               { letter: "A", text: "0 2" },
               { letter: "B", text: "1 1" },
@@ -14762,7 +14869,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_7_q10",
             topicId: "3.7",
             topicLabel: "Class Variables and Methods",
-            question: "What is printed by the following code?\n\npublic class Tracker {\n    public static int total = 0;\n    public int personal;\n    public Tracker(int p) { personal = p; total += p; }\n}\n\nTracker t1 = new Tracker(10);\nTracker t2 = new Tracker(20);\nTracker t3 = new Tracker(5);\nSystem.out.println(Tracker.total);",
+            question: "What is printed by the following code?",
+            code: "public class Tracker {\n    public static int total = 0;\n    public int personal;\n    public Tracker(int p) { personal = p; total += p; }\n}\nTracker t1 = new Tracker(10);\nTracker t2 = new Tracker(20);\nTracker t3 = new Tracker(5);\nSystem.out.println(Tracker.total);",
             options: [
               { letter: "A", text: "5" },
               { letter: "B", text: "20" },
@@ -14818,7 +14926,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_7_q14",
             topicId: "3.7",
             topicLabel: "Class Variables and Methods",
-            question: "What is printed by the following code?\n\npublic class Stamp {\n    private static int totalStamps = 0;\n    public Stamp() { totalStamps++; }\n    public static int getTotal() { return totalStamps; }\n}\n\nStamp s1 = new Stamp();\nStamp s2 = new Stamp();\nSystem.out.println(Stamp.getTotal());\nStamp s3 = new Stamp();\nSystem.out.println(Stamp.getTotal());",
+            question: "What is printed by the following code?",
+            code: "public class Stamp {\n    private static int totalStamps = 0;\n    public Stamp() { totalStamps++; }\n    public static int getTotal() { return totalStamps; }\n}\nStamp s1 = new Stamp();\nStamp s2 = new Stamp();\nSystem.out.println(Stamp.getTotal());\nStamp s3 = new Stamp();\nSystem.out.println(Stamp.getTotal());",
             options: [
               { letter: "A", text: "3\n3" },
               { letter: "B", text: "2\n2" },
@@ -14846,7 +14955,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_7_q16",
             topicId: "3.7",
             topicLabel: "Class Variables and Methods",
-            question: "What is printed by the following code?\n\npublic class Pool {\n    private static int size = 10;\n    public static void addFive() { size += 5; }\n    public static int getSize() { return size; }\n}\n\nPool.addFive();\nPool.addFive();\nSystem.out.println(Pool.getSize());",
+            question: "What is printed by the following code?",
+            code: "public class Pool {\n    private static int size = 10;\n    public static void addFive() { size += 5; }\n    public static int getSize() { return size; }\n}\nPool.addFive();\nPool.addFive();\nSystem.out.println(Pool.getSize());",
             options: [
               { letter: "A", text: "15" },
               { letter: "B", text: "20" },
@@ -14874,7 +14984,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_7_q18",
             topicId: "3.7",
             topicLabel: "Class Variables and Methods",
-            question: "What is printed by the following code?\n\npublic class Library {\n    private static int books = 100;\n    private int borrowed;\n    public Library(int b) { borrowed = b; books -= b; }\n    public static int getBooks() { return books; }\n}\n\nLibrary l1 = new Library(10);\nLibrary l2 = new Library(25);\nSystem.out.println(Library.getBooks());",
+            question: "What is printed by the following code?",
+            code: "public class Library {\n    private static int books = 100;\n    private int borrowed;\n    public Library(int b) { borrowed = b; books -= b; }\n    public static int getBooks() { return books; }\n}\nLibrary l1 = new Library(10);\nLibrary l2 = new Library(25);\nSystem.out.println(Library.getBooks());",
             options: [
               { letter: "A", text: "90" },
               { letter: "B", text: "65" },
@@ -14902,7 +15013,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_7_q20",
             topicId: "3.7",
             topicLabel: "Class Variables and Methods",
-            question: "What is printed by the following code?\n\npublic class Level {\n    private static int highScore = 0;\n    private int score;\n    public Level(int s) {\n        score = s;\n        if (s > highScore) highScore = s;\n    }\n    public static int getHighScore() { return highScore; }\n}\n\nnew Level(50);\nnew Level(80);\nnew Level(60);\nSystem.out.println(Level.getHighScore());",
+            question: "What is printed by the following code?",
+            code: "public class Level {\n    private static int highScore = 0;\n    private int score;\n    public Level(int s) {\n        score = s;\n        if (s > highScore) highScore = s;\n    }\n    public static int getHighScore() { return highScore; }\n}\nnew Level(50);\nnew Level(80);\nnew Level(60);\nSystem.out.println(Level.getHighScore());",
             options: [
               { letter: "A", text: "190" },
               { letter: "B", text: "50" },
@@ -14930,7 +15042,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_7_q22",
             topicId: "3.7",
             topicLabel: "Class Variables and Methods",
-            question: "What is printed by the following code?\n\npublic class Coin {\n    private static int total = 0;\n    private int value;\n    public Coin(int v) { value = v; total += v; }\n    public int getValue() { return value; }\n    public static int getTotal() { return total; }\n}\n\nCoin c1 = new Coin(25);\nCoin c2 = new Coin(10);\nCoin c3 = new Coin(5);\nSystem.out.println(c1.getValue() + \" \" + Coin.getTotal());",
+            question: "What is printed by the following code?",
+            code: "public class Coin {\n    private static int total = 0;\n    private int value;\n    public Coin(int v) { value = v; total += v; }\n    public int getValue() { return value; }\n    public static int getTotal() { return total; }\n}\nCoin c1 = new Coin(25);\nCoin c2 = new Coin(10);\nCoin c3 = new Coin(5);\nSystem.out.println(c1.getValue() + \" \" + Coin.getTotal());",
             options: [
               { letter: "A", text: "40 40" },
               { letter: "B", text: "5 40" },
@@ -14958,7 +15071,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_7_q24",
             topicId: "3.7",
             topicLabel: "Class Variables and Methods",
-            question: "What is printed by the following code?\n\npublic class Ticket {\n    private static int issued = 0;\n    private int number;\n    public Ticket() { issued++; number = issued; }\n    public int getNumber() { return number; }\n}\n\nTicket t1 = new Ticket();\nTicket t2 = new Ticket();\nTicket t3 = new Ticket();\nSystem.out.println(t1.getNumber() + \" \" + t3.getNumber());",
+            question: "What is printed by the following code?",
+            code: "public class Ticket {\n    private static int issued = 0;\n    private int number;\n    public Ticket() { issued++; number = issued; }\n    public int getNumber() { return number; }\n}\nTicket t1 = new Ticket();\nTicket t2 = new Ticket();\nTicket t3 = new Ticket();\nSystem.out.println(t1.getNumber() + \" \" + t3.getNumber());",
             options: [
               { letter: "A", text: "0 2" },
               { letter: "B", text: "1 3" },
@@ -14986,7 +15100,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_7_q26",
             topicId: "3.7",
             topicLabel: "Class Variables and Methods",
-            question: "What is printed by the following code?\n\npublic class Register {\n    private static double revenue = 0.0;\n    public static void sale(double amount) { revenue += amount; }\n    public static double getRevenue() { return revenue; }\n}\n\nRegister.sale(19.99);\nRegister.sale(5.49);\nRegister.sale(12.00);\nSystem.out.println(Register.getRevenue());",
+            question: "What is printed by the following code?",
+            code: "public class Register {\n    private static double revenue = 0.0;\n    public static void sale(double amount) { revenue += amount; }\n    public static double getRevenue() { return revenue; }\n}\nRegister.sale(19.99);\nRegister.sale(5.49);\nRegister.sale(12.00);\nSystem.out.println(Register.getRevenue());",
             options: [
               { letter: "A", text: "12.00" },
               { letter: "B", text: "37.48" },
@@ -15014,7 +15129,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_7_q28",
             topicId: "3.7",
             topicLabel: "Class Variables and Methods",
-            question: "What is printed by the following code?\n\npublic class Taxer {\n    private static double rate = 0.1;\n    public static double tax(double price) { return price * rate; }\n}\n\nSystem.out.println(Taxer.tax(200.0));",
+            question: "What is printed by the following code?",
+            code: "public class Taxer {\n    private static double rate = 0.1;\n    public static double tax(double price) { return price * rate; }\n}\nSystem.out.println(Taxer.tax(200.0));",
             options: [
               { letter: "A", text: "20.0" },
               { letter: "B", text: "200.0" },
@@ -15042,7 +15158,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_7_q30",
             topicId: "3.7",
             topicLabel: "Class Variables and Methods",
-            question: "What is printed by the following code?\n\npublic class School {\n    private static int studentCount = 0;\n    private String name;\n    public School(String n) { name = n; studentCount++; }\n    public static int getStudentCount() { return studentCount; }\n    public String getName() { return name; }\n}\n\nSchool s1 = new School(\"Alice\");\nSchool s2 = new School(\"Bob\");\nSystem.out.println(s1.getName() + \" \" + School.getStudentCount());",
+            question: "What is printed by the following code?",
+            code: "public class School {\n    private static int studentCount = 0;\n    private String name;\n    public School(String n) { name = n; studentCount++; }\n    public static int getStudentCount() { return studentCount; }\n    public String getName() { return name; }\n}\nSchool s1 = new School(\"Alice\");\nSchool s2 = new School(\"Bob\");\nSystem.out.println(s1.getName() + \" \" + School.getStudentCount());",
             options: [
               { letter: "A", text: "A compile-time error occurs." },
               { letter: "B", text: "Alice 1" },
@@ -15090,7 +15207,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_8_q03",
             topicId: "3.8",
             topicLabel: "Scope and Access",
-            question: "What is printed by the following code?\n\npublic class Calc {\n    private int result = 10;\n    public void compute() {\n        int result = 99;\n        System.out.println(result);\n    }\n}\n\nnew Calc().compute();",
+            question: "What is printed by the following code?",
+            code: "public class Calc {\n    private int result = 10;\n    public void compute() {\n        int result = 99;\n        System.out.println(result);\n    }\n}\nnew Calc().compute();",
             options: [
               { letter: "A", text: "A compile-time error occurs." },
               { letter: "B", text: "10" },
@@ -15118,7 +15236,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_8_q05",
             topicId: "3.8",
             topicLabel: "Scope and Access",
-            question: "What is printed by the following code?\n\npublic class Test {\n    private int x = 5;\n    public void show(int x) {\n        System.out.println(x);\n    }\n}\n\nnew Test().show(42);",
+            question: "What is printed by the following code?",
+            code: "public class Test {\n    private int x = 5;\n    public void show(int x) {\n        System.out.println(x);\n    }\n}\nnew Test().show(42);",
             options: [
               { letter: "A", text: "47" },
               { letter: "B", text: "A compile-time error occurs." },
@@ -15146,7 +15265,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_8_q07",
             topicId: "3.8",
             topicLabel: "Scope and Access",
-            question: "What is printed by the following code?\n\nString s = null;\nSystem.out.println(s.toUpperCase());",
+            question: "What is printed by the following code?",
+            code: "String s = null;\nSystem.out.println(s.toUpperCase());",
             options: [
               { letter: "A", text: "null" },
               { letter: "B", text: "An empty string is printed." },
@@ -15174,7 +15294,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_8_q09",
             topicId: "3.8",
             topicLabel: "Scope and Access",
-            question: "What is printed by the following code?\n\npublic class Foo {\n    private int count = 0;\n    public void increment() { count++; }\n    public void show() { System.out.println(count); }\n}\n\nFoo f = new Foo();\nf.increment();\nf.increment();\nf.show();",
+            question: "What is printed by the following code?",
+            code: "public class Foo {\n    private int count = 0;\n    public void increment() { count++; }\n    public void show() { System.out.println(count); }\n}\nFoo f = new Foo();\nf.increment();\nf.increment();\nf.show();",
             options: [
               { letter: "A", text: "0" },
               { letter: "B", text: "1" },
@@ -15202,7 +15323,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_8_q11",
             topicId: "3.8",
             topicLabel: "Scope and Access",
-            question: "What is printed by the following code?\n\npublic class Box {\n    private int size;\n    public Box(int size) { this.size = size; }\n    public void grow(int size) { this.size += size; }\n    public int getSize() { return size; }\n}\n\nBox b = new Box(10);\nb.grow(5);\nSystem.out.println(b.getSize());",
+            question: "What is printed by the following code?",
+            code: "public class Box {\n    private int size;\n    public Box(int size) { this.size = size; }\n    public void grow(int size) { this.size += size; }\n    public int getSize() { return size; }\n}\nBox b = new Box(10);\nb.grow(5);\nSystem.out.println(b.getSize());",
             options: [
               { letter: "A", text: "A compile-time error occurs." },
               { letter: "B", text: "5" },
@@ -15244,7 +15366,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_8_q14",
             topicId: "3.8",
             topicLabel: "Scope and Access",
-            question: "What is printed by the following code?\n\npublic class Holder {\n    private String value;\n    public Holder() { }\n    public String getValue() { return value; }\n}\n\nHolder h = new Holder();\nSystem.out.println(h.getValue());",
+            question: "What is printed by the following code?",
+            code: "public class Holder {\n    private String value;\n    public Holder() { }\n    public String getValue() { return value; }\n}\nHolder h = new Holder();\nSystem.out.println(h.getValue());",
             options: [
               { letter: "A", text: "A NullPointerException is thrown." },
               { letter: "B", text: "null" },
@@ -15258,7 +15381,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_8_q15",
             topicId: "3.8",
             topicLabel: "Scope and Access",
-            question: "Consider the following code. Which line will cause a compile-time error?\n\npublic void methodA() {\n    int x = 5;       // line 1\n    System.out.println(x); // line 2\n}\n\npublic void methodB() {\n    System.out.println(x); // line 3\n}",
+            question: "Consider the following code. Which line will cause a compile-time error?",
+            code: "public void methodA() {\n    int x = 5;       // line 1\n    System.out.println(x); // line 2\n}\npublic void methodB() {\n    System.out.println(x); // line 3\n}",
             options: [
               { letter: "A", text: "Line 2" },
               { letter: "B", text: "Line 3" },
@@ -15272,7 +15396,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_8_q16",
             topicId: "3.8",
             topicLabel: "Scope and Access",
-            question: "What is printed by the following code?\n\npublic class Values {\n    private int a = 1;\n    private int b = 2;\n    public int compute() {\n        int a = 10;\n        return a + b;\n    }\n}\n\nSystem.out.println(new Values().compute());",
+            question: "What is printed by the following code?",
+            code: "public class Values {\n    private int a = 1;\n    private int b = 2;\n    public int compute() {\n        int a = 10;\n        return a + b;\n    }\n}\nSystem.out.println(new Values().compute());",
             options: [
               { letter: "A", text: "3" },
               { letter: "B", text: "12" },
@@ -15300,7 +15425,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_8_q18",
             topicId: "3.8",
             topicLabel: "Scope and Access",
-            question: "What is printed by the following code?\n\npublic class Tracker {\n    private int steps = 0;\n    public void walk(int n) {\n        int steps = n;\n        System.out.println(steps);\n    }\n    public int getSteps() { return steps; }\n}\n\nTracker t = new Tracker();\nt.walk(100);\nSystem.out.println(t.getSteps());",
+            question: "What is printed by the following code?",
+            code: "public class Tracker {\n    private int steps = 0;\n    public void walk(int n) {\n        int steps = n;\n        System.out.println(steps);\n    }\n    public int getSteps() { return steps; }\n}\nTracker t = new Tracker();\nt.walk(100);\nSystem.out.println(t.getSteps());",
             options: [
               { letter: "A", text: "100\n0" },
               { letter: "B", text: "0\n100" },
@@ -15328,7 +15454,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_8_q20",
             topicId: "3.8",
             topicLabel: "Scope and Access",
-            question: "What is printed by the following code?\n\npublic class Scanner {\n    private String data;\n    public Scanner(String d) { data = d; }\n    public int getLength() { return data.length(); }\n}\n\nScanner sc = null;\nSystem.out.println(sc.getLength());",
+            question: "What is printed by the following code?",
+            code: "public class Scanner {\n    private String data;\n    public Scanner(String d) { data = d; }\n    public int getLength() { return data.length(); }\n}\nScanner sc = null;\nSystem.out.println(sc.getLength());",
             options: [
               { letter: "A", text: "null" },
               { letter: "B", text: "A compile-time error occurs." },
@@ -15342,7 +15469,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_8_q21",
             topicId: "3.8",
             topicLabel: "Scope and Access",
-            question: "What is printed by the following code?\n\npublic class Demo {\n    private int n = 3;\n    public void test() {\n        for (int i = 0; i < n; i++) {\n            int x = i * 2;\n            System.out.print(x + \" \");\n        }\n    }\n}\n\nnew Demo().test();",
+            question: "What is printed by the following code?",
+            code: "public class Demo {\n    private int n = 3;\n    public void test() {\n        for (int i = 0; i < n; i++) {\n            int x = i * 2;\n            System.out.print(x + \" \");\n        }\n    }\n}\nnew Demo().test();",
             options: [
               { letter: "A", text: "0 2 4" },
               { letter: "B", text: "3 3 3" },
@@ -15370,7 +15498,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_8_q23",
             topicId: "3.8",
             topicLabel: "Scope and Access",
-            question: "What is printed by the following code?\n\npublic class Thing {\n    private String label;\n    public Thing(String label) {\n        this.label = label;\n    }\n    public void display() {\n        String label = \"override\";\n        System.out.println(this.label + \" \" + label);\n    }\n}\n\nnew Thing(\"original\").display();",
+            question: "What is printed by the following code?",
+            code: "public class Thing {\n    private String label;\n    public Thing(String label) {\n        this.label = label;\n    }\n    public void display() {\n        String label = \"override\";\n        System.out.println(this.label + \" \" + label);\n    }\n}\nnew Thing(\"original\").display();",
             options: [
               { letter: "A", text: "override override" },
               { letter: "B", text: "original override" },
@@ -15398,7 +15527,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_8_q25",
             topicId: "3.8",
             topicLabel: "Scope and Access",
-            question: "What is printed by the following code?\n\npublic class Chain {\n    private String word;\n    public Chain(String w) { word = w; }\n    public int length() { return word.length(); }\n}\n\nChain c = new Chain(\"hello\");\nchain = null;\nSystem.out.println(c.length());",
+            question: "What is printed by the following code?",
+            code: "public class Chain {\n    private String word;\n    public Chain(String w) { word = w; }\n    public int length() { return word.length(); }\n}\nChain c = new Chain(\"hello\");\nchain = null;\nSystem.out.println(c.length());",
             options: [
               { letter: "A", text: "0" },
               { letter: "B", text: "A NullPointerException is thrown." },
@@ -15412,7 +15542,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_8_q26",
             topicId: "3.8",
             topicLabel: "Scope and Access",
-            question: "What is printed by the following code?\n\npublic class Grid {\n    private int rows;\n    private int cols;\n    public Grid(int r, int c) { rows = r; cols = c; }\n    public int area() {\n        int rows = 99;\n        return rows * cols;\n    }\n}\n\nSystem.out.println(new Grid(3, 4).area());",
+            question: "What is printed by the following code?",
+            code: "public class Grid {\n    private int rows;\n    private int cols;\n    public Grid(int r, int c) { rows = r; cols = c; }\n    public int area() {\n        int rows = 99;\n        return rows * cols;\n    }\n}\nSystem.out.println(new Grid(3, 4).area());",
             options: [
               { letter: "A", text: "99" },
               { letter: "B", text: "297" },
@@ -15440,7 +15571,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_8_q28",
             topicId: "3.8",
             topicLabel: "Scope and Access",
-            question: "What is printed by the following code?\n\npublic class Node {\n    private int value;\n    public Node(int v) { value = v; }\n    public int getValue() { return value; }\n}\n\nNode n = new Node(42);\nn = null;\nSystem.out.println(n.getValue());",
+            question: "What is printed by the following code?",
+            code: "public class Node {\n    private int value;\n    public Node(int v) { value = v; }\n    public int getValue() { return value; }\n}\nNode n = new Node(42);\nn = null;\nSystem.out.println(n.getValue());",
             options: [
               { letter: "A", text: "0" },
               { letter: "B", text: "null" },
@@ -15454,7 +15586,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_8_q29",
             topicId: "3.8",
             topicLabel: "Scope and Access",
-            question: "What is printed by the following code?\n\npublic class Adder {\n    private int total;\n    public void addAll(int a, int b, int c) {\n        total = a + b + c;\n    }\n    public int getTotal() { return total; }\n}\n\nAdder ad = new Adder();\nad.addAll(3, 7, 10);\nSystem.out.println(ad.getTotal());",
+            question: "What is printed by the following code?",
+            code: "public class Adder {\n    private int total;\n    public void addAll(int a, int b, int c) {\n        total = a + b + c;\n    }\n    public int getTotal() { return total; }\n}\nAdder ad = new Adder();\nad.addAll(3, 7, 10);\nSystem.out.println(ad.getTotal());",
             options: [
               { letter: "A", text: "0" },
               { letter: "B", text: "3" },
@@ -15516,7 +15649,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_9_q03",
             topicId: "3.9",
             topicLabel: "this Keyword",
-            question: "What is printed by the following code?\n\npublic class Person {\n    private String name;\n    public Person(String name) { this.name = name; }\n    public String getName() { return name; }\n}\n\nPerson p = new Person(\"Alice\");\nSystem.out.println(p.getName());",
+            question: "What is printed by the following code?",
+            code: "public class Person {\n    private String name;\n    public Person(String name) { this.name = name; }\n    public String getName() { return name; }\n}\nPerson p = new Person(\"Alice\");\nSystem.out.println(p.getName());",
             options: [
               { letter: "A", text: "A compile-time error occurs." },
               { letter: "B", text: "null" },
@@ -15530,7 +15664,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_9_q04",
             topicId: "3.9",
             topicLabel: "this Keyword",
-            question: "Consider the following constructor. What is the value of this.name after construction?\n\npublic class Cat {\n    private String name;\n    public Cat(String name) { name = name; } // no this\n    public String getName() { return name; }\n}\n\nCat c = new Cat(\"Whiskers\");\nSystem.out.println(c.getName());",
+            question: "Consider the following constructor. What is the value of this.name after construction?",
+            code: "public class Cat {\n    private String name;\n    public Cat(String name) { name = name; } // no this\n    public String getName() { return name; }\n}\nCat c = new Cat(\"Whiskers\");\nSystem.out.println(c.getName());",
             options: [
               { letter: "A", text: "null" },
               { letter: "B", text: "name" },
@@ -15558,7 +15693,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_9_q06",
             topicId: "3.9",
             topicLabel: "this Keyword",
-            question: "What is printed by the following code?\n\npublic class Point {\n    private int x;\n    private int y;\n    public Point(int x, int y) { this.x = x; this.y = y; }\n    public int getX() { return x; }\n    public int getY() { return y; }\n}\n\nPoint p = new Point(3, 7);\nSystem.out.println(p.getX() + \" \" + p.getY());",
+            question: "What is printed by the following code?",
+            code: "public class Point {\n    private int x;\n    private int y;\n    public Point(int x, int y) { this.x = x; this.y = y; }\n    public int getX() { return x; }\n    public int getY() { return y; }\n}\nPoint p = new Point(3, 7);\nSystem.out.println(p.getX() + \" \" + p.getY());",
             options: [
               { letter: "A", text: "0 0" },
               { letter: "B", text: "x y" },
@@ -15572,7 +15708,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_9_q07",
             topicId: "3.9",
             topicLabel: "this Keyword",
-            question: "What is printed by the following code?\n\npublic class Rect {\n    private int w;\n    private int h;\n    public Rect() { this(1, 1); }\n    public Rect(int w, int h) { this.w = w; this.h = h; }\n    public int area() { return w * h; }\n}\n\nRect r = new Rect();\nSystem.out.println(r.area());",
+            question: "What is printed by the following code?",
+            code: "public class Rect {\n    private int w;\n    private int h;\n    public Rect() { this(1, 1); }\n    public Rect(int w, int h) { this.w = w; this.h = h; }\n    public int area() { return w * h; }\n}\nRect r = new Rect();\nSystem.out.println(r.area());",
             options: [
               { letter: "A", text: "A compile-time error occurs." },
               { letter: "B", text: "0" },
@@ -15600,7 +15737,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_9_q09",
             topicId: "3.9",
             topicLabel: "this Keyword",
-            question: "What is printed by the following code?\n\npublic class Dog {\n    private String name;\n    private int age;\n    public Dog(String name, int age) { this.name = name; this.age = age; }\n    public Dog(String name) { this(name, 0); }\n    public String toString() { return name + \" (\" + age + \")\"; }\n}\n\nDog d = new Dog(\"Rex\");\nSystem.out.println(d.toString());",
+            question: "What is printed by the following code?",
+            code: "public class Dog {\n    private String name;\n    private int age;\n    public Dog(String name, int age) { this.name = name; this.age = age; }\n    public Dog(String name) { this(name, 0); }\n    public String toString() { return name + \" (\" + age + \")\"; }\n}\nDog d = new Dog(\"Rex\");\nSystem.out.println(d.toString());",
             options: [
               { letter: "A", text: "Rex (0)" },
               { letter: "B", text: "null (0)" },
@@ -15642,7 +15780,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_9_q12",
             topicId: "3.9",
             topicLabel: "this Keyword",
-            question: "What is printed by the following code?\n\npublic class Circle {\n    private double radius;\n    public Circle(double radius) { this.radius = radius; }\n    public Circle() { this(1.0); }\n    public double getRadius() { return radius; }\n}\n\nCircle c1 = new Circle();\nCircle c2 = new Circle(5.0);\nSystem.out.println(c1.getRadius() + \" \" + c2.getRadius());",
+            question: "What is printed by the following code?",
+            code: "public class Circle {\n    private double radius;\n    public Circle(double radius) { this.radius = radius; }\n    public Circle() { this(1.0); }\n    public double getRadius() { return radius; }\n}\nCircle c1 = new Circle();\nCircle c2 = new Circle(5.0);\nSystem.out.println(c1.getRadius() + \" \" + c2.getRadius());",
             options: [
               { letter: "A", text: "1.0 5.0" },
               { letter: "B", text: "5.0 1.0" },
@@ -15656,7 +15795,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_9_q13",
             topicId: "3.9",
             topicLabel: "this Keyword",
-            question: "What is printed by the following code?\n\npublic class Pair {\n    private int a;\n    private int b;\n    public Pair(int a, int b) { this.a = a; this.b = b; }\n    public Pair(int val) { this(val, val); }\n    public int sum() { return a + b; }\n}\n\nPair p = new Pair(4);\nSystem.out.println(p.sum());",
+            question: "What is printed by the following code?",
+            code: "public class Pair {\n    private int a;\n    private int b;\n    public Pair(int a, int b) { this.a = a; this.b = b; }\n    public Pair(int val) { this(val, val); }\n    public int sum() { return a + b; }\n}\nPair p = new Pair(4);\nSystem.out.println(p.sum());",
             options: [
               { letter: "A", text: "4" },
               { letter: "B", text: "8" },
@@ -15684,7 +15824,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_9_q15",
             topicId: "3.9",
             topicLabel: "this Keyword",
-            question: "What is printed by the following code?\n\npublic class Lamp {\n    private String color;\n    private boolean on;\n    public Lamp(String color, boolean on) {\n        this.color = color;\n        this.on = on;\n    }\n    public Lamp(String color) { this(color, false); }\n    public String getStatus() { return color + \": \" + on; }\n}\n\nSystem.out.println(new Lamp(\"red\").getStatus());",
+            question: "What is printed by the following code?",
+            code: "public class Lamp {\n    private String color;\n    private boolean on;\n    public Lamp(String color, boolean on) {\n        this.color = color;\n        this.on = on;\n    }\n    public Lamp(String color) { this(color, false); }\n    public String getStatus() { return color + \": \" + on; }\n}\nSystem.out.println(new Lamp(\"red\").getStatus());",
             options: [
               { letter: "A", text: "red: true" },
               { letter: "B", text: "color: on" },
@@ -15698,7 +15839,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_9_q16",
             topicId: "3.9",
             topicLabel: "this Keyword",
-            question: "What is printed by the following code?\n\npublic class Counter {\n    private int count;\n    public Counter(int count) { this.count = count; }\n    public void setCount(int count) { this.count = count; }\n    public int getCount() { return count; }\n}\n\nCounter c = new Counter(5);\nc.setCount(20);\nSystem.out.println(c.getCount());",
+            question: "What is printed by the following code?",
+            code: "public class Counter {\n    private int count;\n    public Counter(int count) { this.count = count; }\n    public void setCount(int count) { this.count = count; }\n    public int getCount() { return count; }\n}\nCounter c = new Counter(5);\nc.setCount(20);\nSystem.out.println(c.getCount());",
             options: [
               { letter: "A", text: "A compile-time error occurs." },
               { letter: "B", text: "5" },
@@ -15726,7 +15868,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_9_q18",
             topicId: "3.9",
             topicLabel: "this Keyword",
-            question: "What is printed by the following code?\n\npublic class Score {\n    private int pts;\n    public Score(int pts) { this.pts = pts; }\n    public Score add(int pts) {\n        this.pts += pts;\n        return this;\n    }\n    public int getPts() { return pts; }\n}\n\nScore s = new Score(10);\ns.add(5).add(3);\nSystem.out.println(s.getPts());",
+            question: "What is printed by the following code?",
+            code: "public class Score {\n    private int pts;\n    public Score(int pts) { this.pts = pts; }\n    public Score add(int pts) {\n        this.pts += pts;\n        return this;\n    }\n    public int getPts() { return pts; }\n}\nScore s = new Score(10);\ns.add(5).add(3);\nSystem.out.println(s.getPts());",
             options: [
               { letter: "A", text: "8" },
               { letter: "B", text: "10" },
@@ -15740,7 +15883,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_9_q19",
             topicId: "3.9",
             topicLabel: "this Keyword",
-            question: "What is printed by the following code?\n\npublic class Box {\n    private int size;\n    public Box(int size) { this.size = size; }\n    public void resize(int size) {\n        size = size * 2; // no this\n    }\n    public int getSize() { return size; }\n}\n\nBox b = new Box(10);\nb.resize(5);\nSystem.out.println(b.getSize());",
+            question: "What is printed by the following code?",
+            code: "public class Box {\n    private int size;\n    public Box(int size) { this.size = size; }\n    public void resize(int size) {\n        size = size * 2; // no this\n    }\n    public int getSize() { return size; }\n}\nBox b = new Box(10);\nb.resize(5);\nSystem.out.println(b.getSize());",
             options: [
               { letter: "A", text: "10" },
               { letter: "B", text: "20" },
@@ -15754,7 +15898,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_9_q20",
             topicId: "3.9",
             topicLabel: "this Keyword",
-            question: "What is printed by the following code?\n\npublic class Box {\n    private int size;\n    public Box(int size) { this.size = size; }\n    public void resize(int size) {\n        this.size = size * 2; // uses this\n    }\n    public int getSize() { return size; }\n}\n\nBox b = new Box(3);\nb.resize(6);\nSystem.out.println(b.getSize());",
+            question: "What is printed by the following code?",
+            code: "public class Box {\n    private int size;\n    public Box(int size) { this.size = size; }\n    public void resize(int size) {\n        this.size = size * 2; // uses this\n    }\n    public int getSize() { return size; }\n}\nBox b = new Box(3);\nb.resize(6);\nSystem.out.println(b.getSize());",
             options: [
               { letter: "A", text: "12" },
               { letter: "B", text: "6" },
@@ -15768,7 +15913,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_9_q21",
             topicId: "3.9",
             topicLabel: "this Keyword",
-            question: "What is printed by the following code?\n\npublic class Item {\n    private String label;\n    private int qty;\n    public Item(String label, int qty) { this.label = label; this.qty = qty; }\n    public Item(String label) { this(label, 1); }\n    public String toString() { return label + \"x\" + qty; }\n}\n\nSystem.out.println(new Item(\"pen\").toString());",
+            question: "What is printed by the following code?",
+            code: "public class Item {\n    private String label;\n    private int qty;\n    public Item(String label, int qty) { this.label = label; this.qty = qty; }\n    public Item(String label) { this(label, 1); }\n    public String toString() { return label + \"x\" + qty; }\n}\nSystem.out.println(new Item(\"pen\").toString());",
             options: [
               { letter: "A", text: "penx1" },
               { letter: "B", text: "labelx1" },
@@ -15796,7 +15942,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_9_q23",
             topicId: "3.9",
             topicLabel: "this Keyword",
-            question: "Consider the following constructor.\n\npublic class Tank {\n    private int capacity;\n    private int fuel;\n    public Tank(int capacity, int fuel) {\n        this.capacity = capacity;\n        this.fuel = fuel;\n    }\n    public Tank(int capacity) {\n        this(capacity, 0);\n    }\n}\n\nWhat are capacity and fuel after new Tank(50)?",
+            question: "Consider the following constructor.",
+            code: "public class Tank {\n    private int capacity;\n    private int fuel;\n    public Tank(int capacity, int fuel) {\n        this.capacity = capacity;\n        this.fuel = fuel;\n    }\n    public Tank(int capacity) {\n        this(capacity, 0);\n    }\n}\nWhat are capacity and fuel after new Tank(50)?",
             options: [
               { letter: "A", text: "capacity = 50, fuel = 0" },
               { letter: "B", text: "capacity = 50, fuel = 50" },
@@ -15810,7 +15957,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_9_q24",
             topicId: "3.9",
             topicLabel: "this Keyword",
-            question: "In the following class, which variable does the unqualified name speed refer to inside the constructor?\n\npublic class Car {\n    private int speed;\n    public Car(int speed) {\n        System.out.println(speed); // which speed?\n        this.speed = speed;\n    }\n}",
+            question: "In the following class, which variable does the unqualified name speed refer to inside the constructor?",
+            code: "public class Car {\n    private int speed;\n    public Car(int speed) {\n        System.out.println(speed); // which speed?\n        this.speed = speed;\n    }\n}",
             options: [
               { letter: "A", text: "An average of the two speed values" },
               { letter: "B", text: "The instance variable speed" },
@@ -15824,7 +15972,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_9_q25",
             topicId: "3.9",
             topicLabel: "this Keyword",
-            question: "What is printed by the following code?\n\npublic class Temp {\n    private double degrees;\n    public Temp(double degrees) { this.degrees = degrees; }\n    public double toCelsius() { return (degrees - 32) * 5.0 / 9.0; }\n}\n\nSystem.out.println(new Temp(32.0).toCelsius());",
+            question: "What is printed by the following code?",
+            code: "public class Temp {\n    private double degrees;\n    public Temp(double degrees) { this.degrees = degrees; }\n    public double toCelsius() { return (degrees - 32) * 5.0 / 9.0; }\n}\nSystem.out.println(new Temp(32.0).toCelsius());",
             options: [
               { letter: "A", text: "100.0" },
               { letter: "B", text: "A NullPointerException is thrown." },
@@ -15838,7 +15987,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_9_q26",
             topicId: "3.9",
             topicLabel: "this Keyword",
-            question: "What is printed by the following code?\n\npublic class Node {\n    private int val;\n    public Node(int val) { this.val = val; }\n    public Node doubleVal() { val *= 2; return this; }\n    public int getVal() { return val; }\n}\n\nNode n = new Node(3);\nNode result = n.doubleVal();\nSystem.out.println(result.getVal());",
+            question: "What is printed by the following code?",
+            code: "public class Node {\n    private int val;\n    public Node(int val) { this.val = val; }\n    public Node doubleVal() { val *= 2; return this; }\n    public int getVal() { return val; }\n}\nNode n = new Node(3);\nNode result = n.doubleVal();\nSystem.out.println(result.getVal());",
             options: [
               { letter: "A", text: "6" },
               { letter: "B", text: "9" },
@@ -15866,7 +16016,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_9_q28",
             topicId: "3.9",
             topicLabel: "this Keyword",
-            question: "What is printed by the following code?\n\npublic class Account {\n    private String owner;\n    private double balance;\n    public Account(String owner, double balance) {\n        this.owner = owner;\n        this.balance = balance;\n    }\n    public Account(String owner) { this(owner, 0.0); }\n    public String getOwner() { return owner; }\n    public double getBalance() { return balance; }\n}\n\nAccount a = new Account(\"Bob\");\nSystem.out.println(a.getOwner() + \" \" + a.getBalance());",
+            question: "What is printed by the following code?",
+            code: "public class Account {\n    private String owner;\n    private double balance;\n    public Account(String owner, double balance) {\n        this.owner = owner;\n        this.balance = balance;\n    }\n    public Account(String owner) { this(owner, 0.0); }\n    public String getOwner() { return owner; }\n    public double getBalance() { return balance; }\n}\nAccount a = new Account(\"Bob\");\nSystem.out.println(a.getOwner() + \" \" + a.getBalance());",
             options: [
               { letter: "A", text: "Bob 0.0" },
               { letter: "B", text: "Bob 100.0" },
@@ -15894,7 +16045,8 @@ export const mcqBank: MCQUnit[] = [
             id: "3_9_q30",
             topicId: "3.9",
             topicLabel: "this Keyword",
-            question: "What is printed by the following code?\n\npublic class Coin {\n    private String type;\n    private int value;\n    public Coin(String type, int value) { this.type = type; this.value = value; }\n    public Coin(int value) { this(\"generic\", value); }\n    public String toString() { return type + \"(\" + value + \")\"; }\n}\n\nCoin c = new Coin(25);\nSystem.out.println(c.toString());",
+            question: "What is printed by the following code?",
+            code: "public class Coin {\n    private String type;\n    private int value;\n    public Coin(String type, int value) { this.type = type; this.value = value; }\n    public Coin(int value) { this(\"generic\", value); }\n    public String toString() { return type + \"(\" + value + \")\"; }\n}\nCoin c = new Coin(25);\nSystem.out.println(c.toString());",
             options: [
               { letter: "A", text: "25" },
               { letter: "B", text: "generic(0)" },
@@ -17175,7 +17327,8 @@ export const mcqBank: MCQUnit[] = [
             id: "4_3_q27",
             topicId: "4.3",
             topicLabel: "Array Creation and Access",
-            question: "Consider the declaration: String[] names = new String[3];\nWhich of the following best describes the initial state of the array?",
+            question: "Which of the following best describes the initial state of the array?",
+            code: "Consider the declaration: String[] names = new String[3];",
             options: [
               { letter: "A", text: "Each element holds an empty string \"\"." },
               { letter: "B", text: "Each element holds the string \"null\"." },
@@ -18363,7 +18516,8 @@ export const mcqBank: MCQUnit[] = [
             id: "4_6_q16",
             topicId: "4.6",
             topicLabel: "Using Text Files",
-            question: "Consider this method signature:\npublic static void processFile(String name)\nThis method creates a Scanner with a File object. Which version of the signature is correct so the method compiles?",
+            question: "Consider this method signature: This method creates a Scanner with a File object. Which version of the signature is correct so the method compiles?",
+            code: "public static void processFile(String name)",
             options: [
               { letter: "A", text: "public static void processFile(String name)" },
               { letter: "B", text: "public static void processFile(String name) throws IOException" },
