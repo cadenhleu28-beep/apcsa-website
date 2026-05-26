@@ -337,7 +337,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "21" },
             ],
             answer: "C",
-            explanation: "Operator precedence: `/`, `%`, and `*` share precedence (higher than `+`) and associate left-to-right; parentheses force `x % y` first. Trace: `x / y` = 25 / 4 = 6 (integer division truncates 0.25 away). `x % y` = 25 % 4 = 1 (remainder when 25 is divided by 4). Then `1 * 3` = 3. Finally 6 + 3 = 9. C is correct. A `12` comes from misreading `x / y` as 9 (treating 25/4 as roughly 9 somehow) or from `(x/y) * (x%y) + 3 * 2` confusions. B `8` is what you get if `x % y` is wrongly computed as 2 (the digits 2 from 25 are NOT the modulus). D `21` is what you'd get if all the multiplicative work happened on the wrong operand pair, e.g., `(x / y + x % y) * 3` = (6+1)*3 = 21 — that's the trap of forgetting that without parentheses around `x/y + x%y`, the `*3` binds only to `(x%y)`.",
+            explanation: "C is correct. `x / y` is 25 / 4 = 6 since integer division truncates. `x % y` is 25 % 4 = 1, the remainder. Then `1 * 3` = 3, and 6 + 3 = 9.\nChoice A is wrong because 12 does not match any valid trace of the expression.\nChoice B is wrong because it assumes `x % y` is 2, but 25 % 4 is 1, not the leading digit of 25.\nChoice D is wrong because it multiplies the whole sum by 3, treating the code as `(x/y + x%y) * 3`.",
           },
           {
             id: "1_1_q23",
@@ -382,7 +382,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0" },
             ],
             answer: "B",
-            explanation: "Variables in Java must be declared before they are referenced. `total` is used inside println without ever being declared, so the compiler rejects the code with a \"cannot find symbol\" error. B is correct. D is wrong because compile-time errors prevent execution entirely. A is wrong because int variables don't default to null (and uninitialized local variables can't be read at all, even if declared). C is wrong because the error is detected at compile time, not runtime, since the symbol is undefined.",
+            explanation: "B is correct. Variables in Java must be declared before being referenced. `total` is used inside `println` without a declaration. The compiler rejects this with a \"cannot find symbol\" error.\nChoice A is wrong because `int` variables do not default to `null`, and uninitialized locals cannot be read.\nChoice C is wrong because the error is caught at compile time, not at runtime.\nChoice D is wrong because compile errors stop execution before any output happens.",
           },
           {
             id: "1_1_q26",
@@ -397,7 +397,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "4000" },
             ],
             answer: "C",
-            explanation: "Standard int subtraction: the right-hand side is evaluated first using current values, then the result is stored into the variable on the left. 100 - 40 = 60, that result is stored in result and printed. C is correct. B is wrong because the operator is `-` (subtraction), not `+` (addition). D is wrong because there is no multiplication in the code. A is wrong because the syntax is valid and all variables are properly declared as int, so no compile error occurs.",
+            explanation: "C is correct. The right-hand side `x - y` is evaluated first. 100 - 40 = 60. That value is stored in `result` and printed.\nChoice A is wrong because the syntax is valid and all variables are declared as `int`.\nChoice B is wrong because the operator is `-`, not `+`.\nChoice D is wrong because there is no multiplication in the code.",
           },
           {
             id: "1_1_q27",
@@ -411,7 +411,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The JVM converts the source code into bytecode during execution." },
             ],
             answer: "A",
-            explanation: "Java uses a two-phase model: first the `javac` compiler translates source code (.java) into platform-independent bytecode (.class), then the JVM interprets that bytecode at runtime on whatever hardware is running the program. A is correct. C is wrong because the compiler doesn't run programs, it only translates them into bytecode. D is wrong because the JVM doesn't compile source at runtime, it reads pre-compiled bytecode. B is wrong because bytecode is not OS-specific machine code, it's platform-independent.",
+            explanation: "A is correct. The `javac` compiler translates `.java` source into platform-independent `.class` bytecode. The JVM then runs that bytecode on the current machine.\nChoice B is wrong because bytecode is platform-independent, not OS-specific machine code.\nChoice C is wrong because the compiler translates code, it does not execute it.\nChoice D is wrong because the JVM reads pre-compiled bytecode, not raw source.",
           },
           {
             id: "1_1_q28",
@@ -476,7 +476,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "\"42\"" },
             ],
             answer: "A",
-            explanation: "An int variable stores a whole-number value directly, and `System.out.println(x)` prints the numeric value with no formatting marks. x holds 42, so the output is simply `42` with no quotes and no extra characters. A is correct. D is wrong because println does not add quotation marks, quotes appear only on String literals in source code, not in output. B is wrong because println prints the value of the variable, not the variable's name as text. C is wrong because `int x = 42;` is a syntactically valid declaration with proper types.",
+            explanation: "A is correct. `int x = 42;` stores 42 in `x`. `System.out.println(x)` prints the numeric value with no formatting. The output is `42`.\nChoice B is wrong because `println` prints the variable's value, not its name.\nChoice C is wrong because `int x = 42;` is a valid declaration.\nChoice D is wrong because `println` never adds quotation marks around output.",
           },
           {
             id: "1_2_q02",
@@ -491,7 +491,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "3" },
             ],
             answer: "B",
-            explanation: "A `double` variable stores a real number with a decimal portion. `System.out.println(x)` prints the full stored value, including the decimal digits. x = 3.14, so 3.14 is printed exactly as stored, with no rounding or truncation. B is correct. D and A are wrong because println does not truncate or round doubles, it shows them fully. C is wrong because `double x = 3.14;` is a perfectly valid Java declaration since 3.14 is a double literal that matches the variable's declared type.",
+            explanation: "B is correct. `double x = 3.14;` stores 3.14. `System.out.println(x)` prints the full stored value. The output is `3.14` exactly.\nChoice A is wrong because `println` does not round doubles to one decimal place.\nChoice C is wrong because `double x = 3.14;` is a valid declaration matching the type.\nChoice D is wrong because `println` does not truncate the decimal portion of a `double`.",
           },
           {
             id: "1_2_q03",
@@ -521,7 +521,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "4" },
             ],
             answer: "B",
-            explanation: "Java does not allow implicit narrowing conversions: assigning a `double` literal like 3.9 to an `int` variable is a type mismatch the compiler rejects since the decimal portion could be lost silently. To assign 3.9 to an int, you must write `(int) 3.9` explicitly with a cast. B is correct. C and D are wrong because no narrowing occurs at all, the code never compiles. A is wrong because an int variable cannot hold a decimal value like 3.9 even if the assignment were permitted by the compiler.",
+            explanation: "B is correct. Java forbids implicit narrowing conversions. Assigning `double` literal 3.9 to an `int` is a type mismatch. The compiler rejects this and requires an explicit `(int)` cast.\nChoice A is wrong because an `int` cannot hold a decimal value like 3.9.\nChoice C is wrong because no narrowing happens automatically, the code never compiles.\nChoice D is wrong because rounding to 4 would also require an explicit cast or `Math.round`.",
           },
           {
             id: "1_2_q05",
@@ -685,7 +685,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "null" },
             ],
             answer: "A",
-            explanation: "Local variables in Java must be definitely assigned before they are read. `int x;` declares x but doesn't initialize it, and reading x in the println call triggers a compile-time error called \"variable might not have been initialized.\" A is correct. C is wrong because Java doesn't default-initialize local variables (unlike instance variables, which do default to 0). D is wrong because int has no null representation. B is wrong because the error is caught at compile time, not runtime.",
+            explanation: "A is correct. Local variables must be definitely assigned before use. `int x;` declares `x` with no value. Reading it in `println` triggers a compile-time error.\nChoice B is wrong because the error is caught at compile time, not runtime.\nChoice C is wrong because Java does not default-initialize local variables to 0.\nChoice D is wrong because `int` has no `null` representation, only object references do.",
           },
           {
             id: "1_2_q16",
@@ -700,7 +700,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A compile-time error occurs." },
             ],
             answer: "C",
-            explanation: "Comparison operators like `>` produce boolean results in Java. `3 > 2` evaluates to true, which is then stored in the boolean variable b. `System.out.println` of a boolean prints the lowercase string `true` with no quotes. C is correct. A is wrong because Java does not represent booleans as 1 or 0 numerically. B is wrong because the literal is lowercase, not capitalized as in some other languages. D is wrong because the syntax is valid, parentheses around the comparison are optional but legal.",
+            explanation: "C is correct. The expression `3 > 2` evaluates to `true`. That boolean value is stored in `b`. `println` prints the lowercase string `true` with no quotes.\nChoice A is wrong because Java does not represent booleans as 0 or 1.\nChoice B is wrong because Java's literal is lowercase `true`, not capitalized.\nChoice D is wrong because the syntax is valid, parentheses around the comparison are optional.",
           },
           {
             id: "1_2_q17",
@@ -715,7 +715,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Number: num" },
             ],
             answer: "A",
-            explanation: "The `+` operator with at least one String operand performs concatenation: the other operand is converted to its String representation and appended. `\"Number: \" + num` becomes `\"Number: \" + 7` which produces `\"Number: 7\"`. A is correct. D is wrong because num refers to the variable's value 7, not the literal text \"num\" as it appears in source code. B is wrong because the expression is evaluated, not printed as source text. C is wrong because String + int is a valid Java operation with well-defined behavior.",
+            explanation: "A is correct. The `+` operator with a String operand performs concatenation. `num` becomes `\"7\"` and is appended. The result is `\"Number: 7\"`.\nChoice B is wrong because the expression is evaluated, not printed as source text.\nChoice C is wrong because `String + int` is a valid Java operation.\nChoice D is wrong because `num` is replaced by its value 7, not the literal text \"num\".",
           },
           {
             id: "1_2_q18",
@@ -760,7 +760,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A compile-time error occurs." },
             ],
             answer: "C",
-            explanation: "Java's int type can hold negative values down to about -2.1 billion. -5 is a valid int literal (the minus sign is treated as part of the literal). println prints the value as is, including the minus sign. C is correct. B is wrong because println does not apply absolute value to int values, it preserves the sign. D and A are wrong because negative int literals are syntactically valid in Java and cause no runtime issue or compile-time error.",
+            explanation: "C is correct. Java's `int` type holds negative values. `-5` is a valid `int` literal. `println` prints the value with the minus sign intact.\nChoice A is wrong because negative `int` literals never cause a runtime error.\nChoice B is wrong because `println` does not apply absolute value to ints.\nChoice D is wrong because negative `int` literals are syntactically valid in Java.",
           },
           {
             id: "1_2_q21",
@@ -789,7 +789,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "boolean b = 0;" },
             ],
             answer: "A",
-            explanation: "Java allows automatic widening (smaller-range type to larger-range type) but rejects implicit narrowing. `double d = 100;` widens the int literal 100 to 100.0, which is perfectly legal because no data is lost. A is correct. C assigns a boolean to an int (incompatible types). D assigns an int to a boolean (also incompatible). B assigns a double literal to an int, which requires an explicit cast since narrowing could lose the decimal portion of 3.5.",
+            explanation: "A is correct. Java allows automatic widening from a smaller type to a larger one. `double d = 100;` widens the `int` literal 100 to 100.0. No data is lost, so it compiles.\nChoice B is wrong because assigning `3.5` to an `int` requires an explicit cast.\nChoice C is wrong because `boolean` and `int` are incompatible types in Java.\nChoice D is wrong because `0` is an `int`, not a `boolean`, and the types are incompatible.",
           },
           {
             id: "1_2_q23",
@@ -1110,7 +1110,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "40" },
             ],
             answer: "A",
-            explanation: "Multiplication has higher precedence than addition in Java, so both multiplications happen before the addition. `2 * 3` = 6 and `4 * 2` = 8 are evaluated first (in either order, since they're independent). Then `6 + 8` = 14 combines the products. A is correct. C and B reflect incorrect precedence orderings (treating addition as higher). B would result from `2 * (3 + 4) * 2` if such parentheses were present, but they aren't in the original expression.",
+            explanation: "A is correct. Multiplication has higher precedence than addition. `2 * 3` = 6 and `4 * 2` = 8 evaluate first. Then `6 + 8` = 14.\nChoice B is wrong because 20 would require `2 * (3 + 4) * 2`, but no parentheses are present.\nChoice C is wrong because 16 reflects treating addition as higher precedence.\nChoice D is wrong because 40 would require multiplying all four numbers, which the expression does not do.",
           },
           {
             id: "1_3_q14",
@@ -1125,7 +1125,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "x = x!" },
             ],
             answer: "B",
-            explanation: "`+` with a String operand performs concatenation, evaluated left-to-right with String taking over once introduced. `\"x = \" + 7` becomes `\"x = 7\"`, then `\"x = 7\" + \"!\"` becomes `\"x = 7!\"`. B is correct. C is wrong because no extra space is introduced between 7 and `!` in the source. D is wrong because the variable x's value (7) is concatenated, not the literal letter \"x\" as text. A is wrong because String + int and String + String are both valid Java operations.",
+            explanation: "B is correct. Concatenation evaluates left-to-right. `\"x = \" + 7` becomes `\"x = 7\"`. Then `\"x = 7\" + \"!\"` becomes `\"x = 7!\"`.\nChoice A is wrong because `String + int` and `String + String` are both valid.\nChoice C is wrong because no extra space appears between `7` and `!` in the source.\nChoice D is wrong because the variable `x` is replaced by its value 7, not the letter \"x\".",
           },
           {
             id: "1_3_q15",
@@ -1140,7 +1140,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "123" },
             ],
             answer: "A",
-            explanation: "`+` is evaluated left-to-right and switches from arithmetic to concatenation as soon as a String appears in the chain. `1 + 2` evaluates as int addition first (since both operands are int), giving 3. Then `3 + \"3\"` is concatenation (because the right operand is a String), giving \"33\". A is correct. D would result if all `+` operations were concatenation from the start. B would be the int sum if all were arithmetic. C is wrong because mixed-type + is valid in Java.",
+            explanation: "A is correct. `+` evaluates left-to-right. `1 + 2` is int addition, giving 3. Then `3 + \"3\"` is concatenation, giving `\"33\"`.\nChoice B is wrong because the String operand triggers concatenation for the second `+`.\nChoice C is wrong because mixed-type `+` is valid in Java.\nChoice D is wrong because the first `+` is int addition, since both operands are int.",
           },
           {
             id: "1_3_q16",
@@ -1155,7 +1155,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "123" },
             ],
             answer: "D",
-            explanation: "Once a String operand appears, all subsequent `+` operations on the result perform concatenation, because the running value is now a String. `\"1\" + 2` = `\"12\"` (concatenation), then `\"12\" + 3` = `\"123\"` (concatenation). D is correct. B would require all-int addition with no String. C is wrong because the leading `\"1\"` forces concatenation from the very first `+`. A is wrong because String + int is a valid Java expression with well-defined behavior.",
+            explanation: "D is correct. The leading `\"1\"` forces concatenation from the first `+`. `\"1\" + 2` = `\"12\"`. Then `\"12\" + 3` = `\"123\"`.\nChoice A is wrong because `String + int` is a valid Java expression.\nChoice B is wrong because `+` is concatenation here, not int addition.\nChoice C is wrong because once a String appears, all later `+` ops are concatenation.",
           },
           {
             id: "1_3_q17",
@@ -1245,7 +1245,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0\n2" },
             ],
             answer: "D",
-            explanation: "The `%` operator returns the remainder after integer division between two int operands. 9 % 3 = 0 since 9 is evenly divisible by 3 (3 * 3 = 9 exactly, so the remainder is 0). 8 % 3 = 2 since 3 * 2 = 6 is the largest multiple of 3 not exceeding 8, and 8 - 6 = 2. Each println adds a newline at the end, so the results appear on separate lines. D is correct. A is wrong because 9 / 3 = 3 is the quotient (the result of `/`), not the remainder. B and C are miscalculations of one or both modulus operations.",
+            explanation: "D is correct. `9 % 3` = 0 since 9 is evenly divisible by 3. `8 % 3` = 2 since 3 * 2 = 6 and 8 - 6 = 2. Each `println` adds a newline.\nChoice A is wrong because `9 / 3 = 3` is the quotient, not the remainder.\nChoice B is wrong because `9 % 3` is 0, but `8 % 3` is 2, not 1.\nChoice C is wrong because `9 % 3` is 0, not 1.",
           },
           {
             id: "1_3_q23",
@@ -1260,7 +1260,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "3" },
             ],
             answer: "D",
-            explanation: "`/` and `%` both have higher precedence than `+`, so they evaluate first. `x / y` = 6 / 2 = 3 (exact integer division) and `x % y` = 6 % 2 = 0 (no remainder since 6 is evenly divisible by 2). Then 3 + 0 = 3. D is correct. A would result from adding before evaluating `/` and `%`, but precedence prevents that. B is wrong because the addition is not zero overall. C is wrong because the syntax and types are valid.",
+            explanation: "D is correct. `/` and `%` evaluate before `+`. `x / y` = 6 / 2 = 3. `x % y` = 6 % 2 = 0. Then 3 + 0 = 3.\nChoice A is wrong because precedence forces `/` and `%` before `+`.\nChoice B is wrong because `x / y` is 3, not 0, so the sum is not zero.\nChoice C is wrong because the syntax and types are all valid.",
           },
           {
             id: "1_3_q24",
@@ -1335,7 +1335,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "a + a" },
             ],
             answer: "B",
-            explanation: "`+` is left-associative, and once a String appears in the chain, all subsequent `+` operations concatenate. `\"a\" + a` = `\"a3\"` (concatenation, since the left operand is a String), then `\"a3\" + a` = `\"a33\"` (concatenation again). The int values are converted to digit characters, not added arithmetically. B is correct. A would require `\"a\" + (a + a)` to force arithmetic first. C is wrong because the leading `\"a\"` is preserved in the output. D is wrong because variable values are substituted, not the literal identifier.",
+            explanation: "B is correct. `+` is left-associative. `\"a\" + a` = `\"a3\"`. Then `\"a3\" + a` = `\"a33\"`. The ints are converted to digit characters.\nChoice A is wrong because that result would require `\"a\" + (a + a)` with parentheses.\nChoice C is wrong because the leading `\"a\"` stays in the output.\nChoice D is wrong because the variable `a` is replaced by its value, not its name.",
           },
           {
             id: "1_3_q29",
@@ -1446,7 +1446,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "10 5" },
             ],
             answer: "D",
-            explanation: "The classic three-variable swap pattern: a temporary variable holds one value while the other is overwritten without losing it. temp = a saves 5. a = b makes a = 10. b = temp makes b = 5 (recovering a's original value from temp). After all three steps: a = 10, b = 5. D is correct. C reflects the initial state with no swap. A would happen if temp held b instead of a. B would happen with a different ordering of the swap operations.",
+            explanation: "D is correct. `temp = a` saves 5. `a = b` makes `a` = 10. `b = temp` makes `b` = 5. After all three steps: `a` = 10, `b` = 5.\nChoice A is wrong because that would happen only if `temp` held `b` instead of `a`.\nChoice B is wrong because that would require both ending up with 5, but `a` is reassigned to 10.\nChoice C is wrong because that reflects the initial state with no swap.",
           },
           {
             id: "1_4_q06",
@@ -1656,7 +1656,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0" },
             ],
             answer: "A",
-            explanation: "Local variables in Java must be definitely assigned before they are read. `int x;` declares x but doesn't initialize it, and reading x in the expression `x + 1` triggers a compile-time error called \"variable might not have been initialized.\" A is correct. C and D are wrong because Java does not default-initialize local variables (only instance and static fields get default values like 0). B is wrong because the error is detected at compile time, before any runtime behavior happens.",
+            explanation: "A is correct. Local variables must be definitely assigned before use. `int x;` declares `x` with no value. Reading `x` in `x + 1` triggers a compile-time error.\nChoice B is wrong because the error is caught at compile time, not runtime.\nChoice C is wrong because Java does not default-initialize local variables, so 1 is not a possible value.\nChoice D is wrong because local `int` variables do not default to 0, unlike instance fields.",
           },
           {
             id: "1_4_q20",
@@ -1686,7 +1686,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "2 1" },
             ],
             answer: "A",
-            explanation: "Both operations use x's current value 9 to compute their results. y = x % 4: 9 % 4 = 1 (since 4 * 2 = 8 fits in 9, remainder 1). z = x / 4: 9 / 4 = 2 (integer division, since 4 * 2 = 8 is the largest multiple of 4 not exceeding 9). After: y = 1, z = 2. A is correct. D reverses the two values, putting the quotient before the remainder. B and D have miscalculations of either `%` or `/`, mistaking one for the other.",
+            explanation: "A is correct. `y = x % 4`: 9 % 4 = 1, since 4 * 2 = 8 fits in 9 with remainder 1. `z = x / 4`: 9 / 4 = 2 by integer division. So `y` = 1, `z` = 2.\nChoice B is wrong because `y` is 1, not 2.\nChoice C is wrong because `z` is 2, not 1.\nChoice D is wrong because it swaps the quotient and remainder.",
           },
           {
             id: "1_4_q22",
@@ -1842,7 +1842,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "4" },
             ],
             answer: "A",
-            explanation: "Casting from double to int truncates the decimal portion, dropping it entirely without rounding. `(int) 3.9` discards the .9, leaving 3, even though 3.9 is closer to 4 mathematically. A is correct. D would require `Math.round()` for actual rounding to the nearest integer. B is wrong because the cast produces an int, not a double, so no decimal point appears in the result. C is wrong because explicit casts are always syntactically valid Java for narrowing conversions like double to int.",
+            explanation: "A is correct. Casting from `double` to `int` truncates the decimal portion. `(int) 3.9` drops the `.9` and leaves 3. No rounding occurs.\nChoice B is wrong because the cast produces an `int`, so no decimal point is printed.\nChoice C is wrong because explicit casts are valid Java for narrowing conversions.\nChoice D is wrong because rounding to 4 would require `Math.round()`, not a cast.",
           },
           {
             id: "1_5_q02",
@@ -1932,7 +1932,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A compile-time error occurs." },
             ],
             answer: "B",
-            explanation: "Casting truncates toward zero, not toward negative infinity. For negative numbers, this means moving the value toward zero, not away from it. `(int) -3.9` drops the .9 portion, leaving -3 (NOT -4, even though -4 is closer mathematically to -3.9). B is correct. A would result from rounding toward negative infinity (which is what `Math.floor` does for negative values). C is wrong because the cast preserves the sign of the original value, it doesn't take absolute value.",
+            explanation: "B is correct. Casting truncates toward zero, not toward negative infinity. `(int) -3.9` drops the `.9`, leaving -3. The sign is preserved.\nChoice A is wrong because -4 would require `Math.floor`, which rounds toward negative infinity.\nChoice C is wrong because casting preserves the sign, it does not take absolute value.\nChoice D is wrong because casting `double` to `int` is valid Java syntax.",
           },
           {
             id: "1_5_q08",
@@ -1976,7 +1976,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "(double) (7 / 2)" },
             ],
             answer: "B",
-            explanation: "Cast precedence and placement matter significantly for the result. `(double) 7 / 2`: the cast applies to 7 first (becomes 7.0), then 7.0 / 2 = 3.5 (floating-point division because one operand is now a double). B is correct because this expression gives 3.5. D casts AFTER integer division happens inside the parentheses: 7 / 2 = 3 (truncated to int), then (double) 3 = 3.0 (decimal portion already lost). A is plain integer division giving int 3 with no cast. C casts 7.0 to int 7 first, then 7 / 2 = 3 (integer division again).",
+            explanation: "B is correct. The cast applies to `7` first, making it `7.0`. Then `7.0 / 2` does floating-point division, giving 3.5.\nChoice A is wrong because `7 / 2` is integer division, giving 3, not 3.5.\nChoice C is wrong because `(int) 7.0` is 7, then `7 / 2` is integer division giving 3.\nChoice D is wrong because the parentheses run `7 / 2` first as integer division to 3, then cast to 3.0.",
           },
           {
             id: "1_5_q11",
@@ -2051,7 +2051,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0" },
             ],
             answer: "D",
-            explanation: "Both operands a and b are int variables, so `/` performs integer division between them. 3 / 4 = 0 because 4 doesn't go into 3 even once, and truncation toward zero gives 0 (the .75 mathematical result is dropped). D is correct. A would require at least one double operand to preserve the decimal portion. B is wrong because integer division truncates rather than rounding up to 1. C is wrong because integer division of a smaller positive by a larger positive is valid and just gives 0.",
+            explanation: "D is correct. Both `a` and `b` are `int`, so `/` performs integer division. 3 / 4 = 0 because 4 does not fit into 3, and truncation drops the decimal.\nChoice A is wrong because 0.75 would require at least one `double` operand.\nChoice B is wrong because integer division truncates, it does not round up.\nChoice C is wrong because `int / int` is valid, even when the result is 0.",
           },
           {
             id: "1_5_q16",
@@ -2080,7 +2080,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "int x = int(3.7);" },
             ],
             answer: "C",
-            explanation: "Java's cast syntax places the target type in parentheses before the expression: `(int) 3.7`. This truncates the double 3.7 to the int 3. C is correct. A is wrong because no cast is present, and narrowing (double to int) requires an explicit cast. B and D use function-call style casting from other languages (like C++'s `int(3.7)` or JavaScript's `Number(...)`), but Java does not support that syntax for primitive casts, only the prefix form with parentheses.",
+            explanation: "C is correct. Java's cast syntax puts the target type in parentheses before the expression. `(int) 3.7` truncates the double to int 3.\nChoice A is wrong because narrowing from `double` to `int` requires an explicit cast.\nChoice B is wrong because `double(3.7)` is not valid Java cast syntax.\nChoice D is wrong because `int(3.7)` is function-call style from other languages, not Java.",
           },
           {
             id: "1_5_q18",
@@ -2154,7 +2154,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "3\n3.0" },
             ],
             answer: "C",
-            explanation: "Two different expressions with different results. `x / 3` with both int is integer division: 10 / 3 = 3 (truncated). `(double) x / 3` casts x to 10.0 first, then 10.0 / 3 ≈ 3.3333333333333335 (this exact representation comes from how doubles store fractions). C is correct. D and A are wrong because the two expressions produce different formats. The presence or absence of the cast fundamentally changes whether division is integer or floating-point.",
+            explanation: "C is correct. `x / 3` is `int / int`, so integer division gives 3. `(double) x / 3` casts to 10.0 first, then `10.0 / 3` ≈ 3.333.\nChoice A is wrong because the first expression is int division giving 3, not 3.333.\nChoice B is wrong because casting `int` to `double` is valid Java.\nChoice D is wrong because `10.0 / 3` produces 3.333, not 3.0.",
           },
           {
             id: "1_5_q23",
@@ -2169,7 +2169,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "7" },
             ],
             answer: "C",
-            explanation: "Casting to int truncates toward zero, regardless of the sign of the value. -7.1 lies between -8 and -7; truncating toward zero moves the value toward 0, giving -7 (not -8, even though -8 is mathematically closer to -7.1). C is correct. B would result from `Math.floor` (which rounds toward negative infinity). D is wrong because the cast preserves the sign. The key concept: Java's int cast always moves toward zero, regardless of whether the value is positive or negative.",
+            explanation: "C is correct. Casting to `int` truncates toward zero. -7.1 lies between -8 and -7. Truncating toward 0 gives -7.\nChoice A is wrong because casting `double` to `int` is valid Java syntax.\nChoice B is wrong because -8 would require `Math.floor`, which rounds toward negative infinity.\nChoice D is wrong because the cast preserves the sign of the value.",
           },
           {
             id: "1_5_q24",
@@ -2258,7 +2258,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "4.0\n4.0" },
             ],
             answer: "B",
-            explanation: "Two casts with different placement produce different results. `(double)(a/b)` does integer division FIRST (9/2 = 4, truncated), then casts to 4.0. `(double) a / b` casts a to 9.0 FIRST, then 9.0 / 2 = 4.5 (floating-point division). B is correct. The position of the cast relative to the division determines whether the .5 is preserved or lost. C would require both casts to happen before division. D would require both to happen after.",
+            explanation: "B is correct. `(double)(a/b)` runs integer division first: 9 / 2 = 4, then casts to 4.0. `(double) a / b` casts `a` to 9.0 first, then 9.0 / 2 = 4.5.\nChoice A is wrong because it reverses the two outputs.\nChoice C is wrong because that would require both casts to happen before division.\nChoice D is wrong because that would require both casts to happen after division.",
           },
           {
             id: "1_5_q30",
@@ -3023,7 +3023,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "System.out.println(\"Hello\");" },
             ],
             answer: "D",
-            explanation: "`System.out.println()` is a method provided by the Java API: `System` is a class in java.lang, `out` is a static `PrintStream` field of System, and `println` is a method defined on PrintStream. So this call traverses three pieces of the API. D is correct. C uses only the `*` operator on primitives. A uses only `+` on int values. B uses only assignment of a boolean literal. None of A, C, D call any methods from the Java API.",
+            explanation: "D is correct. `System.out.println()` calls a method from the Java API. `System` is in `java.lang`, `out` is a `PrintStream` field, and `println` is its method.\nChoice A is wrong because `x + 1` only uses the `+` operator, not a method call.\nChoice B is wrong because it only assigns a boolean literal, no method is called.\nChoice C is wrong because `5 * 3` only uses the `*` operator on primitives.",
           },
           {
             id: "1_7_q21",
@@ -3141,7 +3141,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "20" },
             ],
             answer: "A",
-            explanation: "The for loop runs with i = 1, 2, 3, 4 (since the condition i <= 4 is true for those values). Each iteration calls nums.add(i * 10), so the list becomes [10, 20, 30, 40] at indices 0, 1, 2, 3 respectively (ArrayList uses zero-based indexing). nums.get(2) retrieves the element at index 2, which holds 30. A is correct. D would be the element at index 1 (= 20). B would be at index 3 (= 40). C is wrong because index 2 is well within bounds for a list of size 4 (valid indices are 0 through 3).",
+            explanation: "A is correct. The loop runs with `i` = 1, 2, 3, 4. The list becomes `[10, 20, 30, 40]` at indices 0, 1, 2, 3. `nums.get(2)` returns 30.\nChoice B is wrong because 40 is at index 3, not index 2.\nChoice C is wrong because index 2 is in bounds for a list of size 4.\nChoice D is wrong because 20 is at index 1, not index 2.",
           },
           {
             id: "1_7_q29",
@@ -3170,7 +3170,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "600" },
             ],
             answer: "D",
-            explanation: "The for-each loop (enhanced for) iterates over each element in the list in order, binding `val` to each element. val takes the values 100, 200, 300 in sequence, and total accumulates: 0 + 100 = 100, 100 + 200 = 300, 300 + 300 = 600. D is correct. B and B reflect only partial sums (one or two elements). A is wrong because the syntax is valid, for-each works on any Iterable type, including ArrayList of Integer (which auto-unboxes to int).",
+            explanation: "D is correct. The for-each loop binds `val` to each element in order. `total` accumulates: 0 + 100 = 100, then 100 + 200 = 300, then 300 + 300 = 600.\nChoice A is wrong because for-each works on any `Iterable`, and `Integer` auto-unboxes to `int`.\nChoice B is wrong because 100 is only the partial sum after the first iteration.\nChoice C is wrong because 300 is the partial sum after two iterations, not the final total.",
           },
         ],
       },
@@ -3353,7 +3353,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "/* this is never closed" },
             ],
             answer: "D",
-            explanation: "An open block comment `/* ... ` MUST have a matching closing `*/`. Without the closing delimiter, the compiler treats everything after `/*` as part of the comment indefinitely, including subsequent code lines, eventually causing a syntax error when the file ends without closure. D is correct. B is a valid single-line comment. C is a complete block comment with both delimiters. A is a complete Javadoc comment with both delimiters (`/**` to start, `*/` to end).",
+            explanation: "D is correct. A block comment `/* ...` must close with `*/`. Without the closing delimiter, everything after `/*` is treated as comment, causing a syntax error.\nChoice A is wrong because `/** ... */` is a valid Javadoc comment.\nChoice B is wrong because `//` is a valid single-line comment.\nChoice C is wrong because `/* ... */` is a complete block comment with both delimiters.",
           },
           {
             id: "1_8_q13",
@@ -3367,7 +3367,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "To ensure the code runs on all operating systems" },
             ],
             answer: "B",
-            explanation: "Comments explaining the WHY (the reasoning) behind a non-obvious choice help future maintainers (including the original programmer revisiting the code months later) understand the intent that the code itself cannot express directly. B is correct. A is wrong because comments don't affect runtime performance, they're stripped at compile time. C is wrong because all code is compiled regardless of comments around it, comments don't influence compilation of nearby code. D is wrong because comments don't influence cross-platform behavior at all.",
+            explanation: "B is correct. Comments explain the reasoning behind a choice. They help future readers understand intent that the code cannot express directly.\nChoice A is wrong because comments are stripped at compile time and do not affect performance.\nChoice C is wrong because comments do not influence whether nearby code is compiled.\nChoice D is wrong because comments do not affect cross-platform behavior.",
           },
           {
             id: "1_8_q14",
@@ -3396,7 +3396,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Single-line: // | Multi-line: ** | Javadoc: /* */" },
             ],
             answer: "B",
-            explanation: "Java's three comment forms: `//` for single-line (to end of line), `/* */` for multi-line block (any length, must be closed), `/** */` for Javadoc (block comment with TWO opening asterisks, processed by the javadoc tool). B is correct. A, C, and D mix up the syntax in various incorrect ways. The double asterisk after `/` is what distinguishes a Javadoc comment from a regular block comment, a small but significant syntactic difference.",
+            explanation: "B is correct. Java uses `//` for single-line, `/* */` for multi-line block, and `/** */` for Javadoc. The double asterisk distinguishes Javadoc from a block comment.\nChoice A is wrong because it swaps single-line and multi-line syntax.\nChoice C is wrong because `**` alone is not a valid comment marker.\nChoice D is wrong because `**` alone is not multi-line, and `/* */` is not Javadoc.",
           },
           {
             id: "1_8_q16",
@@ -3454,7 +3454,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Documenting what parameters a method expects" },
             ],
             answer: "C",
-            explanation: "Comments are ignored by both the compiler and the JVM, they cannot affect runtime behavior of any kind. So C describes something a comment cannot do (making a variable change value). C is correct as the NOT valid use. A, B, and D are all legitimate uses of comments: explaining design intent, temporarily disabling code during debugging, and documenting method parameters with Javadoc tags like @param. Only making code execute differently is impossible via comments.",
+            explanation: "C is correct. Comments are ignored by the compiler and JVM. They cannot change a variable's value at runtime.\nChoice A is wrong because explaining algorithm choice is a legitimate use of comments.\nChoice B is wrong because temporarily disabling code is a common debugging use of comments.\nChoice D is wrong because documenting parameters with Javadoc tags is a standard use.",
           },
           {
             id: "1_8_q20",
@@ -3484,7 +3484,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0" },
             ],
             answer: "B",
-            explanation: "Javadoc tags describe what the method is intended to do, but the actual return value comes from executing the method body, not the comment. `7 % 2` equals 1 (since 7 is odd, dividing by 2 leaves remainder 1). So `n % 2 == 0` evaluates to `1 == 0` which is false. The method returns false. B is correct. A would require an even input argument. C and D are wrong because the return type is boolean (true or false), not int (1 or 0 are int values).",
+            explanation: "B is correct. `7 % 2` is 1 since 7 is odd. So `n % 2 == 0` is `1 == 0`, which is `false`. The method returns `false`.\nChoice A is wrong because that would require an even input.\nChoice C is wrong because the return type is `boolean`, not `int`.\nChoice D is wrong because the return type is `boolean`, not `int`.",
           },
           {
             id: "1_8_q22",
@@ -3614,7 +3614,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "/** @param x the input value */" },
             ],
             answer: "D",
-            explanation: "Javadoc tags like `@param`, `@return`, and `@throws` are only recognized by the `javadoc` tool when they appear inside `/** */` comments (block comments with TWO opening asterisks). Inside `//` (single-line) or `/* */` (regular block) comments, they're just plain text with no special meaning to any tool. D is correct. B uses `//` (wrong style). C uses `/* */` (one asterisk, wrong style). A uses `//` without proper @ syntax.",
+            explanation: "D is correct. Javadoc tags like `@param` are recognized only inside `/** */` comments with two opening asterisks. Other comment styles ignore them.\nChoice A is wrong because `//` is a single-line comment with no `@` tag.\nChoice B is wrong because `//` is a single-line comment, not a Javadoc block.\nChoice C is wrong because `/* */` has only one asterisk, so it is not a Javadoc comment.",
           },
         ],
       },
@@ -3665,7 +3665,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "String" },
             ],
             answer: "A",
-            explanation: "A return type of `void` is a special marker meaning the method performs work but returns no value — you cannot assign the result of a `void` method to a variable. In this signature the token between `static` and the method name is `void`, so this method's return type is `void`. Choice C would require the keyword `int` in the return-type slot; choice D names a modifier rather than a return type, since `static` describes how the method is dispatched (no instance needed), not what data flows back to the caller.",
+            explanation: "A is correct. The return type sits between `static` and the method name. Here that token is `void`, meaning the method returns no value.\nChoice B is wrong because `static` is a modifier, not a return type.\nChoice C is wrong because the return-type slot would need to be `int`, but it is `void`.\nChoice D is wrong because the return-type slot would need to be `String`, but it is `void`.",
           },
           {
             id: "1_9_q04",
@@ -3680,7 +3680,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "int square(5);" },
             ],
             answer: "A",
-            explanation: "Calling a method requires matching the parameter count and parameter types exactly, and if the method returns a value, that value can be stored in a variable of a compatible type. `square(int n)` takes one int and returns an int, so `int result = square(5);` works perfectly: one int argument, int result captured. Choice C passes zero arguments, which is a count mismatch; choice B incorrectly puts a type in front of the call expression, which is not valid Java syntax for invoking a method (only for declaring a variable).",
+            explanation: "A is correct. `square(int n)` takes one `int` and returns an `int`. `int result = square(5);` passes one `int` and stores the `int` result correctly.\nChoice B is wrong because `static` cannot prefix a method call.\nChoice C is wrong because `square()` passes zero arguments, a count mismatch.\nChoice D is wrong because `int square(5);` uses declaration syntax, not call syntax.",
           },
           {
             id: "1_9_q05",
@@ -3695,7 +3695,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "5 4 3 2 1 " },
             ],
             answer: "D",
-            explanation: "Trace the recursive calls. display(5) prints `5 ` then calls display(4); display(4) prints `4 ` then calls display(3); continuing down to display(1) prints `1 ` then calls display(0); display(0): condition `0 > 0` is false, return without printing. Output: `5 4 3 2 1 `. D is correct. B includes 0 wrongly (the if excludes it). C stops one short (off-by-one — assumes the base case is at 1, not 0). A is the trap of printing AFTER the recursive call (ascending order).",
+            explanation: "D is correct. `display(5)` prints `5 ` then calls `display(4)`. The chain continues until `display(1)` prints `1 ` then calls `display(0)`. `display(0)` skips the `if`. Output: `5 4 3 2 1 `.\nChoice A is wrong because printing after the recursive call would produce ascending order.\nChoice B is wrong because the condition `n > 0` excludes 0 from printing.\nChoice C is wrong because the base case occurs at 0, not at 1, so 1 prints.",
           },
           {
             id: "1_9_q06",
@@ -3709,7 +3709,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "static public (int n) double square" },
             ],
             answer: "C",
-            explanation: "A valid Java method signature follows a strict word order: access modifier, then optional `static`, then return type, then method name, then a parenthesized parameter list. Choice C `public static double square(int n)` follows this exact order. Choices A, C, and D scramble the order — for example, putting the return type after the parameter list or before the access modifier — which Java's parser rejects as syntactically invalid. The compiler enforces this order strictly because it has no way to disambiguate scrambled tokens.",
+            explanation: "C is correct. A valid Java signature follows the order: modifier, `static`, return type, name, parameter list. `public static double square(int n)` matches this order.\nChoice A is wrong because the return type appears in the wrong slot.\nChoice B is wrong because the return type and `static` come after the parameter list.\nChoice D is wrong because the parameter list and return type are swapped.",
           },
           {
             id: "1_9_q07",
@@ -3724,7 +3724,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "boolean" },
             ],
             answer: "D",
-            explanation: "The return type appears immediately before the method name in any Java method header. In `public static boolean isPositive(int n)`, the token directly before `isPositive` is `boolean`, so the method returns either `true` or `false`. Choice B would require the return-type token to be `int`; choice A would mean the method returns nothing at all, but methods that test a condition almost always return a boolean for the caller to branch on. Choice C would require the return type to literally be `String`, which it isn't here.",
+            explanation: "D is correct. The return type appears directly before the method name. The token before `isPositive` is `boolean`, so the method returns `true` or `false`.\nChoice A is wrong because the return-type slot is `boolean`, not `void`.\nChoice B is wrong because the return-type slot is `boolean`, not `int`.\nChoice C is wrong because the return-type slot is `boolean`, not `String`.",
           },
           {
             id: "1_9_q08",
@@ -3739,7 +3739,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "static" },
             ],
             answer: "B",
-            explanation: "In a Java method header, the identifier that sits directly to the left of the opening parenthesis is the method name — everything before it consists of modifiers and the return type. In `public static int findMax(int a, int b)`, `findMax` is in that position, so it is the method name. Choices C and D are modifiers (access level and dispatch style), and choice A is the return type — none of these is the name the caller actually types when invoking the method. Identifying the method name correctly is the first step in any call.",
+            explanation: "B is correct. The method name is the identifier directly before the opening parenthesis. `findMax` sits in that position.\nChoice A is wrong because `int` is the return type, not the name.\nChoice C is wrong because `public` is an access modifier.\nChoice D is wrong because `static` is a dispatch modifier.",
           },
           {
             id: "1_9_q09",
@@ -3754,7 +3754,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "public static double computeAverage(int a, int b)" },
             ],
             answer: "D",
-            explanation: "When matching a call to a signature, both the argument types AND the way the result is used must line up. The call `double d = computeAverage(10, 20);` passes two ints and stores a double, so the signature must accept two ints and return a double. Choice D fits exactly: return type double, parameters (int, int). Choice C returns void (cannot be stored at all); choice A returns int but requires double parameters (the int literals 10, 20 would be widened, but storing int in double would work — however the return type mismatches); choice B returns String, which cannot be stored in a double.",
+            explanation: "D is correct. The call passes two `int` literals and stores the result in a `double`. So the signature needs `(int, int)` parameters and a `double` return type.\nChoice A is wrong because the return type is `int`, not `double`.\nChoice B is wrong because `String` cannot be stored in a `double` variable.\nChoice C is wrong because a `void` method returns nothing and cannot be stored.",
           },
           {
             id: "1_9_q10",
@@ -3769,7 +3769,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "10" },
             ],
             answer: "C",
-            explanation: "This method reverses the digits of n. Trace mystery(13). result = 0, n = 13. Iter 1: result = 0*10 + 13%10 = 3. n = 13/10 = 1. Iter 2: result = 3*10 + 1%10 = 31. n = 1/10 = 0. Loop ends. Return 31. C is correct. A `13` is the trap of returning n unchanged. B `4` is the digit sum (1+3), confusing reverse with sum. D `10` would happen if % and / were swapped. The pattern `result * 10 + n%10`, `n /= 10` is the classic digit-reversal idiom.",
+            explanation: "C is correct. The method reverses digits. Iter 1: `result` = 0*10 + 3 = 3, `n` = 1. Iter 2: `result` = 3*10 + 1 = 31, `n` = 0. Returns 31.\nChoice A is wrong because returning `n` unchanged would give 13, but `n` is modified.\nChoice B is wrong because 4 is the digit sum, not the reversed value.\nChoice D is wrong because 10 would result if `%` and `/` were swapped.",
           },
           {
             id: "1_9_q11",
@@ -3784,7 +3784,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The method requires only one argument." },
             ],
             answer: "C",
-            explanation: "Java is strictly typed at assignment: the value being stored must match the declared variable type (or be widened to it), or the compiler rejects the line. `repeat` returns a `String`, but the code stores the result in an `int`. The compiler refuses this because there is no implicit conversion from String to int. Choice A is wrong because the type mismatch is a real compile error; choice B is wrong because the name `repeat` is spelled correctly in both the signature and the call; choice D is wrong because the call does pass both required arguments (a String and an int).",
+            explanation: "C is correct. `repeat` returns a `String`, but the code stores it in an `int`. The compiler rejects this because `String` cannot be assigned to `int`.\nChoice A is wrong because the type mismatch is a real compile error.\nChoice B is wrong because `repeat` is spelled identically in both the signature and the call.\nChoice D is wrong because the call passes both required arguments correctly.",
           },
           {
             id: "1_9_q12",
@@ -3813,7 +3813,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "new average(4.0, 8.0, 12.0);" },
             ],
             answer: "C",
-            explanation: "When a signature lists multiple parameters, the call must supply exactly that many arguments in matching types and order. `average(double, double, double)` requires three doubles, and since it returns double, the result should be stored in a double variable. `double result = average(4.0, 8.0, 12.0);` does this correctly. Choice A passes only two arguments (count mismatch); choice B is malformed Java syntax — a type cannot precede a call expression directly; choice D incorrectly uses `new`, which is for invoking constructors when creating objects, not for calling ordinary methods.",
+            explanation: "C is correct. `average` needs three `double` arguments and returns a `double`. `double result = average(4.0, 8.0, 12.0);` matches both requirements.\nChoice A is wrong because it passes only two arguments, a count mismatch.\nChoice B is wrong because a type cannot prefix a call expression directly.\nChoice D is wrong because `new` is for constructors, not for calling regular methods.",
           },
           {
             id: "1_9_q14",
@@ -3827,7 +3827,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "public static void print(String s)" },
             ],
             answer: "A",
-            explanation: "Every Java method header must contain a return type — either a concrete type like `int` or the keyword `void`. Without one, the compiler cannot determine what the method gives back to the caller and rejects the declaration outright. Choice A `public static square(int n)` is missing this return type entirely — there's no token between `static` and the method name. The other choices each have a proper return type (`int`, `void`, `boolean`) so they compile fine. The most common student mistake is confusing the method name with the return type.",
+            explanation: "A is correct. Every Java method header must have a return type. `public static square(int n)` is missing the return type between `static` and the method name.\nChoice B is wrong because `boolean` is a valid return type.\nChoice C is wrong because `int` is a valid return type.\nChoice D is wrong because `void` is a valid return type for methods that return nothing.",
           },
           {
             id: "1_9_q15",
@@ -3842,7 +3842,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "void" },
             ],
             answer: "C",
-            explanation: "The return type sits in the slot directly to the left of the method name. In `public static int clamp(int value, int min, int max)`, the word `int` occupies that slot, so the method returns an `int`. Choice D would require `void` in that position (and would also forbid the method from returning anything meaningful — a clamp method needs to return its clamped value). Choices A and C name different types that aren't actually present in the signature. The parameter types are also int here, but the parameter types don't determine the return type.",
+            explanation: "C is correct. The return type sits directly before the method name. `int` occupies that slot in `clamp`, so the method returns `int`.\nChoice A is wrong because `double` is not in the return-type slot.\nChoice B is wrong because `boolean` is not in the return-type slot.\nChoice D is wrong because `void` is not in the return-type slot.",
           },
           {
             id: "1_9_q16",
@@ -3857,7 +3857,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "display(\"\");" },
             ],
             answer: "C",
-            explanation: "A `void` method has no return value, so its call cannot appear on the right side of an assignment — there is literally no value to assign. The compiler catches this at compile time because it can see the return type. `String s = display(\"Hi\");` fails for this reason. Choices A, B, and D are all standalone `display(...)` calls that don't try to store the result; they're statement-form invocations, which is the normal way to use void methods. Only choice C misuses the return value of a `void` method by trying to capture it.",
+            explanation: "C is correct. A `void` method has no return value. The compiler rejects storing its result in `String s = display(\"Hi\");`.\nChoice A is wrong because a standalone `display(\"Hello\");` is a valid statement.\nChoice B is wrong because the argument `\"Test \" + 42` is a valid String expression.\nChoice D is wrong because passing an empty String is valid.",
           },
           {
             id: "1_9_q17",
@@ -3872,7 +3872,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "3" },
             ],
             answer: "D",
-            explanation: "Parameters are separated by commas inside the parentheses; counting the comma-separated entries gives the parameter count. The signature `printInfo(String name, int age, double gpa)` has three entries, so there are three parameters and the caller must pass three matching arguments (a String, an int, and a double, in that order). Choice B undercounts; choice A would require a fourth parameter that simply isn't in the list. The method name and modifiers like `public static` are not part of the parameter count.",
+            explanation: "D is correct. Parameters are separated by commas inside the parentheses. `String name`, `int age`, and `double gpa` are three entries.\nChoice A is wrong because there is no fourth parameter in the list.\nChoice B is wrong because the list has three comma-separated entries, not one.\nChoice C is wrong because the list has three comma-separated entries, not two.",
           },
           {
             id: "1_9_q18",
@@ -3901,7 +3901,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "void" },
             ],
             answer: "B",
-            explanation: "To compile cleanly, the type of the variable receiving the return value must match the method's return type (or be a widening of it). `check` returns `boolean`, so the only matching local type is `boolean`. Choice C (`int`) is wrong because Java does not implicitly convert between boolean and integer types — unlike C/C++ where booleans map to 0 and 1. Choice A (`String`) is incompatible — there is no conversion from boolean to String at assignment time. Choice D (`void`) isn't a valid variable type at all.",
+            explanation: "B is correct. `check` returns `boolean`, so the variable storing the result must be `boolean`.\nChoice A is wrong because Java does not implicitly convert `boolean` to `String`.\nChoice C is wrong because Java does not implicitly convert `boolean` to `int`.\nChoice D is wrong because `void` is not a valid variable type.",
           },
           {
             id: "1_9_q20",
@@ -3916,7 +3916,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "3.0 is automatically rounded to 3 and the method executes." },
             ],
             answer: "B",
-            explanation: "Java does not perform implicit narrowing conversions in method calls. A `double` argument cannot be silently passed where an `int` parameter is declared because doing so could lose information (the fractional part). The compiler rejects `mystery(3.0, 5)` because `3.0` is a `double` literal trying to match an `int` parameter. Choice A is wrong because no automatic truncation happens at the call boundary; choice C is wrong because the error is caught at compile time, not runtime; choice D describes behavior that would require an explicit `(int) 3.0` cast.",
+            explanation: "B is correct. Java does not perform implicit narrowing in method calls. Passing `double` 3.0 where an `int` is expected is a compile-time error.\nChoice A is wrong because no automatic truncation occurs at the call boundary.\nChoice C is wrong because the error is caught at compile time, not runtime.\nChoice D is wrong because rounding would require an explicit `(int)` cast.",
           },
           {
             id: "1_9_q21",
@@ -3946,7 +3946,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "void" },
             ],
             answer: "C",
-            explanation: "`System.out.println` prints whatever expression you pass to it, using the value's type to format the output. `hypotenuse(3.0, 4.0)` returns a `double` based on the signature, so println prints a double. The actual numeric value would be roughly `5.0`, but more importantly the *type* printed is double, which is why it would show as `5.0` rather than `5`. Choice A is wrong because the return type is `double`, not `int`; choice D would mean the method returns nothing, which would itself be a compile error inside the println call.",
+            explanation: "C is correct. `hypotenuse` returns a `double`. `println` prints the value with its type's formatting, showing a decimal point.\nChoice A is wrong because the return type is `double`, not `int`.\nChoice B is wrong because the return type is `double`, not `boolean`.\nChoice D is wrong because a `void` method cannot be passed to `println`.",
           },
           {
             id: "1_9_q23",
@@ -3960,7 +3960,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The method returns null to the caller." },
             ],
             answer: "B",
-            explanation: "A method whose return type is `void` runs its body (which can have any side effect — printing, modifying state, calling other methods) but produces no value the caller can assign or use in an expression. Choice D is wrong because `null` is only valid for reference types, not for `void` — a void method literally returns nothing, not a null reference. Choice A is wrong because there's no implicit zero return — `void` truly means nothing comes back. Choice C confuses parameters with return values — void methods can absolutely take parameters.",
+            explanation: "B is correct. A `void` method runs its body but produces no value the caller can use.\nChoice A is wrong because there is no implicit 0 return for `void`.\nChoice C is wrong because `void` methods can take parameters.\nChoice D is wrong because `null` is only valid for reference types, not `void`.",
           },
           {
             id: "1_9_q24",
@@ -3974,7 +3974,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "public static String countChars(String s)" },
             ],
             answer: "B",
-            explanation: "We need return type `int` and one parameter of type `String`. Reading each signature: choice B `public static int countChars(String s)` matches exactly — return type int, parameter String s. Choice A swaps them, returning String and taking int. Choice C returns void, not int, so the count couldn't be returned. Choice D returns String, not int. The trick is to identify the return type (token before the method name) separately from the parameter types (inside the parentheses) and check both conditions.",
+            explanation: "B is correct. `int countChars(String s)` has return type `int` and one `String` parameter, matching both requirements.\nChoice A is wrong because it returns `String` and takes `int`, the reverse of what is needed.\nChoice C is wrong because it returns `void`, not `int`.\nChoice D is wrong because it returns `String`, not `int`.",
           },
           {
             id: "1_9_q25",
@@ -3989,7 +3989,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "int result = Math.abs(-5);" },
             ],
             answer: "D",
-            explanation: "`Math.abs` and similar utilities live in the `Math` class as `static` methods, so they're called using the class name: `Math.abs(-5)`. Since the `int` overload of `abs` returns an int, the result fits in an `int` variable. Choice C omits the class name; choice C invents an instance of `Math`, but the Math class cannot be instantiated (its constructor is private) and isn't needed for static calls anyway. Choice B would lose precision by storing an int return value in a double declaration — which actually compiles but is misleading and not the intended idiom.",
+            explanation: "D is correct. `Math.abs` is a `static` method called using the class name. Storing the `int` return value in an `int` variable matches the return type.\nChoice A is wrong because `Math` cannot be instantiated, and `new` is not needed for static calls.\nChoice B is wrong because storing an `int` return value in `double` is not the intended idiom.\nChoice C is wrong because it omits the `Math.` class qualifier.",
           },
           {
             id: "1_9_q26",
@@ -4004,7 +4004,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A compile-time error occurs because the method takes only two parameters." },
             ],
             answer: "D",
-            explanation: "Argument count must match the parameter count exactly — Java has no variable-argument inference for basic method signatures. The signature `multiply(int x, int y)` declares two parameters, so the call `multiply(3, 4, 5)` with three arguments fails to compile. The compiler raises an error because it cannot match the call to any visible overload of `multiply`. Choice C is wrong because Java never silently ignores extra arguments; choice A is wrong because the compile error stops the program before any arithmetic runs; choice B confuses return type with argument count.",
+            explanation: "D is correct. `multiply` takes two parameters. Passing three arguments fails to compile because the count does not match.\nChoice A is wrong because the compile error stops the program before any arithmetic runs.\nChoice B is wrong because argument count does not change a method's return type.\nChoice C is wrong because Java never silently ignores extra arguments.",
           },
           {
             id: "1_9_q27",
@@ -4034,7 +4034,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A runtime error occurs." },
             ],
             answer: "C",
-            explanation: "Java's type system does not convert between `boolean` and numeric types — unlike C, where `true` and `false` automatically map to 1 and 0. A `boolean` return value cannot be assigned to an `int` variable. The compiler catches this at compile time, before the program ever runs. Choice A is wrong because there is no \"1 means true\" rule in Java; choice B is wrong because the parameter value (`7`) is not the return value; choice D is wrong because this error is detected at compile time, not at runtime — the compiler can see the type mismatch from the signatures.",
+            explanation: "C is correct. Java does not convert between `boolean` and numeric types. Storing `boolean` in an `int` variable fails at compile time.\nChoice A is wrong because Java has no rule mapping `true` to 1.\nChoice B is wrong because the parameter value 7 is not the return value.\nChoice D is wrong because this error is caught at compile time, not runtime.",
           },
           {
             id: "1_9_q29",
@@ -4049,7 +4049,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "32" },
             ],
             answer: "D",
-            explanation: "This method computes a^b using repeated multiplication. With a=2, b=5, the loop runs 5 times (i=0..4). result starts at 1, doubles each iteration: 2, 4, 8, 16, 32. Returns 32. D is correct. B `16` is off-by-one (running the loop 4 times). C `25` is the trap of computing a*a*... wrongly. A `10` treats it as a*b = 10.",
+            explanation: "D is correct. The method computes a^b. With `a` = 2 and `b` = 5, the loop runs 5 times. `result` doubles each iteration: 2, 4, 8, 16, 32.\nChoice A is wrong because 10 treats the operation as `a * b`, not `a^b`.\nChoice B is wrong because 16 results from running the loop only 4 times.\nChoice C is wrong because 25 does not match any valid trace of the loop.",
           },
           {
             id: "1_9_q30",
@@ -4063,7 +4063,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "public static void larger(int a, int b)" },
             ],
             answer: "B",
-            explanation: "The method should accept two int parameters and return the larger one as an int. That points to `public static int larger(int a, int b)`, choice B: int return, two int parameters. Choice D returns void, so the larger value couldn't be returned to the caller. Choice A returns boolean, which can represent only true/false, not a numeric value like \"the larger one.\" Choice C takes only one parameter and returns double, both of which don't match the requirement of \"the larger of two ints.\" The pattern: return type matches what you produce, parameters match what you need.",
+            explanation: "B is correct. The method needs two `int` parameters and an `int` return type. `public static int larger(int a, int b)` matches both.\nChoice A is wrong because `boolean` returns only `true` or `false`, not a numeric value.\nChoice C is wrong because it takes one parameter and returns `double`, not what is needed.\nChoice D is wrong because `void` cannot return the larger value to the caller.",
           },
         ],
       },
@@ -7121,7 +7121,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "10" },
             ],
             answer: "D",
-            explanation: "A for-loop with `for (int k=1; k<=4; k++)` runs the body for k=1,2,3,4 (inclusive on both ends) — four iterations. Each iteration adds k to the accumulator total. Tracing: total grows 0→1→3→6→10. After k=4, k becomes 5 and 5<=4 is false so the loop ends. Choice B is only the last iteration's k value, choice C is the partial sum 1+2+3 (missing k=4), and choice D (16) would result from going through k=5 — an off-by-one extension past the stopping value.",
+            explanation: "D is correct. The loop runs for `k=1,2,3,4` because `k<=4` is inclusive. Each pass adds `k` to total, giving 0, 1, 3, 6, 10. After `k=4`, `k` becomes 5 and the test fails.\nChoice A is wrong because 16 would require an extra iteration at `k=5`, an off-by-one error past the stopping value.\nChoice B is wrong because 4 is just the final `k` value, not the running sum.\nChoice C is wrong because 6 is the partial sum `1+2+3`, missing the `k=4` iteration.",
           },
           {
             id: "2_1_q26",
@@ -7150,7 +7150,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "10 8 6 4 2 " },
             ],
             answer: "B",
-            explanation: "Each pass prints i and then subtracts 3, so we trace: i=10 print 10, i=7 print 7, i=4 print 4, i=1 print 1, i=-2 now -2>0 is false and loop ends. Choice C stops one iteration too early (missing i=1), choice C wrongly uses a step of 2, and choice D includes i=-2 which is never printed because the test fails before the body runs.",
+            explanation: "B is correct. Each pass prints `i` then subtracts 3. Trace prints 10 with `i=7`, then 7 with `i=4`, then 4 with `i=1`, then 1 with `i=-2`. Now `-2>0` is false and the loop ends.\nChoice A is wrong because `-2` is never printed. The test fails before the body runs.\nChoice C is wrong because it stops one iteration early, missing the `i=1` print.\nChoice D is wrong because it uses a step of 2 instead of subtracting 3.",
           },
           {
             id: "2_1_q28",
@@ -7195,7 +7195,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The largest factor of 15 (prints 15)" },
             ],
             answer: "B",
-            explanation: "The loop iterates i from 1 to num inclusive and increments divisors every time i divides num evenly (num % i == 0). For num=15, the divisors are 1, 3, 5, 15 — four total — so it counts the factors. Choice A confuses the loop with a sum, choice C describes a different algorithm (primality), and choice D would only happen if the loop tracked the largest divisor instead of a count.",
+            explanation: "B is correct. The loop tests every `i` from 1 to `num` and bumps `divisors` whenever `num % i == 0`. For `num=15`, the values 1, 3, 5, 15 divide evenly, giving 4 factors total.\nChoice A is wrong because the code counts factors, not the sum of integers 1 to 15.\nChoice C is wrong because primality testing returns a boolean, not a divisor count.\nChoice D is wrong because the code accumulates a count, not the largest factor.",
           },
         ],
       },
@@ -7291,7 +7291,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A runtime error occurs." },
             ],
             answer: "A",
-            explanation: "Evaluate !(x < y) first. (x < y) = (4 < 7) = true, so !(true) = false. With the left operand of && being false, short-circuit kicks in and the right side (y % x == 0) is NEVER evaluated. The whole && is false. Choice B would require both halves true. Choice C is wrong because the code is valid Java. Choice D is the trap for students who think Java always evaluates both sides — but short-circuit && skips the right operand once the left is false, preventing any runtime error in y % x.",
+            explanation: "A is correct. Evaluate `!(x < y)` first. `(4 < 7)` is true, so `!(true)` is false. The left operand of `&&` is false, so short-circuit skips the right side. The result is false.\nChoice B is wrong because both halves would need to be true for `&&` to yield true.\nChoice C is wrong because the code is valid Java syntax.\nChoice D traps students who forget short-circuit. Once the left is false, `y % x` is never evaluated, so no runtime error occurs.",
           },
           {
             id: "2_2_q07",
@@ -7336,7 +7336,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A runtime error occurs (division by zero)." },
             ],
             answer: "C",
-            explanation: "Java's && short-circuits: if the first operand is false, the second is never evaluated because the result must be false. With x=0, (x > 0) is false, so Java skips (10/x > 5) entirely and never performs the division by zero. Choice B would require both operands to evaluate true, and choice D is the WRONG answer many students pick because they forget that short-circuit evaluation prevents the division from ever happening.",
+            explanation: "C is correct. Java's `&&` short-circuits when the first operand is false. With `x=0`, `(x > 0)` is false, so the right side `(10/x > 5)` is never evaluated. The result is false.\nChoice A is wrong because the code compiles cleanly.\nChoice B is wrong because `&&` needs both operands true.\nChoice D traps students who forget short-circuit. The division by zero never executes because the right side is skipped.",
           },
           {
             id: "2_2_q10",
@@ -7426,7 +7426,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0" },
             ],
             answer: "B",
-            explanation: "Parentheses force the inner operation first, then the outer ! flips the result. Evaluate inside: (false || false) = false (|| is true only when at least one operand is true; both are false here). Then apply !: !false = true. So the final value is true. Choice A misses the outer negation (giving the inner result), choice C wrongly claims a syntax issue (the expression is fully valid), and choice D treats boolean values as integers, which Java does not allow.",
+            explanation: "B is correct. Parentheses force the inner operation first. `(false || false)` is false because `||` needs at least one true operand. Then `!false` is true.\nChoice A is wrong because it skips the outer `!` and returns the inner value.\nChoice C is wrong because the expression is valid Java syntax.\nChoice D is wrong because Java booleans are not integers. The value is `true`, not `0`.",
           },
           {
             id: "2_2_q16",
@@ -7482,7 +7482,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "It depends on evaluation order." },
             ],
             answer: "B",
-            explanation: "The truth table for && yields true only when BOTH operands are true; in every other combination the result is false. With A=true and B=false, the result is false because one operand is false. Choice A misreads the truth table (that would describe ||), choice C is wrong because there is no compilation issue, and choice D is wrong because && always returns the same boolean for the same inputs.",
+            explanation: "B is correct. The `&&` truth table returns true only when both operands are true. With `A=true` and `B=false`, one operand is false, so `&&` is false.\nChoice A is wrong because that result would match the `||` truth table, not `&&`.\nChoice C is wrong because the expression compiles without issue.\nChoice D is wrong because `&&` is deterministic and returns the same value for the same inputs.",
           },
           {
             id: "2_2_q20",
@@ -7511,7 +7511,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Nothing is printed." },
             ],
             answer: "D",
-            explanation: "First the expression (x > 5) is evaluated: with x=3, 3 > 5 is false, so b becomes false. The if then checks b; since b is false, the body is skipped and nothing prints. Choice B would require b to be true, choice C prints the literal word `false` but println(\"yes\") is conditional and never runs, and choice A is wrong because the code compiles fine.",
+            explanation: "D is correct. First `(x > 5)` evaluates. With `x=3`, `3 > 5` is false, so `b` becomes false. The `if (b)` test fails and the body is skipped. Nothing prints.\nChoice A is wrong because the code compiles cleanly.\nChoice B is wrong because `yes` only prints when `b` is true.\nChoice C is wrong because the code never prints `false`. The print statement is inside the skipped `if` body.",
           },
           {
             id: "2_2_q22",
@@ -7525,7 +7525,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Whether x is odd" },
             ],
             answer: "B",
-            explanation: "The modulo operator % returns the remainder of integer division. x % 2 is 0 only when x divides exactly by 2 — that is, when x is even. Choice D is the opposite (odd would be remainder 1), choice A is nonsensical (division by 0 is undefined and not what % 2 tests), and choice C would require x == 2, a much stricter condition.",
+            explanation: "B is correct. The modulo operator `%` returns the remainder of integer division. `x % 2` is 0 only when `x` divides exactly by 2, meaning `x` is even.\nChoice A is wrong because `% 2` does not relate to division by 0. Division by 0 is undefined.\nChoice C is wrong because testing `x == 2` is a stricter condition than `x % 2 == 0`.\nChoice D is wrong because odd numbers produce a remainder of 1, not 0.",
           },
           {
             id: "2_2_q23",
@@ -7676,7 +7676,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0" },
             ],
             answer: "A",
-            explanation: "An if without an else does nothing when the condition is false — the body is simply skipped. With x=0, 0 > 0 is false, so println is never called and no output is produced. Choice C would require the condition to be true, choice D confuses the value of x with what gets printed (println is never reached), and choice B is wrong because the code compiles.",
+            explanation: "A is correct. An `if` without an `else` does nothing when the condition is false. With `x=0`, `0 > 0` is false, so the body is skipped and nothing prints.\nChoice B is wrong because the code compiles cleanly.\nChoice C is wrong because `positive` only prints when `x > 0` is true.\nChoice D confuses the value of `x` with the output. The `println` is never reached.",
           },
           {
             id: "2_3_q03",
@@ -7736,7 +7736,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "less" },
             ],
             answer: "C",
-            explanation: "In an if-else if-else chain, conditions are checked in order and only the first true one fires. With x=5: 5 > 5 is false, 5 == 5 is true so `equal` prints and the else is skipped. Choice B would require x > 5 (strict inequality excludes equality), choice D requires both earlier tests to be false, and choice A is impossible because the chain executes at most one branch.",
+            explanation: "C is correct. An `if`/`else if`/`else` chain runs only the first true branch. With `x=5`, `5 > 5` is false, then `5 == 5` is true, so `equal` prints and the rest is skipped.\nChoice A is impossible because the chain executes at most one branch.\nChoice B is wrong because `x > 5` is a strict inequality that excludes equality.\nChoice D would require both earlier tests to be false.",
           },
           {
             id: "2_3_q07",
@@ -7840,7 +7840,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The last branch always executes." },
             ],
             answer: "C",
-            explanation: "An if-else if-else chain executes at most one branch: as soon as a condition is true, that branch runs and ALL remaining branches (including later else-ifs whose conditions might also be true) are skipped. Choice C captures this. Choice B would describe separate if statements, choice D is wrong because the last branch only runs if all earlier ones fail, and choice D imposes an arbitrary cap.",
+            explanation: "C is correct. An `if`/`else if`/`else` chain runs exactly one branch. Once a condition is true, that branch fires and every remaining branch is skipped, even later `else if` tests that would also be true.\nChoice A is wrong because the chain caps at one branch, not two.\nChoice B describes separate `if` statements, not a chained `else if` structure.\nChoice D is wrong because the final `else` only runs when every earlier test is false.",
           },
           {
             id: "2_3_q14",
@@ -8731,7 +8731,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "!(x > 0 && x < 10)" },
             ],
             answer: "A",
-            explanation: "`Not between` means outside the open interval (0, 10). Choice C (x < 0 || x > 10) directly tests both outside regions. Choice D negates the in-range condition: !(x > 0 && x < 10) — by De Morgan's this becomes (x <= 0 || x >= 10), which IS the same set as B for an exclusive interval given the boundary semantics here. Choice B is logically impossible (no value is both <0 and >10).",
+            explanation: "A is correct because both options C and D test the outside region. `x < 0 || x > 10` directly captures values outside `(0, 10)`. By De Morgan, `!(x > 0 && x < 10)` becomes `x <= 0 || x >= 10`, the equivalent outside-region check.\nChoice B is wrong because no `x` can be both less than 0 and greater than 10. That `&&` is always false.\nChoice C alone is correct, but choice D is also valid, so the best answer combines them.\nChoice D alone is correct, but choice C is also valid, so the best answer combines them.",
           },
           {
             id: "2_5_q13",
@@ -8863,7 +8863,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "other" },
             ],
             answer: "A",
-            explanation: "A compound condition with && requires every operand to be true; if any half is false, the whole && is false. With x=12: (12>0) is true (positivity satisfied), and 12 % 4 = 0 so (12 % 4 == 0) is true (divisibility satisfied). true && true = true, so the if-branch fires → print `positive and divisible by 4`. Choice D would require at least one of the two halves to fail (taking the else), and choice B is impossible since if-else runs exactly one branch.",
+            explanation: "A is correct. The `&&` needs both halves true. With `x=12`, `12>0` is true and `12 % 4` equals 0, so `12 % 4 == 0` is true. The `if` branch fires and prints `positive and divisible by 4`.\nChoice B is impossible because an `if`/`else` runs exactly one branch.\nChoice C is wrong because one branch always executes here.\nChoice D would require at least one half of the `&&` to be false, sending control to the `else`.",
           },
           {
             id: "2_5_q22",
@@ -9014,7 +9014,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "a >= b" },
             ],
             answer: "C",
-            explanation: "Each relational operator has a complement that includes or excludes the boundary equality oppositely: > flips to <=. !(a > b) means a is NOT strictly greater than b, which is the same as a <= b (less than, or equal to b). Choice C captures this. Choice B (a < b) misses the equality case: when a equals b, a > b is false so !(a > b) is true, but a < b is also false — they disagree at the boundary. Choice D (a >= b) is the unnegated direction.",
+            explanation: "C is correct. Negating `>` gives `<=` because the complement flips the strict inequality and includes equality. `!(a > b)` means `a` is not strictly greater than `b`, so `a` is less than or equal to `b`.\nChoice A is just the original expression, not its negation.\nChoice B is wrong at the boundary. When `a` equals `b`, `!(a > b)` is true but `a < b` is false.\nChoice D is the same direction as the original `>`, not the negation.",
           },
           {
             id: "2_6_q02",
@@ -9070,7 +9070,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "x >= 0" },
             ],
             answer: "C",
-            explanation: "Each relational operator has a complement that includes or excludes the boundary equality oppositely: >= flips to <, and <= flips to >. !(x >= 0) means x is NOT at least 0, which is exactly x < 0 (strictly negative, not including 0). Choice C is correct. Choice B (x <= 0) wrongly includes 0: when x=0, the original x>=0 is true so !(x>=0) is false, but x<=0 is true at x=0 — they disagree at the boundary. Choice D is the unnegated direction.",
+            explanation: "C is correct. Negating `>=` gives `<` because the complement flips the inequality and excludes equality. `!(x >= 0)` means `x` is not at least 0, which is exactly `x < 0`.\nChoice A excludes the negative range entirely. It only catches values above 0.\nChoice B is wrong at the boundary. When `x=0`, `!(x >= 0)` is false but `x <= 0` is true.\nChoice D is the original expression, not its negation.",
           },
           {
             id: "2_6_q06",
@@ -9084,7 +9084,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "No, the second one always evaluates both conditions." },
             ],
             answer: "B",
-            explanation: "Logical && is commutative for its final boolean result: A && B always produces the same true/false value as B && A, regardless of the specific A and B used. Although short-circuit evaluation means the ORDER in which operands are evaluated differs (which can matter for side effects or runtime errors), the final boolean RESULT is identical. Choice B captures this. Choice A confuses evaluation order with logical result. Choices C and D impose superficial restrictions that don't affect commutativity.",
+            explanation: "B is correct. Logical `&&` is commutative for its final boolean. `A && B` always yields the same true or false as `B && A`. Short-circuit changes which operand evaluates first, but the final result is identical.\nChoice A confuses evaluation order with the final boolean. The result is the same regardless of order.\nChoice C is wrong because commutativity holds for any boolean operands, not just integers.\nChoice D is wrong because both forms can short-circuit. The second is not forced to evaluate both halves.",
           },
           {
             id: "2_6_q07",
@@ -9168,7 +9168,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "x < 5" },
             ],
             answer: "C",
-            explanation: "Each relational operator negates to its complement: <= flips to >, and the boundary equality moves to the OTHER side. !(x <= 5) means x is NOT at most 5, which is exactly x > 5 (strictly greater). Choice C captures this. Choice D (x < 5) is the wrong direction entirely — that would be the unnegated < flipped. Choice B (x == 5) only captures one specific value, not a half-line. Choice A is the original unnegated expression, not its negation.",
+            explanation: "C is correct. Negating `<=` gives `>` because the complement flips the inequality and excludes equality. `!(x <= 5)` means `x` is not at most 5, so `x > 5`.\nChoice A is the original expression, not its negation.\nChoice B only captures the single value 5, not a half-line range.\nChoice D points the wrong direction. It excludes 5, but `!(x <= 5)` already excludes values below 5.",
           },
           {
             id: "2_6_q13",
@@ -9294,7 +9294,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "They have the same number of operands." },
             ],
             answer: "B",
-            explanation: "Logical equivalence is a SEMANTIC notion (about meaning), not syntactic: two expressions are equivalent if they produce the same boolean result for every possible combination of input values, which can be verified by constructing a truth table. Different operators and different forms can be equivalent (e.g., De Morgan's pairs). Choice B captures this definition. Choice A confuses syntax with semantics. Choice C and D impose superficial structural requirements that don't relate to actual meaning.",
+            explanation: "B is correct. Logical equivalence is about meaning, not syntax. Two expressions are equivalent when they produce the same boolean for every input combination. A truth table can verify this. De Morgan pairs are equivalent despite using different operators.\nChoice A confuses syntax with semantics. Different operators can still produce the same result.\nChoice C is wrong because equivalent expressions can be written in any order.\nChoice D is wrong because the operand count is a surface feature, not a measure of meaning.",
           },
           {
             id: "2_6_q22",
@@ -9322,7 +9322,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "x <= 0" },
             ],
             answer: "B",
-            explanation: "Each relational operator has a specific complement: < negates to >=, <= to >, > to <=, >= to <. !(x < 0) means x is NOT less than 0, which is the same as x >= 0 (including the boundary x=0). Choice B captures this. Choice A (x > 0) misses the boundary value 0: when x=0, x<0 is false so !(x<0) is true, but x>0 is also false — the two expressions disagree there.",
+            explanation: "B is correct. Negating `<` gives `>=` because the complement flips the inequality and includes equality. `!(x < 0)` means `x` is not less than 0, which is the same as `x >= 0`.\nChoice A misses the boundary 0. When `x=0`, `!(x < 0)` is true but `x > 0` is false.\nChoice C is the original expression, not its negation.\nChoice D is wrong because it would include 0 but exclude positive values, which is the wrong range.",
           },
           {
             id: "2_6_q24",
@@ -9336,7 +9336,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Yes, they always produce the same result." },
             ],
             answer: "D",
-            explanation: "Two boolean expressions are logically equivalent when they produce the same result for every possible input value, regardless of how they're written. !(age < 18) means age is NOT less than 18, which by operator complement (< flips to >=) is exactly age >= 18. The two conditions agree for every value of age. Choice D captures this. Choice C confuses surface syntax with semantic meaning — different operators can produce equivalent results.",
+            explanation: "D is correct. Two expressions are equivalent when they produce the same result for every input. `!(age < 18)` means `age` is not less than 18. By the complement rule for `<`, this becomes `age >= 18`, matching condition1.\nChoice A is wrong because the equivalence holds for any integer, not just positive ones.\nChoice B is wrong because the two expressions agree across all ages, not only when `age >= 18`.\nChoice C confuses syntax with semantics. Different operators can produce equivalent results.",
           },
           {
             id: "2_6_q25",
@@ -9350,7 +9350,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "while (!(i >= n))" },
             ],
             answer: "D",
-            explanation: "Each relational operator has a complement: >= flips to <, and the boundary equality moves to the OTHER side. !(i >= n) is logically equivalent to i < n — both are true exactly when i is strictly less than n. The loop behavior is therefore identical. Choice D captures this. Choice A (!(i > n)) is equivalent to i <= n, which includes one extra iteration (when i equals n). Choice B (!(i <= n)) is equivalent to i > n, the opposite range. Choice C similarly changes the loop bounds.",
+            explanation: "D is correct. Negating `>=` gives `<` because the complement flips the inequality and excludes equality. `!(i >= n)` is true exactly when `i < n`, so the loop behavior is identical.\nChoice A is equivalent to `i <= n`, which adds one extra iteration when `i` equals `n`.\nChoice B is equivalent to `i > n`, the opposite range from the original loop.\nChoice C is `i <= n`, which also runs one extra iteration past the original stop.",
           },
           {
             id: "2_6_q26",
@@ -9442,7 +9442,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "1 2 3 4 5 6 " },
             ],
             answer: "B",
-            explanation: "A while loop is entry-controlled: the condition is checked before each iteration, and the body runs only while that condition is true. Each pass through the body executes its statements top-to-bottom, then control returns to the condition. Choice B is correct because i starts at 1 and the body prints i then increments, so the printed values are 1, 2, 3, 4, 5; when i becomes 6, the test 6 <= 5 is false and the loop exits with no further output. Choice A is the classic off-by-one error from misreading <= as <, while D incorrectly assumes the body executes one more time after the condition first fails.",
+            explanation: "B is correct. The body prints `i` then increments, so the printed values are 1, 2, 3, 4, 5. When `i` becomes 6, the test `6 <= 5` is false and the loop exits.\nChoice A is the classic off-by-one error from misreading `<=` as `<`, missing the final 5.\nChoice C wrongly starts the trace from 0 instead of the initial value 1.\nChoice D assumes the body runs once more after the condition fails, which never happens with a while loop.",
           },
           {
             id: "2_7_q02",
@@ -9457,7 +9457,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "10" },
             ],
             answer: "B",
-            explanation: "A while loop checks its condition before the body, so if the condition is false on entry, the body never runs at all. This is what makes while loops entry-controlled, in contrast to do-while which always executes at least once because the test happens after the body. Choice B is correct because i = 10 and 10 > 10 is immediately false, so the body is skipped entirely. Choice D guesses 10 from the starting value of i, B incorrectly treats the loop like a do-while where the body always runs once, and D imagines an infinite loop which cannot occur since the condition fails at the start.",
+            explanation: "B is correct. A while loop checks its condition before running the body. With `i=10`, the test `10 > 10` is false on entry, so the body is skipped entirely.\nChoice A treats the loop like a do-while where the body always runs once. Java while does not work that way.\nChoice C imagines an infinite loop, but the condition fails on entry so no iteration occurs.\nChoice D guesses 10 from the starting value of `i`, but the loop never runs.",
           },
           {
             id: "2_7_q03",
@@ -9517,7 +9517,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0" },
             ],
             answer: "A",
-            explanation: "Integer division in Java truncates toward zero rather than rounding, so n = n / 2 produces the floor of n/2 when n is positive. The loop halves n each time and stops once n is small enough to fail the test. Choice A is correct: starting from 100, the sequence is 50, 25 (100/2 then 50/2), 12 (25/2 floored from 12.5), 6, 3, 1; once n = 1 the test 1 > 1 fails and the loop ends with n = 1. Choice D would require an extra iteration past termination, B is the value before the last division, and C is only the result after one iteration of halving.",
+            explanation: "A is correct. Integer division truncates, so `n = n / 2` floors the result. Starting from 100, the sequence is 50, 25, 12, 6, 3, 1. Once `n=1`, the test `1 > 1` fails and the loop ends with `n=1`.\nChoice B is the value before the last division step, not the final value.\nChoice C is the result after only one halving from 100, not the loop's final state.\nChoice D would require one more division past termination, but the loop already stopped.",
           },
           {
             id: "2_7_q07",
@@ -9547,7 +9547,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "5" },
             ],
             answer: "B",
-            explanation: "Multiplying y by every value of x from 5 down to 1 computes 5 factorial because the cumulative product is 1 * 5 * 4 * 3 * 2 * 1. The loop continues while x > 0, so the iteration where x = 1 still contributes to the product before the decrement makes x = 0. Choice B is correct: y accumulates 5 * 4 * 3 * 2 * 1 = 120. Choice D is just the starting value of x without multiplication, A is 5 squared (confusing factorial with exponent), and D pairs unrelated numbers without following the multiplication pattern.",
+            explanation: "B is correct. The body multiplies `y` by every value of `x` from 5 down to 1. The loop runs while `x > 0`, so `x=1` contributes before the decrement makes `x=0`. The product is `5*4*3*2*1 = 120`.\nChoice A is `5*5`, confusing factorial with squaring.\nChoice C pairs numbers like `5+4+3+2+1`, treating the loop as a sum instead of a product.\nChoice D is the starting value of `x` with no accumulation applied.",
           },
           {
             id: "2_7_q09",
@@ -9562,7 +9562,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0 1 4 " },
             ],
             answer: "D",
-            explanation: "The body computes i * i and prints the result, so each line shows the square of the current loop variable. The loop visits i = 0, 1, 2 before the test 3 < 3 fails because the condition uses strict less-than. Choice D is correct: 0 * 0 = 0, 1 * 1 = 1, 2 * 2 = 4 produce the output 0 1 4. Choice A mistakenly starts from i = 1 instead of 0 (an off-by-one error), B prints i itself rather than i squared, and D applies 2 * i instead of i * i to give the wrong sequence 0 2 4.",
+            explanation: "D is correct. The body prints `i * i`. The loop visits `i=0, 1, 2` and then `3 < 3` is false. Squares are 0, 1, 4, giving the output `0 1 4`.\nChoice A starts from `i=1` instead of 0, an off-by-one mistake on the initial value.\nChoice B prints `i` itself rather than `i * i`.\nChoice C applies `2 * i` instead of `i * i`, giving the linear sequence 0, 2, 4.",
           },
           {
             id: "2_7_q10",
@@ -9592,7 +9592,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "16" },
             ],
             answer: "D",
-            explanation: "The question asks for the last value printed, which is the last value of i that satisfied the condition before being doubled out of range. Each iteration doubles i, so the printed sequence is a geometric progression. Choice D is correct: i takes 1, 2, 4, 8, 16 (each printed and then doubled), and on the next pass 32 fails 32 <= 20, so the last printed value is 16. Choice C stops one step early, A is the bound itself (never reached because i is a power of 2 here), and B is the value of i after the loop ends, which was never printed inside the body.",
+            explanation: "D is correct. Each pass prints `i` then doubles it. The printed values are 1, 2, 4, 8, 16. After printing 16, `i` becomes 32 and `32 <= 20` is false, so 16 is the last printed value.\nChoice A is the bound itself, which is never reached because `i` only takes powers of 2.\nChoice B is the value of `i` after exiting the loop, which is never printed inside the body.\nChoice C stops one iteration early at 8 and misses the print of 16.",
           },
           {
             id: "2_7_q12",
@@ -9607,7 +9607,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "10" },
             ],
             answer: "A",
-            explanation: "Using += with a String performs concatenation rather than arithmetic addition, even when the right operand is an int — Java promotes the int to its string form before joining. The result variable accumulates characters by appending the digit representation of i each pass. Choice A is correct: result builds as \"\", \"1\", \"12\", \"123\", \"1234\". Choice D treats += as numeric addition (which would give 1 + 2 + 3 + 4 = 10), C inserts spaces that the code does not produce, and D keeps only the last digit appended, ignoring concatenation altogether.",
+            explanation: "A is correct. Using `+=` with a `String` concatenates rather than adds, even when the right side is an `int`. Java converts each `int` to its string form. The value of `result` grows from `\"\"` to `\"1\"`, `\"12\"`, `\"123\"`, `\"1234\"`.\nChoice B inserts spaces that the code never produces between concatenations.\nChoice C keeps only the last digit appended, ignoring earlier passes.\nChoice D treats `+=` as numeric addition, giving `1+2+3+4=10`, which is wrong for a `String`.",
           },
           {
             id: "2_7_q13",
@@ -9637,7 +9637,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "4 6" },
             ],
             answer: "C",
-            explanation: "Each iteration moves i up by 1 and j down by 1, so the two values converge toward the same midpoint of the original interval. The loop runs only while i is still strictly less than j. Choice C is correct: after 5 iterations i = 5 and j = 5, and the test 5 < 5 is false so the loop exits with both variables equal. Choice D and A are one step off from the actual meeting point (common off-by-one errors when reasoning about converging variables), while B assumes only j changes and ignores i's increments entirely.",
+            explanation: "C is correct. Each pass bumps `i` up by 1 and `j` down by 1. After 5 iterations, `i=5` and `j=5`. The test `5 < 5` is false and the loop exits with both equal.\nChoice A is one step off from the meeting point, a common off-by-one error.\nChoice B assumes only `j` changes and ignores that `i` also increments each pass.\nChoice D is also one step off from the meeting point in the opposite direction.",
           },
           {
             id: "2_7_q15",
@@ -9666,7 +9666,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "5 4 3 2 " },
             ],
             answer: "A",
-            explanation: "Using != as a loop condition continues until equality is reached, so the loop exits the moment the loop variable hits the target value. This style works only when the loop variable is guaranteed to reach the target — otherwise it could overshoot and loop forever. Choice A is correct: x starts at 5 and prints 5, 4, 3, 2, 1 then decrements to 0, at which point 0 != 0 is false and the loop exits. Choice B incorrectly prints 0 (the test catches x = 0 before the body runs again), C drops the first value as if the body ran after the update, and D stops too early without justification.",
+            explanation: "A is correct. The loop runs while `x != 0`. Starting at 5, it prints 5, 4, 3, 2, 1 and then `x` decrements to 0. The test `0 != 0` is false, so the loop exits.\nChoice B is wrong because the test catches `x=0` before the body can run and print 0.\nChoice C drops the initial 5 as if the body ran after the decrement.\nChoice D stops at 2 with no termination reason. The loop continues past 2 down to 1.",
           },
           {
             id: "2_7_q17",
@@ -9725,7 +9725,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "It ensures the loop condition will eventually become false, preventing an infinite loop." },
             ],
             answer: "D",
-            explanation: "Without an update inside the body (or some change to a variable used in the condition), the truth value of the condition cannot change and the loop runs forever. This is one of the most common bugs in iterative code: writing a condition that is initially true and forgetting to make any variable in it change. Choice D captures this safety role precisely: the update is what ensures progress toward termination. Choice C is dangerous advice that misses the role of the update, A confuses Java with a compiler that does not actually enforce this requirement, and B describes the for loop's update slot, which runs after the body, not before the condition check.",
+            explanation: "D is correct. Without an update inside the body, the variables in the condition never change and the loop runs forever. The update is what drives progress toward termination.\nChoice A is wrong because the Java compiler does not require an update statement. It only catches certain provable infinite loops.\nChoice B describes the for loop's update slot, which runs after the body, not before the condition check.\nChoice C is wrong because omitting the update creates an infinite loop in most cases.",
           },
           {
             id: "2_7_q21",
@@ -9800,7 +9800,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "16" },
             ],
             answer: "C",
-            explanation: "This is a product accumulator that computes i factorial: p multiplies in each value of i from 1 to 4 over the course of the loop. Each iteration replaces p with p * i, and the final p holds the cumulative product of all those values. Choice C is correct: p builds 1 * 1 * 2 * 3 * 4 = 24 = 4!. Choice A is just the loop bound (the value of i where the loop ends), B is wrong arithmetic, and D would result from squaring the final value rather than chaining all the multiplications.",
+            explanation: "C is correct. The loop is a product accumulator computing `4!`. Each pass replaces `p` with `p * i`. The product is `1 * 1 * 2 * 3 * 4 = 24`.\nChoice A is just the value of `i` at loop termination, not the accumulated product.\nChoice B comes from treating the loop as a sum, giving `1+2+3+4=10`.\nChoice D is `4 * 4`, squaring the loop bound rather than chaining all multiplications.",
           },
           {
             id: "2_7_q26",
@@ -9815,7 +9815,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "9 8 7 6 5 4 3 2 1 " },
             ],
             answer: "A",
-            explanation: "The loop iterates downward from 10 to 1 and the inner if filters using i % 3 == 0 to keep only multiples of 3. The order of output is determined by the counting direction of the loop, not by any sorting step. Choice A is correct: the multiples of 3 visited in descending order are 9, 6, 3. Choice B reverses the print order (giving the ascending sequence), C incorrectly includes 10 even though 10 % 3 = 1 fails the filter, and D ignores the divisibility filter entirely and prints every value from 9 down to 1.",
+            explanation: "A is correct. The loop counts down from 10 to 1. The inner `if (i % 3 == 0)` keeps only multiples of 3. Visiting in descending order gives 9, 6, 3.\nChoice B reverses the print order. The loop counts down, so the natural order is 9, 6, 3.\nChoice C wrongly includes 10. Since `10 % 3` equals 1, the filter rejects it.\nChoice D ignores the divisibility filter and prints every value from 9 down.",
           },
           {
             id: "2_7_q27",
@@ -9845,7 +9845,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "321" },
             ],
             answer: "B",
-            explanation: "This is the same digit-extraction pattern as the previous problem, now applied to a three-digit number: % 10 peels off the rightmost digit and / 10 advances to the next digit by dropping the one just extracted. The order of extraction is right-to-left, but addition is commutative so the sum is the same. Choice B is correct: for n = 123 the loop processes 3 (sum = 3, n = 12), 2 (sum = 5, n = 1), and 1 (sum = 6, n = 0). Choice A is just the original number, C is wrong arithmetic, and D is the digit-reversal of the original.",
+            explanation: "B is correct. The pattern extracts each digit. `n % 10` peels the rightmost digit, then `n / 10` drops it. For `n=123`, the loop adds 3 (sum=3, n=12), then 2 (sum=5, n=1), then 1 (sum=6, n=0).\nChoice A is just the original number, not the sum of its digits.\nChoice C miscounts the digit sum. The correct total is 1+2+3=6.\nChoice D is the digit-reversal of 123, not the sum of digits.",
           },
           {
             id: "2_7_q29",
@@ -9896,7 +9896,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0 1 2 3 4 5 " },
             ],
             answer: "C",
-            explanation: "A for loop with init i = 0 and condition i < 5 produces values 0, 1, 2, 3, 4 — exactly 5 iterations starting from zero. The condition uses strict less-than, so 5 is excluded from the range. Choice C is correct because all five values are printed before i = 5 fails the test. Choice B is the off-by-one error of starting at 1 (which would skip the i = 0 iteration), C incorrectly treats < as <= and includes 5, and A drops the first iteration as if printing happened after the increment rather than before.",
+            explanation: "C is correct. The loop initializes `i=0` and runs while `i < 5`. The strict `<` excludes 5. The printed values are 0, 1, 2, 3, 4 before `i=5` fails the test.\nChoice A drops the `i=0` iteration as if printing happened after the increment.\nChoice B starts at 1 instead of 0, an off-by-one on the initial value.\nChoice D treats `<` as `<=` and includes 5, which the strict condition excludes.",
           },
           {
             id: "2_8_q02",
@@ -9911,7 +9911,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0" },
             ],
             answer: "B",
-            explanation: "When i starts at 1 and the condition uses <= n, the loop runs exactly n times because both endpoints are included in the range. The loop body executes once for each value of i that passes the test. Choice B is correct: i takes 1, 2, 3, 4, 5 — five iterations total before i = 6 fails the condition. Choice A drops one iteration (off-by-one from misreading <= as <), C adds an extra iteration past the bound, and D would only apply if the condition were false initially (which it isn't since 1 <= 5).",
+            explanation: "B is correct. When `i` starts at 1 and the condition uses `<= 5`, both endpoints are included. The loop visits `i=1,2,3,4,5` for five iterations before `i=6` fails the test.\nChoice A drops one iteration, an off-by-one from misreading `<=` as `<`.\nChoice C adds an extra iteration past the bound that the condition rejects.\nChoice D would require the condition to be false on entry, but `1 <= 5` is true.",
           },
           {
             id: "2_8_q03",
@@ -9986,7 +9986,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "25" },
             ],
             answer: "A",
-            explanation: "This is a sum-of-squares accumulator: each iteration adds i squared to the running sum. The closed-form identity for sum of squares from 1 to n is n(n+1)(2n+1)/6, which gives 5 * 6 * 11 / 6 = 55 for n = 5. Choice A is correct: 1 + 4 + 9 + 16 + 25 = 55. Choice C sums i rather than i squared (giving 15), D is just the square of 5 alone, and B is wrong arithmetic that overestimates by squaring the sum rather than summing the squares.",
+            explanation: "A is correct. Each pass adds `i * i` to `sum`. The squares are 1, 4, 9, 16, 25. Adding them gives 55.\nChoice B squares the sum `15 * 15 = 225` instead of summing the squares.\nChoice C sums `i` itself, giving `1+2+3+4+5 = 15`, not the squares.\nChoice D is the square of 5 alone and ignores the other iterations.",
           },
           {
             id: "2_8_q08",
@@ -10001,7 +10001,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "10" },
             ],
             answer: "A",
-            explanation: "The product accumulator multiplies each i in 1..4 into product, computing 4 factorial. Each pass replaces product with product * i, building up the cumulative product across all iterations. Choice A is correct: 1 * 1 * 2 * 3 * 4 = 24 = 4!. Choice C is just the loop bound, D is wrong arithmetic from a misunderstanding of factorial, and B would result from squaring the final value (16) rather than carrying the running product through every multiplication.",
+            explanation: "A is correct. The accumulator multiplies each `i` from 1 to 4 into `product`, computing `4!`. The product is `1 * 1 * 2 * 3 * 4 = 24`.\nChoice B comes from `4 * 4`, squaring the final `i` instead of chaining all multiplications.\nChoice C is just the loop bound and ignores the accumulation.\nChoice D sums the values `1+2+3+4=10` instead of multiplying them.",
           },
           {
             id: "2_8_q09",
@@ -10091,7 +10091,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "7" },
             ],
             answer: "D",
-            explanation: "Multiples of 3 in the range 0 to 19 are 0, 3, 6, 9, 12, 15, 18 — counting 0 because 0 % 3 = 0 by definition. The condition i < 20 means i never reaches 20 itself, so 21 is excluded. Choice D is correct: 7 multiples of 3 in that range. Choice C forgets that 0 is divisible by 3 (the off-by-one mistake of starting the count at 3), A overcounts by 1 by including 21 erroneously, and D ignores the divisibility filter and uses the bound itself.",
+            explanation: "D is correct. The loop visits `i=0` through 19. Multiples of 3 in that range are 0, 3, 6, 9, 12, 15, 18, giving 7 values. Note that `0 % 3` equals 0, so 0 counts.\nChoice A overcounts by including 21, which the bound excludes.\nChoice B ignores the divisibility filter and counts every iteration.\nChoice C forgets that 0 is divisible by 3 and starts the count at 3.",
           },
           {
             id: "2_8_q15",
@@ -10134,7 +10134,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "for (int i = 0; i < n; i++) { sum += i; }" },
             ],
             answer: "B",
-            explanation: "To sum integers from 1 to n inclusive, start at 1 with the condition i <= n. The choice of <= versus < is critical for including the endpoint, and starting at 1 versus 0 controls whether 0 contributes (it adds nothing but is still incorrect style). Choice B is correct. Choice D starts at 0 and uses <, which misses n entirely; A uses < n which also misses n; D includes 0 unnecessarily and uses <= so it includes both extra values, making it off-by-one.",
+            explanation: "B is correct. To sum integers from 1 to `n` inclusive, the loop must start at 1 and use `<= n` to include the endpoint.\nChoice A uses `< n`, which stops before adding `n` itself.\nChoice C starts at 0, which adds a wasted 0 iteration even though `<= n` does include `n`.\nChoice D starts at 0 and uses `< n`, missing the final value `n` entirely.",
           },
           {
             id: "2_8_q18",
@@ -10238,7 +10238,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "for (int i = 2; i <= n; i += 2) { System.out.println(i); }" },
             ],
             answer: "A",
-            explanation: "Both loops produce the same output through different strategies: A filters every integer 1..n keeping only the even ones via i % 2 == 0, while B steps by 2 starting at 2 to visit only even numbers directly without any filtering. Choice A is correct because both correctly print 2, 4, 6, ..., n. Choice B uses < n rather than <= n, which excludes n itself if n is even — a subtle off-by-one error that demonstrates why boundary conditions matter.",
+            explanation: "A is correct because both C and D produce the right output. Choice C filters every integer from 1 to `n` keeping only the even values. Choice D steps by 2 starting at 2 with `<= n` to visit only evens directly.\nChoice B uses `< n` rather than `<= n`, which excludes `n` itself when `n` is even, an off-by-one boundary error.\nChoice C alone prints the right output, but choice D also works, so the best answer combines both.\nChoice D alone prints the right output, but choice C also works, so the best answer combines both.",
           },
           {
             id: "2_8_q25",
@@ -10363,7 +10363,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "4" },
             ],
             answer: "B",
-            explanation: "The condition val > 5 is strict, so values equal to 5 are excluded from the count. This distinction between > and >= is a frequent source of bugs in counting algorithms — the boundary case is easy to miscategorize. Choice B is correct: in {5, 3, 8, 1, 9, 2} only 8 and 9 exceed 5 strictly, giving count = 2. Choice C is the off-by-one error of treating > as >= and including the 5, C counts elements at or above 5 (including 5 itself), and A is the array length rather than the match count.",
+            explanation: "B is correct. The condition `val > 5` is strict, so 5 itself is excluded. In `{5, 3, 8, 1, 9, 2}`, only 8 and 9 exceed 5 strictly, giving `count = 2`.\nChoice A is the array length, not the count of matches.\nChoice C is the off-by-one error from treating `>` as `>=` and including the 5.\nChoice D would require including additional values that the strict comparison rejects.",
           },
           {
             id: "2_9_q03",
@@ -10480,7 +10480,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "int max = 0;" },
             ],
             answer: "A",
-            explanation: "Initializing max to arr[0] guarantees the algorithm works for any array contents, including arrays of all negative numbers. Using a generic sentinel like 0 fails when no element exceeds 0, because max would remain at 0 even though no element actually equals 0. Choice A is correct. Choice D fails when all values are negative (max stays at 0 incorrectly), B is for finding minimums (where you start huge and shrink), and D conflates array size with element value.",
+            explanation: "A is correct. Initializing `max = arr[0]` guarantees the value comes from the array itself, so the algorithm works even when every element is negative.\nChoice B starts at `Integer.MAX_VALUE`, which is the standard initializer for finding a minimum, not a maximum.\nChoice C uses the array size as a value, conflating length with element content.\nChoice D fails when every element is negative. `max` would stay at 0, which is not in the array.",
           },
           {
             id: "2_9_q11",
@@ -10539,7 +10539,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Searches only the first and last elements of an array." },
             ],
             answer: "B",
-            explanation: "Sequential (linear) search walks through the array in order, checking each element until it finds the target or reaches the end of the array. It works on unsorted data and runs in O(n) time in the worst case. Choice B captures this. Choice D is wrong (only endpoints would miss most of the array), A describes binary search (which is logarithmic), and C is a precondition for binary search rather than sequential — sequential search works on any array.",
+            explanation: "B is correct. Sequential search walks through the array in order, checking one element at a time until it finds the target or reaches the end. It works on unsorted data.\nChoice A describes binary search, which divides the array in half each pass.\nChoice C is a precondition for binary search. Sequential search works on any array, sorted or not.\nChoice D would miss most of the array. Only checking the endpoints is not a search algorithm.",
           },
           {
             id: "2_9_q15",
@@ -10613,7 +10613,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The loop will run forever." },
             ],
             answer: "C",
-            explanation: "Initializing max to 0 fails when the array contains only negative values, because no element will be greater than 0 and max will incorrectly remain at 0 — even though 0 is not actually in the array. The correct fix is to initialize max to arr[0], guaranteeing max is always a real element. Choice C captures this important edge case. Choice B is wrong (the code compiles fine), D is unrelated, and D ignores the failure mode on all-negative input.",
+            explanation: "C is correct. Starting `max` at 0 fails when every element is negative. No value can beat 0, so `max` stays at 0 even though 0 is not in the array. The fix is to use `arr[0]` as the initial value.\nChoice A is wrong because the all-negative case proves 0 is not always safe.\nChoice B is wrong because the code compiles cleanly.\nChoice D is wrong because the loop terminates normally. The bug is a wrong value, not an infinite loop.",
           },
           {
             id: "2_9_q20",
@@ -10642,7 +10642,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "System.out.println(arr[1]);" },
             ],
             answer: "B",
-            explanation: "Finding the second occurrence requires counting matches and saving the index only when the count reaches 2. A simple boolean flag is not enough — you need an integer counter to distinguish the first match from later matches. Choice B is correct because it increments count on each match and assigns idx only when count == 2. Choice A only checks if exactly two occurrences exist, C uses break on the first match (finding the first occurrence, not the second), and D returns a fixed index unrelated to the search.",
+            explanation: "B is correct. Finding the second match needs both a counter and an index variable. The code bumps `count` on each match and saves `idx = i` only when `count == 2`.\nChoice A checks whether exactly two matches exist but does not record the index.\nChoice C uses `break` on the first match, so it stops at occurrence 1 instead of 2.\nChoice D prints a fixed index unrelated to where the value 3 occurs.",
           },
           {
             id: "2_9_q22",
@@ -10872,7 +10872,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "6" },
             ],
             answer: "B",
-            explanation: "Length is 7, so length/2 = 3 (integer division). Loop runs for i=0,1,2 — only three iterations, NOT all 7. Each iteration compares charAt(i) with charAt(6-i). i=0: 'r' vs charAt(6)='r' — match, count=1. i=1: 'a' vs charAt(5)='a' — match, count=2. i=2: 'c' vs charAt(4)='c' — match, count=3. Final count=3. Choice A (7) confuses iteration count with string length. Choice C (4) miscounts; index 3 ('e') is never visited. Choice D (6) doubles the count. The trap is iterating length times instead of length/2.",
+            explanation: "B is correct. Length is 7, so `length/2` is 3 by integer division. The loop runs for `i=0,1,2`. At `i=0`, `'r'` matches `charAt(6)='r'`. At `i=1`, `'a'` matches `charAt(5)='a'`. At `i=2`, `'c'` matches `charAt(4)='c'`. Count ends at 3.\nChoice A confuses iteration count with the full string length.\nChoice C miscounts by adding the middle index 3 (`'e'`), which the loop never visits.\nChoice D doubles the count by treating both halves as separate matches.",
           },
           {
             id: "2_10_q07",
@@ -10917,7 +10917,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "ll" },
             ],
             answer: "C",
-            explanation: "Building a new string while skipping a target character is the standard remove-all-occurrences pattern: iterate every character, append it to the result if it does not match the target, and skip otherwise. Choice C is correct: keeping all characters of \"hello\" except 'l' yields \"heo\" — the two l's are filtered out. Choice B keeps everything (no filtering), C inverts the filter to keep only the 'l' characters, and D mistakenly keeps one 'l' rather than dropping both.",
+            explanation: "C is correct. The loop appends each character that is not `'l'`. From `\"hello\"`, the kept characters are `'h'`, `'e'`, `'o'`, giving `\"heo\"`. Both `'l'` characters are filtered out.\nChoice A drops only one `'l'` instead of both, an off-by-one filter error.\nChoice B is the original string with no filtering applied.\nChoice D inverts the filter and keeps only the `'l'` characters.",
           },
           {
             id: "2_10_q10",
@@ -10947,7 +10947,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "acebdf" },
             ],
             answer: "A",
-            explanation: "Even indices append to the back, odd indices prepend to the front. Trace s=\"abcdef\". i=0 (even): result = \"\" + 'a' = \"a\". i=1 (odd): result = 'b' + \"a\" = \"ba\". i=2 (even): result = \"ba\" + 'c' = \"bac\". i=3 (odd): result = 'd' + \"bac\" = \"dbac\". i=4 (even): result = \"dbac\" + 'e' = \"dbace\". i=5 (odd): result = 'f' + \"dbace\" = \"fdbace\". Output: fdbace. Choice B (abcdef) ignores the prepend branch. Choice C (fedcba) is the full reverse, assuming every char prepends. Choice D (acebdf) splits even-then-odd indices but keeps both in forward order.",
+            explanation: "A is correct. Even indices append. Odd indices prepend. Trace: `i=0` gives `\"a\"`. `i=1` gives `\"ba\"`. `i=2` gives `\"bac\"`. `i=3` gives `\"dbac\"`. `i=4` gives `\"dbace\"`. `i=5` gives `\"fdbace\"`.\nChoice B is the original string, ignoring the prepend branch entirely.\nChoice C is the full reverse, treating every character as a prepend instead of alternating.\nChoice D splits even and odd indices but keeps both groups in forward order.",
           },
           {
             id: "2_10_q12",
@@ -11096,7 +11096,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "for (int i = s.length(); i >= 0; i--) { rev += s.charAt(i); }" },
             ],
             answer: "B",
-            explanation: "Reversing a string iterates from the last valid index (length - 1) down to 0, appending each character to a result string. The endpoint matters: starting at length itself would access an invalid index. Choice B is correct because it starts at s.length() - 1, uses i >= 0, and decrements. Choice A copies forward without reversing, C uses i-- with i starting at 0 (which would go negative and throw at index -1), and D starts at s.length() which is one past the last valid index and throws StringIndexOutOfBoundsException.",
+            explanation: "B is correct. To reverse, the loop starts at `s.length() - 1` (the last valid index) and decrements to 0, appending each character. This visits indices from end to start.\nChoice A copies forward without reversing, so `rev` equals `s`.\nChoice C uses `i--` with `i` starting at 0, immediately going negative and throwing `StringIndexOutOfBoundsException`.\nChoice D starts at `s.length()`, one past the last valid index, and throws on the first `charAt` call.",
           },
           {
             id: "2_10_q22",
@@ -11267,7 +11267,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "11 21 31 12 22 32 " },
             ],
             answer: "A",
-            explanation: "When both loop variables appear in the output, every (i, j) combination is produced exactly once in row-major order — the inner loop completes a full pass for each outer value before the outer advances. This is how nested loops naturally produce a grid pattern. Choice A is correct: for each outer i in 1..3, the inner j in 1..2 produces the pair ij, yielding 11 12 21 22 31 32. Choice B mixes the values wrong, C ignores j entirely, and D reverses the nesting order.",
+            explanation: "A is correct. The inner loop completes a full pass for each outer value. For `i=1`, the inner prints `11 12`. For `i=2`, it prints `21 22`. For `i=3`, it prints `31 32`. Output is `11 12 21 22 31 32`.\nChoice B prints only the case where `j=2`, dropping the `j=1` step in each row.\nChoice C ignores `j` entirely and only prints `i`.\nChoice D reverses the nesting order, treating `j` as the outer loop instead of `i`.",
           },
           {
             id: "2_11_q03",
@@ -13011,7 +13011,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Software failures can cause significant economic losses for businesses, individuals, and governments" },
             ],
             answer: "D",
-            explanation: "Software failures can cause major economic losses across many industries, not just finance: think of airline systems, retail outages, hospital billing, or supply-chain platforms. Option D captures this breadth. Option C wrongly denies any economic consequence, option C limits the concern artificially to financial software, and option D ties economic impact to commercial sales only, ignoring losses caused by free or internal systems.",
+            explanation: "D is correct. Software failures cause major economic losses across many industries. Examples include airline outages, retail downtime, hospital billing errors, and supply-chain crashes.\nChoice A is wrong because non-financial software (airlines, hospitals, logistics) also causes major losses on failure.\nChoice B is wrong because free or internal software still causes losses when it fails.\nChoice C is wrong because digital products absolutely cause real economic damage when they fail.",
           },
         ],
       },
@@ -13094,7 +13094,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "public, so they can be easily accessed from other classes" },
             ],
             answer: "A",
-            explanation: "Best practice for a well-designed Java class is to declare instance variables `private` so outside code cannot manipulate the data directly, with access funneled through public methods. Option A states this. Option D breaks encapsulation, option B confuses instance state with class-level shared state, and option C would make data act like global variables, which makes invariants impossible to maintain.",
+            explanation: "A is correct. Best practice is to declare instance variables `private` so outside code cannot mutate fields directly. Access is funneled through public methods.\nChoice B is wrong because `static` would make the field class-wide, losing per-object state.\nChoice C is wrong because `public static` makes data act like a global variable, breaking encapsulation.\nChoice D is wrong because `public` instance fields let any class change state with no validation.",
           },
           {
             id: "3_3_q06",
@@ -13108,7 +13108,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "public" },
             ],
             answer: "D",
-            explanation: "Constructors are typically `public` so that other classes can instantiate the class with `new ClassName(...)`. Option D captures this convention. Option B (`private`) would prevent outside instantiation entirely (used only for special patterns like singletons or factory methods), option B (`static`) is not valid on constructors, and option D (`void`) makes the constructor look like a method instead, which means it never runs as a constructor.",
+            explanation: "D is correct. Constructors are typically `public` so other classes can instantiate the class with `new ClassName(...)`.\nChoice A is wrong because `void` makes the declaration a regular method, not a constructor.\nChoice B is wrong because `private` blocks outside instantiation and is reserved for special patterns like singletons.\nChoice C is wrong because `static` is not a legal modifier on a constructor.",
           },
           {
             id: "3_3_q07",
@@ -13123,7 +13123,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "public int getWidth() { return width; }" },
             ],
             answer: "C",
-            explanation: "An instance variable is declared at the class level, outside of any constructor or method, using the pattern `accessModifier type name;`. `private int width;` in the `Rectangle` class matches that pattern, making option B correct. Option B is the class header, option D is a method definition, and option A is a return statement inside a method body, none of which declare an instance variable.",
+            explanation: "C is correct. An instance variable is declared at the class level using `accessModifier type name;`. `private int width;` matches this pattern in the `Rectangle` class body.\nChoice A is wrong because `return width;` is a statement inside a method body, not a declaration.\nChoice B is wrong because `public class Rectangle {` is the class header.\nChoice D is wrong because `public int getWidth() { return width; }` is a method definition.",
           },
           {
             id: "3_3_q08",
@@ -13137,7 +13137,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "It protects the object's data from being changed directly by outside code, supporting encapsulation" },
             ],
             answer: "D",
-            explanation: "Declaring instance variables `private` enforces encapsulation: it prevents outside code from changing the field directly and forces interaction through public methods that can validate inputs and maintain invariants. Option D captures this. Option B (performance) is wrong because access modifiers do not affect speed, option C is wrong because the class's own methods can still use private fields, and option A confuses access with initialization.",
+            explanation: "D is correct. Declaring instance variables `private` enforces encapsulation by blocking direct outside access. Callers must go through public methods that can validate input.\nChoice A is wrong because access modifiers do not affect default initialization. Fields default to 0 regardless.\nChoice B is wrong because `private` does not affect JVM execution speed.\nChoice C is wrong because the class's own methods can still freely read and write `private` fields.",
           },
           {
             id: "3_3_q09",
@@ -13166,7 +13166,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A public method cannot return a value" },
             ],
             answer: "C",
-            explanation: "A `public` method can be called from anywhere but, since it belongs to its class, it still has full access to its own class's `private` fields. Option C captures this. Option B reverses the rule, option C invents a constraint on return values (public methods can return any type), and option D conflates accessibility with the `static` keyword, which is about storage rather than visibility.",
+            explanation: "C is correct. A `public` method belongs to its class and has full access to its own class's `private` fields.\nChoice A is wrong because `public` methods do not need to be `static`. The two modifiers are independent.\nChoice B is wrong because `public` methods can be called from anywhere, not just inside the class.\nChoice D is wrong because `public` methods can return any type including `int`, `String`, or any object.",
           },
           {
             id: "3_3_q11",
@@ -13195,7 +13195,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "null" },
             ],
             answer: "C",
-            explanation: "The constructor initializes the private `name` field to `\"Alice\"`. Calling `p.setName(\"Bob\")` then overwrites `name` with `\"Bob\"`, and `getName()` returns the current value, so the output is `\"Bob\"`, matching option B. Option B would be right only if the setter never ran, and option D would require the field to be uninitialized, but the constructor explicitly assigned a value, so `name` is never null at the time of printing. The private modifier does not block the class's own setter from mutating the field.",
+            explanation: "C is correct. The constructor sets `name` to `\"Alice\"`. Then `p.setName(\"Bob\")` reassigns `name` to `\"Bob\"`. `getName()` returns the current value `\"Bob\"`.\nChoice A is wrong because the class compiles cleanly. The `private` modifier does not block the class's own setter from writing the field.\nChoice B is wrong because the setter overwrote `\"Alice\"` before the println ran.\nChoice D is wrong because the constructor explicitly assigned a value, so `name` was never null.",
           },
           {
             id: "3_3_q13",
@@ -13209,7 +13209,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Use the same method name in two different classes" },
             ],
             answer: "A",
-            explanation: "Encapsulation gives the programmer control over how an object's data is accessed and modified by exposing only carefully chosen public methods. Option A captures this. Option D (method-name reuse across classes) is allowed in Java but unrelated to encapsulation, option C (creating objects without constructors) is impossible in standard Java, and option D (combining classes into one file) is unrelated to data hiding.",
+            explanation: "A is correct. Encapsulation gives the programmer control over how an object's data is accessed and modified. Only chosen public methods are exposed.\nChoice B is wrong because Java always requires a constructor to create an object. There is no way to bypass that.\nChoice C is wrong because combining classes into a single file is unrelated to encapsulation.\nChoice D is wrong because reusing method names across classes is allowed but has nothing to do with data hiding.",
           },
           {
             id: "3_3_q14",
@@ -13223,7 +13223,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Any class in the same folder" },
             ],
             answer: "A",
-            explanation: "A `private` method has scope limited to its own class, meaning only other methods within the same class can call it. Option A captures this. Option C (same file) is wrong because Java scoping is by class, not file, option B (same folder) is wrong because Java uses packages rather than directories for default access, and option B would require `protected` access (not on the 2025-26 exam anyway).",
+            explanation: "A is correct. A `private` method is scoped to its own class. Only other methods within that same class can call it.\nChoice B is wrong because subclasses cannot access a `private` member of the parent class.\nChoice C is wrong because Java scoping is by class, not by file. Multiple classes in one file do not share `private` access.\nChoice D is wrong because folders are not part of Java's access model. Packages, not directories, control default access.",
           },
           {
             id: "3_3_q15",
@@ -13238,7 +13238,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A NullPointerException is thrown" },
             ],
             answer: "C",
-            explanation: "Because `balance` is declared `private` in `Account`, the `Bank` class cannot access `a.balance` directly. This is a compile-time error, making option C correct. Option A would require `balance` to be public or accessed through a getter, option B is wrong because the field was actually set to 500.0 by the constructor, and option D mistakes a compile-time access violation for a runtime null reference.",
+            explanation: "C is correct. `balance` is `private` in `Account`, so the `Bank` class cannot access `a.balance` directly. This produces a compile-time error at the println.\nChoice A is wrong because `balance` would need to be public or accessed through a getter to print 500.0.\nChoice B is wrong because the constructor actually set `balance` to 500.0. The compiler still rejects the access.\nChoice D is wrong because this is a compile-time access violation, not a runtime null reference.",
           },
           {
             id: "3_3_q16",
@@ -13252,7 +13252,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The programmer plans to delete the method later" },
             ],
             answer: "B",
-            explanation: "Helper methods used only within a class should be `private` so they remain implementation details and are not part of the class's public contract. Option B captures this design rationale. Option A (speed) is incorrect because access modifiers do not change execution speed, option C invents a false access rule, and option D conflates a design choice (private scope) with planned deletion, which is unrelated.",
+            explanation: "B is correct. Helper methods used only inside a class should be `private` so they stay implementation details. They are not part of the class's public contract.\nChoice A is wrong because access modifiers do not change execution speed.\nChoice C is wrong because both `private` and `public` methods can access `static` variables of the same class.\nChoice D is wrong because making a method `private` has nothing to do with planned deletion.",
           },
           {
             id: "3_3_q17",
@@ -13266,7 +13266,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A Java interface keyword that the class must implement" },
             ],
             answer: "A",
-            explanation: "A class's public interface consists of the public methods and constructors that outside code can use to interact with it, forming a stable contract between the class and its callers. Option A states this. Option D confuses the term with the Java `interface` keyword (a separate construct), option B confuses the term API with the unrelated concept of a graphical user interface, and option D refers to private fields, which are deliberately hidden and therefore not part of the public interface.",
+            explanation: "A is correct. A class's public interface is the set of public methods and constructors that outside code uses to interact with the class. It is the contract callers depend on.\nChoice B is wrong because the public interface has nothing to do with a graphical user interface.\nChoice C is wrong because `private` fields are deliberately hidden and are not part of the public interface.\nChoice D is wrong because this term is unrelated to the Java `interface` keyword construct.",
           },
           {
             id: "3_3_q18",
@@ -13281,7 +13281,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "72.0" },
             ],
             answer: "A",
-            explanation: "The constructor sets the private `degrees` field to 72.0. Then `setDegrees(98.6)` overwrites `degrees` with 98.6, and `getDegrees()` returns the current value, so the output is 98.6, matching option B. Option D would be right only if the setter were never called, and option C (0.0) would require an uninitialized field, but the constructor explicitly assigned 72.0 before the setter ran, so the field is always set before the accessor reports its value.",
+            explanation: "A is correct. The constructor sets `degrees` to 72.0. Then `setDegrees(98.6)` reassigns `degrees` to 98.6. `getDegrees()` returns the current value 98.6.\nChoice B is wrong because the constructor explicitly assigned 72.0 before the setter ran. The field was never at its default.\nChoice C is wrong because the class compiles cleanly. The class's own setter can mutate its `private` field.\nChoice D is wrong because the setter overwrote 72.0 before the println ran.",
           },
           {
             id: "3_3_q19",
@@ -13296,7 +13296,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Car(String m, int y)" },
             ],
             answer: "B",
-            explanation: "An accessor (getter) returns the value of a private instance variable without modifying any state, typically taking no parameters and declaring a non-void return type that matches the field's type. `getModel()` returns `model` and matches this pattern, so option B is correct. Option A (`setYear`) is a mutator because it changes the field's value, option D is the constructor used to initialize a new object, and option C is a field declaration rather than a method.",
+            explanation: "B is correct. An accessor returns the value of a `private` field without modifying state. `getModel()` returns `model` and takes no parameters, matching the getter pattern.\nChoice A is wrong because `setYear(int y)` modifies the field, making it a mutator, not an accessor.\nChoice C is wrong because `private String model;` is a field declaration, not a method.\nChoice D is wrong because `Car(String m, int y)` is the constructor that initializes a new object.",
           },
           {
             id: "3_3_q20",
@@ -13310,7 +13310,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "It is always declared private" },
             ],
             answer: "B",
-            explanation: "A mutator (setter) modifies the value of an instance variable, normally taking a single parameter holding the new value and returning `void`. Option B captures this. Option A describes an accessor (getter), option C describes a constructor, and option D would conflict with normal mutator design because mutators are typically declared public so other classes can update the data through controlled methods that can validate input.",
+            explanation: "B is correct. A mutator (setter) modifies an instance variable and typically returns `void`. It takes a single parameter holding the new value.\nChoice A is wrong because returning the value of an instance variable describes an accessor, not a mutator.\nChoice C is wrong because creating a new object of the class describes a constructor.\nChoice D is wrong because mutators are typically `public` so other classes can update data through a validated method.",
           },
           {
             id: "3_3_q21",
@@ -13324,7 +13324,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The fields take up more memory because they are public" },
             ],
             answer: "C",
-            explanation: "If a class exposes its fields directly as `public`, any code anywhere in the program can set those fields to invalid values, bypassing any validation logic that a setter would normally enforce. Option C captures this design flaw. Option B is false because public fields do not prevent reuse in other programs, option D is false because access modifiers do not affect memory, and option A is wrong because the class still compiles fine.",
+            explanation: "C is correct. Public fields let any code in the program assign any value directly. There is no opportunity to validate input or maintain invariants.\nChoice A is wrong because the class still compiles. Public fields are legal Java, just poor design.\nChoice B is wrong because public fields do not prevent reuse in other programs.\nChoice D is wrong because access modifiers do not change how much memory a field uses.",
           },
           {
             id: "3_3_q22",
@@ -13339,7 +13339,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "15" },
             ],
             answer: "A",
-            explanation: "The private `dollars` field starts at 20 after the constructor runs. `addDollars(15)` then runs `dollars += amount`, which is shorthand for `dollars = dollars + amount`, raising the field to 35. `getDollars()` returns 35, so the output matches option C. Option C would require the mutator never to be called, and option D would print the parameter value rather than the updated field. The mutator correctly modifies the encapsulated field through its public method.",
+            explanation: "A is correct. The constructor sets `dollars` to 20. `addDollars(15)` runs `dollars += amount`, which adds 15 to give 35. `getDollars()` returns 35.\nChoice B is wrong because the code runs cleanly with no exceptions.\nChoice C is wrong because the mutator ran and updated the field. The starting value was overwritten.\nChoice D is wrong because the mutator adds the parameter to the field rather than printing the parameter alone.",
           },
           {
             id: "3_3_q23",
@@ -13367,7 +13367,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Constructors must be declared private to enforce encapsulation" },
             ],
             answer: "C",
-            explanation: "By convention, instance variables are private to enforce encapsulation, while constructors and key methods are public to provide a usable interface for other classes. Option C captures this typical layout. Option A would expose all internals, option B would prevent any external access entirely, and option D would make construction impossible from outside the class, breaking standard object-creation patterns.",
+            explanation: "C is correct. By convention, instance variables are `private` to enforce encapsulation. Constructors and key methods are `public` to provide a usable interface.\nChoice A is wrong because making all members `public` exposes internals and breaks encapsulation.\nChoice B is wrong because making all members `private` blocks any outside use of the class entirely.\nChoice D is wrong because `private` constructors prevent outside instantiation, breaking standard object creation.",
           },
           {
             id: "3_3_q25",
@@ -13382,7 +13382,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "5" },
             ],
             answer: "B",
-            explanation: "The private `points` field starts at 0 after the no-arg constructor explicitly assigns zero. `addPoints(10)` uses `points += p` to raise it to 10, and `addPoints(5)` raises it further to 15. `getPoints()` then returns 15, so option B is correct. Option A would be right only if just the first mutator call were made, and option D confuses the accumulated field with the most recent argument passed, which is not how the compound assignment operator works.",
+            explanation: "B is correct. The no-arg constructor sets `points` to 0. `addPoints(10)` raises it to 10. `addPoints(5)` raises it to 15. `getPoints()` returns 15.\nChoice A is wrong because only the first call would leave `points` at 10. The second call also runs.\nChoice C is wrong because the constructor sets the field to 0 and then both add calls increment it.\nChoice D is wrong because `+=` accumulates rather than overwriting with the most recent argument.",
           },
           {
             id: "3_3_q26",
@@ -13424,7 +13424,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "private — accessible only from within Foo" },
             ],
             answer: "A",
-            explanation: "When no access modifier appears on a class, Java uses package-private (default) access, meaning the class is accessible only within the same package. Option A captures this. Option C would require an explicit `public`, option B (`private`) is not allowed on top-level classes, and option B is wrong because the declaration compiles fine in default access (just with reduced visibility outside the package).",
+            explanation: "A is correct. When no access modifier appears on a class, Java uses package-private (default) access. The class is accessible only within the same package.\nChoice B is wrong because the declaration compiles fine. Package-private is the implicit default.\nChoice C is wrong because `public` access requires the explicit `public` keyword.\nChoice D is wrong because `private` is not allowed on top-level classes.",
           },
           {
             id: "3_3_q29",
@@ -13438,7 +13438,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "There are no instance variables — all data is in static variables" },
             ],
             answer: "C",
-            explanation: "A well-encapsulated class keeps its instance variables `private` and exposes controlled interaction through public methods. Option C captures this. Option B makes the data fully exposed (the opposite of encapsulation), option C wrongly equates encapsulation with using only `static` data (which actually loses per-object state), and option D omits the constructor, which is essential for creating valid initial state.",
+            explanation: "C is correct. A well-encapsulated class keeps its instance variables `private` and exposes controlled interaction through public methods.\nChoice A is wrong because every class needs at least an implicit constructor. Lacking one would not be encapsulation.\nChoice B is wrong because making all members `public` exposes internals, which is the opposite of encapsulation.\nChoice D is wrong because encapsulation uses per-object `private` fields, not class-wide `static` data.",
           },
           {
             id: "3_3_q30",
@@ -13453,7 +13453,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0" },
             ],
             answer: "C",
-            explanation: "After `new Timer(5)` runs, the private `seconds` field is 5. Each `tick()` call executes `seconds--`, which decrements by one. Three calls take the field through 5, then 4, then 3, then finally 2. `getSeconds()` returns 2, so option C is correct. Option A would be right only if no `tick()` calls ran, option B (3) would result from only two ticks, and option D would require five decrements rather than the three actually performed.",
+            explanation: "C is correct. The constructor sets `seconds` to 5. Three `tick()` calls run `seconds--` each time, taking the field through 4, then 3, then 2. `getSeconds()` returns 2.\nChoice A is wrong because that would require zero `tick()` calls. Three actually ran.\nChoice B is wrong because only two `tick()` calls would leave `seconds` at 3.\nChoice D is wrong because reaching 0 would require five decrements, not three.",
           },
         ],
       },
@@ -13489,7 +13489,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "It must be different from the class name to avoid confusion" },
             ],
             answer: "C",
-            explanation: "A constructor's name must match the class's name exactly, including capitalization; otherwise it is parsed as a regular method (and likely flagged as an error if it has no return type). Option C captures this rule. Option A reverses Java's class-naming convention, option B invents a keyword that does not exist, and option D would prevent the construct from being recognized as a constructor at all.",
+            explanation: "C is correct. A constructor's name must match the class name exactly, including capitalization. Otherwise Java parses the declaration as a regular method.\nChoice A is wrong because Java's class-naming convention starts with an uppercase letter, not lowercase.\nChoice B is wrong because `constructor` is not a Java keyword. The name must match the class.\nChoice D is wrong because differing from the class name would prevent Java from recognizing it as a constructor.",
           },
           {
             id: "3_4_q03",
@@ -13503,7 +13503,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "public Planet(String name) { this.name = name; }" },
             ],
             answer: "D",
-            explanation: "A valid constructor uses `public`, has exactly the class's name (case-sensitive), and has no return type. Option D, `public Planet(String name)`, satisfies all three. Option B adds `void` (making it a method, not a constructor), option C uses `planet` instead of `Planet` (wrong capitalization), and option A adds a return type `int` along with `return 0;`, which also disqualifies it from being a constructor.",
+            explanation: "D is correct. `public Planet(String name)` uses `public`, matches the class name exactly, and has no return type. That is the complete constructor pattern.\nChoice A is wrong because `int` is a return type, making it a method instead of a constructor.\nChoice B is wrong because `void` is a return type, making it a method instead of a constructor.\nChoice C is wrong because `planet` is lowercase and does not match the class name `Planet`.",
           },
           {
             id: "3_4_q04",
@@ -13517,7 +13517,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Only when the program starts" },
             ],
             answer: "A",
-            explanation: "A constructor runs exactly once per object, immediately after `new ClassName(...)` allocates memory for the new object, in order to initialize its instance variables. Option A captures this. Option C confuses constructors with arbitrary method calls, option B applies only to a `main` method (and even then it does not re-run), and option D invents an automatic timed behavior that Java does not have.",
+            explanation: "A is correct. A constructor runs exactly once per object, immediately after `new ClassName(...)` allocates memory. Its job is to initialize fields.\nChoice B is wrong because Java does not automatically re-run constructors on a timer.\nChoice C is wrong because regular method calls do not trigger the constructor.\nChoice D is wrong because constructors run whenever objects are created, not only at program start.",
           },
           {
             id: "3_4_q05",
@@ -13560,7 +13560,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A constructor that overrides the parent class's constructor" },
             ],
             answer: "C",
-            explanation: "Constructor overloading means defining more than one constructor in the same class, each with a different parameter list (different number or types of parameters). Option C captures this. Option B describes constructor chaining (`this(...)`), option D describes overriding a parent constructor (inheritance, outside the 2025-26 exam scope), and option A describes recursion, which is not how overloading works.",
+            explanation: "C is correct. Constructor overloading means defining more than one constructor in the same class. Each one must have a different parameter list.\nChoice A is wrong because a constructor calling itself recursively describes recursion, not overloading.\nChoice B is wrong because calling another class's constructor describes a different (unrelated) concept.\nChoice D is wrong because parent class constructor overriding is outside the 2025-26 exam scope.",
           },
           {
             id: "3_4_q08",
@@ -13575,7 +13575,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0" },
             ],
             answer: "C",
-            explanation: "Java matches a constructor call to the overload whose parameter list matches the arguments. `new Dog()` provides no arguments, so it matches the no-arg constructor `public Dog()`, which sets `name = \"Unknown\"` and `age = 0`. `getName()` then returns the current `name`, so the output is `\"Unknown\"`, matching option B. Option B would result from leaving the reference field uninitialized, but the constructor explicitly assigned a value, and option D confuses the two fields by printing age.",
+            explanation: "C is correct. `new Dog()` passes no arguments, so Java picks the matching `public Dog()` overload. That constructor sets `name` to `\"Unknown\"`. `getName()` returns `\"Unknown\"`.\nChoice A is wrong because the class compiles cleanly and the call resolves to the no-arg constructor.\nChoice B is wrong because the constructor explicitly assigned `\"Unknown\"` to `name`. The field was never null.\nChoice D is wrong because the print calls `getName()`, which returns the name field, not the age field.",
           },
           {
             id: "3_4_q09",
@@ -13590,7 +13590,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Buddy" },
             ],
             answer: "D",
-            explanation: "Java selects the overload whose parameter list matches the call's arguments. `new Dog(\"Buddy\", 3)` provides a `String` and an `int`, matching `public Dog(String n, int a)`, so `name` becomes `\"Buddy\"` and `age` becomes 3. `getName()` returns `\"Buddy\"`, matching option C. Option B would require the no-arg constructor to run instead, which only happens when no arguments are passed.",
+            explanation: "D is correct. `new Dog(\"Buddy\", 3)` passes a `String` and an `int`, matching `public Dog(String n, int a)`. That sets `name` to `\"Buddy\"`. `getName()` returns `\"Buddy\"`.\nChoice A is wrong because the class compiles cleanly with both overloads.\nChoice B is wrong because the no-arg constructor only runs when no arguments are passed.\nChoice C is wrong because the two-arg constructor explicitly assigned a value to `name`.",
           },
           {
             id: "3_4_q10",
@@ -13604,7 +13604,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "No — a runtime error occurs" },
             ],
             answer: "C",
-            explanation: "Once any constructor is defined, Java stops providing the implicit no-arg constructor. With only `public MyClass(int x)` defined, the call `new MyClass()` has no matching constructor, so the compiler rejects it. Option C captures this. Option A is the common misconception about default constructors, and option B invents an automatic argument substitution that Java does not perform for missing constructor arguments.",
+            explanation: "C is correct. Once any constructor is defined, Java no longer provides the implicit no-arg constructor. `new MyClass()` has no matching constructor and fails at compile time.\nChoice A is wrong because Java only provides a default constructor when the class declares none.\nChoice B is wrong because Java does not substitute default values for missing constructor arguments.\nChoice D is wrong because this failure is detected at compile time, not at runtime.",
           },
           {
             id: "3_4_q11",
@@ -13633,7 +13633,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "null null" },
             ],
             answer: "B",
-            explanation: "`new Point()` calls the no-arg constructor, which uses `this(0, 0)` to chain to `public Point(int x, int y)`, setting `x = 0` and `y = 0`. Then `p.getX()` returns 0 and `p.getY()` returns 0, and `+ \" \" +` between them produces the string `\"0 0\"`. Option B captures this. Option A would require a compile error, but constructor chaining via `this(...)` as the first statement of another constructor is fully valid Java and the standard way to share initialization logic.",
+            explanation: "B is correct. `new Point()` calls the no-arg constructor, which uses `this(0, 0)` to chain to the two-arg constructor. That sets `x` to 0 and `y` to 0. The print produces `0 0`.\nChoice A is wrong because `this(...)` as the first statement of a constructor is fully valid Java.\nChoice C is wrong because Java evaluates expressions to their values rather than printing variable names.\nChoice D is wrong because the chained constructor explicitly assigned 0 to both fields.",
           },
           {
             id: "3_4_q13",
@@ -13647,7 +13647,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "public Animal(String name) { this.name = name; }" },
             ],
             answer: "B",
-            explanation: "A constructor must have no declared return type at all. Putting `void` before `Animal` in the declaration converts it from a constructor into a regular method that happens to share the class name. The method may compile but is never invoked by `new`, which is the trap option C exploits. Options A, B, and C are all valid constructor declarations with proper signatures and no return type, so they all compile and behave as actual constructors that run when objects are created with `new`.",
+            explanation: "B is correct. A constructor must have no declared return type. Putting `void` before `Animal` converts the declaration into a regular method that shares the class name, not a constructor.\nChoice A is wrong because `public Animal()` is a valid no-arg constructor declaration.\nChoice C is wrong because `public Animal(String name, int age)` is a valid two-parameter constructor.\nChoice D is wrong because `public Animal(String name)` is a valid one-parameter constructor.",
           },
           {
             id: "3_4_q14",
@@ -13662,7 +13662,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "7" },
             ],
             answer: "D",
-            explanation: "The constructor `public Counter(int start)` accepts a starting value, so `new Counter(5)` sets the private `count` field to 5. Each `increment()` call then runs `count++`, so two calls take `count` from 5 to 6, then to 7. `getCount()` returns 7, matching option C. Option A would be right only if the constructor set `count = 0` (it instead uses the parameter value), and option B would require neither increment call to occur, which the code clearly does.",
+            explanation: "D is correct. `new Counter(5)` sets `count` to 5. Two `increment()` calls each run `count++`, raising the field to 6 then to 7. `getCount()` returns 7.\nChoice A is wrong because reaching 2 would require starting at 0, but the constructor set `count` to 5.\nChoice B is wrong because no increment calls would leave `count` at 5. Two calls actually ran.\nChoice C is wrong because only one `increment()` call would leave `count` at 6. Two calls ran.",
           },
           {
             id: "3_4_q15",
@@ -13676,7 +13676,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "public class Car { public Car() {} public Car(String color) { this.color = color; } }" },
             ],
             answer: "D",
-            explanation: "Constructor overloading requires the constructors to share the class's name but have distinct parameter lists. Option D does this: a no-arg constructor plus a one-`String` constructor. Option C has two identical signatures (illegal duplicates), option A adds `void` to one (making it a method), and option D repeats the same `(int year)` signature, which is a duplicate-definition compile error.",
+            explanation: "D is correct. Two constructors must share the class name but have distinct parameter lists. Option D pairs a no-arg constructor with a one-`String` constructor, which is legal overloading.\nChoice A is wrong because adding `void` to one declaration turns it into a method instead of a constructor.\nChoice B is wrong because repeating `(int year)` produces two identical signatures, which is a duplicate-definition error.\nChoice C is wrong because two no-arg `Car()` constructors have the same signature, which Java rejects.",
           },
           {
             id: "3_4_q16",
@@ -13690,7 +13690,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "To initialize an object's instance variables when the object is created" },
             ],
             answer: "D",
-            explanation: "A constructor's purpose is to initialize a newly created object's instance variables to valid starting values immediately after `new` allocates memory. Option D captures this. Option C describes destruction (Java uses garbage collection rather than explicit destructors), option C wrongly limits constructors to static state, and option D conflates initialization with type declaration, which already happens at the field's declaration.",
+            explanation: "D is correct. A constructor initializes a new object's instance variables. It runs right after `new` allocates memory.\nChoice A is wrong because `static` variables are typically initialized at their declaration, not by constructors.\nChoice B is wrong because data types are declared in field and parameter declarations, not by the constructor.\nChoice C is wrong because Java uses garbage collection rather than explicit destructors.",
           },
           {
             id: "3_4_q17",
@@ -13705,7 +13705,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "9.0" },
             ],
             answer: "B",
-            explanation: "The expression `new Circle(3.0).getArea()` first creates a `Circle` (setting `radius = 3.0`) and then immediately calls `getArea()` on that new object. `getArea()` returns `Math.PI * 3.0 * 3.0`, which evaluates to roughly 28.27. Chaining a method call onto a newly created object like this is fully valid Java syntax. Option D would be `radius * radius` without `Math.PI`, and option B (6.0) corresponds to a diameter calculation rather than an area, neither of which matches the body of `getArea`.",
+            explanation: "B is correct. `new Circle(3.0)` sets `radius` to 3.0. Then `.getArea()` returns `Math.PI * 3.0 * 3.0`, which is about 28.27. Chaining a call onto a new object is valid Java.\nChoice A is wrong because 6.0 would be `2 * radius`, not the area formula.\nChoice C is wrong because the class compiles. Chaining a method onto `new` is standard syntax.\nChoice D is wrong because 9.0 is `radius * radius` without the `Math.PI` factor.",
           },
           {
             id: "3_4_q18",
@@ -13734,7 +13734,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "95" },
             ],
             answer: "A",
-            explanation: "The constructor call `new Student(\"Alex\", 95)` sets `name = \"Alex\"` and `grade = 95`. `toString()` then returns `name + \": \" + grade`, which concatenates to `\"Alex: 95\"`, matching option C. The `+` operator with a `String` left operand automatically converts the `int` 95 to its string form, so the result is the literal characters `Alex: 95`, not the parameter names `name` and `grade`. Option B mistakenly prints the variable names rather than their values, but Java evaluates expressions and substitutes actual values.",
+            explanation: "A is correct. The constructor sets `name` to `\"Alex\"` and `grade` to 95. `toString()` returns `name + \": \" + grade`, which concatenates to `\"Alex: 95\"`.\nChoice B is wrong because Java evaluates expressions to values rather than printing literal variable names.\nChoice C is wrong because the full `toString` result includes the grade, not just the name.\nChoice D is wrong because the full `toString` result includes the name, not just the grade.",
           },
           {
             id: "3_4_q20",
@@ -13763,7 +13763,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "100" },
             ],
             answer: "D",
-            explanation: "The no-arg constructor explicitly sets `count = 100`, so after `new Inventory()` the field holds 100. `getCount()` then returns 100, which prints. Option D captures this. Option C would be right only if no constructor set the field (Java would default an int to 0), and option A would require a `String` or reference field rather than an `int` (primitives default to 0, not null).",
+            explanation: "D is correct. The constructor explicitly sets `count` to 100. `getCount()` returns 100 and prints it.\nChoice A is wrong because primitives like `int` cannot hold `null`. They default to 0.\nChoice B is wrong because the class compiles cleanly with its declared no-arg constructor.\nChoice C is wrong because the constructor overrode the default 0 with the explicit value 100.",
           },
           {
             id: "3_4_q22",
@@ -13778,7 +13778,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A compile-time error occurs." },
             ],
             answer: "B",
-            explanation: "Java picks the constructor whose parameter list matches the call. `new Rectangle(5)` has one `int` argument, matching `public Rectangle(int side)`, which sets both `width` and `height` to 5. `getWidth()` returns 5, matching option B. Option C (25) confuses with area, and option A would require neither constructor to run, which is impossible because the call must match one of them.",
+            explanation: "B is correct. `new Rectangle(5)` matches the one-int constructor `public Rectangle(int side)`, which sets both `width` and `height` to 5. `getWidth()` returns 5.\nChoice A is wrong because the matching constructor explicitly assigned 5 to both fields.\nChoice C is wrong because 25 would be the area `width * height`, not just `width`.\nChoice D is wrong because both constructor overloads are legal. Java picks the matching one by parameter count.",
           },
           {
             id: "3_4_q23",
@@ -13792,7 +13792,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A constructor with no body" },
             ],
             answer: "C",
-            explanation: "A no-arg constructor is a constructor declared with an empty parameter list, typically used to assign default values to instance variables. Option C captures this. Option B describes a one-argument constructor, option D describes an empty body (which is still a no-arg constructor if the parameter list is also empty), and option A confuses constructors with methods that happen to be named `noArg`.",
+            explanation: "C is correct. A no-arg constructor has no parameters and typically assigns default values to instance variables.\nChoice A is wrong because a constructor's name must match the class, not a custom name like `noArg`.\nChoice B is wrong because exactly one argument describes a one-parameter constructor.\nChoice D is wrong because a no-arg constructor is defined by its empty parameter list, not by an empty body.",
           },
           {
             id: "3_4_q24",
@@ -13821,7 +13821,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "null" },
             ],
             answer: "C",
-            explanation: "Java picks the constructor overload whose parameter list matches the arguments at the call site. `new Lamp(true)` passes one `boolean` argument, matching `public Lamp(boolean state)`, which sets `isOn = true`. The accessor `isOn()` then returns the field, so the output is `true`, matching option B. Option B would only be right if the no-arg constructor ran, but Java specifically picks the overload whose parameter list matches the provided arguments. With one boolean argument, the parameterized overload is the only match.",
+            explanation: "C is correct. `new Lamp(true)` passes one boolean, matching `public Lamp(boolean state)`. That sets `isOn` to true. `isOn()` returns true.\nChoice A is wrong because the class compiles cleanly with both overloads.\nChoice B is wrong because the no-arg constructor would only run if no argument were passed.\nChoice D is wrong because `boolean` is a primitive and cannot be null.",
           },
           {
             id: "3_4_q26",
@@ -13835,7 +13835,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The constructor is calling itself recursively" },
             ],
             answer: "B",
-            explanation: "`this(...)` with arguments delegates to another constructor in the same class whose parameter list matches those arguments, a pattern called constructor chaining. Option B captures this. Option D confuses chaining with recursion, option B invents a method named `this` (the `this` keyword is reserved), and option D refers to calling a parent constructor with `super(...)`, which is unrelated and not on the 2025-26 exam.",
+            explanation: "B is correct. `this(\"default\", 0)` delegates to another constructor in the same class whose parameter list matches `(String, int)`. This pattern is called constructor chaining.\nChoice A is wrong because `this` is a reserved keyword and cannot be a method name.\nChoice C is wrong because a parent-class constructor call uses a different keyword that is outside this exam scope.\nChoice D is wrong because a constructor cannot recursively call itself with the same signature without infinite loops.",
           },
           {
             id: "3_4_q27",
@@ -13865,7 +13865,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "String b = \"Honda\"; Vehicle v = new Vehicle(b);" },
             ],
             answer: "C",
-            explanation: "The class declares only `public Vehicle(String b)`, so once that constructor is defined Java no longer provides a default no-arg constructor. `new Vehicle()` provides no matching constructor and fails at compile time, matching option B. Option B is valid because it passes a `String`, option D is also valid for the same reason, and option A is a separate access error (private field), not the missing-constructor error.",
+            explanation: "C is correct. The class declares only `public Vehicle(String b)`, so Java no longer provides a default no-arg constructor. `new Vehicle()` has no matching constructor and fails at compile time.\nChoice A is wrong because that line fails for a different reason: accessing the `private` `brand` field. Plus `v.brand;` is not a valid statement on its own.\nChoice B is wrong because passing a `String` literal matches the declared constructor.\nChoice D is wrong because passing a `String` variable also matches the declared constructor.",
           },
           {
             id: "3_4_q29",
@@ -13895,7 +13895,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "9" },
             ],
             answer: "C",
-            explanation: "`new Point(4, 9)` invokes the constructor with parameters `x = 4` and `y = 9`. Inside the constructor, `this.x = x` assigns the parameter value 4 to the instance variable `x` (the `this.` qualifier distinguishes them). `getX()` then returns 4, matching option B. Option D (9) confuses the two fields. Without `this.`, the assignment `x = x` would only reassign the parameter to itself.",
+            explanation: "C is correct. `new Point(4, 9)` calls the constructor with `x = 4` and `y = 9`. Inside, `this.x = x` assigns the parameter 4 to the field `x`. `getX()` returns 4.\nChoice A is wrong because 13 would be the sum of both fields. Only `x` is returned.\nChoice B is wrong because the constructor explicitly assigned 4 to the field via `this.x`.\nChoice D is wrong because 9 was assigned to the `y` field. `getX()` returns the `x` field.",
           },
         ],
       },
@@ -13915,7 +13915,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A method that modifies an instance variable and returns void" },
             ],
             answer: "A",
-            explanation: "An accessor (getter) reads and returns the value of a private instance variable without modifying any state, providing controlled read access from outside the class. Option A states this. Option D describes a mutator (setter), option B describes a constructor or factory pattern, and option C would be a print-helper that returns no value, which doesn't match the standard getter contract of returning the field's value.",
+            explanation: "A is correct. An accessor (getter) returns the value of a `private` instance variable without modifying any state. It provides controlled read access from outside the class.\nChoice B is wrong because creating a new object describes a constructor or factory method.\nChoice C is wrong because a print helper writes to the console and returns nothing. Accessors return the field's value.\nChoice D is wrong because modifying a field and returning `void` describes a mutator (setter).",
           },
           {
             id: "3_5_q02",
@@ -13960,7 +13960,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "setYear(int y)" },
             ],
             answer: "B",
-            explanation: "An accessor returns the current value of a private instance variable without modifying any state. Both `getModel()` (returns `model`) and `getYear()` (returns `year`) fit this pattern, so option B is correct. `setYear(int y)` is a mutator that changes state, and the constructor initializes state at object creation but is not an accessor since it does not return the field's value.",
+            explanation: "B is correct. An accessor returns a `private` field without modifying state. Both `getModel()` and `getYear()` follow this pattern.\nChoice A is wrong because `getModel()` alone is incomplete. `getYear()` is also an accessor in the same class.\nChoice C is wrong because the constructor initializes state at object creation, not a read-only access.\nChoice D is wrong because `setYear(int y)` modifies the field, making it a mutator.",
           },
           {
             id: "3_5_q05",
@@ -13975,7 +13975,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "50" },
             ],
             answer: "C",
-            explanation: "After the constructor `public Player(int s)` runs, the private field `score = 10`. The mutator `addPoints(5)` runs `score += pts`, which is shorthand for `score = score + 5`, raising the field to 15. The accessor `getScore()` then returns 15, matching option C. Option B (5) confuses the parameter value with the accumulated field, and option D (50) would result from multiplication, but `+=` adds rather than multiplies, so the arithmetic is simply 10 + 5 = 15.",
+            explanation: "C is correct. The constructor sets `score` to 10. `addPoints(5)` runs `score += pts`, raising the field to 15. `getScore()` returns 15.\nChoice A is wrong because reaching only 10 would require skipping the mutator. It actually ran.\nChoice B is wrong because 5 is the parameter value, but the accumulated field is what `getScore()` returns.\nChoice D is wrong because `+=` adds rather than multiplies. The arithmetic is 10 + 5, not 10 * 5.",
           },
           {
             id: "3_5_q06",
@@ -14003,7 +14003,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A condition that the method guarantees will be true after it finishes" },
             ],
             answer: "C",
-            explanation: "A precondition is a condition that must be true when a method is called for it to operate correctly. The caller is responsible for satisfying it; Java does not automatically enforce preconditions. Option C captures this. Option B describes a return value, option D describes a postcondition (a guarantee after the method runs), and option A describes the method's parameter list, which is part of its signature rather than its precondition.",
+            explanation: "C is correct. A precondition is a condition that must be true when a method is called for it to work correctly. The caller is responsible for satisfying it.\nChoice A is wrong because the parameter list is part of the method signature, not a precondition.\nChoice B is wrong because the return value is what the method produces, not a precondition.\nChoice D is wrong because a guarantee after the method finishes describes a postcondition.",
           },
           {
             id: "3_5_q08",
@@ -14017,7 +14017,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The return type of the method" },
             ],
             answer: "C",
-            explanation: "A postcondition is a guarantee that must be true after a method successfully executes, assuming its preconditions held when it was called. Option C captures this. Option B describes a precondition, option D describes the method's declared return type, and option D refers to side effects, which can be a related concept but does not match the strict definition of a postcondition as a guaranteed property after execution.",
+            explanation: "C is correct. A postcondition is a guarantee that must be true after a method successfully completes, assuming its preconditions held.\nChoice A is wrong because listing modified variables describes side effects, not the postcondition.\nChoice B is wrong because a condition true at call time describes a precondition.\nChoice D is wrong because the return type is part of the method signature, not a postcondition.",
           },
           {
             id: "3_5_q09",
@@ -14031,7 +14031,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "access modifier, return type, method name, parameters" },
             ],
             answer: "D",
-            explanation: "A Java method header has a strict order: access modifier (such as `public`), then return type (`int`, `void`, `String`, etc.), then method name, then parameters in parentheses. Option D captures this order. Options A, B, and D all scramble these elements; for example, putting the method name before the return type or placing the return type after the parameter list does not parse as a valid method declaration in Java. The compiler enforces this fixed order strictly with no flexibility in how the tokens may be reordered.",
+            explanation: "D is correct. A Java method header has a strict order: access modifier, then return type, then method name, then parameters in parentheses.\nChoice A is wrong because the method name must come after the return type, not before it.\nChoice B is wrong because the access modifier must come before the return type, not after it.\nChoice C is wrong because the access modifier must come first, before the method name.",
           },
           {
             id: "3_5_q10",
@@ -14076,7 +14076,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "166.6" },
             ],
             answer: "C",
-            explanation: "After the constructor call `new Thermometer(68.0)`, the private field `temperature = 68.0`. The mutator `setTemperature(98.6)` overwrites the field with 98.6 by assigning the parameter directly, and the accessor `getTemperature()` returns the current value, so the output is 98.6, matching option B. Option D (166.6) would result from adding the two values, but `setTemperature` reassigns rather than adds, and option B would require the setter call to be skipped entirely, which the code clearly executes.",
+            explanation: "C is correct. The constructor sets `temperature` to 68.0. `setTemperature(98.6)` reassigns the field to 98.6. `getTemperature()` returns 98.6.\nChoice A is wrong because the constructor and setter both explicitly assigned values. The field was never at the default.\nChoice B is wrong because the setter overwrote 68.0 before the print ran.\nChoice D is wrong because the setter reassigns rather than adds. 166.6 would require addition.",
           },
           {
             id: "3_5_q13",
@@ -14104,7 +14104,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The precondition was violated; the method's behavior is undefined or incorrect" },
             ],
             answer: "D",
-            explanation: "A precondition specifies what must be true for the method to behave correctly; Java does not enforce them automatically, so violating one means the method's behavior is undefined or incorrect. Option D captures this. Option B is wrong because Java does not auto-check arbitrary preconditions, option C is wrong because correctness is not guaranteed on violation, and option D invents an automatic value-substitution that Java does not perform.",
+            explanation: "D is correct. A precondition specifies what must be true for the method to behave correctly. Java does not automatically check preconditions, so violating one means behavior is undefined.\nChoice A is wrong because Java does not silently substitute default values for invalid arguments.\nChoice B is wrong because Java does not auto-throw exceptions for arbitrary precondition violations.\nChoice C is wrong because correctness is explicitly not guaranteed when a precondition is violated.",
           },
           {
             id: "3_5_q15",
@@ -14119,7 +14119,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "100.0" },
             ],
             answer: "A",
-            explanation: "After `new BankAccount(100.0)`, `balance = 100.0`. `deposit(50.0)` makes `balance = 150.0`. `withdraw(30.0)` makes `balance = 120.0`. `getBalance()` returns 120.0, matching option B. Option B (150.0) ignores the withdrawal, option D (80.0) would require subtracting the deposit rather than adding it, and option D would require ignoring both mutator calls, which the code does execute.",
+            explanation: "A is correct. The constructor sets `balance` to 100.0. `deposit(50.0)` adds to give 150.0. `withdraw(30.0)` subtracts to give 120.0. `getBalance()` returns 120.0.\nChoice B is wrong because 150.0 ignores the withdrawal call. It actually ran.\nChoice C is wrong because 80.0 would require subtracting the deposit, but `deposit` adds.\nChoice D is wrong because both mutator calls executed. Ignoring them would leave 100.0.",
           },
           {
             id: "3_5_q16",
@@ -14133,7 +14133,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "public String setName(String n)" },
             ],
             answer: "A",
-            explanation: "A method header that returns nothing and takes a `String` parameter is written as `public void setName(String n)`: access modifier first, then the return type `void` (because the method returns nothing), then the method name, then the parameter list in parentheses. Option A captures this exact order. Option D declares a `String` return type (not nothing), and options B and D scramble the keyword order. In Java, the return type and access modifier must come before the method name, with no exceptions to this token ordering rule.",
+            explanation: "A is correct. The header `public void setName(String n)` lists access modifier, then return type `void`, then method name, then parameter list. This matches Java's required order.\nChoice B is wrong because `void public` scrambles the keyword order. Access modifier must come first.\nChoice C is wrong because `void` must precede the method name as the return type, not follow the parameter list.\nChoice D is wrong because `String` is a return type, but the method should return nothing.",
           },
           {
             id: "3_5_q17",
@@ -14162,7 +14162,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "green" },
             ],
             answer: "D",
-            explanation: "After `new Light(\"red\")`, `color = \"red\"`. `changeColor(\"green\")` runs `color = c`, replacing `color` with `\"green\"`. `getColor()` returns the current value, so the output is `\"green\"`, matching option B. Option C would require the mutator to be skipped, and option B would require concatenation, but `=` reassigns rather than concatenates, so only the final assignment value is retained.",
+            explanation: "D is correct. The constructor sets `color` to `\"red\"`. `changeColor(\"green\")` runs `color = c`, reassigning the field to `\"green\"`. `getColor()` returns `\"green\"`.\nChoice A is wrong because the constructor explicitly assigned a value. The field was never null.\nChoice B is wrong because `=` reassigns rather than concatenates. The old value is replaced.\nChoice C is wrong because the mutator overwrote `\"red\"` before the print ran.",
           },
           {
             id: "3_5_q19",
@@ -14176,7 +14176,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The instance variable age has the value that was passed as argument a" },
             ],
             answer: "D",
-            explanation: "A postcondition states what is guaranteed true after a method executes. For `setAge(a) { age = a; }`, the guarantee is that `age` now holds the value that was passed in as `a`. Option D captures this. Option C describes a precondition, option A is incorrect because the method returns `void`, and option B describes parameter immutability inside the method, which is a side-effect statement, not a postcondition on object state.",
+            explanation: "D is correct. A postcondition states what is guaranteed after a method runs. For `setAge`, the field `age` now holds the value of the argument.\nChoice A is wrong because the method returns `void`. It does not return a value.\nChoice B is wrong because describing the parameter as unchanged is a side-effect note, not an object-state postcondition.\nChoice C is wrong because requiring `a > 0` before the call describes a precondition.",
           },
           {
             id: "3_5_q20",
@@ -14205,7 +14205,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "{ if (n % 2 == 0) { return; } }" },
             ],
             answer: "C",
-            explanation: "A method declared to return `boolean` must return a `boolean` expression on every execution path. The expression `n % 2 == 0` uses the remainder operator and evaluates to `true` when `n` is even and `false` when odd, exactly matching the contract, so option C is correct. Option B returns an `int` (type mismatch with `boolean`), option D uses a bare `return;` with no value (invalid for a non-void method), and option A prints rather than returns, so the method falls off the end without producing a value.",
+            explanation: "C is correct. The expression `n % 2 == 0` evaluates to `true` when `n` is even and `false` when odd. A method declared `boolean` must return a `boolean` value.\nChoice A is wrong because `System.out.println(...)` prints but does not return. The method has no return value.\nChoice B is wrong because `n / 2` is an `int`, not a `boolean`. That is a type mismatch.\nChoice D is wrong because bare `return;` produces no value, which is invalid in a non-void method.",
           },
           {
             id: "3_5_q22",
@@ -14220,7 +14220,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "5.0" },
             ],
             answer: "A",
-            explanation: "After the constructor call `new Circle(5.0)`, the private field `radius = 5.0`. The `getDiameter()` method returns `radius * 2`, which is `5.0 * 2 = 10.0`, matching option B. Option B (25.0) would be `radius * radius`, not the diameter, and option D (about 31.41) would be the circumference computed with `Math.PI`. Notice that `getCircumference()` even uses `getDiameter()` internally as a helper, demonstrating how instance methods can call each other on the same object, but the question only asks for the diameter itself.",
+            explanation: "A is correct. The constructor sets `radius` to 5.0. `getDiameter()` returns `radius * 2`, which is 10.0.\nChoice B is wrong because 25.0 would be `radius * radius`, the area input rather than the diameter.\nChoice C is wrong because about 31.41 would be the circumference, not the diameter.\nChoice D is wrong because 5.0 is just `radius`. `getDiameter()` returns `radius * 2`.",
           },
           {
             id: "3_5_q23",
@@ -14234,7 +14234,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The method's body — the code inside the curly braces" },
             ],
             answer: "A",
-            explanation: "A method signature identifies a method by its name and parameter types (and in some definitions its return type). Option A captures this. The signature is what the compiler uses to distinguish overloaded methods. Option D (body) is the implementation, not the signature, option C (access modifier) is not part of the signature in Java, and option D (comments) are documentation that the compiler ignores.",
+            explanation: "A is correct. A method signature consists of the method's name and parameter types. The compiler uses the signature to distinguish overloaded methods.\nChoice B is wrong because the access modifier is part of the declaration but not part of the signature.\nChoice C is wrong because comments are documentation, ignored by the compiler.\nChoice D is wrong because the method body is the implementation, not the signature.",
           },
           {
             id: "3_5_q24",
@@ -14249,7 +14249,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "false" },
             ],
             answer: "C",
-            explanation: "After `new Grade(75)`, `score = 75`. `isPassing()` returns `score >= 60`, which is `75 >= 60`, evaluating to `true`. `System.out.println(true)` prints the literal `\"true\"`, matching option C. Option D would be right only if `score` were below 60, and options A and B would require the method to return numeric values rather than the boolean expression that the code actually returns.",
+            explanation: "C is correct. The constructor sets `score` to 75. `isPassing()` returns `score >= 60`, which is `75 >= 60`, evaluating to `true`. The print outputs `true`.\nChoice A is wrong because `isPassing()` returns a `boolean`, not the numeric score.\nChoice B is wrong because `isPassing()` returns a `boolean`, not the threshold value.\nChoice D is wrong because 75 is greater than or equal to 60, so the expression is true.",
           },
           {
             id: "3_5_q25",
@@ -14263,7 +14263,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The called method must be declared static for this to work" },
             ],
             answer: "B",
-            explanation: "An instance method can freely call any other instance method (public or private) on the same object; the call operates on the implicit `this`. Option B captures this. Option C wrongly assumes recursion, which would only happen if a method called itself, option A invents a false restriction, and option D adds a `static` requirement that does not apply — `static` methods cannot use instance state without an explicit object reference.",
+            explanation: "B is correct. An instance method can freely call any other instance method on the same object through the implicit `this` reference.\nChoice A is wrong because instance methods are designed to call each other. There is no such restriction in Java.\nChoice C is wrong because recursion only happens when a method calls itself. Calling a different method does not recurse.\nChoice D is wrong because instance methods do not need to be `static`. Each one operates on the current object.",
           },
           {
             id: "3_5_q26",
@@ -14278,7 +14278,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0" },
             ],
             answer: "A",
-            explanation: "After `new Inventory(3)`, `count = 3`. `remove(3)` runs `count -= 3`, making `count = 0`. `isEmpty()` returns `count == 0`, which is `0 == 0`, evaluating to `true`. `System.out.println(true)` prints `\"true\"`, matching option C. Option D (0) would result from printing `count` directly rather than the boolean expression returned by `isEmpty()`, which is what the code actually calls.",
+            explanation: "A is correct. The constructor sets `count` to 3. `remove(3)` runs `count -= 3`, making `count` 0. `isEmpty()` returns `count == 0`, which is true.\nChoice B is wrong because the field is exactly 0 after the subtraction, so the comparison is true.\nChoice C is wrong because the print calls `isEmpty()`, which returns a `boolean`, not the count value.\nChoice D is wrong because the print calls `isEmpty()`, not `getCount()`. The output is a boolean.",
           },
           {
             id: "3_5_q27",
@@ -14307,7 +14307,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "7" },
             ],
             answer: "B",
-            explanation: "After `new Multiplier(3)`, `factor = 3`. `multiply(7)` returns `n * factor`, which is `7 * 3 = 21`, matching option D. Option A (10) would result from addition rather than multiplication, but the method body uses `*`. Option D (7) would only print the parameter without using `factor`, and option C would require the parameter to be ignored, neither of which matches the method's actual computation.",
+            explanation: "B is correct. The constructor sets `factor` to 3. `multiply(7)` returns `n * factor`, which is `7 * 3 = 21`.\nChoice A is wrong because 10 would require addition. The method uses `*`.\nChoice C is wrong because the method body uses both the parameter and the field. The factor is not ignored.\nChoice D is wrong because the method multiplies the parameter by `factor` rather than returning the parameter alone.",
           },
           {
             id: "3_5_q29",
@@ -14321,7 +14321,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "public void increment() { count++; }" },
             ],
             answer: "D",
-            explanation: "A valid `void` method header is `public void increment()`, and inside, `count++` modifies the instance variable without returning anything. Option D captures this. Option C declares an `int` return type but never returns an `int`, option C scrambles keyword order (Java rejects `void public`), and option B adds a `return count++;` to a `void` method, which is a type mismatch since `void` methods cannot return values.",
+            explanation: "D is correct. `public void increment() { count++; }` has correct keyword order, no return value, and a mutation of `count`. That matches the void-mutator pattern.\nChoice A is wrong because `void public` scrambles keyword order. Java requires `public` first.\nChoice B is wrong because `return count++;` is illegal in a `void` method, which cannot return a value.\nChoice C is wrong because `public int increment()` declares an `int` return type but never returns an `int`.",
           },
           {
             id: "3_5_q30",
@@ -14336,7 +14336,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "true" },
             ],
             answer: "D",
-            explanation: "After `new Token('A')`, `symbol = 'A'`. `isLetter()` calls `Character.isLetter('A')`, which returns `true` because `'A'` is an alphabetic character. `System.out.println(true)` prints `\"true\"`, matching option B. Option C would require printing `symbol` directly, and option A would require `symbol` to be a non-letter character, but `'A'` is clearly an alphabetic character so the static helper returns true.",
+            explanation: "D is correct. The constructor sets `symbol` to `'A'`. `isLetter()` calls `Character.isLetter('A')`, which returns `true` because `'A'` is alphabetic.\nChoice A is wrong because `'A'` is alphabetic, so `Character.isLetter` returns true, not false.\nChoice B is wrong because the class compiles cleanly with the proper method calls.\nChoice C is wrong because the print calls `isLetter()`, which returns a `boolean`, not the symbol character.",
           },
         ],
       },
@@ -14371,7 +14371,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "4" },
             ],
             answer: "A",
-            explanation: "Primitives like `int` are passed by value: the method receives a copy of the bits, not a link to the original storage. Inside `addOne`, the local parameter `x` is incremented from 5 to 6, but `n` in the caller occupies a completely separate slot in the caller's frame, so its value is unchanged at 5 when the println runs. Picking 6 confuses parameter passing with shared memory, and `n` could never become 4 because nothing in the code ever decrements it.",
+            explanation: "A is correct. Primitives like `int` are passed by value. The method receives a copy of the bits, so changing `x` inside `addOne` does not affect `n` in the caller.\nChoice B is wrong because reaching 6 would require shared storage between `x` and `n`. Primitives never share storage on parameter passing.\nChoice C is wrong because the code compiles cleanly. Passing an `int` to an `int` parameter is legal.\nChoice D is wrong because nothing in the code decrements `n`. The starting value is 5.",
           },
           {
             id: "3_6_q03",
@@ -14400,7 +14400,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Spot" },
             ],
             answer: "A",
-            explanation: "Passing an object copies its reference, so `myDog` and `d` become aliases that point at the same Dog object on the heap. Calling `d.setName(\"Rex\")` mutates that shared object's `name` field, which is why `myDog.getName()` later returns \"Rex\". \"Spot\" would only be correct if Java had silently deep-copied the object (which it never does), `null` would only occur if the reference were cleared, and `d` is the parameter's identifier, not the field's contents.",
+            explanation: "A is correct. Passing an object copies the reference, so `d` and `myDog` are aliases pointing at the same Dog. `d.setName(\"Rex\")` mutates that shared object, so `myDog.getName()` returns `\"Rex\"`.\nChoice B is wrong because the constructor explicitly assigned `\"Spot\"`. The reference is not null.\nChoice C is wrong because Java evaluates expressions to values, not variable names.\nChoice D is wrong because the mutation through the alias changed `name` from `\"Spot\"` to `\"Rex\"` before the print.",
           },
           {
             id: "3_6_q05",
@@ -14415,7 +14415,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Spot" },
             ],
             answer: "D",
-            explanation: "The parameter `d` is a copy of the reference, not the caller's variable itself. Reassigning `d = new Dog(\"Max\")` only overwrites that local copy to point at a brand-new object; the caller's `myDog` still references the original Dog named \"Spot\". This question targets the central distinction between mutating an object through a reference (visible to the caller) and reassigning the reference variable itself (invisible to the caller, since only the local copy changes).",
+            explanation: "D is correct. The parameter `d` is a copy of the reference. `d = new Dog(\"Max\")` only reassigns that local copy. The caller's `myDog` still points at the original Dog with name `\"Spot\"`.\nChoice A is wrong because the caller's reference still points at a valid Dog. It was never nulled.\nChoice B is wrong because the code compiles cleanly. Reassigning a reference parameter is legal Java.\nChoice C is wrong because the local reassignment did not propagate to the caller's variable.",
           },
           {
             id: "3_6_q06",
@@ -14429,7 +14429,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "When an object has multiple constructors" },
             ],
             answer: "B",
-            explanation: "Aliasing happens when two reference variables hold the same address and therefore refer to the same heap object. Because they share underlying storage, a change made through one alias is immediately observable through the other — there is only one object behind the scenes, regardless of how many variables point at it. A confuses aliasing with scoping (same name in different scopes), C describes nullification, and D describes constructor overloading, none of which involve shared object identity.",
+            explanation: "B is correct. Aliasing happens when two reference variables hold the same address and refer to the same heap object. A change through one is visible through the other.\nChoice A is wrong because two variables with the same name in different scopes is variable shadowing, not aliasing.\nChoice C is wrong because assigning `null` clears a reference, which is unrelated to aliasing.\nChoice D is wrong because constructor overloading is about having multiple constructors, not about shared object identity.",
           },
           {
             id: "3_6_q07",
@@ -14444,7 +14444,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A NullPointerException is thrown." },
             ],
             answer: "B",
-            explanation: "The assignment `Point b = a` does not allocate a new Point — it copies the reference value, so `a` and `b` become aliases for the same object on the heap. When `b.setX(99)` runs, it modifies that single shared object's `x` field, and reading through `a` reflects the same change. Picking 3 assumes Java implicitly copied the object on assignment, which it never does for reference types — only an explicit copy method or constructor would create a separate object.",
+            explanation: "B is correct. `Point b = a` copies the reference, so `a` and `b` alias the same Point on the heap. `b.setX(99)` writes 99 to that shared object. Reading through `a.getX()` returns 99.\nChoice A is wrong because reaching 3 would require the assignment to create a separate object. Java does not deep-copy on assignment.\nChoice C is wrong because the constructor explicitly set `x` to 3, and then the mutator overwrote it to 99.\nChoice D is wrong because both `a` and `b` reference valid Point objects. Neither is null.",
           },
           {
             id: "3_6_q08",
@@ -14459,7 +14459,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "4" },
             ],
             answer: "D",
-            explanation: "`num` is an `int`, so the method receives an independent copy of its value in its own stack frame. Inside `triple`, the local `x` becomes 12, but `num` lives in a completely separate slot in the caller's frame and is never touched by the method. The answer stays at 4 because primitives never share storage with the method — only reference types share the underlying object through a copied address, and there's no reference involved when passing an `int`.",
+            explanation: "D is correct. `num` is an `int`, so the method receives an independent copy. Inside `triple`, `x` becomes 12, but `num` in the caller is never touched.\nChoice A is wrong because reaching 12 would require shared storage. Primitives never share storage on parameter passing.\nChoice B is wrong because nothing reassigns `num` to 3. The starting value is 4.\nChoice C is wrong because nothing zeros out `num`. The value remains 4 after the call.",
           },
           {
             id: "3_6_q09",
@@ -14474,7 +14474,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A compile-time error occurs." },
             ],
             answer: "B",
-            explanation: "Even though `b` is a copy of the reference, it still points at the same Box object as the caller's `box`. The expression `b.setSize(b.getSize() * 2)` reads the shared size (5), doubles it to 10, and writes 10 back into the same object's field. The caller observes 10 because mutations through any alias are visible — only a reassignment of `b` itself (e.g., `b = new Box(...)`) would be hidden from the caller, since that only changes the local parameter slot.",
+            explanation: "B is correct. The parameter `b` is a copy of the reference, so it aliases the same Box as `box`. `b.setSize(b.getSize() * 2)` reads 5 and writes 10 back into the shared object.\nChoice A is wrong because the mutation through the alias is visible to the caller.\nChoice C is wrong because 25 would be `size * size`, but the method doubles rather than squares.\nChoice D is wrong because the code compiles cleanly. Object references can be passed to methods.",
           },
           {
             id: "3_6_q10",
@@ -14488,7 +14488,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Reassignment causes the original object to be deleted" },
             ],
             answer: "B",
-            explanation: "A parameter is a local variable initialized with a copy of the argument's value. For reference types that value is the address, so writing `d = new Dog(\"Max\")` only overwrites the local slot; the caller's variable still holds the original address and still references the original object. A is invented (parameters are not implicitly final on the AP exam), and C contradicts how Java actually passes objects — references are copied, but the underlying object is not duplicated.",
+            explanation: "B is correct. Java passes a copy of the reference value. Reassigning that copy only changes the local slot, leaving the caller's variable pointing at the original object.\nChoice A is wrong because parameters are not implicitly `final` on the AP exam. Reassignment is allowed.\nChoice C is wrong because Java does not deep-copy objects on parameter passing. Only the reference is copied.\nChoice D is wrong because reassignment changes only a local pointer. The original object is not deleted or affected.",
           },
           {
             id: "3_6_q11",
@@ -14517,7 +14517,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The method returns null without executing" },
             ],
             answer: "B",
-            explanation: "A null reference points to no object at all, so there is no method table to dispatch through at runtime. The JVM detects this only when the call actually executes and throws a `NullPointerException`. The compiler usually cannot know in advance whether a variable will be null, so C is wrong; and D confuses returning null from a method with attempting to invoke one on a null receiver, which always fails immediately rather than returning a useful value.",
+            explanation: "B is correct. A null reference points to no object, so the JVM cannot dispatch a method call. It throws a `NullPointerException` at runtime.\nChoice A is wrong because Java does not silently use defaults. The dispatch fails immediately.\nChoice C is wrong because the compiler cannot know in general whether a variable is null at runtime.\nChoice D is wrong because the call never executes. There is no method body to return null from.",
           },
           {
             id: "3_6_q13",
@@ -14532,7 +14532,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A compile-time error occurs." },
             ],
             answer: "A",
-            explanation: "`s` is `null`, meaning the variable holds no object reference. The compiler accepts `s.length()` because the syntax is valid and `s` has the correct declared type, but at runtime the JVM cannot dispatch `length()` on nothing and raises a `NullPointerException`. Returning 0 silently or printing the literal \"null\" would require Java to handle null receivers gracefully for method calls, which it does not — only `System.out.println(null)` has a special overload that prints \"null\".",
+            explanation: "A is correct. `s` is null, so `s.length()` cannot dispatch to any object's method. The JVM throws a `NullPointerException` at runtime.\nChoice B is wrong because `length()` does not silently return 0 on a null receiver. The dispatch fails first.\nChoice C is wrong because `println` only has special null handling for its argument, not for the receiver of `length()`.\nChoice D is wrong because the syntax is valid. The failure is at runtime, not compile time.",
           },
           {
             id: "3_6_q14",
@@ -14561,7 +14561,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "250" },
             ],
             answer: "C",
-            explanation: "`Wallet w2 = w1` copies the reference, so both variables alias the same Wallet object on the heap. Calling `w2.setDollars(200)` updates the shared field, and reading it back through `w1` returns 200 because there is only one object behind the scenes regardless of how many variables point at it. There is no addition operator (it is an assignment, not `+=`), and no null is involved, so 250 and a NullPointerException are not possible outcomes here.",
+            explanation: "C is correct. `Wallet w2 = w1` copies the reference, so both variables alias the same Wallet. `w2.setDollars(200)` writes 200 to the shared field. Reading through `w1` returns 200.\nChoice A is wrong because neither reference is null. Both point at a valid object.\nChoice B is wrong because the mutator overwrote 50 with 200 before the print.\nChoice D is wrong because the assignment overwrites rather than adds. 50 + 200 would require `+=`.",
           },
           {
             id: "3_6_q16",
@@ -14575,7 +14575,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A NullPointerException is thrown when the method executes d = null" },
             ],
             answer: "B",
-            explanation: "The method's `d` is a local copy of the reference. Setting `d = null` only clears that local slot; the caller's variable still holds the original address and still refers to the Dog object on the heap. This is the dual case of reassigning to a `new Dog(...)` — neither kind of reassignment leaks back to the caller, but mutating through `d` (calling a setter, for instance) would, because that touches the shared object that both names still point at.",
+            explanation: "B is correct. The parameter `d` is a local copy of the reference. Setting `d = null` only clears the local slot. The caller's variable still points at the original Dog.\nChoice A is wrong because the local reassignment does not propagate to the caller.\nChoice C is wrong because Java's garbage collector only reclaims unreachable objects. The caller still holds a reference.\nChoice D is wrong because assigning `null` to a local is legal. The exception would only happen if a method were called on null.",
           },
           {
             id: "3_6_q17",
@@ -14590,7 +14590,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "true" },
             ],
             answer: "D",
-            explanation: "`raiseIt` receives a copy of the reference, so `f` and `flag` point at the same Flag object. Calling `f.raise()` writes `true` into that shared object's `raised` field, which `flag.isRaised()` then reads back. The answer remains `false` only if you incorrectly assume the method got an independent copy of the object — but Java never deep-copies on a parameter pass, so the mutation through either alias is fully visible to the caller after the method returns.",
+            explanation: "D is correct. The parameter `f` aliases the same Flag as `flag`. `f.raise()` writes `true` to that shared object's `raised` field. `flag.isRaised()` returns `true`.\nChoice A is wrong because the caller's reference still points at a valid Flag.\nChoice B is wrong because no null is involved. Both references point at the same object.\nChoice C is wrong because the mutation through the alias changed `raised` to true before the print.",
           },
           {
             id: "3_6_q18",
@@ -14635,7 +14635,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0" },
             ],
             answer: "C",
-            explanation: "After `s3 = s1`, s3 and s1 share the same Score object, while s2 references a different one. `s3.setPoints(99)` updates the shared object, so `s1.getPoints()` returns 99 — the change is visible through every alias because there is only one underlying object. Picking 10 would require the reference assignment to have produced an independent copy, which Java does not do for reference-type variables on plain assignment.",
+            explanation: "C is correct. After `s3 = s1`, both reference the same Score. `s3.setPoints(99)` writes 99 to that shared object. Reading through `s1.getPoints()` returns 99.\nChoice A is wrong because reaching 10 would require independent copies. Java does not deep-copy on reference assignment.\nChoice B is wrong because `s2` is a different object. `s1` shares state with `s3`, not `s2`.\nChoice D is wrong because the constructor and setter both assigned non-zero values to this object.",
           },
           {
             id: "3_6_q21",
@@ -14649,7 +14649,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "x = x + 1, where x is an int parameter" },
             ],
             answer: "B",
-            explanation: "Changes that mutate the object's state through a method call (like `d.setName(\"Rex\")`) are visible to the caller because the caller's reference still points at that same object on the heap. Reassigning the parameter (`d = new Dog(...)`) or modifying a primitive copy only touches the method's local stack slot, so options A, B, and D never leak back to the caller — only mutation through the shared object via a method like `setName` does.",
+            explanation: "B is correct. Calling `d.setName(\"Rex\")` mutates the shared object's `name` field. That state change is visible to the caller because both references point at the same heap object.\nChoice A is wrong because reassigning the parameter `d` only changes the local copy. The caller's reference is untouched.\nChoice C is wrong because primitives are passed by value. Changes to `n` inside the method do not propagate.\nChoice D is wrong because primitives are passed by value. Changes to `x` inside the method do not propagate.",
           },
           {
             id: "3_6_q22",
@@ -14664,7 +14664,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "70" },
             ],
             answer: "D",
-            explanation: "The method receives a reference to `myTank`, calls `addFuel(50)` which mutates the shared object's fuel from 20 to 70, then returns `this` reference. `result` ends up aliasing the same Tank as `myTank`, so `result.getFuel()` reads the updated value 70. Picking 20 ignores the mutation, picking 50 confuses the added amount with the total, and there is no compile error because returning `this` (typed as Tank) is a perfectly valid pattern.",
+            explanation: "D is correct. The method runs `addFuel(50)` on the shared Tank, raising fuel from 20 to 70. It returns the same reference, so `result` aliases `myTank`. `result.getFuel()` returns 70.\nChoice A is wrong because the code compiles cleanly. Returning a reference is standard Java.\nChoice B is wrong because the mutator added 50 to the existing 20, giving 70.\nChoice C is wrong because 50 is the added amount, not the new total.",
           },
           {
             id: "3_6_q23",
@@ -14694,7 +14694,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "name" },
             ],
             answer: "C",
-            explanation: "`createDog` constructs a new Dog and returns its reference; the caller assigns that returned reference to `d`. Calling `d.getName()` then reads the field that was set by the constructor to \"Fido\". The method does not return the parameter's identifier `name` itself — Java methods return values, not symbol names — which is the trap behind distractor C, and there is no reason a NullPointerException would occur because the new Dog object exists.",
+            explanation: "C is correct. `createDog` constructs a new Dog and returns its reference. The constructor set `name` to `\"Fido\"`. `d.getName()` returns `\"Fido\"`.\nChoice A is wrong because returning a newly created object is standard Java.\nChoice B is wrong because the constructor explicitly assigned `\"Fido\"`. The field is not null.\nChoice D is wrong because Java evaluates expressions to values, not variable names.",
           },
           {
             id: "3_6_q25",
@@ -14709,7 +14709,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0" },
             ],
             answer: "D",
-            explanation: "Arrays are objects in Java, so passing one copies the reference, and both `nums` and `arr` point at the same array. `arr[0] = 0` writes into that shared array's first slot, and the caller sees the change immediately. Treating arrays like primitives (expecting 5 to be unchanged) is the standard pitfall — array elements are mutated through a shared reference exactly like any other object's state, regardless of whether you think of them as a collection or an object.",
+            explanation: "D is correct. Arrays are objects in Java, so `arr` aliases the same array as `nums`. `arr[0] = 0` writes 0 into the shared array's first slot. The caller sees that change.\nChoice A is wrong because the assignment overwrote slot 0, not slot 1.\nChoice B is wrong because the code compiles cleanly. Passing an array to a method is standard.\nChoice C is wrong because the array element was mutated through the alias. 5 was overwritten with 0.",
           },
           {
             id: "3_6_q26",
@@ -14752,7 +14752,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Dog d = new Dog(\"Rex\"); d.getName();" },
             ],
             answer: "B",
-            explanation: "Calling a method on a null reference is a runtime failure: the JVM cannot dispatch a method when there is no object to receive it. Option A prints the literal string \"null\" because `println` is specifically designed to handle a null argument gracefully with a special overload, and option D never even references `d`. Only option C actually attempts to invoke an instance method through a null receiver, so it alone throws a NullPointerException at runtime.",
+            explanation: "B is correct. `d` is null, so `d.getName()` cannot dispatch a method. The JVM throws a `NullPointerException`.\nChoice A is wrong because `println` has a special overload that prints `\"null\"` for null arguments.\nChoice C is wrong because `d` is never used after declaration, so no null dereference occurs.\nChoice D is wrong because `d` references a valid Dog and the method call succeeds.",
           },
           {
             id: "3_6_q29",
@@ -14767,7 +14767,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "50" },
             ],
             answer: "D",
-            explanation: "`b.setSize(newSize)` mutates the shared Ball, so myBall's size becomes 50. The subsequent `b = new Ball(100)` only reassigns the local parameter; myBall still references the original (now-modified) Ball with size 50. The execution order matters: the mutation through the alias happens first and reaches the caller; the reassignment happens second but does not propagate, because reassigning a parameter never affects the caller's variable.",
+            explanation: "D is correct. `b.setSize(50)` mutates the shared Ball, so `myBall`'s size becomes 50. The subsequent `b = new Ball(100)` only reassigns the local parameter, which is invisible to the caller.\nChoice A is wrong because the local reassignment does not propagate. `myBall` still references the original Ball.\nChoice B is wrong because the code compiles cleanly with both operations.\nChoice C is wrong because the mutation through the alias already changed size from 5 to 50.",
           },
           {
             id: "3_6_q30",
@@ -14781,7 +14781,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Aliasing occurs when two variables reference the same object, so changes through one affect the other" },
             ],
             answer: "D",
-            explanation: "Aliasing means two reference variables share the same heap object, so any state change through one is observable through the other. It is a normal and often intentional consequence of Java's reference semantics — used for sharing objects, for passing them to methods, and for general data structure design — not an error in itself. C confuses aliasing with cloning, C ignores that primitives have no references, and D overstates the danger of a routine language feature.",
+            explanation: "D is correct. Aliasing means two reference variables share the same heap object. A change through one is observable through the other.\nChoice A is wrong because primitives have no references. Aliasing only applies to reference types.\nChoice B is wrong because aliasing is a routine and useful consequence of reference semantics, not an error.\nChoice C is wrong because aliasing shares an object. Creating an independent copy is cloning, which is different.",
           },
         ],
       },
@@ -14801,7 +14801,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "shared" },
             ],
             answer: "C",
-            explanation: "The `static` keyword marks a member as belonging to the class itself rather than to any individual instance. A static variable has exactly one shared copy across all objects of the class, and a static method runs without needing an instance — it is called on the class directly via `ClassName.method()`. `public` controls visibility, `final` prevents reassignment, and `shared` is not a Java keyword at all.",
+            explanation: "C is correct. The `static` keyword marks a member as belonging to the class itself rather than to individual instances.\nChoice A is wrong because `public` controls visibility, not whether a member is shared.\nChoice B is wrong because `final` prevents reassignment, not class-level sharing.\nChoice D is wrong because `shared` is not a Java keyword at all.",
           },
           {
             id: "3_7_q02",
@@ -14815,7 +14815,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "One copy total, shared by all instances" },
             ],
             answer: "D",
-            explanation: "A static variable is stored once per class, not once per object. Whether you create zero, one, or a thousand instances, there is always exactly one copy of that variable in memory, and every instance reads or writes the very same slot when it accesses the field. Option C describes instance variables, not static ones, and options A and D mischaracterize when and how static state lives in the runtime.",
+            explanation: "D is correct. A static variable has exactly one copy total per class, shared by every instance. The number of objects created does not matter.\nChoice A is wrong because static variables exist at runtime, not just at compile time.\nChoice B is wrong because static variables live in the class, not in any method's stack frame.\nChoice C is wrong because one-per-object describes an instance variable, not a static one.",
           },
           {
             id: "3_7_q03",
@@ -14830,7 +14830,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A compile-time error occurs." },
             ],
             answer: "C",
-            explanation: "`count` is static, so all three constructor calls increment the same shared variable: 0 → 1 → 2 → 3. `Counter.getCount()` reads that single class-level slot and returns 3. If `count` had been an instance variable instead, each object would have its own counter starting from 0, and the unqualified access inside the static getter wouldn't even compile, since static methods can't see instance fields without an explicit object reference.",
+            explanation: "C is correct. `count` is static, so all three constructor calls increment the same shared variable. Starting at 0, it goes to 1, then 2, then 3. `Counter.getCount()` returns 3.\nChoice A is wrong because the constructors actually ran. The increments did happen.\nChoice B is wrong because three calls each increment the field. Only one call would leave it at 1.\nChoice D is wrong because the class compiles cleanly. Static fields are valid Java.",
           },
           {
             id: "3_7_q04",
@@ -14844,7 +14844,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "By creating an object and calling the method on it: obj.staticMethod()" },
             ],
             answer: "A",
-            explanation: "Static methods belong to the class, so the idiomatic call is `ClassName.methodName(...)`, like `Math.sqrt(4)`. Java technically allows calling a static method through an instance reference, but it is misleading because the dispatch is based on the declared type, not the object — there is no real receiver involved. You never use `new` to call a static method, and static methods are not restricted to constructors at all.",
+            explanation: "A is correct. Static methods belong to the class, so the idiomatic call is `ClassName.methodName(...)` like `Math.sqrt(4)`.\nChoice B is wrong because `new` is for creating objects, not for calling static methods.\nChoice C is wrong because static methods can be called from anywhere, not just from constructors.\nChoice D is wrong because calling a static method through an instance is allowed but considered poor style. It is not the idiomatic way.",
           },
           {
             id: "3_7_q05",
@@ -14858,7 +14858,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Yes — but only if the instance variables are also static" },
             ],
             answer: "A",
-            explanation: "Instance variables live inside specific objects and are accessed through a `this` reference. C static method has no `this` (it isn't tied to any object), so it has no way to know which object's field to read. Trying to use an instance variable name unqualified in a static method is a compile-time error in Java — the compiler cannot resolve the name to any particular object's storage because no object is associated with the call.",
+            explanation: "A is correct. A static method has no `this` reference because it is not tied to any object. It cannot tell which instance's field to read.\nChoice B is wrong because `final` controls reassignment, not access from static methods.\nChoice C is wrong because static methods can only access static members directly, not instance ones.\nChoice D is wrong because static fields are accessible to static methods regardless of any other condition.",
           },
           {
             id: "3_7_q06",
@@ -14873,7 +14873,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A runtime error occurs" },
             ],
             answer: "C",
-            explanation: "`getCount` is declared `static`, but it tries to return `id`, which is an instance variable. Because a static method has no `this` reference, the compiler cannot determine which object's `id` to use — that is a compile-time error, not a runtime issue. Static methods may only directly access static members or their own parameters, so any unqualified instance field reference is rejected immediately by the compiler before the code can ever run.",
+            explanation: "C is correct. `getCount` is static but tries to return the instance field `id`. A static method has no `this`, so the compiler cannot resolve which object's `id` to use. Compile-time error.\nChoice A is wrong because the access fails at compile time. No runtime dispatch happens.\nChoice B is wrong because the access fails at compile time. No default value is ever returned.\nChoice D is wrong because the failure is at compile time, not runtime.",
           },
           {
             id: "3_7_q07",
@@ -14888,7 +14888,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "3 1" },
             ],
             answer: "C",
-            explanation: "`nextId` is shared across all instances. Each constructor reads `nextId` into the new instance's `id`, then increments `nextId`. So `a` gets id 1 (nextId becomes 2), `b` gets 2 (nextId becomes 3), and `c` gets 3 (nextId becomes 4). Printing `a.getId()` and `c.getId()` gives \"1 3\" because each instance captured the static counter's value at the moment of construction, and that value is now frozen in their own `id` fields.",
+            explanation: "C is correct. Each constructor reads `nextId` into the new instance's `id`, then increments. `a` gets 1, `b` gets 2, `c` gets 3. So `a.getId()` returns 1 and `c.getId()` returns 3.\nChoice A is wrong because the first instance captured 1, not 0. The static counter started at 1.\nChoice B is wrong because the third instance captured 3, not 1. Each instance got a different value.\nChoice D is wrong because the order of printing is `a` first, then `c`. So `1 3`, not `3 1`.",
           },
           {
             id: "3_7_q08",
@@ -14902,7 +14902,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "3" },
             ],
             answer: "A",
-            explanation: "After three constructions, `nextId` has been incremented three times from its initial value of 1, reaching 4. `getNextId()` reads the current static value and returns 4. Picking 3 confuses the most recently assigned `id` (which was 3) with the next-available `id` — they differ by one because the increment happens after the assignment, leaving nextId always one ahead of the most recently issued id at any moment.",
+            explanation: "A is correct. After three constructions, `nextId` was incremented three times from its starting value of 1, reaching 4. `getNextId()` returns 4.\nChoice B is wrong because the code compiles cleanly. Static methods can read static fields.\nChoice C is wrong because each increment moves `nextId` forward. Three increments take it past 1.\nChoice D is wrong because 3 was the last assigned `id`, but `nextId` is always one ahead of the most recently issued id.",
           },
           {
             id: "3_7_q09",
@@ -14916,7 +14916,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Math.sqrt is static because it is declared in the Java library" },
             ],
             answer: "C",
-            explanation: "A method should be static when its result depends only on its inputs (and possibly static state), not on any particular object's instance variables. `Math.sqrt` is a pure mathematical computation — there is no Math object's state involved, just the input number that determines the output. Static is therefore the appropriate choice for such utility computations, and that is why the entire Math class consists of static methods with no instances.",
+            explanation: "C is correct. A method should be static when its result depends only on its inputs, not on any object's state. `Math.sqrt` is a pure computation with no instance state involved.\nChoice A is wrong because returning a `double` does not require `static`. Non-static methods can also return `double`.\nChoice B is wrong because `Math` has no internal state to modify. `Math.sqrt` is stateless.\nChoice D is wrong because being declared in the Java library does not require `static`. Many library methods are non-static.",
           },
           {
             id: "3_7_q10",
@@ -14931,7 +14931,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0" },
             ],
             answer: "C",
-            explanation: "`total` is a `public static` variable shared by all Tracker instances, so each constructor adds its argument to the same slot: 0 + 10 + 20 + 5 = 35. The `personal` field is per-instance and doesn't affect the shared total beyond providing the increment amount each time the constructor runs. `Tracker.total` reads that single class-level value and returns 35, regardless of how many Tracker objects currently exist.",
+            explanation: "C is correct. `total` is shared by all instances, so each constructor adds its argument to the same slot. Starting at 0, the sum is 10 + 20 + 5 = 35. `Tracker.total` returns 35.\nChoice A is wrong because 5 is only the third increment. All three constructors contribute.\nChoice B is wrong because 20 is only the second increment. All three contribute.\nChoice D is wrong because the constructors actually ran and incremented `total`. The starting 0 was changed.",
           },
           {
             id: "3_7_q11",
@@ -14959,7 +14959,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "private static int count = 0;" },
             ],
             answer: "D",
-            explanation: "Java's declaration order for class members is: access modifier (e.g. `private`), then optional modifiers like `static`, then the type, then the name, optionally followed by `= initializer`. Only option B (`private static int count = 0;`) follows that grammar; the others scramble the keywords in invalid ways that the compiler will reject before the program ever runs. Order matters because the language grammar requires it.",
+            explanation: "D is correct. Java member declaration order is access modifier, then `static`, then type, then name. An initializer like `= 0` comes last.\nChoice A is wrong because the syntax is scrambled. Java cannot parse `static private = 0 int count;`.\nChoice B is wrong because `count` and `static` appear in invalid positions before the type.\nChoice C is wrong because `static` must come after the access modifier (or stand alone), not after the type.",
           },
           {
             id: "3_7_q13",
@@ -14973,7 +14973,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Yes — instance methods can access both instance variables and static variables" },
             ],
             answer: "D",
-            explanation: "Instance methods always have access to a `this` reference, which lets them read and write instance variables on the current object. They can also access static members because static state isn't tied to any particular object — it just belongs to the class. So the answer is yes, with no special syntax required: an instance method can use a static field's bare name just like an instance field's, and both read from the appropriate storage.",
+            explanation: "D is correct. Instance methods have a `this` reference for instance fields. They can also access static members of the same class freely.\nChoice A is wrong because the unqualified field name works. `ClassName.variable` is not required.\nChoice B is wrong because instance methods can read static fields directly.\nChoice C is wrong because instance methods can access both instance and static fields without restriction.",
           },
           {
             id: "3_7_q14",
@@ -14988,7 +14988,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "1\n3" },
             ],
             answer: "C",
-            explanation: "Each constructor call increments the shared `totalStamps` by one. After s1 and s2 it is 2 (printed first), then after s3 it is 3 (printed second). Because the variable is static, both `getTotal()` calls read the same slot — the value changes only because additional constructor invocations ran in between, each bumping the single shared counter by one. Output is therefore 2 followed by 3 on the next line.",
+            explanation: "C is correct. Each constructor call increments shared `totalStamps`. After `s1` and `s2` it is 2 (printed first). After `s3` it is 3 (printed second). Output is `2\\n3`.\nChoice A is wrong because the first print happens before `s3` is created. The first reading is 2, not 3.\nChoice B is wrong because the second print happens after `s3` is created. The second reading is 3, not 2.\nChoice D is wrong because two constructions happen before the first print. The first reading is 2, not 1.",
           },
           {
             id: "3_7_q15",
@@ -15017,7 +15017,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "10" },
             ],
             answer: "B",
-            explanation: "`Pool.addFive` reads and writes the shared static `size` field. Two successive calls add 5 each time: starting at 10, it goes 10 → 15 → 20. Because both the variable and the method are declared static, no object needs to exist, and there is no compile-time error. `getSize()` then reports the final value 20 by reading the same class-level slot that `addFive` was writing to. The accumulated effect of multiple calls is visible through the shared field.",
+            explanation: "B is correct. `Pool.addFive()` reads and writes the shared static `size`. Two calls add 5 each, taking `size` from 10 to 15 to 20. `getSize()` returns 20.\nChoice A is wrong because only one call would leave `size` at 15. Two calls actually ran.\nChoice C is wrong because the code compiles cleanly. Static method/field declarations are valid.\nChoice D is wrong because both `addFive` calls ran. The starting 10 was incremented twice.",
           },
           {
             id: "3_7_q17",
@@ -15046,7 +15046,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "100" },
             ],
             answer: "B",
-            explanation: "`books` is the shared static variable starting at 100. Each constructor subtracts its `b` from the shared total: 100 − 10 = 90 (after l1), then 90 − 25 = 65 (after l2). `getBooks()` returns the final shared value, 65. The per-instance `borrowed` does not influence future reads of `books`, because each constructor's local effect on the static field already happened during that call and was persisted in the shared slot.",
+            explanation: "B is correct. `books` starts at 100. The first constructor subtracts 10 to give 90. The second subtracts 25 to give 65. `getBooks()` returns 65.\nChoice A is wrong because only the first constructor would leave `books` at 90. The second also ran.\nChoice C is wrong because 35 would require subtracting 65 total. The actual decrements are 10 + 25 = 35 off the start.\nChoice D is wrong because the constructors actually ran. They modified the shared field.",
           },
           {
             id: "3_7_q19",
@@ -15060,7 +15060,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Counter c; c.getCount(); Counter.increment();" },
             ],
             answer: "A",
-            explanation: "The idiomatic pattern is to call static methods on the class (`Counter.getCount()`) and instance methods on an object (`c.increment()`). Option A follows this convention correctly. Option D inverts the receivers (calling a method on an uninitialized variable), B uses `new` in a malformed expression that wouldn't parse, and D treats the class as if it contained a nested object reference that doesn't actually exist in the code.",
+            explanation: "A is correct. Static methods are called on the class (`Counter.getCount()`). Instance methods are called on an object (`c.increment()`). Option A follows both conventions correctly.\nChoice B is wrong because `new Counter.getCount()` is malformed. `new` is for object creation, not method calls.\nChoice C is wrong because `Counter.c.getCount()` treats the class as if it contained an `c` field, which it does not.\nChoice D is wrong because `c.getCount()` runs on an uninitialized variable. Also `Counter.increment()` calls an instance method on the class.",
           },
           {
             id: "3_7_q20",
@@ -15075,7 +15075,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "80" },
             ],
             answer: "D",
-            explanation: "`highScore` is a static field, so each constructor compares its argument to the running maximum stored in that single shared slot. 50 > 0 ⇒ highScore = 50; 80 > 50 ⇒ highScore = 80; 60 > 80 is false, so highScore stays at 80. `getHighScore()` returns 80 because that is the largest value seen so far across all constructions. Picking 190 confuses tracking a maximum with summing all the scores, which the code never does at any point.",
+            explanation: "D is correct. Each constructor compares its argument to the running max. 50 > 0 sets it to 50. 80 > 50 sets it to 80. 60 > 80 is false, so it stays at 80.\nChoice A is wrong because the code tracks the maximum, not the sum. 50 + 80 + 60 = 190 would require summation.\nChoice B is wrong because 80 > 50 updated the max past 50.\nChoice C is wrong because 60 < 80 leaves the max at 80, not 60.",
           },
           {
             id: "3_7_q21",
@@ -15104,7 +15104,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "25 40" },
             ],
             answer: "D",
-            explanation: "`getValue` reads the per-instance field — c1's value is 25, which was set in c1's constructor. `getTotal` reads the shared static field, which accumulated 25 + 10 + 5 = 40 across all three constructions of separate Coin objects. The output \"25 40\" reflects the difference between per-object state (each instance has its own value) and class-wide state (one shared total tracked across all instances).",
+            explanation: "D is correct. `c1.getValue()` reads the per-instance field, which is 25. `getTotal()` reads the static field, which accumulated 25 + 10 + 5 = 40. Output is `25 40`.\nChoice A is wrong because `getValue` returns the instance field, which is 25 for `c1`, not 40.\nChoice B is wrong because the static `total` is 40 across all three constructions, not 40 the running 25 + 10 = 35.\nChoice C is wrong because the static field accumulated three constructions, not just one.",
           },
           {
             id: "3_7_q23",
@@ -15118,7 +15118,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The call compiles and runs, but is considered poor style — Java uses the declared type of the reference, not the object" },
             ],
             answer: "D",
-            explanation: "Java permits calling a static method through an instance reference, but the call is resolved against the declared (compile-time) type of the variable, not the actual runtime object. It compiles and runs, but it is poor style because it creates the misleading impression that the method depends on the specific instance. The convention is always `ClassName.staticMethod()` to make the class-level nature obvious to any reader of the code.",
+            explanation: "D is correct. Java permits calling a static method through an instance reference. The call compiles and runs, but it is poor style because the dispatch uses the declared type, not the runtime object.\nChoice A is wrong because static methods cannot access instance variables, regardless of how they are called.\nChoice B is wrong because the call works even if the reference is null. The dispatch ignores the receiver value.\nChoice C is wrong because the syntax is legal Java. No compile error occurs.",
           },
           {
             id: "3_7_q24",
@@ -15191,7 +15191,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0.1" },
             ],
             answer: "A",
-            explanation: "The static method `tax` reads the static `rate` (0.1) and multiplies it by the parameter `price` (200.0), returning 20.0. No object is needed because both the method and the field it reads belong to the class. Picking 200.0 would ignore the multiplication entirely; picking 0.1 would return just the rate without applying it to the price; and no compile error occurs since the static method only touches a static field.",
+            explanation: "A is correct. The static method reads the static `rate` (0.1) and multiplies it by `price` (200.0), returning 20.0.\nChoice B is wrong because 200.0 ignores the multiplication by `rate`.\nChoice C is wrong because the code compiles cleanly. Static methods can read static fields.\nChoice D is wrong because 0.1 is just `rate`, not `price * rate`.",
           },
           {
             id: "3_7_q29",
@@ -15205,7 +15205,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Math m = new Math(); m.sqrt(16);" },
             ],
             answer: "A",
-            explanation: "Static methods are invoked via `ClassName.methodName(args)`, with no `new` and no instance reference. `double x = Math.sqrt(16);` follows that pattern exactly. `new` is not used with static method calls (option C is malformed), `Math` cannot be instantiated as in B (its constructor is private), and `static` is not a valid modifier on a local variable declaration as in D — only class members can be static.",
+            explanation: "A is correct. Static methods are invoked via `ClassName.methodName(args)`. `double x = Math.sqrt(16);` follows that pattern exactly.\nChoice B is wrong because `static` is not a legal modifier on a local variable declaration. Only class members can be static.\nChoice C is wrong because `new` is for object construction. It does not work with static method calls.\nChoice D is wrong because `Math` cannot be instantiated. Its constructor is private.",
           },
           {
             id: "3_7_q30",
@@ -15327,7 +15327,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A NullPointerException is thrown at runtime." },
             ],
             answer: "D",
-            explanation: "`s` is null, so `s.toUpperCase()` tries to dispatch a method through a null reference. The compiler accepts the syntax because `s` has the declared type `String`, but at runtime the JVM cannot dispatch on null and throws a `NullPointerException`. Java does not silently return null or print an empty string in this case — calling any method on a null reference always fails immediately rather than returning a sensible default value.",
+            explanation: "D is correct. `s` is null, so the JVM cannot dispatch `toUpperCase()` on it. The result is a `NullPointerException` at runtime.\nChoice A is wrong because Java does not silently return null on a null receiver. The dispatch fails.\nChoice B is wrong because Java does not silently return an empty string on a null receiver.\nChoice C is wrong because the syntax is valid. The failure happens at runtime, not compile time.",
           },
           {
             id: "3_8_q08",
@@ -15356,7 +15356,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A NullPointerException is thrown." },
             ],
             answer: "C",
-            explanation: "`count` is an instance field shared across all instance methods of the object via the implicit `this` reference. Calling `increment` twice on the same Foo instance walks count from 0 → 1 → 2, and `show` reads the same field and prints 2. The variable persists between method calls because it lives in the heap object itself, not in any method's stack frame, so each call's modifications are preserved for the next call to observe later on.",
+            explanation: "C is correct. `count` starts at 0. Each `increment()` runs `count++`, taking it from 0 to 1, then 1 to 2. `show()` reads the field and prints 2.\nChoice A is wrong because both increment calls ran. The field is not still 0.\nChoice B is wrong because two increments would leave the field at 2, not 1.\nChoice D is wrong because the object is fully constructed. No null is involved.",
           },
           {
             id: "3_8_q10",
@@ -15370,7 +15370,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "All methods in the class" },
             ],
             answer: "C",
-            explanation: "A method parameter is just a special local variable initialized from the caller's argument. Like any local, it is in scope throughout the entire method body. It does not leak to other methods or to the class as a whole, so options A and D are wrong; and its scope is the full method body, not merely the declaration line, so B is also wrong. Parameters behave like ordinary locals after their initial assignment.",
+            explanation: "C is correct. A method parameter is a local variable. Its scope is the entire method body in which it is declared.\nChoice A is wrong because a parameter is local to its own method. Other methods cannot see it.\nChoice B is wrong because the parameter is usable throughout the method body, not just the declaration line.\nChoice D is wrong because parameters are not class members. Other methods cannot access them.",
           },
           {
             id: "3_8_q11",
@@ -15385,7 +15385,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "15" },
             ],
             answer: "D",
-            explanation: "The constructor uses `this.size = size` to set the field to 10, resolving the parameter/field name collision. In `grow`, `this.size += size` reads the field (10), adds the parameter (5), and writes 15 back into the field. `getSize()` then returns 15. Without the `this.` qualifications, the parameter would shadow the field and the assignments would only modify the local parameter copy, never reaching the actual instance variable.",
+            explanation: "D is correct. The constructor uses `this.size = size` to set the field to 10. `grow(5)` uses `this.size += size` to read 10, add 5, and write 15. `getSize()` returns 15.\nChoice A is wrong because `this.size` and `size` are both valid references inside an instance method.\nChoice B is wrong because 5 is the most recent parameter value, not the accumulated field.\nChoice C is wrong because `grow` adds 5 to the existing 10, not 10 alone.",
           },
           {
             id: "3_8_q12",
@@ -15399,7 +15399,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A runtime NullPointerException is thrown" },
             ],
             answer: "C",
-            explanation: "Local variables have no default value in Java; the language requires definite assignment before any read. Using a local before initializing it is a compile-time error caught by the compiler's definite-assignment flow analysis. This rule does not apply to instance fields, which receive default values like 0 or null when their containing object is constructed — only locals demand explicit initialization before use.",
+            explanation: "C is correct. Local variables have no default in Java. The compiler's definite-assignment analysis rejects any read before an explicit initialization.\nChoice A is wrong because instance fields default to 0 for `int`, but locals do not.\nChoice B is wrong because instance reference fields default to null, but locals do not.\nChoice D is wrong because the error is at compile time, not runtime.",
           },
           {
             id: "3_8_q13",
@@ -15413,7 +15413,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "null" },
             ],
             answer: "A",
-            explanation: "Unlike locals, instance fields receive default values when the object is constructed. Numeric primitives default to 0 (so `int` → 0, `double` → 0.0), `boolean` defaults to `false`, and all reference types default to `null`. No compile-time error occurs simply because an instance field is unassigned, which is one of the key differences between fields and locals — the JVM guarantees a known default for every field.",
+            explanation: "A is correct. Instance fields receive default values when the object is constructed. Numeric primitives like `int` default to 0.\nChoice B is wrong because the default for `int` is 0, not 1.\nChoice C is wrong because instance fields are auto-initialized to defaults. No compile error occurs.\nChoice D is wrong because `null` is the default for reference types, not for primitive `int`.",
           },
           {
             id: "3_8_q14",
@@ -15428,7 +15428,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "An empty string is printed." },
             ],
             answer: "B",
-            explanation: "Because the constructor never assigns `value`, the String field uses its default — `null`. `getValue()` returns `null`, and `System.out.println(null)` prints the literal text \"null\" without throwing an exception, because println has a specific overload that handles null safely. Reference fields are always default-initialized to null when the object is built, so no compile-time or runtime error occurs in this code.",
+            explanation: "B is correct. The constructor never assigns `value`, so the String field defaults to null. `getValue()` returns null. `System.out.println(null)` prints the literal text `null`.\nChoice A is wrong because `println` has a special overload that handles null safely.\nChoice C is wrong because the code is well-formed Java. The field is auto-defaulted.\nChoice D is wrong because the println outputs the literal text `null`, not an empty string.",
           },
           {
             id: "3_8_q15",
@@ -15458,7 +15458,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "11" },
             ],
             answer: "B",
-            explanation: "Inside `compute`, the local declaration `int a = 10` shadows the instance field `a = 1` within the method body. The expression `a + b` therefore uses the local `a` (10) and the still-visible field `b` (2, since no local `b` exists in this method), giving 10 + 2 = 12. Shadowing only hides identically named outer names; other names continue to resolve normally to the field they reference, which is why `b` reaches the instance field while `a` reaches the local.",
+            explanation: "B is correct. Inside `compute`, the local `int a = 10` shadows the field. The expression `a + b` uses the local 10 and the field `b` of 2, giving 12.\nChoice A is wrong because the local `a` shadows the field within the method. The local is 10, not 1.\nChoice C is wrong because the local `b` does not exist. `b` still resolves to the field of 2.\nChoice D is wrong because the field `a` of 1 is shadowed. The local 10 plus the field `b` of 2 gives 12.",
           },
           {
             id: "3_8_q17",
@@ -15472,7 +15472,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The two temp variables are the same variable — changes in one method affect the other" },
             ],
             answer: "A",
-            explanation: "Local variables exist in the method's own stack frame, so two methods may each declare their own `temp` with no conflict — the names are scoped independently and live in completely separate frames at runtime. There is no class-wide rule against name reuse for locals, only within a single scope. Changes to one method's `temp` cannot affect the other because they occupy completely different storage locations on the call stack, even when both methods belong to the same class.",
+            explanation: "A is correct. Each method has its own stack frame, so two locals named `temp` are completely independent. They live in separate storage.\nChoice B is wrong because one method's local cannot overwrite another's. They occupy separate frames.\nChoice C is wrong because Java allows local name reuse across methods. There is no class-wide uniqueness rule.\nChoice D is wrong because the two locals are not the same variable. Each method has its own frame.",
           },
           {
             id: "3_8_q18",
@@ -15516,7 +15516,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0" },
             ],
             answer: "C",
-            explanation: "`sc` was assigned `null`, so it holds no Scanner reference. Calling `sc.getLength()` is syntactically legal (the declared type is Scanner), so the compiler accepts it, but at runtime the JVM cannot invoke a method on `null` and throws a `NullPointerException`. The compile-time options are therefore wrong — the program is well-formed but fails when it actually executes the method call on a null receiver.",
+            explanation: "C is correct. `sc` is null, so calling `sc.getLength()` cannot dispatch to any object. The JVM throws a `NullPointerException`.\nChoice A is wrong because Java does not silently return null on a null receiver.\nChoice B is wrong because the syntax is valid. The compile-time check passes.\nChoice D is wrong because Java does not silently return 0 on a null receiver.",
           },
           {
             id: "3_8_q21",
@@ -15531,7 +15531,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0 1 2" },
             ],
             answer: "A",
-            explanation: "The instance field `n = 3` controls the loop bound, while `i` and `x` are block-scoped locals that exist only inside the loop body. For `i = 0, 1, 2`, the local `x = i * 2` produces 0, 2, and 4, each printed with a trailing space. The `x` variable is re-declared each pass and is not visible outside the loop, illustrating how local variables in block scopes have very limited lifetimes compared to instance fields.",
+            explanation: "A is correct. The field `n` is 3, so the loop runs for `i = 0, 1, 2`. Each iteration prints `x = i * 2`, giving 0, 2, 4 with trailing spaces.\nChoice B is wrong because `x` is `i * 2`, not `n`. The value changes each iteration.\nChoice C is wrong because the code is well-formed. The loop and locals are valid.\nChoice D is wrong because `x` is `i * 2`, not just `i`. The output is `0 2 4`.",
           },
           {
             id: "3_8_q22",
@@ -15545,7 +15545,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Both local and instance variables have the same scope" },
             ],
             answer: "C",
-            explanation: "A local is confined to the method (or block) where it appears, while an instance variable is accessible throughout all instance methods of the class for as long as the object exists. The two scopes serve different lifetimes: locals are temporary per call and disappear when the method returns; instance fields belong to the object's persistent state and stick around as long as the object itself is reachable in memory.",
+            explanation: "C is correct. A local is confined to the method or block where it is declared. An instance variable is accessible in all instance methods of the class for the object's lifetime.\nChoice A is wrong because instance variables are accessible from all instance methods, not just constructors.\nChoice B is wrong because the descriptions are reversed. Locals are method-scoped, not class-wide.\nChoice D is wrong because the two scopes are genuinely different. Locals last for one call. Fields last for the object's life.",
           },
           {
             id: "3_8_q23",
@@ -15560,7 +15560,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "original original" },
             ],
             answer: "B",
-            explanation: "Inside `display`, the local declaration `String label = \"override\"` shadows the instance field `label` set by the constructor. `this.label` reaches the instance field (\"original\") and the unqualified `label` resolves to the local (\"override\"). Concatenated with a space between them, the output is \"original override\" — a textbook demonstration of using `this` to disambiguate a shadowed name when both the field and the local need to be accessed in the same scope.",
+            explanation: "B is correct. Inside `display`, the local `label = \"override\"` shadows the field. `this.label` reaches the field (`\"original\"`). The unqualified `label` resolves to the local. Output is `\"original override\"`.\nChoice A is wrong because `this.label` accesses the field, which is `\"original\"`, not the local `\"override\"`.\nChoice C is wrong because the order is `this.label` first, then `label`. So `\"original override\"`, not `\"override original\"`.\nChoice D is wrong because the local was declared and assigned `\"override\"`. It is not also `\"original\"`.",
           },
           {
             id: "3_8_q24",
@@ -15574,7 +15574,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "null" },
             ],
             answer: "C",
-            explanation: "Instance fields are default-initialized automatically when the object is built: `int` → 0, `double` → 0.0, `boolean` → false, and all reference types → null. There is no requirement that booleans be explicitly assigned in a constructor, so no compile-time error occurs. The default for an unassigned boolean field is `false`, which is the natural choice for a flag that has not been set — equivalent to saying the condition is \"not yet enabled\" or \"not yet true\".",
+            explanation: "C is correct. Instance fields are default-initialized. A `boolean` field defaults to `false`. The constructor is not required to set it explicitly.\nChoice A is wrong because instance fields are auto-defaulted. No compile error occurs.\nChoice B is wrong because the default for `boolean` is `false`, not `true`.\nChoice D is wrong because `null` is the default for reference types, not for primitive `boolean`.",
           },
           {
             id: "3_8_q25",
@@ -15604,7 +15604,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "396" },
             ],
             answer: "D",
-            explanation: "Inside `area`, the local declaration `int rows = 99` shadows the field `rows = 3` within the method body. The expression `rows * cols` therefore multiplies the local (99) by the still-visible instance field `cols` (4), yielding 99 * 4 = 396. If the local hadn't been declared, the expression would have used the field `rows` (3) and returned 3 * 4 = 12 — but the shadow captures the `rows` name within the method's scope, changing the result entirely.",
+            explanation: "D is correct. Inside `area`, the local `int rows = 99` shadows the field. The expression `rows * cols` uses the local 99 and the field `cols` of 4, giving 396.\nChoice A is wrong because 99 is just `rows`. The method multiplies by `cols`.\nChoice B is wrong because 297 would be 99 * 3, but `cols` is 4, not 3.\nChoice C is wrong because the field `rows` of 3 is shadowed. The local 99 is used instead.",
           },
           {
             id: "3_8_q27",
@@ -15633,7 +15633,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "42" },
             ],
             answer: "C",
-            explanation: "`n` is reassigned to `null`, clearing the reference. The next line `n.getValue()` then tries to invoke a method on null — there is no object to receive the call, so the JVM throws a `NullPointerException` at runtime. The compiler does not detect this because the syntax and types are valid; the failure only happens when execution reaches that line and discovers the receiver is null at dispatch time.",
+            explanation: "C is correct. `n` is reassigned to null. The next line `n.getValue()` cannot dispatch to any object, so the JVM throws a `NullPointerException`.\nChoice A is wrong because Java does not silently return 0 on a null receiver.\nChoice B is wrong because Java does not silently return null on a null receiver.\nChoice D is wrong because `n` was overwritten to null before the call. The original Dog is no longer referenced through `n`.",
           },
           {
             id: "3_8_q29",
@@ -15648,7 +15648,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "20" },
             ],
             answer: "D",
-            explanation: "`addAll` reads its three parameters and stores their sum (3 + 7 + 10 = 20) into the instance field `total` using a simple unqualified assignment. `getTotal()` then reads the field and returns 20. There is no shadowing in this method, no static state involved, and no null reference — just a straightforward sum assigned into instance state via an unqualified field name that resolves directly to the field because no local or parameter has the same name.",
+            explanation: "D is correct. `addAll(3, 7, 10)` runs `total = 3 + 7 + 10`, assigning 20 to the field. `getTotal()` returns 20.\nChoice A is wrong because the mutator actually ran. The field was overwritten from its default.\nChoice B is wrong because 3 is only one of the three values. The total is 3 + 7 + 10.\nChoice C is wrong because 10 is only one of the three values. The total is 3 + 7 + 10.",
           },
           {
             id: "3_8_q30",
@@ -15662,7 +15662,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "They are never removed from memory — they exist until the program ends" },
             ],
             answer: "B",
-            explanation: "Instance fields are allocated as part of the object on the heap, so they live exactly as long as the object is reachable from program roots like local variables or other references. Every instance method called on that object sees the same fields through the implicit `this` reference. They are not recreated per call (that would be local behavior) and not class-wide (that would be static behavior) — they belong to the individual object and persist between method calls.",
+            explanation: "B is correct. Instance fields are allocated as part of the object on the heap. They live as long as the object is reachable. Every instance method sees the same fields via `this`.\nChoice A is wrong because instance fields are in-memory state, not persisted to disk.\nChoice C is wrong because instance fields persist across method calls. They are not recreated each call.\nChoice D is wrong because instance fields can be reclaimed by garbage collection once the object is unreachable.",
           },
         ],
       },
@@ -15698,7 +15698,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "this.name refers to the instance variable; name refers to the parameter — they share the same name, so this is needed to disambiguate" },
             ],
             answer: "D",
-            explanation: "When a parameter shares the field's name, the parameter shadows the field, so the unqualified identifier refers to the parameter only. Writing `name = name` assigns the parameter to itself and leaves the field unchanged. `this.name = name` reaches the field explicitly through the current-object reference, making the assignment effective. The other options invent rules about syntax or semantics that Java doesn't actually impose.",
+            explanation: "D is correct. The parameter `name` shadows the field with the same name. `this.name` explicitly accesses the field, while bare `name` refers to the parameter.\nChoice A is wrong because `name = name` assigns the parameter to itself. It does not set the field to 0.\nChoice B is wrong because both forms copy reference values. Neither one copies the object itself.\nChoice C is wrong because `this.name = name` is needed only when shadowing occurs. It is not required in every constructor.",
           },
           {
             id: "3_9_q03",
@@ -15713,7 +15713,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Alice" },
             ],
             answer: "D",
-            explanation: "The constructor uses `this.name = name` to copy the parameter \"Alice\" into the instance field, resolving the shadow. From then on `getName()` returns the field, which now holds \"Alice\". Without the `this` qualifier, the assignment would have been a no-op (parameter assigning to itself) and the field would have remained at its default of null — that's the variant in the very next question in this set.",
+            explanation: "D is correct. The constructor uses `this.name = name` to copy `\"Alice\"` into the field. `getName()` then returns the field, which holds `\"Alice\"`.\nChoice A is wrong because the code compiles cleanly. Using `this.` to disambiguate is standard.\nChoice B is wrong because the constructor explicitly assigned the parameter to the field. The field is not null.\nChoice C is wrong because Java evaluates expressions to values, not variable names.",
           },
           {
             id: "3_9_q04",
@@ -15728,7 +15728,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Whiskers" },
             ],
             answer: "A",
-            explanation: "Because the constructor wrote `name = name` (no `this`), the parameter is assigned to itself and the field is never updated. Reference-typed fields default to `null`, so `getName()` returns null. This is the canonical example of why shadowing demands `this.` qualification — without it, the code looks like it sets the field but actually does nothing useful, a subtle bug that the compiler does not catch.",
+            explanation: "A is correct. `name = name` (no `this`) assigns the parameter to itself. The field is never updated, so it stays at its default of null. `getName()` returns null.\nChoice B is wrong because Java evaluates expressions to values, not variable names.\nChoice C is wrong because the code compiles cleanly. The shadowing is legal Java.\nChoice D is wrong because the field was never assigned. Without `this.`, the parameter assignment does not reach the field.",
           },
           {
             id: "3_9_q05",
@@ -15757,7 +15757,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "7 3" },
             ],
             answer: "C",
-            explanation: "The constructor uses `this.x = x; this.y = y;` to assign each parameter into the matching field, resolving both shadows simultaneously. After construction the fields hold 3 and 7, and the two getters return those values. Without the `this.` qualifications, neither field would have been written and both would have stayed at their default values of 0 — Java would not warn that the assignments were silently useless.",
+            explanation: "C is correct. The constructor uses `this.x = x` and `this.y = y` to assign each parameter into the matching field. After construction, `x` is 3 and `y` is 7. The print shows `3 7`.\nChoice A is wrong because the constructor explicitly assigned the parameters. The fields are not at default.\nChoice B is wrong because Java evaluates expressions to values, not variable names.\nChoice D is wrong because `x` is assigned 3 and `y` is assigned 7, in that order.",
           },
           {
             id: "3_9_q07",
@@ -15772,7 +15772,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "2" },
             ],
             answer: "C",
-            explanation: "Calling `new Rect()` invokes the no-arg constructor, which uses `this(1, 1)` as its first statement to chain into the two-arg constructor. That sets `w = 1` and `h = 1` via the qualified field assignments, so `area()` returns 1 * 1 = 1. Constructor chaining lets one constructor reuse another's logic without duplicating field-assignment code, parameter-validation code, or invariant-checking logic across multiple constructors in the same class.",
+            explanation: "C is correct. `new Rect()` calls the no-arg constructor, which uses `this(1, 1)` to chain to the two-arg constructor. That sets `w` and `h` to 1. `area()` returns `1 * 1 = 1`.\nChoice A is wrong because `this(...)` as the first statement of a constructor is valid Java.\nChoice B is wrong because the chained constructor explicitly assigned 1 to both fields.\nChoice D is wrong because the chained constructor passed 1, not 2. The area is 1, not 2.",
           },
           {
             id: "3_9_q08",
@@ -15786,7 +15786,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Yes — this refers to null in static methods" },
             ],
             answer: "A",
-            explanation: "Static methods are not associated with any object — there is no current instance, so the implicit `this` reference does not exist in that scope. Any explicit use of `this` inside a static method is a compile-time error. This is the same rule that prevents static methods from directly accessing instance fields or calling instance methods without an explicit receiver — they have no object to operate on.",
+            explanation: "A is correct. Static methods are not associated with any object. There is no `this` reference, so any explicit use of `this` inside a static method is a compile-time error.\nChoice B is wrong because the error is caught at compile time, not runtime.\nChoice C is wrong because `this` always refers to the current instance, not the class.\nChoice D is wrong because `this` is undefined in static methods, not null.",
           },
           {
             id: "3_9_q09",
@@ -15801,7 +15801,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Rex" },
             ],
             answer: "A",
-            explanation: "`new Dog(\"Rex\")` calls the one-arg constructor, which chains via `this(\"Rex\", 0)` into the two-arg constructor as its first statement. That sets the fields to `name = \"Rex\"` and `age = 0` through the qualified assignments, and `toString()` formats them as \"Rex (0)\". Chaining gives sensible defaults (like age 0 for an unspecified age) without duplicating assignment code across both constructors — a clean way to support optional parameters in Java.",
+            explanation: "A is correct. `new Dog(\"Rex\")` calls the one-arg constructor, which chains via `this(\"Rex\", 0)` to the two-arg constructor. That sets `name` to `\"Rex\"` and `age` to 0. Output is `\"Rex (0)\"`.\nChoice B is wrong because the chained constructor explicitly assigned `\"Rex\"` to `name`. The field is not null.\nChoice C is wrong because the code compiles cleanly with constructor chaining.\nChoice D is wrong because `toString()` formats both fields. The age 0 is included.",
           },
           {
             id: "3_9_q10",
@@ -15815,7 +15815,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Yes — otherwise Java throws a NullPointerException" },
             ],
             answer: "C",
-            explanation: "When no local variable or parameter shares a field's name, the unqualified field name already resolves to the instance field — no `this` is needed for correctness. `this` becomes mandatory only to disambiguate shadowing. Many style guides still recommend it everywhere for clarity and consistency, but Java does not require it in non-shadowed cases, so it is purely a stylistic choice in those situations.",
+            explanation: "C is correct. When no parameter or local shadows the field, the unqualified field name resolves to the instance field automatically. `this` is optional.\nChoice A is wrong because `this` can be used in any non-static method, not just constructors.\nChoice B is wrong because `this` is required only when shadowing occurs.\nChoice D is wrong because using `this` is never about avoiding null. It is for disambiguation.",
           },
           {
             id: "3_9_q11",
@@ -15844,7 +15844,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0.0 5.0" },
             ],
             answer: "A",
-            explanation: "`new Circle()` chains via `this(1.0)` into the parameterized constructor, setting c1's radius to 1.0 as the chained default. `new Circle(5.0)` calls that same parameterized constructor directly, giving c2 a radius of 5.0. The two values printed reflect the chained default and the direct argument respectively, producing \"1.0 5.0\" as the output — a clear demonstration of constructor chaining providing a useful default while sharing field-assignment logic.",
+            explanation: "A is correct. `new Circle()` chains via `this(1.0)` to set radius to 1.0. `new Circle(5.0)` directly sets radius to 5.0. Output is `1.0 5.0`.\nChoice B is wrong because `c1.getRadius()` is printed first, not second. The order is `1.0 5.0`.\nChoice C is wrong because `c2` was constructed with 5.0, not 1.0. The two values differ.\nChoice D is wrong because the chained constructor explicitly assigned 1.0. The field is not at default.",
           },
           {
             id: "3_9_q13",
@@ -15859,7 +15859,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A compile-time error occurs." },
             ],
             answer: "B",
-            explanation: "`new Pair(4)` invokes the one-arg constructor, which chains with `this(4, 4)` into the two-arg constructor as its first statement. Both fields become 4 through the qualified assignments, and `sum()` returns 4 + 4 = 8. Chaining is how a single-argument shorthand can build the same state as the full constructor without duplicating the assignment logic, and here it makes both `a` and `b` take on the same supplied value as a convenient default behavior.",
+            explanation: "B is correct. `new Pair(4)` invokes the one-arg constructor, which chains via `this(4, 4)` to the two-arg constructor. Both fields become 4. `sum()` returns `4 + 4 = 8`.\nChoice A is wrong because the chained constructor sets both fields, not just one. The sum is 8, not 4.\nChoice C is wrong because the chained constructor explicitly assigned 4 to both fields.\nChoice D is wrong because the code compiles cleanly with constructor chaining.",
           },
           {
             id: "3_9_q14",
@@ -15873,7 +15873,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "this to pass the current object as a method argument" },
             ],
             answer: "A",
-            explanation: "`this.field` accesses an instance variable on the current object, `this()` chains to a sibling constructor in the same class, and passing `this` as an argument hands the current object reference to a method as a parameter. None of these reach a superclass constructor — that would require `super()`, which is outside the AP CSA scope and a different keyword entirely. So A is the only invalid use among the options listed in this question.",
+            explanation: "A is correct. Calling a parent class constructor uses a different keyword that is outside the AP CSA scope. `this` is not used for that purpose.\nChoice B is wrong because `this.fieldName` is a standard valid use to access an instance variable.\nChoice C is wrong because `this()` is a standard valid use to chain to another constructor in the same class.\nChoice D is wrong because passing `this` as an argument is a standard valid use to share the current object.",
           },
           {
             id: "3_9_q15",
@@ -15888,7 +15888,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "null: false" },
             ],
             answer: "C",
-            explanation: "`new Lamp(\"red\")` calls the one-arg constructor, which chains via `this(\"red\", false)` into the two-arg constructor. After chaining, `color` becomes \"red\" and `on` becomes `false`. `getStatus()` then formats them as \"red: false\". The chained default (`false` for `on`) is what distinguishes this from picking option A — the one-arg form deliberately supplies a default of `false` for the second parameter, modeling a lamp that starts off in the off state.",
+            explanation: "C is correct. `new Lamp(\"red\")` chains via `this(\"red\", false)` to the two-arg constructor. `color` becomes `\"red\"` and `on` becomes `false`. `getStatus()` returns `\"red: false\"`.\nChoice A is wrong because the chained constructor explicitly passed `false`, not `true`, for the `on` parameter.\nChoice B is wrong because Java evaluates expressions to values, not variable names.\nChoice D is wrong because the chained constructor explicitly assigned `\"red\"` to `color`. The field is not null.",
           },
           {
             id: "3_9_q16",
@@ -15932,7 +15932,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "18" },
             ],
             answer: "D",
-            explanation: "`s.add(5)` adds 5 to the shared `pts` field (10 → 15) and returns `this`, which is the very same Score object as `s`. The chained `.add(3)` then runs on that same object, taking pts from 15 to 18. `s.getPts()` reads the final field value, 18. Returning `this` is what makes the chain work — without it, the second `.add(3)` would have nothing to invoke on, since add's return type would be void or some other unrelated value.",
+            explanation: "D is correct. `s.add(5)` adds 5 to `pts` (10 to 15) and returns `this`. The chained `.add(3)` runs on the same object, taking `pts` from 15 to 18. `getPts()` returns 18.\nChoice A is wrong because 8 would require starting at 0. The constructor set `pts` to 10.\nChoice B is wrong because both add calls ran. Only the second would leave `pts` at 13, not 10.\nChoice C is wrong because the second `.add(3)` ran. Only the first call would leave `pts` at 15.",
           },
           {
             id: "3_9_q19",
@@ -15947,7 +15947,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0" },
             ],
             answer: "A",
-            explanation: "Inside `resize`, the parameter `size` shadows the instance field of the same name. `size = size * 2` reads the parameter (5), doubles it to 10, and writes 10 back into the same local parameter slot — the field is never touched by the assignment because the unqualified name refers to the parameter. `getSize()` returns the unchanged field, 10. This is precisely why `this.size = ...` is needed when a parameter shadows a field; otherwise the field is never updated. Choice B is the doubled parameter value as if the field had been assigned. Choice C is the parameter value itself. Choice D is the int field default that would apply if the constructor hadn't run.",
+            explanation: "A is correct. Inside `resize`, the parameter `size` shadows the field. `size = size * 2` writes to the parameter, not the field. The field stays at its constructor value of 10.\nChoice B is wrong because the doubled 10 (20) was written to the local parameter, not the field.\nChoice C is wrong because the constructor set the field to 10, not 5. 5 is the parameter value, doubled to 10 inside the method.\nChoice D is wrong because the constructor explicitly assigned 10 to the field via `this.size`.",
           },
           {
             id: "3_9_q20",
@@ -15962,7 +15962,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "3" },
             ],
             answer: "A",
-            explanation: "Here `this.size = size * 2` explicitly reaches through `this` to the instance field, even though the parameter `size` shadows it within the unqualified name lookup. The parameter `size` (6) is doubled to 12 and assigned to the field. `getSize()` then returns 12. The contrast with the previous question highlights why `this` matters when parameters shadow fields — only the qualified form actually mutates the object's state, while the unqualified form would just modify the local.",
+            explanation: "A is correct. `this.size = size * 2` explicitly reaches the field. The parameter `size` (6) is doubled to 12 and assigned to the field. `getSize()` returns 12.\nChoice B is wrong because the assignment multiplies by 2 before writing. The field is set to 12, not 6.\nChoice C is wrong because 36 would be `size * size`, but the method doubles rather than squares.\nChoice D is wrong because the constructor set the field to 6, but `resize` then overwrote it with 12.",
           },
           {
             id: "3_9_q21",
@@ -15991,7 +15991,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "public void setAge(int age) { this = age; }" },
             ],
             answer: "A",
-            explanation: "`this.age = age` correctly assigns the parameter to the same-named field, the textbook pattern for a setter that resolves shadowing through explicit `this` qualification. Option C reverses the sides of the assignment, D tries to overwrite `this` itself (which is illegal — `this` is read-only), and B attempts to use `this` as a parameter name (a reserved word, which the compiler immediately rejects).",
+            explanation: "A is correct. `this.age = age` correctly assigns the parameter to the same-named field. This resolves shadowing through explicit `this` qualification.\nChoice B is wrong because `this` is a reserved keyword and cannot be a parameter name.\nChoice C is wrong because `age = this` would try to assign the object reference to an `int`, which is a type mismatch.\nChoice D is wrong because `this` is read-only. You cannot reassign `this`.",
           },
           {
             id: "3_9_q23",
@@ -16006,7 +16006,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "capacity = 0, fuel = 0" },
             ],
             answer: "A",
-            explanation: "`new Tank(50)` calls the one-arg constructor, which chains via `this(50, 0)` into the two-arg constructor as its very first statement. The two-arg constructor then sets `capacity = 50` and `fuel = 0` through its `this.capacity = capacity; this.fuel = fuel;` assignments. Constructor chaining is the cleanest way to provide a sensible default for one parameter (here, an empty fuel tank) while reusing the full-initialization logic without code duplication.",
+            explanation: "A is correct. `new Tank(50)` chains via `this(50, 0)` to the two-arg constructor. `capacity` becomes 50 and `fuel` becomes 0.\nChoice B is wrong because the chained constructor passed 0 for `fuel`, not 50.\nChoice C is wrong because the chained constructor passed 50 for `capacity`, not 0.\nChoice D is wrong because the chained constructor explicitly assigned 50 to `capacity`. The field is not at default.",
           },
           {
             id: "3_9_q24",
@@ -16021,7 +16021,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A compile-time error — cannot have same name for both" },
             ],
             answer: "C",
-            explanation: "Inside the constructor, the parameter `speed` shadows the instance field of the same name within the entire method body. The unqualified `speed` in the println therefore prints the parameter's value, not the field's (which is still 0 at that moment, since the assignment with `this.` hasn't happened yet on the line below it). Only `this.speed` would reach the field at any point in the constructor's body before the explicit assignment happens.",
+            explanation: "C is correct. The parameter `speed` shadows the field within the constructor body. The unqualified `speed` in the println refers to the parameter value, not the field.\nChoice A is wrong because Java does not silently average the two same-named variables.\nChoice B is wrong because the shadow rule means the local name wins. Only `this.speed` reaches the field.\nChoice D is wrong because the code compiles cleanly. Java allows parameters to shadow fields.",
           },
           {
             id: "3_9_q25",
@@ -16036,7 +16036,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0.0" },
             ],
             answer: "D",
-            explanation: "The constructor sets `this.degrees = 32.0` via `this.degrees = degrees`, resolving the shadow between the parameter and the field. `toCelsius()` then computes `(32.0 - 32) * 5.0 / 9.0` = 0 * 5.0 / 9.0 = 0.0. No null can occur because the object was fully constructed and `degrees` is a primitive (not a reference); the arithmetic just happens to yield 0.0 because 32°F is the freezing point of water, which is exactly 0°C by the formula's design.",
+            explanation: "D is correct. The constructor sets `degrees` to 32.0 via `this.degrees = degrees`. `toCelsius()` computes `(32.0 - 32) * 5.0 / 9.0 = 0.0`.\nChoice A is wrong because `(32.0 - 32) * 5.0 / 9.0` is 0.0, not 100.0.\nChoice B is wrong because `degrees` is a primitive `double`. It cannot be null.\nChoice C is wrong because the formula subtracts 32 first, so 32.0 - 32 = 0. The result is 0.0.",
           },
           {
             id: "3_9_q26",
@@ -16065,7 +16065,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The this() call must be the last statement" },
             ],
             answer: "B",
-            explanation: "`this(\"default\", 0)` invokes another constructor in the same class whose parameter list matches `(String, int)`. If no matching constructor exists, the compiler raises an error because chaining requires resolving to a concrete sibling constructor. It must also be the first statement in the constructor body — but the central language requirement targeted by the question is that the matching overload must exist somewhere in the class.",
+            explanation: "B is correct. `this(\"default\", 0)` invokes another constructor in the same class whose parameter list matches `(String, int)`. If none exists, the compiler raises an error.\nChoice A is wrong because `this` is a reserved keyword. It cannot be a method name.\nChoice C is wrong because constructors must have no return type, not `void`.\nChoice D is wrong because `this(...)` must be the first statement of the constructor body, not the last.",
           },
           {
             id: "3_9_q28",
@@ -16080,7 +16080,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "owner 0.0" },
             ],
             answer: "A",
-            explanation: "`new Account(\"Bob\")` calls the one-arg constructor, which chains via `this(\"Bob\", 0.0)` into the two-arg constructor. `owner = \"Bob\"` and `balance = 0.0`. The getters then return those exact values, producing \"Bob 0.0\". Picking 100.0 invents a default that the code does not supply; the chained second argument is explicitly 0.0, which is the standard default for a new account with no initial deposit.",
+            explanation: "A is correct. `new Account(\"Bob\")` chains via `this(\"Bob\", 0.0)` to the two-arg constructor. `owner` becomes `\"Bob\"` and `balance` becomes 0.0.\nChoice B is wrong because the chained constructor passed 0.0, not 100.0, for `balance`.\nChoice C is wrong because the chained constructor explicitly assigned `\"Bob\"` to `owner`. The field is not null.\nChoice D is wrong because Java evaluates expressions to values, not variable names.",
           },
           {
             id: "3_9_q29",
@@ -16094,7 +16094,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "When an instance variable is shadowed by a local variable or parameter with the same name" },
             ],
             answer: "D",
-            explanation: "`this.fieldName` is mandatory only when shadowing occurs — a parameter or local variable reuses the field's identifier and would otherwise capture the name lookup, hiding the field. In any other case the unqualified field name resolves directly to the field automatically, so `this` is optional and purely a stylistic choice for clarity rather than a language requirement enforced by the compiler. Visibility modifiers and method invocations have no bearing on this rule.",
+            explanation: "D is correct. `this.fieldName` is required only when a parameter or local variable shadows the field name. In all other cases, the unqualified field name resolves automatically.\nChoice A is wrong because calling another instance method does not require `this`. The unqualified call works.\nChoice B is wrong because the access modifier on the method has no bearing on whether `this` is required.\nChoice C is wrong because unqualified instance variable access works when no shadow exists.",
           },
           {
             id: "3_9_q30",
@@ -16136,7 +16136,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The app's gym recommendations may not be accurate if there are few gyms nearby." },
             ],
             answer: "C",
-            explanation: "Ethical concerns in data collection focus on whether personal information is gathered, stored, and used in ways that respect users' rights, particularly privacy. Real-time location data is among the most sensitive categories because it can reveal home addresses, daily routines, religious practices, and medical visits. The privacy risk of unauthorized access, sale to third parties, or exposure in a breach is the dominant ethical issue here. Options A, C, and D describe performance, accuracy, and connectivity, which are engineering quality-of-service concerns rather than ethical violations about responsible treatment of personal data.",
+            explanation: "C is correct. Real-time location data can expose home addresses, daily routines, and sensitive visits. Unauthorized access, sale to third parties, or breach is the central ethical concern.\nChoice A is wrong because connectivity is an engineering issue, not an ethical one.\nChoice B is wrong because performance describes quality of service, not ethics.\nChoice D is wrong because recommendation accuracy is a usability issue, not an ethics issue.",
           },
           {
             id: "4_1_q02",
@@ -16150,7 +16150,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The tendency of an algorithm to run faster for some inputs than others." },
             ],
             answer: "B",
-            explanation: "Algorithmic bias is a systematic error in a computational system that produces unfair or unequal outcomes for some group, typically because the training data or design encodes existing societal inequities. Crucially, it does not require malicious intent: a model trained on skewed historical data will replicate that skew at scale even with well-intentioned developers. Option A wrongly insists on deliberate intent, C confuses bias with a generic crash bug, and D describes runtime performance variance rather than fairness, so each misses the systematic-unfair-outcome core that defines algorithmic bias in modern systems.",
+            explanation: "B is correct. Algorithmic bias is a systematic error that produces unfair outcomes, often from flawed or skewed training data. It does not require malicious intent.\nChoice A is wrong because bias commonly arises without deliberate discrimination.\nChoice C is wrong because a generic crash is not the same as biased outputs.\nChoice D is wrong because runtime performance variance is unrelated to fairness.",
           },
           {
             id: "4_1_q03",
@@ -16164,7 +16164,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The algorithm contains a deliberate instruction to prefer male applicants." },
             ],
             answer: "B",
-            explanation: "Training data shapes what a machine-learning system learns: if 90 percent of historical hires were male, the model treats the patterns associated with male applicants as the success signal and ranks future male applicants higher. This is textbook algorithmic bias from biased historical data, and it produces biased outputs even without any explicit rule referencing gender. Option D invents a deliberate instruction that the scenario does not describe, B claims a runtime error with no evidence of crashing behavior, and D blames load rather than the encoded historical inequity, so each misidentifies the actual cause.",
+            explanation: "B is correct. The model learned from training data dominated by male hires and now ranks male applicants higher even with no explicit gender rule.\nChoice A is wrong because a runtime error would crash the system, not produce skewed rankings.\nChoice C is wrong because volume does not cause systematic gender bias.\nChoice D is wrong because the scenario describes no explicit instruction to prefer males.",
           },
           {
             id: "4_1_q04",
@@ -16178,7 +16178,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The data set reflects historical admission decisions made during a period when certain demographic groups were systematically excluded." },
             ],
             answer: "D",
-            explanation: "A training data set is inappropriate when it encodes the very inequities the new system is intended to avoid. Historical admissions records from a period when certain demographic groups were systematically excluded will teach the algorithm to repeat that exclusion, perpetuating past discrimination through a seemingly neutral system. GPA and test scores (B), spreadsheet format (C), and large record count (A) are normal characteristics of any data set and do not by themselves signal an ethical disqualifier, so they do not target the representativeness problem the question is testing.",
+            explanation: "D is correct. Training on data that reflects historical exclusion teaches the algorithm to repeat that exclusion.\nChoice A is wrong because large record counts are normal for training data.\nChoice B is wrong because GPA and test scores are reasonable admissions inputs.\nChoice C is wrong because spreadsheet format is a storage detail, not an ethics concern.",
           },
           {
             id: "4_1_q05",
@@ -16192,7 +16192,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Data quality" },
             ],
             answer: "B",
-            explanation: "Privacy safeguards require that sensitive credentials such as passwords are protected so that even someone with legitimate database access cannot trivially read or impersonate users. Storing passwords in plain text destroys this protection entirely, exposing every user to credential theft if the database is ever accessed by an attacker, a curious employee, or a misconfigured backup. Data quality (D) concerns accuracy of values, algorithmic bias (A) concerns unfair model outputs, and dataset selection (C) concerns choosing training inputs, none of which describes a plaintext-password failure.",
+            explanation: "B is correct. Plain-text passwords expose every user to credential theft and break the privacy safeguard that protects sensitive login data.\nChoice A is wrong because algorithmic bias concerns unfair model outputs, not credential storage.\nChoice C is wrong because the failure is not about choosing inputs for training.\nChoice D is wrong because the issue is not the accuracy of values.",
           },
           {
             id: "4_1_q06",
@@ -16206,7 +16206,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Privacy concerns are only about personal health data, while security concerns apply to all data." },
             ],
             answer: "A",
-            explanation: "Privacy and security are related but distinct: privacy is about whether collecting or using data is appropriate and consensual, while security is about preventing unauthorized access to that data. D company can violate privacy with perfectly secure systems by selling data users never knowingly consented to share, and a company can have great privacy policies while suffering a security breach. Option D invents a domain restriction, C collapses the two ideas, and D limits security to post-breach response, so each blurs the essential distinction between appropriate use and unauthorized access.",
+            explanation: "A is correct. Privacy is about whether collection or use is appropriate and consensual. Security is about preventing unauthorized access.\nChoice B is wrong because the two ideas are related but distinct.\nChoice C is wrong because security is also about prevention, not just post-breach response.\nChoice D is wrong because privacy and security both apply broadly, not just to health data.",
           },
           {
             id: "4_1_q07",
@@ -16220,7 +16220,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Efficiency: the app should process data as quickly as possible." },
             ],
             answer: "A",
-            explanation: "Informed consent means users understand what data is collected and how it will be used before they agree to share it. For sensitive medical data, this principle is especially important because the data can affect insurance, employment, and personal relationships. Without disclosure, users cannot give meaningful consent. Efficiency (D) and accessibility (C) describe engineering goals rather than data-collection ethics, and accuracy verified by a physician (B) is a separate clinical concern, so none of those options captures the missing transparency that informed consent specifically requires.",
+            explanation: "A is correct. Users cannot give meaningful consent without disclosure of what data is collected and how it is used.\nChoice B is wrong because clinical verification is a separate concern from consent.\nChoice C is wrong because accessibility is about disability access, not consent.\nChoice D is wrong because processing speed is an engineering goal, not an ethics principle.",
           },
           {
             id: "4_1_q08",
@@ -16234,7 +16234,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The algorithm deliberately penalizes low-income applicants." },
             ],
             answer: "A",
-            explanation: "When training data reflects historical socioeconomic disparities in parole decisions, models learn correlations between zip codes, income, and outcomes, then reproduce them as denial recommendations. Low-income zip codes correlating with denials shows the algorithm learned the historical pattern, not that someone hand-coded it to discriminate. Option D assumes deliberate intent that the scenario does not describe, C invents a syntax error that would prevent the program from compiling at all, and D blames training-set size, so each ignores the actual data-driven bias mechanism at work here.",
+            explanation: "A is correct. Training on data that reflects historical socioeconomic disparities teaches the algorithm to repeat those denial patterns.\nChoice B is wrong because a syntax error would prevent the program from compiling, not just affect some zip codes.\nChoice C is wrong because the question describes a systematic pattern, not a sample-size issue.\nChoice D is wrong because the scenario describes no explicit penalty rule.",
           },
           {
             id: "4_1_q09",
@@ -16248,7 +16248,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Although technically disclosed, collecting and monetizing sensitive personal data without clear, prominent consent raises serious privacy concerns." },
             ],
             answer: "D",
-            explanation: "Meaningful consent requires clear, prominent disclosure that users can reasonably understand, not fine-print burial in a long terms-of-service document. Collecting and monetizing browsing habits, political views, and private messages remains a privacy concern even with technical disclosure because reasonable users cannot understand or evaluate what they have agreed to. Option C is a performance issue, C overstates current law (targeted advertising is generally legal), and B is a marketing-quality concern, so each sidesteps the core privacy failure of buried disclosure of sensitive data use.",
+            explanation: "D is correct. Meaningful consent requires clear, prominent disclosure. Burying sensitive monetization in fine-print terms does not give users a real chance to understand or evaluate the trade.\nChoice A is wrong because targeted advertising is generally legal.\nChoice B is wrong because storage performance is an engineering issue.\nChoice C is wrong because ad-targeting accuracy is a marketing concern, not an ethics one.",
           },
           {
             id: "4_1_q10",
@@ -16262,7 +16262,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A patient database where some records are missing the patient's age and others have incorrect birth dates." },
             ],
             answer: "D",
-            explanation: "Data quality refers to the accuracy, completeness, and consistency of stored values, and missing or incorrect entries are textbook data quality failures. C patient database with missing ages and incorrect birth dates will produce skewed analyses regardless of how well the algorithm is written. Update frequency (C), storage format (A), and record count (B) are operational characteristics that do not by themselves indicate individual values are wrong or missing, so they do not exemplify a data-quality problem in the way the question asks.",
+            explanation: "D is correct. Data quality is about accuracy, completeness, and consistency of values. Missing ages and incorrect birth dates are textbook data-quality failures that skew downstream analyses.\nChoice A is wrong because storage format does not by itself affect value correctness.\nChoice B is wrong because record count alone is not a quality problem.\nChoice C is wrong because update frequency is a freshness issue, not value correctness.",
           },
           {
             id: "4_1_q11",
@@ -16276,7 +16276,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "If the input data to an algorithm is inaccurate or incomplete, the algorithm's conclusions will also be inaccurate." },
             ],
             answer: "D",
-            explanation: "The phrase 'garbage in, garbage out' captures the principle that algorithm output cannot exceed the quality of its input data: even a perfectly written algorithm will produce wrong conclusions if fed inaccurate or incomplete inputs, because there is no way to extract correct information from flawed source material. Option C is about syntax errors (a separate engineering concern), A is about database performance, and B is about runtime limits, so none describes the input-quality-determines-output-quality idea that the principle specifically expresses.",
+            explanation: "D is correct. \"Garbage in, garbage out\" captures the idea that output quality cannot exceed input quality. Inaccurate or incomplete inputs lead to inaccurate or incomplete conclusions.\nChoice A is wrong because the phrase is about correctness, not query performance.\nChoice B is wrong because runtime length is unrelated to input quality.\nChoice C is wrong because a syntax error prevents compilation, not meaningful output.",
           },
           {
             id: "4_1_q12",
@@ -16290,7 +16290,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The system may be slow to process images in low-light conditions." },
             ],
             answer: "A",
-            explanation: "When a training set underrepresents certain skin tones, the model fits the dominant group's features and performs measurably worse on others, producing more false positives and false negatives for underrepresented groups. This is algorithmic bias from unrepresentative training data, and it leads directly to inequitable outcomes at deployment. Options A, C, and D describe speed, storage capacity, and accessory recognition, all of which are unrelated to the systematic-fairness failure that the scenario actually demonstrates and that the audit would document.",
+            explanation: "A is correct. A training set that underrepresents some skin tones teaches the model to perform worse on those groups, producing more errors at deployment.\nChoice B is wrong because storage capacity is not the ethical concern raised by the training data.\nChoice C is wrong because eyewear is not the bias issue the scenario describes.\nChoice D is wrong because low-light slowness is a hardware concern, not bias.",
           },
           {
             id: "4_1_q13",
@@ -16304,7 +16304,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The algorithm has a runtime error that affects certain zip codes." },
             ],
             answer: "B",
-            explanation: "A proxy variable is a feature that correlates so strongly with a protected attribute that using it produces nearly the same biased outcome as using the protected attribute directly. Zip code often correlates with race in the United States due to historical residential segregation, so excluding race but including zip code does not remove the racial bias from the model's outputs. Option D blames a runtime error, A assumes deliberate intent that the scenario does not show, and D dismisses the documented disparity as legitimate, all of which ignore the proxy-variable mechanism.",
+            explanation: "B is correct. Zip code often correlates strongly with race in the United States due to residential segregation. Using it can reproduce the same biased outcome as using race directly.\nChoice A is wrong because no explicit discrimination rule is required for proxy bias.\nChoice C is wrong because correlated risk patterns can themselves reflect historical bias.\nChoice D is wrong because a runtime error would crash the program, not skew predictions.",
           },
           {
             id: "4_1_q14",
@@ -16318,7 +16318,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Collecting as much user data as possible to enable future features." },
             ],
             answer: "A",
-            explanation: "Responsible data stewardship follows two complementary principles: data minimization (collect only what is genuinely necessary) and active protection (encrypt at rest, restrict access, audit usage). Both reduce harm if a breach or misuse occurs and respect users' autonomy over their own information. Option D maximizes collection, C shares without consent, and D retains indefinitely, all of which expand rather than limit the exposure surface and directly contradict stewardship principles by treating user data as a freely exploitable resource.",
+            explanation: "A is correct. Responsible data stewardship combines collecting only what is necessary with protecting what is collected. Minimization and encryption both reduce harm if a breach occurs.\nChoice B is wrong because sharing user data without strong consent is a privacy risk.\nChoice C is wrong because indefinite retention increases breach exposure.\nChoice D is wrong because collecting maximum data violates the minimization principle.",
           },
           {
             id: "4_1_q15",
@@ -16332,7 +16332,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The algorithm may run slower because arrest records contain many fields." },
             ],
             answer: "B",
-            explanation: "Predictive policing systems trained on arrest records inherit the patterns of past policing decisions. If certain neighborhoods were historically over-policed, the model predicts more crime there, which leads to more patrols, more arrests, and more data confirming the original prediction, creating a self-reinforcing feedback loop. Option A blames raw size, C blames file format, and D blames record complexity, all of which miss the documented self-reinforcing bias dynamic that the scenario describes and that researchers have observed in deployed systems.",
+            explanation: "B is correct. Arrest records reflect historical policing decisions. A model trained on them learns to predict more crime in over-policed areas, then sends more patrols there, creating a feedback loop.\nChoice A is wrong because dataset size is not the ethical issue.\nChoice C is wrong because file format does not cause biased outcomes.\nChoice D is wrong because field count is a performance issue, not bias.",
           },
           {
             id: "4_1_q16",
@@ -16346,7 +16346,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The data set cannot be used because it contains personally identifiable information." },
             ],
             answer: "C",
-            explanation: "Selection bias arises when the sample is collected in a way that systematically excludes or under-represents part of the target population. Voluntary participants may differ from non-volunteers in motivation, time availability, parental involvement, or demographics, so results may not generalize to all students. Option A confuses sample size with sample quality, B is unrelated to format, and D wrongly forbids personally identifiable information outright, so each misses the representativeness problem that is inherent in voluntary, opt-in sampling rather than random sampling.",
+            explanation: "C is correct. Volunteers may differ systematically from non-volunteers in motivation, time, or background, so the sample may not represent the whole student population.\nChoice A is wrong because manual analyzability is a workflow issue, not bias.\nChoice B is wrong because format readability is unrelated to representativeness.\nChoice D is wrong because containing identifiable info is a privacy question, not selection bias.",
           },
           {
             id: "4_1_q17",
@@ -16360,7 +16360,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Bias in algorithms always originates from bugs in the underlying programming language." },
             ],
             answer: "B",
-            explanation: "Algorithmic bias does not require an explicit discriminatory rule in code. When historical training data encodes past inequities, the algorithm learns those patterns through statistical correlations and replicates them even when the code itself looks neutral and the developers had no biased intent. Option A demands explicit programmer rules, C arbitrarily restricts bias to systems that use personal data, and D blames the programming language itself, each missing the data-driven, intent-free way that bias actually emerges in production machine-learning systems today.",
+            explanation: "B is correct. Bias can emerge when training data reflects past inequities. The model learns those patterns even without explicit discriminatory rules.\nChoice A is wrong because explicit rules are not required for bias.\nChoice C is wrong because bias can affect any algorithm, not only ones using personal identifiers.\nChoice D is wrong because programming language bugs are not the source of algorithmic bias.",
           },
           {
             id: "4_1_q18",
@@ -16374,7 +16374,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The algorithm is programmed to give women lower-paying jobs." },
             ],
             answer: "C",
-            explanation: "An algorithm that never sees gender directly can still infer it from correlated features such as job-title history, professional networks, education path, or hobbies, then reproduce gender-correlated outcomes through those proxies. The training data linked gender to job type, and the model learned those correlations through other variables. Options B and C invent intent or bugs that the audit does not support, and D blames data-entry errors by women, none of which explains the documented mechanism of indirect bias through statistically correlated features.",
+            explanation: "C is correct. The training data linked gender to job type. Even without seeing gender directly, the model uses correlated features and reproduces gender-correlated outcomes.\nChoice A is wrong because the scenario describes a model learning patterns, not user data-entry errors.\nChoice B is wrong because the issue is systematic learned bias, not a coincidental logic error.\nChoice D is wrong because no explicit rule about gender is described.",
           },
           {
             id: "4_1_q19",
@@ -16388,7 +16388,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Low-quality data only affects how fast an algorithm runs, not the correctness of its results." },
             ],
             answer: "D",
-            explanation: "Data quality affects the correctness of an algorithm's results, not merely its speed: inaccurate, incomplete, or systematically erroneous inputs produce inaccurate, incomplete, or systematically erroneous outputs no matter how fast the algorithm runs. Option D is the false statement (the one the question asks us to identify) because it limits data-quality impact to performance. Options A, B, and D correctly describe how inaccurate, incomplete, or systematically erroneous data leads to wrong, biased, or systematically erroneous outputs.",
+            explanation: "D is correct. Low-quality data affects correctness, not just speed. Inaccurate or incomplete inputs produce inaccurate or incomplete outputs no matter how fast the algorithm runs.\nChoice A is wrong because systematic errors really do propagate to systematic output errors. That statement is true.\nChoice B is wrong because inaccurate data really does produce incorrect outputs. That statement is true.\nChoice C is wrong because incomplete data really does cause biased or misleading conclusions. That statement is true.",
           },
           {
             id: "4_1_q20",
@@ -16402,7 +16402,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The algorithm will run slower because the new patient population has more records." },
             ],
             answer: "C",
-            explanation: "Models trained on a demographic that does not match the deployment demographic perform worse on under-represented groups because the model never learned the patterns specific to those groups. An 80-percent-white training set deployed on a much more diverse patient population will produce less accurate and potentially harmful predictions for non-white patients. Options B and D are memory and speed concerns, and D blames the programming language used, all of which ignore the documented demographic-shift risk that the scenario presents.",
+            explanation: "C is correct. A training population that does not match the deployment population leads to less accurate predictions for under-represented groups, which can produce inequitable resource allocation.\nChoice A is wrong because language choice does not change the accuracy concern.\nChoice B is wrong because memory usage is not the ethical issue.\nChoice D is wrong because runtime speed does not address fairness.",
           },
           {
             id: "4_1_q21",
@@ -16416,7 +16416,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Algorithmic bias: the app may suggest different routes for different users." },
             ],
             answer: "B",
-            explanation: "Privacy includes the user's right to know what data is collected about them and to control its collection. Background location collection without disclosure undermines that right because users have no opportunity to consent or to opt out of something they do not know is happening. Option D invents algorithmic bias where none is shown, B blames data quality (which is unrelated to disclosure), and C is a battery concern rather than an ethical one, so each misses the consent-and-knowledge violation at the heart of privacy.",
+            explanation: "B is correct. Collecting personal location data in the background without disclosure violates the user's right to know what is being collected.\nChoice A is wrong because accuracy is a quality concern, not a privacy issue.\nChoice C is wrong because battery drain is a performance concern.\nChoice D is wrong because different routes per user is normal behavior, not bias.",
           },
           {
             id: "4_1_q22",
@@ -16430,7 +16430,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The algorithm has a compile-time error that affects international transactions." },
             ],
             answer: "B",
-            explanation: "Choosing training data from a context narrower than the deployment context creates a representativeness mismatch. D single-country training set used worldwide produces biased outcomes for users in regions whose transaction patterns were never modeled, leading to high false-flag rates for legitimate international customers. Option D invents a compile error that would prevent the program from running, B blames the customers themselves, and D blames currency formatting, none of which addresses the dataset-scope mismatch that actually causes the documented false-flag pattern.",
+            explanation: "B is correct. A training set drawn from a single country may not generalize to international transactions. The data context does not match the deployment context.\nChoice A is wrong because high false-positive rates indicate a real fairness problem, not normal behavior.\nChoice C is wrong because memory size does not cause systematic transaction errors.\nChoice D is wrong because a compile-time error would prevent the program from running at all.",
           },
           {
             id: "4_1_q23",
@@ -16444,7 +16444,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Training data must be verified by a government agency before it can be used." },
             ],
             answer: "C",
-            explanation: "Algorithms used in hiring, lending, medical care, and criminal justice affect people who may never know an algorithm was involved in a decision about them, so biased training data scales harm to thousands or millions of people, often invisibly. Option B invents a universal legal requirement that does not exist, C invents a government approval step, and D wrongly links ethics to runtime speed, so each ignores the scale-and-invisibility argument that actually grounds the ethical responsibility developers carry for the data they use.",
+            explanation: "C is correct. Biased or low-quality training data can cause real harm in hiring, lending, medical care, and criminal justice. Careful selection helps avoid those outcomes.\nChoice A is wrong because ethical sourcing does not change runtime speed.\nChoice B is wrong because no universal legal documentation requirement exists.\nChoice D is wrong because no government verification of training data is required.",
           },
           {
             id: "4_1_q24",
@@ -16458,7 +16458,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The data set is appropriate because it contains real product reviews." },
             ],
             answer: "A",
-            explanation: "Sentiment models trained on one demographic learn that group's vocabulary, idioms, slang, and emotional expression. Deployed on a broader customer base, they misclassify language from other demographics, performing worse for under-represented groups and producing a biased sentiment signal that the business may not detect. Option C blames file format, B incorrectly approves the data set, and D blames algorithm speed, all of which ignore the representativeness problem in the sample that is the actual ethical and quality issue here.",
+            explanation: "A is correct. A review set drawn from one age range may not represent the broader customer base, so sentiment predictions may be biased toward that group's vocabulary and tone.\nChoice B is wrong because sentiment analysis on the volume described is feasible.\nChoice C is wrong because format compatibility is not the bias concern.\nChoice D is wrong because the data set is not appropriate when its demographic does not match the deployment audience.",
           },
           {
             id: "4_1_q25",
@@ -16472,7 +16472,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Course completion data from a broad and demographically diverse population of students who have taken the same introductory college course, including their prior academic performance and course outcomes." },
             ],
             answer: "D",
-            explanation: "An appropriate training data set must match the prediction task in three ways: same context, representative population, and relevant predictive features. Option D satisfies all three by using completion data from the same course, a demographically diverse population, and academically relevant features. Elite-high-school graduation rates (C), summer-program SATs (A), and social-media posts (B) all sample populations or signals that do not match the prediction task, so each would produce a biased or irrelevant model.",
+            explanation: "D is correct. A representative, demographically diverse training set best matches the population the model will serve and avoids inheriting selective patterns from one group.\nChoice A is wrong because summer-enrichment participants are not representative of all students.\nChoice B is wrong because social-media posts capture a self-selected slice of behavior.\nChoice C is wrong because elite private schools are not representative of all students.",
           },
           {
             id: "4_1_q26",
@@ -16486,7 +16486,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Online surveys are inherently less accurate than paper surveys." },
             ],
             answer: "C",
-            explanation: "An online-only survey systematically excludes customers without internet access, introducing selection bias because the omitted group may differ from respondents in satisfaction levels, demographics, age, income, or product usage patterns. Conclusions drawn from the sample will not generalize to the full customer base. Option A wrongly claims encryption, B blames length, and D wrongly claims online surveys are inherently worse than paper, so each misses the sampling-coverage failure that distorts conclusions about overall customer satisfaction.",
+            explanation: "C is correct. An online-only survey excludes customers without internet, introducing selection bias because the omitted group may differ from respondents.\nChoice A is wrong because encryption does not prevent valid analysis.\nChoice B is wrong because length is a separate respondent-fatigue concern.\nChoice D is wrong because the medium itself is not inherently less accurate.",
           },
           {
             id: "4_1_q27",
@@ -16500,7 +16500,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A hacker breaks into a company's database and steals customer credit card numbers." },
             ],
             answer: "A",
-            explanation: "A privacy concern arises when authorized access to data is used in ways the user did not meaningfully consent to. Selling browsing histories with only fine-print disclosure fits that description: access is legal, but use is inappropriate. Options A, C, and D describe security incidents (unauthorized intrusion, accidental disclosure, and ransomware), all of which involve someone gaining access who was not supposed to. The privacy-versus-security distinction hinges on whether the access itself was authorized.",
+            explanation: "A is correct. Selling browsing histories under buried disclosure is a privacy concern because users could not meaningfully consent to that use.\nChoice B is wrong because accidental disclosure is closer to a security or operational failure.\nChoice C is wrong because ransomware is a security incident, not a consent issue.\nChoice D is wrong because a hacker theft is a security breach, not a privacy-by-consent issue.",
           },
           {
             id: "4_1_q28",
@@ -16514,7 +16514,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The algorithm was tested on a population that did not represent rural patients, so its performance on this new population is lower." },
             ],
             answer: "D",
-            explanation: "Accuracy measured on one population does not generalize to a different population: when demographics shift between testing and deployment, model performance degrades because the new population contains feature distributions the model never trained on. The deployment context simply does not match the validation context. Option B blames code size, B accuses the developers of fraud without evidence, and D invents a software-decay phenomenon that does not exist, none of which describes the population-mismatch effect actually observed in the rural hospital.",
+            explanation: "D is correct. Accuracy on one population does not generalize to a different population. Rural patients were under-represented in testing, so deployment performance drops.\nChoice A is wrong because models do not automatically decay over time.\nChoice B is wrong because line count is not the cause of accuracy loss across populations.\nChoice C is wrong because the original 95 percent figure can be valid for its test population while failing on a new one.",
           },
           {
             id: "4_1_q29",
@@ -16528,7 +16528,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The app should use Wi-Fi positioning instead of GPS for better accuracy." },
             ],
             answer: "C",
-            explanation: "Tracking minors continuously and beyond school grounds without parental knowledge violates privacy and exposes sensitive behavioral data of children, including their afterschool activities, friends' homes, and family routines. The ethical violation is the lack of informed parental consent for sensitive location collection. Options A, B, and D describe battery drain, GPS accuracy, and technical implementation choices, all of which are minor engineering concerns dwarfed by the consent and child-protection issues raised by the scenario.",
+            explanation: "C is correct. Tracking minors continuously without parental knowledge violates privacy and exposes sensitive behavioral data of children.\nChoice A is wrong because battery drain is a performance concern, not ethics.\nChoice B is wrong because indoor accuracy is a technical limitation, not the ethical issue.\nChoice D is wrong because the positioning technology choice does not change the consent concern.",
           },
           {
             id: "4_1_q30",
@@ -16542,7 +16542,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Algorithms cannot be biased unless a programmer deliberately writes biased rules." },
             ],
             answer: "A",
-            explanation: "Removing protected attributes from inputs does not eliminate algorithmic bias when proxy variables remain in the data or when the training data itself reflects past inequities. The model can still produce biased outputs by learning correlations between protected characteristics and other features, or by encoding the bias of past decisions. Options A, C, and D incorrectly equate fairness with input filtering, identical record treatment, or attribute removal, ignoring the proxy-variable and biased-training-data mechanisms that drive most real-world algorithmic bias.",
+            explanation: "A is correct. Removing protected attributes does not stop bias when proxy variables remain and when training data already encodes past inequities.\nChoice B is wrong because identical processing does not guarantee fair outcomes if inputs are unequal.\nChoice C is wrong because removing demographic variables alone often fails because proxies remain.\nChoice D is wrong because bias can emerge from training data without any deliberate biased rule.",
           },
         ],
       },
@@ -16576,7 +16576,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "All values are accessed simultaneously in a single operation." },
             ],
             answer: "B",
-            explanation: "Sequential access reads values one at a time, in order, from beginning to end, which is the standard pattern used when processing files with a `Scanner` loop driven by `hasNext()` and a corresponding `next` method. Option B captures this pattern. Option D describes parallel or batch access, A describes random-order access, and C adds a sort step that is not part of basic sequential access, so each misrepresents how a `while (scanner.hasNextInt())` loop actually consumes data.",
+            explanation: "B is correct. Most processing reads values one at a time, in order, from the start of the data set to the end.\nChoice A is wrong because random skipping is not the standard pattern.\nChoice C is wrong because the data is not automatically sorted by importance.\nChoice D is wrong because Java reads streamed values one at a time, not all at once.",
           },
           {
             id: "4_2_q03",
@@ -16591,7 +16591,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A runtime error occurs." },
             ],
             answer: "C",
-            explanation: "`Scanner.hasNextInt()` returns true while another int token is available in the input stream, and `nextInt()` reads and returns the next int as a primitive. The loop accumulates `total += scanner.nextInt()` for each value: 3 + 7 + 2 + 8 = 20. Option A reads only the first value, B reads only the last, and D wrongly predicts a runtime error even though all tokens are valid integers, none of which matches the actual accumulating behavior of this canonical sum-from-file pattern.",
+            explanation: "C is correct. The loop accumulates a running total. For inputs 3, 7, 2, 8 the total is `3 + 7 + 2 + 8 = 20`.\nChoice A is wrong because 3 is just the first input.\nChoice B is wrong because 8 is just the last input.\nChoice D is wrong because the loop ends cleanly when `hasNextInt()` is false.",
           },
           {
             id: "4_2_q04",
@@ -16605,7 +16605,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The table represents the final output of the algorithm." },
             ],
             answer: "A",
-            explanation: "A table is a planning representation that helps humans understand a data set's structure before writing code; it is not the algorithm itself and does not compute anything by being looked at. The algorithm must still be written separately to read the data and compute the class average. Option C confuses representation with computation, D confuses planning artifact with final output, and D dismisses planning artifacts entirely, all of which mischaracterize the role of a table as a design and visualization aid.",
+            explanation: "A is correct. The table organizes the data for planning. The algorithm still needs to be written to compute the average.\nChoice B is wrong because representation aids planning even though the algorithm could read raw data.\nChoice C is wrong because tables do not execute computations.\nChoice D is wrong because the table holds inputs, not outputs.",
           },
           {
             id: "4_2_q05",
@@ -16619,7 +16619,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Sort the readings from highest to lowest temperature before storing them." },
             ],
             answer: "C",
-            explanation: "Inconsistent value formats like '72F', '72.0', and '72' prevent direct numeric comparison and arithmetic in any programming language because they have different types and structures. Preprocessing must standardize values to a consistent numeric format such as int or double before analysis can proceed. Option B deletes valid data unnecessarily, C sorts without fixing the underlying format problem, and D wrongly claims modern algorithms self-correct, each of which fails to address the underlying type and format inconsistency.",
+            explanation: "C is correct. Inconsistent units and formats prevent reliable comparison. Standardizing to one numeric format lets the algorithm calculate correctly.\nChoice A is wrong because algorithms do not automatically reconcile mixed formats.\nChoice B is wrong because deleting non-matching entries loses data needlessly.\nChoice D is wrong because sorting does not fix unit inconsistency.",
           },
           {
             id: "4_2_q06",
@@ -16634,7 +16634,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "30" },
             ],
             answer: "B",
-            explanation: "The loop calls `nextInt()` to consume each integer token but does not add the value to a running total; it only increments `count`. With three integer tokens (5, 10, 15) available, the loop body executes three times, leaving `count = 3`. The values themselves are read but discarded. Option D sums them (which would require `total += scanner.nextInt()`), B picks the last value, and D never enters the loop, none of which matches code that counts iterations rather than accumulating sums.",
+            explanation: "B is correct. The loop reads each value and increments `count`. For three inputs the count is 3.\nChoice A is wrong because 15 is the last value read, not the count.\nChoice C is wrong because count starts at 0 but increments on each read.\nChoice D is wrong because 30 is the sum, not the count.",
           },
           {
             id: "4_2_q07",
@@ -16648,7 +16648,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Read all values simultaneously, then select the largest." },
             ],
             answer: "A",
-            explanation: "Finding a maximum in a sequentially accessed data set requires reading values one at a time and maintaining a running maximum: initialize `max` to the first value (or to the very first read), then compare each subsequent value and update `max` whenever a larger value is encountered. Option D assumes simultaneous access not possible with Scanner, C applies string-based sorting to numbers, and D wrongly assumes the last value in any data set is the maximum, each of which fails on general data.",
+            explanation: "A is correct. The standard max-finding pattern reads values one at a time and updates a running `max` whenever a larger value appears.\nChoice B is wrong because alphabetic sorting does not produce numeric maxima.\nChoice C is wrong because the last value of a data set is not guaranteed to be the maximum.\nChoice D is wrong because Java reads streamed values one at a time, not simultaneously.",
           },
           {
             id: "4_2_q08",
@@ -16662,7 +16662,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Read only the first and last salary values and average them." },
             ],
             answer: "B",
-            explanation: "Computing an average requires reading all values, accumulating a sum, counting how many values there are, and dividing the sum by the count, which is exactly what option B describes. The middle value of a sorted list is the median (a different statistic from the mean), the median in C is not the mean either, and reading only endpoints (D) ignores most of the data, so each option except B describes a different and incorrect statistic.",
+            explanation: "B is correct. The standard average pattern reads each value, accumulates a running total, counts values, then divides at the end.\nChoice A is wrong because the middle value is the median, not the mean.\nChoice C is wrong because median is not the same as average.\nChoice D is wrong because averaging only two values ignores the rest.",
           },
           {
             id: "4_2_q09",
@@ -16677,7 +16677,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "9" },
             ],
             answer: "D",
-            explanation: "The max-finding pattern initializes `max` to the first value via `scanner.nextInt()` (which returns 4), then the loop reads each remaining value and updates `max` when a larger one appears. Trace: max = 4, then 9 > 4 makes max = 9, then 2, 7, and 1 are each less than 9 so max stays 9. Final max = 9. Option B is the initial value, C is the last value, and A is the sum, none of which is the result of the max-finding pattern.",
+            explanation: "D is correct. The max pattern reads the first value into `max`, then updates `max` only when a larger value appears. For `{4, 9, 2, 7, 1}` the running max becomes 4, then 9, and stays at 9.\nChoice A is wrong because 23 is the sum, not the max.\nChoice B is wrong because 4 is just the first value.\nChoice C is wrong because 1 is the minimum, not the maximum.",
           },
           {
             id: "4_2_q10",
@@ -16691,7 +16691,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Both formats are valid, so no preprocessing is needed." },
             ],
             answer: "B",
-            explanation: "Mixed date formats prevent reliable comparison, sorting, and arithmetic on dates because the program cannot tell which fields represent month, day, or year without explicit parsing rules. Preprocessing must convert all entries to a single canonical format such as ISO 8601 before analysis. Option D wrongly approves both formats, B invents a compile error (mixed formats are still valid strings that compile), and D mislabels it as a privacy concern, so each fails to identify the format-standardization need.",
+            explanation: "B is correct. Mixed date formats prevent reliable sorting, comparison, and calculation. The data needs to be standardized.\nChoice A is wrong because formatting differences do not trigger compile-time errors.\nChoice C is wrong because the issue is data quality, not privacy.\nChoice D is wrong because both formats representing the same date does not help calculations that compare them as strings.",
           },
           {
             id: "4_2_q11",
@@ -16705,7 +16705,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The data set and the algorithm are the same thing; one cannot exist without the other." },
             ],
             answer: "A",
-            explanation: "A data set is the input material that an algorithm processes; an algorithm is the set of instructions that reads, processes, and outputs results from that data. They are conceptually and practically separate: the same algorithm can run on different data sets and the same data set can be processed by different algorithms. Option D merges them, C inverts the relationship, and D denies the algorithm's role entirely, so each describes a different and incorrect relationship between input data and processing code.",
+            explanation: "A is correct. The data set is the input material. The algorithm defines the steps to read, process, and produce results.\nChoice B is wrong because data files do not contain executable algorithms.\nChoice C is wrong because data cannot transform itself without an algorithm.\nChoice D is wrong because data sets and algorithms are separate. Each can exist without the other.",
           },
           {
             id: "4_2_q12",
@@ -16720,7 +16720,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "30" },
             ],
             answer: "A",
-            explanation: "Starting with `product = 1`, the loop multiplies each integer read into `product` using the compound assignment `product *= scanner.nextInt()`. Trace: 1 * 10 = 10, then 10 * 20 = 200, then 200 * 30 = 6000. Option C would result from addition rather than multiplication, B picks the last value, and B returns the initial value (which would only happen if the loop never ran), none of which matches the actual cumulative product produced.",
+            explanation: "A is correct. The loop multiplies into `product`. Starting at 1: `1 * 10 = 10`, then `10 * 20 = 200`, then `200 * 30 = 6000`.\nChoice B is wrong because the initial 1 is just the starting value.\nChoice C is wrong because 60 ignores the third multiplication.\nChoice D is wrong because 30 is only the last factor.",
           },
           {
             id: "4_2_q13",
@@ -16734,7 +16734,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The table is unnecessary since the algorithm can process data without any planning representation." },
             ],
             answer: "C",
-            explanation: "A table of country names and population sizes is a representation of the data set that aids planning and visualization, not an executable algorithm. The algorithm must still be written separately to read the data and compute statistics. Option B confuses a representation with executable code, C dismisses planning as unnecessary, and A confuses input data with output results, each missing the planning-versus-execution distinction that is central to thinking about data processing.",
+            explanation: "C is correct. The table represents the data set and helps with planning, but it is not a substitute for the algorithm itself.\nChoice A is wrong because the table holds inputs, not outputs.\nChoice B is wrong because tables do not execute computations.\nChoice D is wrong because planning representations are valuable even when not strictly required.",
           },
           {
             id: "4_2_q14",
@@ -16748,7 +16748,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "To process the existing data to identify patterns, compute statistics, or draw conclusions that help solve a problem." },
             ],
             answer: "D",
-            explanation: "Analyzing a data set means processing existing data to identify patterns, compute statistics, or draw conclusions that solve a problem. Option D captures this analytic purpose precisely. Collection (C) is the gathering stage that happens before analysis, deletion (A) is part of cleaning, and format conversion (B) is part of preprocessing — three distinct lifecycle stages, none of which is analysis itself but each is sometimes necessary before analysis can produce meaningful results.",
+            explanation: "D is correct. Analyzing a data set means processing existing data to identify patterns, compute statistics, or draw conclusions.\nChoice A is wrong because deleting values is cleaning, not analysis.\nChoice B is wrong because format conversion is preprocessing, not analysis.\nChoice C is wrong because collecting new data is acquisition, not analysis.",
           },
           {
             id: "4_2_q15",
@@ -16777,7 +16777,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The data set must be copied to a new file before processing." },
             ],
             answer: "B",
-            explanation: "String values like '85', '92', and '78' cannot be added arithmetically because Java does not auto-convert strings to numbers for arithmetic operators; the `+` operator would perform string concatenation instead. The standard pattern uses `Integer.parseInt(s)` to convert each string to an int before summing. Options A, C, and D misstate auto-conversion behavior, propose pointless sorting, or invent file copies, none of which performs the required type conversion from String to int.",
+            explanation: "B is correct. String values must be parsed to numeric types (using `Integer.parseInt` or similar) before arithmetic operations.\nChoice A is wrong because Java does not auto-convert String to int for arithmetic.\nChoice C is wrong because alphabetic sorting does not enable arithmetic.\nChoice D is wrong because copying to a new file does not change the type.",
           },
           {
             id: "4_2_q17",
@@ -16791,7 +16791,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A scientist photographs 500 birds and stores the images in a folder." },
             ],
             answer: "A",
-            explanation: "Manipulating a data set to solve a problem means writing an algorithm that reads structured data and computes something useful from it. Option A does exactly that: it reads rainfall measurements and computes totals and counts. Storing photos (D), printing records to paper (B), or making an empty spreadsheet (C) involve no algorithmic processing of the data at all, so each fails to demonstrate the manipulate-to-solve pattern the question asks about.",
+            explanation: "A is correct. Reading rainfall measurements and computing the total annual rainfall is a clear example of processing data to solve a problem.\nChoice B is wrong because printing and storing paper copies is archiving, not algorithmic manipulation.\nChoice C is wrong because creating an empty spreadsheet is preparation, not processing.\nChoice D is wrong because photographing and storing images is data collection, not processing.",
           },
           {
             id: "4_2_q18",
@@ -16806,7 +16806,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "6" },
             ],
             answer: "C",
-            explanation: "The loop reads each int with `nextInt()` and checks `n % 2 == 0` to test for evenness. Among 1, 2, 3, 4, 5, the even values are 2 and 4, so `evenCount` increments twice, finishing at 2. Option A counts every value regardless of parity, B counts odd values instead of even, and D adds a phantom count, none of which matches the modulo-based even check the loop actually performs on the input stream.",
+            explanation: "C is correct. The loop counts even values. From `{1, 2, 3, 4, 5}`, the even values are 2 and 4. Count is 2.\nChoice A is wrong because 5 is the total count of values, not the even count.\nChoice B is wrong because 3 over-counts. Only two values are even.\nChoice D is wrong because 6 is unrelated to the even count.",
           },
           {
             id: "4_2_q19",
@@ -16820,7 +16820,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The output produced after an algorithm finishes running." },
             ],
             answer: "C",
-            explanation: "A data set is best thought of as a collection of related pieces of information that an algorithm can process to extract meaning. Option C matches this working definition. Option B describes a single primitive variable that holds one value, D describes the output produced after processing, and D invents a language feature that does not exist, all of which name something other than the structured input material that algorithms read and analyze.",
+            explanation: "C is correct. A data set is a collection of related pieces of information that can be processed by an algorithm.\nChoice A is wrong because data sets are inputs, not language features.\nChoice B is wrong because a single variable is not a data set.\nChoice D is wrong because algorithm output is a result, not the data set itself.",
           },
           {
             id: "4_2_q20",
@@ -16835,7 +16835,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "175" },
             ],
             answer: "C",
-            explanation: "The min-finding pattern initializes `min` to the first value read (100) and updates `min` whenever a smaller value appears. Trace: min = 100, then 50 < 100 so min = 50, then 25 < 50 so min = 25. Final min = 25. Option A is the initial value (which the algorithm correctly improves on), B is an intermediate value, and D is the sum of all three, none of which is the result of the min-finding pass.",
+            explanation: "C is correct. The min pattern starts with the first value and updates whenever a smaller value appears. For `{100, 50, 25}`: min becomes 100, then 50, then 25.\nChoice A is wrong because 100 is the first value, but 50 and 25 are smaller.\nChoice B is wrong because 50 is updated to a smaller 25.\nChoice D is wrong because 175 is the sum, not the minimum.",
           },
           {
             id: "4_2_q21",
@@ -16849,7 +16849,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Elements are read one at a time, in the order they appear in the data set, from first to last." },
             ],
             answer: "D",
-            explanation: "Sequential access processes elements one at a time, in their original order, from first to last, which is the access pattern Scanner provides when reading a file. Option D describes this. Index-based random access (B) is a different model used by arrays, simultaneous access (C) is parallel processing not possible with Scanner, and reverse access (A) reads from the end to the beginning, so each describes a different access pattern than the standard sequential one.",
+            explanation: "D is correct. Sequential access reads elements one at a time, in order, from first to last.\nChoice A is wrong because reverse order is the opposite of sequential.\nChoice B is wrong because jumping by index is random access, not sequential.\nChoice C is wrong because parallel reads are not the sequential model.",
           },
           {
             id: "4_2_q22",
@@ -16864,7 +16864,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "int val = 70; if (scanner.nextInt() > val) { System.out.println(val); } -- this only checks one value and prints 70, not the value read." },
             ],
             answer: "C",
-            explanation: "The shown while loop reads each int with `scanner.nextInt()` and then conditionally prints it if it exceeds 70, correctly filtering the entire data set. Option D reads only one value and prints the wrong variable, A prints a boolean rather than the value, and D applies `> 70` to the boolean return of `hasNextInt()`, which is a compile-time error, none of which scans the whole data set and prints all qualifying values as the task requires.",
+            explanation: "C is correct. The while loop reads each value with `nextInt()` and prints it if it is greater than 70. This correctly handles all values.\nChoice A is wrong because it prints a boolean for one value only.\nChoice B is wrong because `hasNextInt() > 70` does not compile. `hasNextInt()` returns a boolean.\nChoice D is wrong because it only checks one value and prints 70 rather than the matching value.",
           },
           {
             id: "4_2_q23",
@@ -16893,7 +16893,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Use nextInt() for all values; Java will automatically promote integers to doubles." },
             ],
             answer: "A",
-            explanation: "`Scanner.nextDouble()` parses both integer-looking tokens such as '10' and decimal tokens such as '10.99' as doubles, so a single `nextDouble()` loop handles a mixed-numeric file correctly without runtime errors. Option D is wrong because `nextInt()` would throw `InputMismatchException` on decimal values, B is needlessly complex (and difficult to coordinate), and D converts arithmetic to string concatenation, so each fails to use the simple uniform-double approach.",
+            explanation: "A is correct. Using `nextDouble()` for all values handles both integer and decimal prices uniformly without losing precision.\nChoice B is wrong because separate loops would fail to read alternating types from the same stream.\nChoice C is wrong because Strings cannot be added directly for arithmetic.\nChoice D is wrong because `nextInt()` fails when a decimal value appears.",
           },
           {
             id: "4_2_q25",
@@ -16907,7 +16907,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Write the result to the data set first, then read the data set back to verify the result." },
             ],
             answer: "B",
-            explanation: "The standard pattern for processing a data set with a Scanner reads values sequentially, performs computations or accumulates results as each value is read, and then outputs the final result after the loop ends. Option B captures this read-process-output flow precisely. Option A reverses the design step, C demands loading all values at once and sorting unnecessarily, and D writes before reading, none of which is the standard sequential-processing pattern.",
+            explanation: "B is correct. The standard pattern reads values one at a time, performs the computation per value, and outputs the final result.\nChoice A is wrong because output cannot be defined without first knowing the data.\nChoice C is wrong because loading everything at once is not the streaming Scanner pattern.\nChoice D is wrong because writing before reading inverts the normal flow.",
           },
           {
             id: "4_2_q26",
@@ -16922,7 +16922,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A runtime error occurs." },
             ],
             answer: "C",
-            explanation: "Total = 5 + 0 + 5 + 0 = 10. Adding zeros is valid in Java arithmetic and contributes nothing to the running total, so the sum is just 10. Option A would suggest the `+` operator concatenated strings (which does not happen with ints), B treats every value as zero (incorrect because 5 + 5 != 0), and D invents a runtime error from valid int reads, none of which matches what `total += scanner.nextInt()` actually produces here.",
+            explanation: "C is correct. The loop sums each value. For `{5, 0, 5, 0}` the total is `5 + 0 + 5 + 0 = 10`.\nChoice A is wrong because `+` adds integers. It does not concatenate.\nChoice B is wrong because 0 ignores the two 5s.\nChoice D is wrong because `hasNextInt()` cleanly stops the loop.",
           },
           {
             id: "4_2_q27",
@@ -16936,7 +16936,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The chart is the algorithm; examining the chart identifies the highest-grossing month automatically." },
             ],
             answer: "A",
-            explanation: "A chart is a visualization that aids understanding and planning; it is not an executable computation. The algorithm must still be written separately to read the data and identify the maximum value, regardless of how clearly the chart shows the answer to a human reader. Option D confuses visual representation with code execution, C wrongly replaces storage with the visualization, and C confuses the chart's role with output of the algorithm, all of which misrepresent the planning-versus-execution distinction.",
+            explanation: "A is correct. The chart visually represents the data set for planning. The algorithm still needs to be written.\nChoice B is wrong because the chart does not replace stored data.\nChoice C is wrong because the chart holds inputs, not outputs.\nChoice D is wrong because charts do not execute computations.",
           },
           {
             id: "4_2_q28",
@@ -16965,7 +16965,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A compile-time error prevents the algorithm from recognizing uppercase letters." },
             ],
             answer: "A",
-            explanation: "Java's `equals()` method and `==` operator are case-sensitive for strings: 'yes', 'Yes', and 'YES' are three distinct strings under any comparison method that does not explicitly ignore case. The miscount comes from inconsistent formatting in the input, which a preprocessing step such as calling `toLowerCase()` on each response would fix. Options A, C, and D invent compile errors, runtime errors, or size issues, none of which is the actual case-sensitivity root cause.",
+            explanation: "A is correct. Case-sensitive `equals` returns false for `\"yes\"` vs `\"Yes\"`. The inconsistent formatting causes the comparison to miss matches.\nChoice B is wrong because case differences do not trigger runtime errors.\nChoice C is wrong because size is not the issue.\nChoice D is wrong because compile errors do not depend on user-data casing.",
           },
           {
             id: "4_2_q30",
@@ -16979,7 +16979,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Preprocessing is only needed for data sets that contain more than 1,000 records." },
             ],
             answer: "C",
-            explanation: "Real-world data is messy: inconsistent formats, missing values, duplicate records, and data-entry errors are common in any dataset that is large enough to be interesting. Preprocessing standardizes and cleans the data so that downstream analysis produces accurate, reproducible results. Option B confuses preprocessing with algorithm authoring, C invents an arbitrary size threshold, and D claims preprocessing increases dataset size, none of which describes preprocessing's actual cleanup-and-standardization purpose.",
+            explanation: "C is correct. Real-world data often has inconsistencies, missing values, or formatting differences. Preprocessing standardizes the data so analysis works.\nChoice A is wrong because preprocessing usually shrinks or cleans the data, not increases size for performance.\nChoice B is wrong because preprocessing does not produce an algorithm.\nChoice D is wrong because preprocessing is needed regardless of size.",
           },
         ],
       },
@@ -17001,7 +17001,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A runtime error occurs." },
             ],
             answer: "B",
-            explanation: "Nested subscripts evaluate from the innermost expression outward, treating each interior result as the next subscript. For x: arr[2] is 3, so x = arr[3] = 1. For y: the innermost arr[0] is 2, the middle arr[arr[0]] is arr[2] = 3, and the outer arr[arr[arr[0]]] is arr[3] = 1. So x + y = 1 + 1 = 2. Option A is the sum if y were read as arr[arr[0]] = 3 instead of going one level deeper; option C is double-counting one of the intermediates; option D would require a subscript out of bounds, but every chained subscript stays within indices 0 through 4 of the 5-element array.",
+            explanation: "B is correct. Nested subscripts evaluate innermost first. For `x`: `arr[2]` is 3, so `x = arr[3] = 1`. For `y`: `arr[0]` is 2, then `arr[2]` is 3, then `arr[3]` is 1. So `x + y = 1 + 1 = 2`.\nChoice A is wrong because it reads `y` as `arr[arr[0]] = 3` instead of going one level deeper.\nChoice C is wrong because it double-counts one intermediate index.\nChoice D is wrong because every chained subscript stays within indices 0 through 4.",
           },
           {
             id: "4_3_q02",
@@ -17016,7 +17016,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "9" },
             ],
             answer: "B",
-            explanation: "An array of length 5 has valid indices 0, 1, 2, 3, and 4, so `arr[4]` is the last element of the array. For `{3, 7, 1, 9, 4}`, the value at index 4 is 4 (the rightmost literal). Option D picks `arr[3]` which holds 9, B picks `arr[2]` which holds 1, and D wrongly predicts an out-of-bounds error: index 4 is in bounds because the valid range is always 0 through `arr.length - 1` inclusive.",
+            explanation: "B is correct. An array of length 5 has valid indices 0 through 4, so `arr[4]` is the last element. For `{3, 7, 1, 9, 4}`, index 4 holds 4.\nChoice A is wrong because 1 is the value at index 2, not index 4.\nChoice C is wrong because index 4 is in bounds (valid range is 0 through `arr.length - 1`).\nChoice D is wrong because 9 lives at index 3, not index 4.",
           },
           {
             id: "4_3_q03",
@@ -17061,7 +17061,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A compile-time error occurs." },
             ],
             answer: "B",
-            explanation: "Two facts combine here. First, `new int[4]` initializes every element to 0 (the default for primitive int), no explicit assignment needed. Second, slots not explicitly assigned keep that default through the rest of the program. After `new int[4]` the array is {0, 0, 0, 0}; after the two assignments it is {0, 5, 0, 8}. The for-each loop sums each element: 0 + 5 + 0 + 8 = 13. Option A would result if every unassigned slot held a 1 each (no such default exists); options C and D wrongly predict errors — reading a default-initialized int element is always safe. Note: reference arrays default to null, but int arrays default to 0.",
+            explanation: "B is correct. `new int[4]` initializes every element to 0 (the default for primitive int). After the two assignments the array holds `{0, 5, 0, 8}`. The for-each sums each element: `0 + 5 + 0 + 8 = 13`.\nChoice A is wrong because no slot defaults to a nonzero value.\nChoice C is wrong because reading a default-initialized int slot is always safe.\nChoice D is wrong because for-each over a primitive array compiles cleanly.",
           },
           {
             id: "4_3_q06",
@@ -17076,7 +17076,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0" },
             ],
             answer: "A",
-            explanation: "`new int[4]` allocates an array with exactly 4 elements, so `nums.length` is 4. The length field always reports the allocated size, regardless of whether any elements have been explicitly assigned values. Options C and D are wrong sizes that misremember off-by-one, and B would be wrong only if `.length` were a method rather than a field, but on arrays `length` is a field with no parentheses, so the code compiles and runs cleanly.",
+            explanation: "A is correct. `new int[4]` allocates exactly 4 elements, so `nums.length` is 4. The `length` field reports the allocated size, regardless of whether any element was explicitly assigned.\nChoice B is wrong because `length` is a field (no parentheses), so the code compiles.\nChoice C is wrong because it confuses `length` with the last valid index.\nChoice D is wrong because `length` reports allocated size, not the count of assigned values.",
           },
           {
             id: "4_3_q07",
@@ -17091,7 +17091,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0" },
             ],
             answer: "B",
-            explanation: "Reference-type array elements (such as String) default to `null` when allocated with `new`, because Java initializes object references to null until explicitly assigned. So words[0] is null even though words[1] holds \"hi\". When `+` has a String on either side it becomes concatenation, and concatenating a null produces the literal text \"null\". The right operand `words[1].length()` is 2 (the length of \"hi\"), but 2 is concatenated to \"null\", giving the String \"null2\". Option C is the length alone (ignoring the null concatenation); option D confuses null with int default 0; option A wrongly assumes calling `.length()` on the *assigned* String would crash (only calling on null crashes, which is not what happens here).",
+            explanation: "B is correct. Reference-type array slots default to `null`, so `words[0]` is null. The `+` operator concatenates because the right side is a String context. Concatenating null produces the literal `\"null\"`. Then `\"null\" + 2` becomes `\"null2\"`.\nChoice A is wrong because `.length()` runs on the assigned `\"hi\"`, not on null.\nChoice C is wrong because it drops the null concatenation.\nChoice D is wrong because reference arrays default to null, not numeric 0.",
           },
           {
             id: "4_3_q08",
@@ -17151,7 +17151,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A runtime error occurs." },
             ],
             answer: "C",
-            explanation: "`new double[3]` initializes each element to 0.0, the default value for the primitive type double. `vals[0]` therefore prints 0.0 (Java always shows at least one decimal place for double values, even zero). Option A wrongly drops the decimal point (Java prints doubles with .0 when the fractional part is zero), B confuses double default with reference default, and D claims an unwarranted runtime error for an in-bounds access.",
+            explanation: "C is correct. `new double[3]` initializes each element to `0.0`, the default for double. Java always prints doubles with a decimal point, even when the value is zero.\nChoice A is wrong because it drops the `.0` that Java always shows for doubles.\nChoice B is wrong because reference arrays default to null, but double is a primitive.\nChoice D is wrong because reading an in-bounds default-initialized slot never throws.",
           },
           {
             id: "4_3_q12",
@@ -17196,7 +17196,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "6" },
             ],
             answer: "B",
-            explanation: "`arr[0]` is 6 and `arr[2]` is 9 (zero-indexed across `{6, 3, 9, 2}`). The expression `arr[0] * arr[2]` evaluates to 6 * 9 = 54. Option A is 6 + 3 + 9 = 18 (wrong operation and indices), C is 6 * 2 = 12 (wrong second operand), and D is just arr[0], none of which matches the product expression actually printed. Trust the index math rather than scanning by value position.",
+            explanation: "B is correct. Indices are zero-based, so `arr[0]` is 6 and `arr[2]` is 9. The product is `6 * 9 = 54`.\nChoice A is wrong because 18 sums three values rather than multiplying two.\nChoice C is wrong because it pairs `arr[0]` with `arr[3]` (the value 2) instead of `arr[2]`.\nChoice D is wrong because it only prints `arr[0]`.",
           },
           {
             id: "4_3_q15",
@@ -17361,7 +17361,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "data[data.length]" },
             ],
             answer: "B",
-            explanation: "Array indices in Java run from 0 to `length - 1` inclusive, so the last element of an array `data` of length n is at index `n - 1`, accessed as `data[n - 1]`. Option A (`data[n]`) accesses one past the end and throws ArrayIndexOutOfBoundsException, C calls a nonexistent `last()` method, and D (`data[data.length]`) is the same out-of-bounds error. The `length - 1` idiom for the last element is essential AP knowledge.",
+            explanation: "B is correct. Array indices run from 0 to `length - 1`, so for length n the last element lives at index `n - 1`, accessed as `data[n - 1]`.\nChoice A is wrong because `data[n]` is one past the end and throws an out-of-bounds exception.\nChoice C is wrong because arrays have no `last()` method.\nChoice D is wrong because `data[data.length]` is also one past the end.",
           },
           {
             id: "4_3_q26",
@@ -17376,7 +17376,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0 0.0 null" },
             ],
             answer: "D",
-            explanation: "Each array type initializes elements to a specific default. int arrays use 0, double arrays use 0.0 (Java prints doubles with at least one decimal place even when the fractional part is zero), and reference-type arrays such as String use null. The println uses `+` with at least one String operand, so every part is converted to a String and concatenated, giving \"0 0.0 null\". Option C drops the .0 from the double default (Java does not); option A invents non-existent defaults of 1, 1.0, and empty-string; option B wrongly predicts a runtime error from printing null (calling a method on null would crash, but plain print just produces the text \"null\").",
+            explanation: "D is correct. `int` arrays default to 0, `double` arrays default to `0.0` (Java always shows the `.0`), and reference arrays default to `null`. String concatenation gives `\"0 0.0 null\"`.\nChoice A is wrong because no array type defaults to 1 or to the empty string.\nChoice B is wrong because printing a null reference produces the text `\"null\"`, not an error.\nChoice C is wrong because it drops the `.0` from the double default.",
           },
           {
             id: "4_3_q27",
@@ -17391,7 +17391,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A runtime error occurs when any element is accessed." },
             ],
             answer: "C",
-            explanation: "Reference-type arrays initialize each element to `null` by default, so `new String[3]` produces a 3-element array of null references. Option A confuses null with the empty string `\"\"` (they are different references with different behaviors), B confuses the null value with the literal four-character text 'null', and D claims an unwarranted runtime error on simple access (which only occurs if you try to call a method on the null, not just read it).",
+            explanation: "C is correct. Reference-type arrays default each slot to `null`, so `new String[3]` produces three null references.\nChoice A is wrong because the empty string `\"\"` is a separate value that must be explicitly assigned.\nChoice B is wrong because the value is the null reference, not the four-character text `\"null\"`.\nChoice D is wrong because reading a null slot is fine. Only calling a method on null would throw.",
           },
           {
             id: "4_3_q28",
@@ -17406,7 +17406,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A compile-time error occurs." },
             ],
             answer: "B",
-            explanation: "Three array facts combine. arr.length = 5 (field, no parentheses, never changes). arr.length / 2 uses integer division: 5 / 2 = 2, so mid = 2. The right side reads arr[0] + arr[arr.length - 1] = 2 + 10 = 12. The assignment overwrites arr[2] (originally 6) with 12, so arr is now {2, 4, 12, 8, 10}. The println shows arr[mid] = 12 followed by arr.length = 5. Option A wrongly assumes arr.length shrinks when an element is overwritten (it does not — arrays are fixed-size); option C ignores the assignment; option D wrongly predicts a compile error from valid syntax.",
+            explanation: "B is correct. `arr.length` is 5 and never changes (arrays are fixed-size). Integer division gives `mid = 5 / 2 = 2`. The right side is `arr[0] + arr[4] = 2 + 10 = 12`, written into `arr[2]`. The print shows `12 5`.\nChoice A is wrong because `arr.length` does not shrink when a cell is overwritten.\nChoice C is wrong because it ignores the assignment to `arr[mid]`.\nChoice D is wrong because the syntax is valid Java.",
           },
           {
             id: "4_3_q29",
@@ -17593,7 +17593,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "15 10 5" },
             ],
             answer: "B",
-            explanation: "The backward loop visits indices 2, 1, 0 (starting at `arr.length - 1 = 2` and decrementing to 0) and prints each value with no separator because the code uses `System.out.print(arr[i])` without a `+ ' '`. Output: arr[2]=15, arr[1]=10, arr[0]=5, concatenated to '15105'. Option A is forward without separator, and C and D add spaces that the code does not actually print to the console.",
+            explanation: "B is correct. The loop counts from `i = 2` down to 0. Each iteration prints `arr[i]` with no separator, so it prints `15`, then `10`, then `5`, giving `15105`.\nChoice A is wrong because that order requires counting up, not down.\nChoice C is wrong because `print` does not add spaces between values.\nChoice D is wrong because there are no spaces between consecutive prints.",
           },
           {
             id: "4_4_q11",
@@ -17638,7 +17638,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "4" },
             ],
             answer: "A",
-            explanation: "Each iteration adds `arr[i]` to `arr[i+1]`, producing a running cumulative sum stored in the array. Trace: i=0: arr[1] += arr[0] (1+=0) gives {0,1,2,3,4}. i=1: arr[2] += arr[1] (2+=1) gives {0,1,3,3,4}. i=2: arr[3] += arr[2] (3+=3) gives {0,1,3,6,4}. i=3: arr[4] += arr[3] (4+=6) gives {0,1,3,6,10}. So arr[4] = 10. The `< length - 1` bound keeps `arr[i+1]` in bounds.",
+            explanation: "A is correct. The loop writes a running prefix sum into the next slot. After iterations: `arr[1] = 1`, `arr[2] = 3`, `arr[3] = 6`, `arr[4] = 10`. Printing `arr[4]` shows 10.\nChoice B is wrong because 6 is `arr[3]` after the loop.\nChoice C is wrong because 3 is `arr[2]` after the loop.\nChoice D is wrong because the original `arr[4]` is overwritten.",
           },
           {
             id: "4_4_q14",
@@ -17773,7 +17773,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "for (int i = 0; i < arr.length; i++) { arr[i] = arr[i] * 2; }" },
             ],
             answer: "D",
-            explanation: "To double every element of an int array, you need index-based mutation: option B's `arr[i] = arr[i] * 2` inside a properly bounded for loop (`i < arr.length`) correctly modifies each element in place. Option C's for-each loop only modifies a local copy of each value, A uses values as indices (causing out-of-bounds for typical values), and B uses `i <= arr.length` which will go out of bounds. Index access is required for mutation.",
+            explanation: "D is correct. The standard mutate-in-place pattern uses an indexed loop with `i < arr.length` and writes back with `arr[i] = arr[i] * 2`.\nChoice A is wrong because it uses values as indices, which crashes for values past the array length.\nChoice B is wrong because `i <= arr.length` walks one past the end and throws.\nChoice C is wrong because the for-each variable is a copy. Reassigning it does not modify the array.",
           },
           {
             id: "4_4_q23",
@@ -17817,7 +17817,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Every element of arr is increased by 10." },
             ],
             answer: "C",
-            explanation: "In a for-each loop, the loop variable `v` is a local copy of each element value. Assigning `v = v + 10` modifies only that local copy on the stack; the underlying array is not touched. Option D confuses for-each with index-based mutation, B wrongly claims the body never runs (it runs once per element), and C invents a compile error (the assignment is syntactically legal, just ineffective). For-each is read-only by design.",
+            explanation: "C is correct. The for-each variable `v` is a copy of each element. Reassigning `v` only changes the local copy. The array stays unchanged.\nChoice A is wrong because the body runs once per element.\nChoice B is wrong because reassigning a for-each variable compiles cleanly.\nChoice D is wrong because no array element is updated.",
           },
           {
             id: "4_4_q26",
@@ -17831,7 +17831,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "for (int i = 0; i < arr.length; i++) { System.out.print(arr[i] + \" \"); }" },
             ],
             answer: "D",
-            explanation: "Option D uses `i < arr.length` (correct strict less-than) and `arr[i]` access, visiting every valid index from 0 through `arr.length - 1`. Option C starts at 1 (skipping index 0) and goes one past the end, C goes one past the end (causing out-of-bounds), and D starts at `arr.length` (already out of bounds) and skips index 0. The standard forward-traversal idiom is `for (int i = 0; i < arr.length; i++)`.",
+            explanation: "D is correct. The canonical forward print uses `i < arr.length` (strict less than) and prints `arr[i]` with a space.\nChoice A is wrong because `i <= arr.length` walks one past the end.\nChoice B is wrong because starting at `arr.length` is already out of bounds.\nChoice C is wrong because `i <= arr.length` walks one past the end and starting at 1 skips index 0.",
           },
           {
             id: "4_4_q27",
@@ -17846,7 +17846,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "1\n1\n1" },
             ],
             answer: "C",
-            explanation: "The loop runs while `i < arr.length - 1`, which is `i < 2` for the length-3 array, so i takes values 0 and 1. i=0: prints arr[1] - arr[0] = 2 - 1 = 1. i=1: prints arr[2] - arr[1] = 3 - 2 = 1. Output: two lines each showing 1. Option D adds a phantom third iteration, C predicts an out-of-bounds error (which the `-1` bound prevents), and D blames the compiler.",
+            explanation: "C is correct. The loop computes `arr[i+1] - arr[i]` for `i = 0` and `i = 1`. Both yield 1. Two `println` calls produce `1` and then `1` on separate lines.\nChoice A is wrong because the bounds keep `i + 1` within the array.\nChoice B is wrong because the syntax is valid Java.\nChoice D is wrong because the loop runs only `length - 1` times.",
           },
           {
             id: "4_4_q28",
@@ -17941,7 +17941,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "30.0" },
             ],
             answer: "B",
-            explanation: "The cast `(double) sum` converts 30 to 30.0 before the division, so the subsequent division becomes a double-by-int division which Java promotes to double-by-double: 30.0 / 5 = 6.0. The result is a double, so it prints with a decimal point. Option A wrongly drops the decimal (a printed double always shows .0 for whole values), C is one off, and D is the unscaled sum. The cast must be applied before the division to avoid integer truncation.",
+            explanation: "B is correct. The sum is `4 + 8 + 2 + 6 + 10 = 30`. The cast forces double division: `30.0 / 5 = 6.0`.\nChoice A is wrong because Java prints doubles with a decimal point.\nChoice C is wrong because 5.0 mistakes the divisor for the average.\nChoice D is wrong because 30.0 is the sum, not the average.",
           },
           {
             id: "4_5_q04",
@@ -18046,7 +18046,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "1 2 2 1" },
             ],
             answer: "A",
-            explanation: "Reversing `{1, 2, 3, 4}` (length 4): `arr.length / 2 = 2` so the loop runs for i = 0 and i = 1. i=0 swaps arr[0] with arr[3] giving `{4,2,3,1}`. i=1 swaps arr[1] with arr[2] giving `{4,3,2,1}`. Final output: '4 3 2 1 '. The `arr.length / 2` bound covers exactly half the array for even lengths. Option B is the original, and C and D show partial states.",
+            explanation: "A is correct. The swap loop exchanges `arr[i]` with `arr[length - 1 - i]` for the first half. For `{1, 2, 3, 4}`: swap 1 and 4, then 2 and 3, giving `4 3 2 1`.\nChoice B is wrong because that is the original order.\nChoice C is wrong because each pair swaps in full, not partially.\nChoice D is wrong because the middle two also swap.",
           },
           {
             id: "4_5_q11",
@@ -18061,7 +18061,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "6" },
             ],
             answer: "B",
-            explanation: "Min-finding initializes `min = arr[0] = 6`, then iterates from index 1. Trace: 2 < 6 so min = 2, 8 > 2 (no change), 4 > 2 (no change), 10 > 2 (no change). Final min = 2. Option D is the initial value, A is mid-range, and C would only be reached if the algorithm wrongly initialized min to 0 (a common bug for all-positive arrays, but `min = arr[0]` avoids the symmetric issue).",
+            explanation: "B is correct. The min pattern starts with `arr[0] = 6`, then compares each remaining value: 2 is smaller (min becomes 2), 8 is not, 4 is not, 10 is not. Final min is 2.\nChoice A is wrong because 4 is smaller than the original 6 but larger than 2.\nChoice C is wrong because 0 is not in the array.\nChoice D is wrong because 6 is just the starting value.",
           },
           {
             id: "4_5_q12",
@@ -18136,7 +18136,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "9" },
             ],
             answer: "A",
-            explanation: "The max-and-maxIndex tracking pattern: max starts at arr[0] = 4 and maxIndex = 0. i=1: arr[1]=1 < 4 (no change). i=2: arr[2]=9 > 4 so max=9, maxIndex=2. i=3: arr[3]=2 < 9 (no change). i=4: arr[4]=6 < 9 (no change). The question asks for maxIndex, which is 2 (the index of the largest element, not the largest element value itself). Option D confuses index with value, and B and D show stale state.",
+            explanation: "A is correct. The track-the-index pattern keeps both `max` and `maxIndex` updated together. For `{4, 1, 9, 2, 6}`: at `i = 2`, `arr[2] = 9` is the new max, so `maxIndex` becomes 2 and stays.\nChoice B is wrong because index 4 holds 6, not the largest.\nChoice C is wrong because the max is at index 2, not 0.\nChoice D is wrong because 9 is the value, not the index.",
           },
           {
             id: "4_5_q17",
@@ -18211,7 +18211,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "There is no bug; the code prints -1" },
             ],
             answer: "A",
-            explanation: "The bug is on line 2: initializing `max = 0` rather than `max = arr[0]`. For an all-negative array like `{-5, -2, -8, -1}`, no element is greater than 0, so the if-condition `arr[i] > max` is never true, and max stays at 0 — which is not in the array at all. The fix is to write `max = arr[0]`. Options B, C, and D misidentify the bug or wrongly claim no bug exists.",
+            explanation: "A is correct. Initializing `max = 0` fails when every value is negative because no element ever beats 0. For `{-5, -2, -8, -1}`, max stays at 0 (wrong) instead of becoming -1. The fix is `max = arr[0]`.\nChoice B is wrong because using `>=` does not handle the all-negative case.\nChoice C is wrong because starting at `i = 1` does not fix the bad initial value.\nChoice D is wrong because the bug is real. The code prints 0, not -1.",
           },
           {
             id: "4_5_q22",
@@ -18331,7 +18331,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "7 4 2 4 7" },
             ],
             answer: "A",
-            explanation: "Reversing `{4, 7, 2, 7, 4}` (length 5, palindrome): `arr.length / 2 = 2`, so the loop runs for i = 0 and i = 1. i=0 swaps arr[0]=4 with arr[4]=4 (visible result: no change). i=1 swaps arr[1]=7 with arr[3]=7 (no visible change). Middle element arr[2]=2 stays. Final array: `{4, 7, 2, 7, 4}`. Option A is correct because the original is a palindrome and looks the same reversed.",
+            explanation: "A is correct. For a palindrome array `{4, 7, 2, 7, 4}`, the swap loop exchanges pairs that are already equal. The array is unchanged: `4 7 2 7 4`.\nChoice B is wrong because the last two values are not swapped past the midpoint.\nChoice C is wrong because the reverse of a palindrome equals itself.\nChoice D is wrong because every pair swap exchanges equal values, leaving the array intact.",
           },
           {
             id: "4_5_q30",
@@ -18367,7 +18367,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "20" },
             ],
             answer: "D",
-            explanation: "Three integer reads accumulate. hasNextInt() and nextInt() consume one int per iteration. Trace: iter 1 total=10, count=1; iter 2 total=30, count=2; iter 3 total=60, count=3. After the third read, hasNextInt() returns false and the loop ends. The final expression total / count = 60 / 3 = 20 uses integer division. Option A is the raw sum without dividing; option C is the last number read; option B wrongly predicts a compile error (the method needs throws IOException, but that's implied for AP file-Scanner code). The hasNextX/nextX pattern safely consumes typed tokens from a file.",
+            explanation: "D is correct. The loop reads three integers and counts them. `total = 10 + 20 + 30 = 60`, `count = 3`. Integer division gives `60 / 3 = 20`.\nChoice A is wrong because 60 is the raw sum, not the average.\nChoice B is wrong because the code compiles. The throws clause is assumed in AP file-Scanner code.\nChoice C is wrong because 30 is just the last value read.",
           },
           {
             id: "4_6_q02",
@@ -18410,7 +18410,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0" },
             ],
             answer: "B",
-            explanation: "hasNextInt() returns true only when the next token can be parsed as an int. It does not consume the token, just inspects it. Trace: token \"42\" is parseable, hasNextInt() returns true, nextInt() consumes 42, sum = 42. Token \"17\" parseable, sum = 59. Token \"hello\" is NOT parseable as int, so hasNextInt() returns false and the loop exits. The token 9 is never read because the loop already stopped. Final sum = 59. Option C adds the 9 as if hasNextInt skipped past \"hello\" (it does not); option A wrongly predicts a runtime crash (the hasNextInt guard is precisely what prevents InputMismatchException); option D requires the very first token to fail.",
+            explanation: "B is correct. `hasNextInt()` checks whether the next token can be parsed as int without consuming it. Tokens 42 and 17 are read (`sum = 59`), then `hello` is not an int, so the loop ends.\nChoice A is wrong because `hasNextInt()` guards against the parse error.\nChoice C is wrong because 9 is never reached. The loop stopped at `hello`.\nChoice D is wrong because the first two ints are summed before the loop ends.",
           },
           {
             id: "4_6_q05",
@@ -18425,7 +18425,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A runtime error occurs." },
             ],
             answer: "A",
-            explanation: "sc.next() reads ONE whitespace-delimited token, stopping at (but not consuming) the first whitespace. So first = \"the\" and the Scanner is positioned at the space after \"the\". sc.nextLine() then reads from the current position up to (and including) the next newline, returning everything in between as a String. Since the cursor is sitting right after \"the\", nextLine() captures \" quick brown fox\" with a LEADING SPACE preserved. The println shows \"[the| quick brown fox]\". Option B is what you would expect if nextLine() trimmed leading whitespace (it does not); option C wrongly assumes next() consumes the entire line; option D invents a runtime error. The leading-space pitfall is a classic AP trap when mixing next() with nextLine().",
+            explanation: "A is correct. `sc.next()` reads `\"the\"` and leaves the cursor at the space after it. `sc.nextLine()` then reads from there to the end of the line, including the leading space.\nChoice B is wrong because `nextLine()` does not trim leading whitespace.\nChoice C is wrong because `next()` only reads one token, not the whole line.\nChoice D is wrong because no exception occurs.",
           },
           {
             id: "4_6_q06",
@@ -18454,7 +18454,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "public IOException readFile()" },
             ],
             answer: "B",
-            explanation: "Any method that constructs `new Scanner(new File(...))` must propagate the checked `IOException` (or catch it). The throws clause goes after the parameter list and before the method body: `public void readFile() throws IOException`. Option A omits the clause (compile error), C uses the wrong keyword (`catch` belongs in a try/catch block, not the method signature), and D incorrectly places IOException as the return type instead of in the throws clause.",
+            explanation: "B is correct. The Scanner-from-File constructor declares `IOException`. The method must declare `throws IOException` or wrap the call in try/catch.\nChoice A is wrong because the constructor throws a checked exception that must be declared.\nChoice C is wrong because `catch` is not part of a method signature.\nChoice D is wrong because the return type should be `void`, not `IOException`.",
           },
           {
             id: "4_6_q08",
@@ -18484,7 +18484,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "3/5" },
             ],
             answer: "D",
-            explanation: "The loop reads each int and updates two counters. Trace 85 90 75 95 80: score=85 count=1 above=1 (85>=85 is true); score=90 count=2 above=2; score=75 count=3 above unchanged; score=95 count=4 above=3; score=80 count=5 above unchanged. Final output is above + \"/\" + count = \"3/5\". Option A undercounts the total reads; option B uses strict > instead of >= (would skip the 85, giving 2 above); option C wrongly counts 80 as above. The strict-versus-nonstrict comparison is the deciding detail: 85>=85 is true (counted), 85>85 would be false. This dataset pattern of counting matches and totals is the bread-and-butter Unit 4 file-reading idiom.",
+            explanation: "D is correct. For scores `85 90 75 95 80`, the loop counts five values and checks each against `>= 85`. Matches: 85, 90, 95. Output is `3/5`.\nChoice A is wrong because count totals 5, not 4.\nChoice B is wrong because `>= 85` includes 85 itself.\nChoice C is wrong because 80 is not at or above 85.",
           },
           {
             id: "4_6_q10",
@@ -18571,7 +18571,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "253" },
             ],
             answer: "D",
-            explanation: "Mixing next() and nextInt() works token by token. Whitespace (including newlines) separates tokens, so the name-then-score alternation lines up. Trace: name=\"Alice\" score=90 total=90; name=\"Bob\" score=85 total=175; name=\"Carol\" score=78 total=253; hasNext() false, loop ends. Final total = 253. Option B is only the second score; option C is the third score alone; option A wrongly predicts a runtime error (sc.next() then sc.nextInt() in alternation cannot crash because hasNext() guards each pair).",
+            explanation: "D is correct. Alternating `sc.next()` then `sc.nextInt()` reads name-score pairs. Scores 90, 85, 78 sum to 253.\nChoice A is wrong because `next()` then `nextInt()` cleanly reads pair tokens without throwing.\nChoice B is wrong because 85 is only the second score.\nChoice C is wrong because 78 is only the third score.",
           },
           {
             id: "4_6_q16",
@@ -18615,7 +18615,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "5: hi:end" },
             ],
             answer: "D",
-            explanation: "The classic next-then-nextLine gotcha. `sc.nextInt()` reads the token \"5\" and stops AT the space after it without consuming the rest of the line. So the Scanner is positioned right after \"5\". `sc.nextLine()` then reads everything up to (and consuming) the next newline, returning the leftover \" hi\" INCLUDING the leading space that nextInt left behind. The println produces \"5: hi:end\" (note the space between : and hi). Option A is what you would get if nextLine somehow trimmed leading whitespace; option B doubles the colon; option C wrongly assumes nextLine reads across newlines. This leading-space artifact bites students every year.",
+            explanation: "D is correct. `sc.nextInt()` reads the token `5` but leaves the cursor at the space after it. `sc.nextLine()` then reads ` hi` (with the leading space). Output is `5: hi:end`.\nChoice A is wrong because the leading space stays in the captured line.\nChoice B is wrong because nothing doubles the colon.\nChoice C is wrong because `nextLine()` stops at the first newline.",
           },
           {
             id: "4_6_q19",
@@ -18719,7 +18719,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "1" },
             ],
             answer: "D",
-            explanation: "The loop reads each whitespace-delimited token and checks whether its first character is 'a' or 'A'. Trace tokens \"apple\" \"banana\" \"cherry\": \"apple\".charAt(0) = 'a' (count=1); \"banana\".charAt(0) = 'b' (no change); \"cherry\".charAt(0) = 'c' (no change). Final countA = 1. Option B would result if the test counted ANY occurrence of 'a' inside the word (banana has multiple a's); option C counts every word; option A would mean the test was wrong (case-sensitive check missing). Reading token-by-token with `next()` and inspecting `charAt(0)` is a common dataset-manipulation idiom.",
+            explanation: "D is correct. The loop reads `apple`, `banana`, `cherry` and tests `charAt(0)`. Only `apple` starts with `a`, so `countA` becomes 1.\nChoice A is wrong because at least one word starts with `a`.\nChoice B is wrong because the test checks the first character only, not all letters.\nChoice C is wrong because only one of the three words starts with `a`.",
           },
           {
             id: "4_6_q26",
@@ -18748,7 +18748,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "null is returned instead of a Scanner" },
             ],
             answer: "A",
-            explanation: "If the specified file does not exist, the `Scanner(File)` constructor throws `FileNotFoundException` at runtime when it attempts to open the file. `FileNotFoundException` is a subtype of `IOException`, both checked. The compiler cannot detect missing files because file presence is a runtime state. Option C wrongly claims the file is created, B wrongly assumes null is returned, and D blames the compiler. Always be prepared for this exception.",
+            explanation: "A is correct. `new Scanner(new File(\"missing.txt\"))` throws `FileNotFoundException` (a subtype of `IOException`) at runtime when the file does not exist.\nChoice B is wrong because file existence is not checked at compile time.\nChoice C is wrong because the constructor does not create a missing file.\nChoice D is wrong because Java throws an exception instead of returning null.",
           },
           {
             id: "4_6_q28",
@@ -18813,7 +18813,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "4243" },
             ],
             answer: "A",
-            explanation: "Left-to-right `+` evaluation matters here. `Integer.parseInt(\"42\")` returns the primitive int 42, so n = 42. The expression `n + s + 1` evaluates left to right: first `n + s` is int + String, which Java treats as concatenation (\"42\" + \"42\" gives the String \"4242\"). Then `\"4242\" + 1` is String + int, another concatenation, giving \"42421\". Option B is what you would get if everything were arithmetic (42 + 42 + 1 = 85, impossible because + with a String operand is always concatenation); option D would result if 1 were treated as an int addition with n (which would require parentheses); option C wrongly predicts a compile error. The rule: once a String enters a chain of `+`, everything after becomes concatenation.",
+            explanation: "A is correct. `Integer.parseInt(\"42\")` returns int 42. Then `n + s` is int plus String, which is concatenation: `\"42\" + \"42\" = \"4242\"`. Then `\"4242\" + 1 = \"42421\"`.\nChoice B is wrong because once a String operand appears, `+` becomes concatenation.\nChoice C is wrong because the code compiles cleanly.\nChoice D is wrong because the second `+` is also concatenation, not arithmetic.",
           },
           {
             id: "4_7_q02",
@@ -18828,7 +18828,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "4.14" },
             ],
             answer: "D",
-            explanation: "`Double.parseDouble(String s)` is a static method that returns a primitive double. `Double.parseDouble(\"3.14\")` returns 3.14, and `3.14 + 1.0` evaluates to 4.14 (Java's double arithmetic produces this exactly for these inputs without floating-point artifacts). Option B would be string concatenation, C is a slightly wrong double from a different floating-point context, and D blames the compiler. Parsing converts the String to a usable numeric type.",
+            explanation: "D is correct. `Double.parseDouble(\"3.14\")` returns the double 3.14. Adding 1.0 gives 4.14.\nChoice A is wrong because the code compiles cleanly.\nChoice B is wrong because both operands are doubles, so `+` is arithmetic, not concatenation.\nChoice C is wrong because Java's double arithmetic produces 4.14 for these inputs.",
           },
           {
             id: "4_7_q03",
@@ -18902,7 +18902,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "false\ntrue" },
             ],
             answer: "C",
-            explanation: "Java caches Integer objects for values in the range -128 to 127, so `Integer a = 5` and `Integer b = 5` both autobox to the same cached Integer object. `a == b` checks reference equality and is true because they point to the same cached object. `a.equals(b)` checks value equality, also true since both represent 5. Note: for values outside the cache range like 200, `==` would be false even with equal values.",
+            explanation: "C is correct. For values in -128 to 127, Java caches Integer objects. Both `a` and `b` refer to the same cached Integer for 5, so `a == b` is true. `a.equals(b)` is also true because the values match.\nChoice A is wrong because `equals` also returns true.\nChoice B is wrong because both comparisons are true for cached small values.\nChoice D is wrong because `==` is true here due to the Integer cache.",
           },
           {
             id: "4_7_q08",
@@ -18917,7 +18917,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0" },
             ],
             answer: "C",
-            explanation: "`Integer.parseInt(\"not a number\")` throws `NumberFormatException` (an unchecked runtime exception) because the input string cannot be parsed as an integer. The compiler accepts the syntax because it cannot inspect String contents at compile time. Option D wrongly assumes a default return, B blames the compiler, and C invents a null return (parseInt returns primitive int which cannot be null). parseInt is strict about input format.",
+            explanation: "C is correct. `Integer.parseInt(\"not a number\")` throws `NumberFormatException` at runtime because the string is not a valid integer.\nChoice A is wrong because the compiler does not inspect String contents.\nChoice B is wrong because `parseInt` returns a primitive int, which cannot be null.\nChoice D is wrong because the method throws rather than returning a default.",
           },
           {
             id: "4_7_q09",
@@ -18932,7 +18932,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "2.0" },
             ],
             answer: "B",
-            explanation: "Wrapper classes let primitives live in ArrayLists. `ArrayList<Double>` stores Double objects; the for-each unboxes each Double to a primitive double automatically (via auto-unboxing). Trace: sum starts at 0.0. Add 2.5: sum = 2.5. Add 3.5: sum = 6.0. Add 1.0: sum = 7.0. vals.size() = 3. The division `7.0 / 3` is double / int, which Java promotes to double division, giving 2.333... with the usual floating-point representation. Output is 2.3333333333333335 (the floating-point artifact for 7.0/3.0). Option A is the unaveraged sum; option D is what integer division would give if both operands were ints; option C is integer-style. Mixed int/double arithmetic promotes to double.",
+            explanation: "B is correct. Auto-unboxing converts each Double to a primitive double. Sum is `2.5 + 3.5 + 1.0 = 7.0`. Dividing by size 3 gives `2.333...`.\nChoice A is wrong because 7.0 is the sum, not the average.\nChoice C is wrong because Java prints doubles with a decimal point.\nChoice D is wrong because integer division would not happen here. Both operands force double division.",
           },
           {
             id: "4_7_q10",
@@ -18962,7 +18962,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "173\n173" },
             ],
             answer: "A",
-            explanation: "`n` is an int holding 17, so `n + 3` performs arithmetic addition: 20. `s` is still the String '17' (parseInt returned a value to n but did not modify s), so `s + 3` performs String concatenation: '17' followed by '3' gives '173'. The two print statements produce different outputs because the operand types differ. Option C treats both as arithmetic, B treats both as concatenation, and D inverts the two outputs.",
+            explanation: "A is correct. `n` is int 17, so `n + 3` is arithmetic: 20. `s` is still the String `\"17\"`, so `s + 3` is concatenation: `\"173\"`.\nChoice B is wrong because the order matches the println calls.\nChoice C is wrong because String concatenation only happens for the second line.\nChoice D is wrong because the first line is arithmetic, not concatenation.",
           },
           {
             id: "4_7_q12",
@@ -18976,7 +18976,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Integer.convert(\"99\")" },
             ],
             answer: "C",
-            explanation: "`Integer.parseInt(String s)` is the correct static method to convert a String to an int. Option B reverses the conversion direction (int to String), C invents a method name that does not exist, and D treats `int` as a class (int is a primitive, not a class, so it has no methods). Memorize the canonical conversions: Integer.parseInt for String-to-int, Integer.toString or String.valueOf for int-to-String.",
+            explanation: "C is correct. `Integer.parseInt(String)` is the canonical static method for converting a String to an int.\nChoice A is wrong because `int` is a primitive, not a class with methods.\nChoice B is wrong because `Integer.toString` converts the other direction (int to String).\nChoice D is wrong because `Integer.convert` does not exist.",
           },
           {
             id: "4_7_q13",
@@ -19006,7 +19006,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "[15, 10, 5]" },
             ],
             answer: "B",
-            explanation: "Autoboxing and auto-unboxing make ArrayList<Integer> feel almost identical to int storage. `nums.get(0)` returns an Integer, which auto-unboxes to int when assigned to `int x`, so x = 5. The expression `x + nums.get(2)` is int + Integer, which unboxes nums.get(2) to 15 and computes 5 + 15 = 20 as int. `nums.set(0, ...)` then auto-boxes the int 20 into an Integer and stores it at index 0. Final list = [20, 10, 15]. Option A would result if set were a no-op; option D inverts the list; option C wrongly assumes the boxing/unboxing causes a compile error (it does not). All three conversions happen invisibly.",
+            explanation: "B is correct. `nums.get(0)` is 5 (auto-unboxed). `x + nums.get(2)` is `5 + 15 = 20`. `nums.set(0, 20)` writes 20 at index 0. Final list is `[20, 10, 15]`.\nChoice A is wrong because the assignment changes index 0.\nChoice C is wrong because the code compiles cleanly thanks to autoboxing.\nChoice D is wrong because only index 0 changes.",
           },
           {
             id: "4_7_q15",
@@ -19050,7 +19050,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "int y = new Integer(10);" },
             ],
             answer: "D",
-            explanation: "Unboxing is the automatic conversion of a wrapper object to its primitive value, the reverse of autoboxing. `int y = new Integer(10)` assigns an Integer object to an int variable, which triggers unboxing of the 10. Option C is autoboxing (int to Integer), A is String conversion (also called `Integer.toString`), and B is parsing (String to int). The direction matters: wrapper to primitive is unboxing, primitive to wrapper is autoboxing.",
+            explanation: "D is correct. `int y = new Integer(10)` assigns an Integer object to a primitive int variable, triggering auto-unboxing.\nChoice A is wrong because converting int to String is parsing or formatting, not unboxing.\nChoice B is wrong because parsing a String to int is not unboxing.\nChoice C is wrong because that is autoboxing (primitive to wrapper), not unboxing.",
           },
           {
             id: "4_7_q18",
@@ -19065,7 +19065,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "50" },
             ],
             answer: "D",
-            explanation: "Each `Integer.parseInt(String)` converts a numeric String to a primitive int. The loop squares each parsed value and accumulates. Trace: \"3\" -> 3, 3*3 = 9, total = 9. \"4\" -> 4, 4*4 = 16, total = 25. \"5\" -> 5, 5*5 = 25, total = 50. Final total = 50. Option A is the raw sum 3+4+5 (no squaring); option B is (3+4+5)^2 = 144 (wrong: squaring then summing is not the same as summing then squaring); option C is 3*4*5 (wrong operation). The order matters: square each element, then sum the squares.",
+            explanation: "D is correct. Each `parseInt` returns a primitive int. The loop squares each value: `3*3 + 4*4 + 5*5 = 9 + 16 + 25 = 50`.\nChoice A is wrong because 12 is the raw sum without squaring.\nChoice B is wrong because `(3+4+5)*(3+4+5) = 144`, but the code sums squared values individually.\nChoice C is wrong because 60 multiplies all three rather than summing squares.",
           },
           {
             id: "4_7_q19",
@@ -19080,7 +19080,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A compile-time error occurs." },
             ],
             answer: "A",
-            explanation: "Java will attempt to unbox the null Integer when assigning to `int b`, which calls `intValue()` on the null reference, throwing `NullPointerException` at runtime. You cannot unbox a null wrapper object because null has no methods. Option B wrongly assumes a default value, C confuses null printing with assignment (printing prints the text 'null', but assignment to a primitive unboxes), and C blames the compiler (the compiler allows null assignment to Integer).",
+            explanation: "A is correct. Assigning a null Integer to an int triggers auto-unboxing, which calls `intValue()` on null. That throws `NullPointerException`.\nChoice B is wrong because unboxing null does not return a default 0.\nChoice C is wrong because the printed value `null` only appears when assigning to a String context, not int.\nChoice D is wrong because the compiler allows the assignment. The crash happens at runtime.",
           },
           {
             id: "4_7_q20",
@@ -19095,7 +19095,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A runtime error occurs." },
             ],
             answer: "B",
-            explanation: "`Integer.parseInt(\"007\")` successfully parses the string '007' as the integer 7. Leading zeros are consumed during parsing but they do not affect the resulting int value, because ints have no notion of leading zeros (they are not part of the number's mathematical value). Option A treats the result as a String, C invents a compile error, and D invents a runtime error. The parse is well-formed and produces the int 7.",
+            explanation: "B is correct. `Integer.parseInt(\"007\")` parses the leading zeros and produces the int 7.\nChoice A is wrong because the result is an int, not the String `\"007\"`.\nChoice C is wrong because the code compiles cleanly.\nChoice D is wrong because the string is a valid integer representation.",
           },
           {
             id: "4_7_q21",
@@ -19109,7 +19109,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "list.add(5);" },
             ],
             answer: "D",
-            explanation: "`list.add(5)` works because Java auto-boxes the int literal 5 into an Integer object before passing it to add. The explicit `new Integer(5)` is unnecessary and is in fact deprecated; autoboxing handles the conversion silently. Option C's `int 5` is not Java syntax, C invents `new int(5)` (primitives cannot be constructed with `new`), and D wrongly forbids ints in ArrayList<Integer> (autoboxing makes them welcome).",
+            explanation: "D is correct. `list.add(5)` works because Java auto-boxes the int 5 into an Integer before adding it.\nChoice A is wrong because `new int(5)` is not valid Java. Primitives have no constructor.\nChoice B is wrong because autoboxing makes int literals valid in `ArrayList<Integer>`.\nChoice C is wrong because `int 5` is not valid Java syntax.",
           },
           {
             id: "4_7_q22",
@@ -19139,7 +19139,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "false" },
             ],
             answer: "A",
-            explanation: "`int x = 10` is autoboxed when assigned to `Integer y`, so y holds the value 10 wrapped in an Integer object. `y.equals(10)` compares the Integer's value to 10 (the 10 argument is also autoboxed to Integer for the equals call). Since both Integer objects represent the value 10, equals() returns true. Option D wrongly assumes inequality, A blames the compiler, and D invents a runtime error. equals() compares values, not references.",
+            explanation: "A is correct. `y` holds the value 10. `y.equals(10)` autoboxes the argument and compares values. Both are 10, so the result is true.\nChoice B is wrong because no runtime error occurs.\nChoice C is wrong because the code compiles cleanly.\nChoice D is wrong because `equals` compares values, not references.",
           },
           {
             id: "4_7_q24",
@@ -19154,7 +19154,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A compile-time error occurs." },
             ],
             answer: "C",
-            explanation: "Each `Integer.parseInt` call returns a primitive int. The expression `Integer.parseInt(\"10\") + Integer.parseInt(\"20\")` becomes `10 + 20`, which is int + int arithmetic addition: 30. Option B would be String concatenation (which would only happen if at least one operand stayed a String), and D and D invent errors that do not occur. parseInt always returns a primitive int, so subsequent arithmetic is straightforward.",
+            explanation: "C is correct. Each `parseInt` returns a primitive int. `10 + 20` is int arithmetic, giving 30.\nChoice A is wrong because both strings are valid numbers.\nChoice B is wrong because the operands are ints, not Strings, so `+` is arithmetic.\nChoice D is wrong because the code compiles cleanly.",
           },
           {
             id: "4_7_q25",
@@ -19169,7 +19169,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A compile-time error occurs." },
             ],
             answer: "C",
-            explanation: "Java caches Integer objects for values in [-128, 127], so the literal 127 boxes to the same cached Integer object both times. Both x and y point to the same object in memory, so `x == y` (reference equality) returns true. For 128 or higher, the cache does not apply: separate Integer objects are created and `==` would be false even with equal values. equals() always returns true for equal-valued Integers regardless of cache.",
+            explanation: "C is correct. Java caches Integer objects for -128 to 127. Both `x` and `y` refer to the same cached Integer for 127, so `==` returns true.\nChoice A is wrong because no exception occurs.\nChoice B is wrong because the cache makes the references match for 127.\nChoice D is wrong because the code compiles cleanly.",
           },
           {
             id: "4_7_q26",
@@ -19264,7 +19264,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "3 15" },
             ],
             answer: "D",
-            explanation: "Trace the four mutations carefully. After the first three adds, list = [10, 20, 30]. `list.add(1, 15)` inserts 15 at index 1, shifting later elements right: [10, 15, 20, 30] (size = 4). `list.remove(2)` removes the element at index 2 (which is 20), shifting later elements left: [10, 15, 30] (size = 3). The print shows size() = 3 and get(1) = 15. Option A would result if remove(2) were ignored; option B keeps the original 20 at index 1 (forgetting the insert); option C ignores the remove. The two key methods: add(index, obj) inserts and shifts right; remove(index) removes and shifts left.",
+            explanation: "D is correct. After three adds the list is `[10, 20, 30]`. `list.add(1, 15)` inserts 15 at index 1 and shifts later elements right: `[10, 15, 20, 30]`. `list.remove(2)` removes the 20 at index 2: `[10, 15, 30]`. Then `size()` is 3 and `get(1)` is 15.\nChoice A is wrong because it ignores the remove.\nChoice B is wrong because it keeps 20 at index 1, forgetting the insertion shifted things.\nChoice C is wrong because it counts the inserted element but skips the remove.",
           },
           {
             id: "4_8_q02",
@@ -19369,7 +19369,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "2\n1" },
             ],
             answer: "D",
-            explanation: "After two adds, size() returns 2. `remove(0)` removes one element (shifting the remaining one left), so size() now returns 1. Option C wrongly assumes remove leaves size unchanged, C wrongly assumes size starts at 1 (it starts at 0 for a freshly constructed ArrayList), and D wrongly assumes both calls return 1. The size always equals the number of currently stored elements.",
+            explanation: "D is correct. After two `add` calls `size()` returns 2. Then `remove(0)` deletes the first element and shifts the rest left, so `size()` returns 1.\nChoice A is wrong because remove drops the size by 1, not by 2.\nChoice B is wrong because the first print runs before any removal.\nChoice C is wrong because `remove` actually reduces the size.",
           },
           {
             id: "4_8_q09",
@@ -19398,7 +19398,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "No import is needed; ArrayList is built in" },
             ],
             answer: "B",
-            explanation: "`ArrayList` lives in the `java.util` package, so `import java.util.ArrayList;` is required to use it. Option A wrongly puts it in `java.lang` (which would be auto-imported for core classes like String and Math), C wrongly puts it in `java.io`, and D wrongly claims no import is needed. ArrayList is a fundamental collection class but still needs an explicit import because it lives outside `java.lang`.",
+            explanation: "B is correct. `ArrayList` lives in the `java.util` package, so `import java.util.ArrayList;` is the right import.\nChoice A is wrong because `java.lang` only auto-imports core types like `String` and `Math`.\nChoice C is wrong because `java.io` holds I/O classes, not collections.\nChoice D is wrong because `ArrayList` is not in `java.lang`, so it must be imported.",
           },
           {
             id: "4_8_q11",
@@ -19620,7 +19620,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "4" },
             ],
             answer: "B",
-            explanation: "After three adds: [4, 8, 12]. `add(1, 6)` inserts 6 at index 1, shifting 8 and 12 one position right: the list becomes [4, 6, 8, 12]. `get(2)` now returns 8 (the element that was at index 1 before the insert, now shifted to index 2). Option A is the inserted value (now at index 1), C is at index 3, and D is at index 0. Insertion shifts later indices.",
+            explanation: "B is correct. After three adds the list is `[4, 8, 12]`. `add(1, 6)` inserts 6 at index 1 and shifts later elements right, giving `[4, 6, 8, 12]`. Then `get(2)` returns 8.\nChoice A is wrong because 6 ended up at index 1, not index 2.\nChoice C is wrong because 12 shifted to index 3 after the insert.\nChoice D is wrong because 4 stays at index 0.",
           },
           {
             id: "4_8_q26",
@@ -19635,7 +19635,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "4" },
             ],
             answer: "A",
-            explanation: "`remove(int index)` is the integer-argument form when called on `ArrayList<Integer>` with an int — Java chooses the int-index overload, not the Object-value overload (which would require Integer). Index 4 of the 5-element list holds the value 5, which is removed and returned. Option C wrongly assumes a boolean return, and D and B are different elements. Be careful: `remove(Integer.valueOf(4))` would remove by value, but `remove(4)` removes by index.",
+            explanation: "A is correct. Calling `remove(int)` on `ArrayList<Integer>` picks the index overload, so `nums.remove(4)` removes the element at index 4. That element is 5, which the method returns.\nChoice B is wrong because index 4 is valid for a list of size 5.\nChoice C is wrong because the index overload returns the removed element, not a boolean.\nChoice D is wrong because 4 lives at index 3, not index 4.",
           },
           {
             id: "4_8_q27",
@@ -19731,7 +19731,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "3 3 4 " },
             ],
             answer: "D",
-            explanation: "Standard for-i loop calls `words.size()` (parentheses required because size is a method on ArrayList) and `words.get(i)` to access each element, then `.length()` for the String's character count. Outputs: 'cat'.length() = 3, 'dog'.length() = 3, 'bird'.length() = 4, each followed by a space. Output: '3 3 4 '. Option C miscounts 'bird', A prints the raw strings, and D blames the compiler.",
+            explanation: "D is correct. The loop prints each word's length followed by a space. Lengths are `\"cat\".length() = 3`, `\"dog\".length() = 3`, `\"bird\".length() = 4`. Output is `3 3 4 `.\nChoice A is wrong because the loop prints lengths, not the words themselves.\nChoice B is wrong because the code compiles cleanly.\nChoice C is wrong because `\"bird\"` has length 4, not 3.",
           },
           {
             id: "4_9_q03",
@@ -19908,7 +19908,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "9" },
             ],
             answer: "A",
-            explanation: "The first loop adds `i * i` for i = 1 to 5: it adds 1, 4, 9, 16, 25 in order, stored at ArrayList indices 0 through 4 (since the list starts empty and adds append). `list.get(3)` is the element at index 3, which holds 16 (4 * 4). Option D is i = 3's square (9, stored at index 2), B is the last element (index 4), and D wrongly predicts a runtime error. Trace add() calls carefully.",
+            explanation: "A is correct. The loop adds `i * i` for `i = 1` to `5`: values 1, 4, 9, 16, 25 at indices 0 through 4. `list.get(3)` returns 16.\nChoice B is wrong because 25 is at index 4.\nChoice C is wrong because index 3 is valid for a 5-element list.\nChoice D is wrong because 9 is at index 2.",
           },
           {
             id: "4_9_q15",
@@ -19922,7 +19922,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "for (int i = 0; i < data.size(); i++) { System.out.println(data.get(i)); }" },
             ],
             answer: "D",
-            explanation: "Option D uses the canonical idiom: `i < data.size()` (strict less-than, which prevents off-by-one out-of-bounds errors) and `data.get(i)` (the method-based access for ArrayList). Option B's `<=` causes IndexOutOfBoundsException by going one past the last valid index, C uses bracket syntax (valid only for arrays), and A uses `.length` (which does not exist on ArrayList). Memorize this idiom for ArrayList traversal.",
+            explanation: "D is correct. The canonical forward traversal uses `i < data.size()` and `data.get(i)`.\nChoice A is wrong because `ArrayList` exposes `size()` (a method), not `length`.\nChoice B is wrong because `<=` walks one past the end and throws.\nChoice C is wrong because `data[i]` is array syntax. `ArrayList` requires `get`.",
           },
           {
             id: "4_9_q16",
@@ -20056,7 +20056,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The for-each loop requires the index to be specified." },
             ],
             answer: "C",
-            explanation: "The for-each loop is designed for read-only traversals: assigning to the loop variable does not change the underlying list (only the local copy is modified), adding or removing elements during iteration throws `ConcurrentModificationException`, and no index is exposed because the loop is index-free. Option C captures this. Options A, B, and D each misstate the loop's semantics. For mutation, use index access with `set()`.",
+            explanation: "C is correct. The for-each loop is designed for read-only traversals. Reassigning the loop variable does not change the list, and modifying the list during iteration throws an exception.\nChoice A is wrong because adding during for-each throws `ConcurrentModificationException`.\nChoice B is wrong because the loop variable is a local copy of the element.\nChoice D is wrong because the for-each does not expose an index.",
           },
           {
             id: "4_9_q25",
@@ -20167,7 +20167,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "[4]" },
             ],
             answer: "D",
-            explanation: "Removing elements during a forward indexed loop is dangerous because each `remove(i)` shifts every later element left by one, while the loop variable `i` still advances normally, causing the shifted element to be skipped. Trace [2,4,6]: i=0 get(0)=2 even, remove -> [4,6]; i=1 get(1)=6 even, remove -> [4]; i=2 loop ends because size is 1. The 4 that shifted from index 1 to index 0 was never re-checked because i had already moved past it. Distractors C and C assume every even is caught (they aren't with this pattern), and B forgets the loop modifies the list at all.",
+            explanation: "D is correct. Forward `remove(i)` shifts later elements left while `i` keeps advancing, skipping every other match. For `[2, 4, 6]`: remove `2` gives `[4, 6]`. Then `i = 1`, removing index 1 (value `6`) gives `[4]`. `4` is never re-checked.\nChoice A is wrong because the skip leaves `4`, not `6`, in the list.\nChoice B is wrong because at least one removal happens.\nChoice C is wrong because the forward-skip bug prevents removing every element.",
           },
           {
             id: "4_10_q02",
@@ -20182,7 +20182,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "[1, 3, 4, 5]" },
             ],
             answer: "B",
-            explanation: "When removing elements from an ArrayList, traversing backward avoids the index-shift skipping problem because removed elements are always above the current index, leaving all lower indices untouched and unvisited cells intact. Tracing from i=4 down to 0 on [1,2,3,4,5]: 5 odd keep, 4 even remove -> [1,2,3,5]; 3 odd keep; 2 even remove -> [1,3,5]; 1 odd keep. Result [1,3,5]. Distractor C inverts the filter (gives evens); A ignores removals entirely; D would only result from a forward-loop skipping bug, which doesn't apply to a backward sweep.",
+            explanation: "B is correct. Backward removal avoids the shift-skip bug because removed elements are above the current index. From `i = 4` down: remove 4, remove 2, leaving `[1, 3, 5]`.\nChoice A is wrong because the loop keeps odd numbers, not even.\nChoice C is wrong because the loop does remove the even values.\nChoice D is wrong because 4 is also removed during the backward sweep.",
           },
           {
             id: "4_10_q03",
@@ -20211,7 +20211,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "for (int i = 0; i < nums.size(); i++) { if (nums.get(i) < 0) nums.remove(i); }" },
             ],
             answer: "B",
-            explanation: "Reliable removal of all matching elements from an ArrayList requires a backward indexed loop, because removals only shift elements at higher indices which the loop has already visited. B iterates from `size()-1` down to 0, which is the canonical safe removal pattern on the AP exam. Option D is the classic skip bug: forward iteration plus `remove(i)` skips any element that shifts into the freshly removed slot. A throws a ConcurrentModificationException because for-each uses an Iterator that detects structural changes. C has the same skip bug as A plus an off-by-one risk with `<=`.",
+            explanation: "B is correct. Backward iteration with `i--` and `remove(i)` is the safe canonical pattern for removing all matches from an ArrayList.\nChoice A is wrong because the for-each loop forbids removal during iteration.\nChoice C is wrong because `i <= nums.size()` walks one past the end.\nChoice D is wrong because forward `remove(i)` skips elements that shift into the just-removed slot.",
           },
           {
             id: "4_10_q05",
@@ -20226,7 +20226,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "[]" },
             ],
             answer: "D",
-            explanation: "A backward removal loop is safe because shrinking the list only affects already-processed higher indices, never indices the loop still needs to examine. Tracing from i=3 down on [3,6,9,12]: every element is a multiple of 3 so each gets removed, leaving []. The order of removals is 12, then 9, then 6, then 3, and the size shrinks from 4 to 0 without skipping anything. Choice B would require the loop to do nothing; C and A would require some elements to be kept, but the condition `% 3 == 0` matches all four values, so an empty list is the only correct outcome.",
+            explanation: "D is correct. Backward removal works safely when every element matches. From `i = 3` down: remove 12, 9, 6, 3, leaving `[]`.\nChoice A is wrong because every element is a multiple of 3, including odd-indexed ones.\nChoice B is wrong because the loop removes every element, not none.\nChoice C is wrong because all four values are multiples of 3.",
           },
           {
             id: "4_10_q06",
@@ -20256,7 +20256,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "[5, 5, 5]" },
             ],
             answer: "B",
-            explanation: "A forward indexed remove loop skips every other matching element when matches are consecutive, because each removal shifts the next match leftward into the just-vacated slot, but `i++` immediately moves past it. Trace [5,5,5]: i=0 get(0)=5 remove -> [5,5]; i=1 get(1)=5 remove -> [5]; i=2 size is 1, loop ends. Exactly one 5 survives. The safe alternatives are a backward loop, an iterator, or adding `i--` after each `remove(i)`. A assumes all three would be removed; C is an intermediate state; D would mean no removals happened at all.",
+            explanation: "B is correct. Forward `remove(i)` skips elements that shift into the just-removed slot. For `[5, 5, 5]`: remove `5` at index 0 gives `[5, 5]`. Then `i = 1`, remove index 1 gives `[5]`. The shifted 5 at index 0 is never re-checked.\nChoice A is wrong because the skip leaves one element behind.\nChoice C is wrong because at least one element is removed.\nChoice D is wrong because two removals do happen.",
           },
           {
             id: "4_10_q08",
@@ -20271,7 +20271,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "[]" },
             ],
             answer: "B",
-            explanation: "Building a new ArrayList of filtered values is a fundamental ArrayList algorithm: iterate the source list with a for-each, test each element, and call `add` on the destination only when the test passes. Trace [1,2,3,4,5]: 1 odd add; 2 even skip; 3 odd add; 4 even skip; 5 odd add. Final result = [1,3,5], preserving the original order of the matching elements. Choice A inverts the filter and would correspond to `n % 2 == 0`; C copies everything (no filter applied); D would mean the for-each was never executed or the test always failed.",
+            explanation: "B is correct. The for-each iterates the source list, and the filter `n % 2 != 0` collects only odd values into `result`. From `[1, 2, 3, 4, 5]`, odd values are `1, 3, 5`.\nChoice A is wrong because the filter keeps odd values, not even.\nChoice C is wrong because even values are filtered out.\nChoice D is wrong because three odd values match the filter.",
           },
           {
             id: "4_10_q09",
@@ -20286,7 +20286,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "[1, 2, 3]" },
             ],
             answer: "A",
-            explanation: "Adding `i--` immediately after a forward `remove(i)` compensates for the leftward shift, so the next iteration re-examines whatever was shifted into position i, and no element is skipped. Trace [1,2,3]: i=0 keep 1; i=1 get(1)=2 even remove -> [1,3], then i-- makes i=0, then i++ goes to 1; i=1 get(1)=3 odd keep; i=2 size is 2, loop ends. Result [1,3]. The `i--` trick is the standard fix for the forward-loop skip bug and behaves equivalently to a backward sweep here. C and B ignore the filter; D over-removes.",
+            explanation: "A is correct. Adding `i--` after `remove(i)` compensates for the leftward shift, so no element is skipped. For `[1, 2, 3]`: remove 2 gives `[1, 3]`, then `i` rewinds and continues. Both odd values stay.\nChoice B is wrong because the `i--` trick correctly removes only the even values.\nChoice C is wrong because the loop removes evens, not odds.\nChoice D is wrong because the loop does remove the 2.",
           },
           {
             id: "4_10_q10",
@@ -20421,7 +20421,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "2" },
             ],
             answer: "D",
-            explanation: "Counting matches in an ArrayList uses a counter incremented inside a for-each whenever the predicate is true. Trace [\"hello\",\"hi\",\"hey\",\"howdy\"] with predicate `length() > 3`: \"hello\".length()=5>3 count=1; \"hi\".length()=2 skip; \"hey\".length()=3 not strictly > 3 skip; \"howdy\".length()=5>3 count=2. Final count = 2. The strict `>` matters: if the predicate were `>= 3`, \"hey\" would also qualify and the count would be 3. C undercounts by one, and A and D over-count by including non-matching elements.",
+            explanation: "D is correct. The for-each counts words with length strictly greater than 3. `\"hello\".length() = 5` (count), `\"hi\".length() = 2` (skip), `\"hey\".length() = 3` (skip, since `3 > 3` is false), `\"howdy\".length() = 5` (count). Total is 2.\nChoice A is wrong because 3 over-counts. `\"hey\"` has length 3, not strictly more.\nChoice B is wrong because two of four words match, not all four.\nChoice C is wrong because two words exceed length 3.",
           },
           {
             id: "4_10_q19",
@@ -20466,7 +20466,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "[7, 7, 7]" },
             ],
             answer: "C",
-            explanation: "The `i--` compensation after a forward `remove(i)` makes the loop revisit the new element now at index i, ensuring no match is skipped. Trace [7,7,7]: i=0 get(0)=7 remove -> [7,7], i-- makes i=-1, then i++ goes to 0; i=0 get(0)=7 remove -> [7], i-- makes i=-1, then i++ goes to 0; i=0 get(0)=7 remove -> [], i-- makes i=-1, loop ends. All three 7s are removed. D assumes the loop did nothing; A and C result from the un-fixed forward-loop bug skipping consecutive matches.",
+            explanation: "C is correct. The `i--` after `remove(i)` revisits the new element at index `i` each time. For `[7, 7, 7]`: every element matches and gets removed in turn, leaving `[]`.\nChoice A is wrong because all three 7s are removed.\nChoice B is wrong because the `i--` trick prevents the skip bug.\nChoice D is wrong because the loop runs and removes elements.",
           },
           {
             id: "4_10_q22",
@@ -20481,7 +20481,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "87.6" },
             ],
             answer: "C",
-            explanation: "Computing an integer average from an ArrayList requires summing all elements then dividing by `size()`, but Java integer division truncates the remainder toward zero. sum = 85+92+78+95+88 = 438. scores.size() = 5. 438 / 5 in integer arithmetic = 87 (the true value 87.6 has its 0.6 dropped). To get the exact decimal you would need `(double) sum / scores.size()`. D is the floating-point answer (impossible with int/int), A is a rounded value not produced by truncation, and B is the unaveraged sum.",
+            explanation: "C is correct. Sum is `85 + 92 + 78 + 95 + 88 = 438`. Integer division by 5 gives 87 (the true 87.6 is truncated).\nChoice A is wrong because 88 is not the integer-divided average.\nChoice B is wrong because 438 is the sum, not the average.\nChoice D is wrong because integer division drops the decimal part.",
           },
           {
             id: "4_10_q23",
@@ -20496,7 +20496,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "[10, 10, 10, 10]" },
             ],
             answer: "C",
-            explanation: "The `list.set(i, value)` method replaces the element at index i without changing the list's size, making it the standard way to transform elements in place during a forward indexed loop. Trace [1,2,3,4]: each element gets +10 written back, so 1->11, 2->12, 3->13, 4->14. Final list = [11,12,13,14]. B would require ignoring the assignment entirely; D would mean all elements were overwritten with the constant 10 instead of with `get(i)+10`; D imagines a non-existent runtime error (set with valid index never throws).",
+            explanation: "C is correct. `list.set(i, list.get(i) + 10)` updates each element in place, adding 10. The list becomes `[11, 12, 13, 14]`.\nChoice A is wrong because `set` does not throw for valid indices.\nChoice B is wrong because `set` writes the new value.\nChoice D is wrong because each element gets its own value plus 10, not the same 10.",
           },
           {
             id: "4_10_q24",
@@ -20621,7 +20621,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "21" },
             ],
             answer: "B",
-            explanation: "This loop sums the anti-diagonal of the 3x3 grid. For c = 0: m[0][m.length - 1 - 0] = m[0][2] = 3. For c = 1: m[1][1] = 5. For c = 2: m[2][0] = 7. Sum = 3 + 5 + 7 = 15. The trap is the row/column expression inside the access: `m[c][m.length - 1 - c]` uses the loop variable c as the ROW (because m[c] selects the row first), and the column shrinks from right to left. For the magic-square-style sample {{1,2,3},{4,5,6},{7,8,9}}, the anti-diagonal happens to sum to the same 15 as the main diagonal — but the indices visited are different. Option A is the anti-diagonal minus the middle (3 + 7 = 10... actually 12 represents another partial sum); option C is just the center value 5; option D is a wrong arithmetic combination. The key takeaway: always read `m[outer][inner]` as row-then-column, never the geometric (x,y) convention.",
+            explanation: "B is correct. The loop walks the anti-diagonal. For `c = 0`: `m[0][2]` is 3. For `c = 1`: `m[1][1]` is 5. For `c = 2`: `m[2][0]` is 7. Sum is `3 + 5 + 7 = 15`.\nChoice A is wrong because it skips the center value 5.\nChoice C is wrong because 5 is only the middle term, not the full sum.\nChoice D is wrong because 21 over-counts cells outside the anti-diagonal.",
           },
           {
             id: "4_11_q02",
@@ -20636,7 +20636,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "1" },
             ],
             answer: "B",
-            explanation: "Row-then-column indexing applies to every 2D array access: `m[r][c]` always means row r first, column c second. `m[2][0]` reads row 2 of the 3-by-3 grid, which is {7,8,9}, then column 0 of that row, which is 7. Distractor D confuses with row 0 column 0; B picks column 2 instead of column 0; D picks the wrong corner entirely (row 2 column 2). The mental model: m.length tells you how many rows exist, m[r].length tells you how many columns row r has.",
+            explanation: "B is correct. `m[r][c]` always means row first, column second. `m[2]` is the row `{7, 8, 9}`, and column 0 of that row is 7.\nChoice A is wrong because 3 is `m[0][2]`, not `m[2][0]` (row/col swap).\nChoice C is wrong because 9 is at row 2 column 2.\nChoice D is wrong because 1 is at row 0 column 0.",
           },
           {
             id: "4_11_q03",
@@ -20666,7 +20666,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "2" },
             ],
             answer: "B",
-            explanation: "Two key facts. First, m.length returns the number of ROWS in the outer array (number of inner-array references), regardless of how long each row is. Here m.length = 3. Second, m[r].length returns the number of columns in row r individually, so for ragged (jagged) arrays each row can have a different length: m[0].length = 2, m[1].length = 3, m[2].length = 1. The loop sums these row lengths: 2 + 3 + 1 = 6, which equals the total cell count of the ragged grid. Option A is what a 3x3 rectangular grid would give (rows times columns); option C is just m.length; option D is just m[0].length. The takeaway: prefer m[r].length over m[0].length when traversing inner loops because rows can differ.",
+            explanation: "B is correct. `m.length` is 3 (the number of rows). For each row `m[r].length` gives that row's column count: 2, 3, and 1. The loop sums these: `2 + 3 + 1 = 6`.\nChoice A is wrong because 9 assumes a rectangular 3x3 grid.\nChoice C is wrong because 3 is just `m.length`, not the cell total.\nChoice D is wrong because 2 is only the first row's length.",
           },
           {
             id: "4_11_q05",
@@ -20681,7 +20681,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "4" },
             ],
             answer: "C",
-            explanation: "Two dimensions need to be tracked precisely. `new int[3][4]` gives m.length = 3 (rows) and m[0].length = 4 (columns), so valid row indices are 0-2 and valid column indices are 0-3. The nested loop fills m[r][c] = r + c, then the print accesses the bottom-right cell at m[m.length - 1][m[0].length - 1] = m[2][3] = 2 + 3 = 5. Option A would be the answer if both dimensions used the same length (m[3][4] would be out of bounds, but if m were 4x4 the corner would be 6); option B is what you would get with m[3][3] indices; option D is one of the middle values. The rule: m.length gives rows, m[0].length gives columns, and the last cell is at indices [m.length - 1][m[0].length - 1].",
+            explanation: "C is correct. `new int[3][4]` gives `m.length = 3` and `m[0].length = 4`, so the bottom-right cell is `m[2][3]`. The fill writes `r + c`, so `m[2][3] = 2 + 3 = 5`.\nChoice A is wrong because 7 over-shoots the actual `r + c` sum at the corner.\nChoice B is wrong because it assumes both dimensions are 4.\nChoice D is wrong because 4 is at an interior cell, not the bottom-right.",
           },
           {
             id: "4_11_q06",
@@ -20696,7 +20696,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "11" },
             ],
             answer: "A",
-            explanation: "2D array elements participate in arithmetic exactly like any int because they ARE ints. `m[1][2]` is row 1 column 2 = 6, and `m[2][1]` is row 2 column 1 = 8, so the right-hand side evaluates to 6+8 = 14. The assignment then overwrites `m[0][1]` (originally 2) with 14. The print statement reads it back as 14. Distractor B would mix up two cells (13 isn't 6+8), D and B use wrong cells in the computation. Always evaluate the right-hand side before applying the assignment, because the original value at the target cell doesn't enter the calculation.",
+            explanation: "A is correct. `m[1][2]` is 6 and `m[2][1]` is 8. The right side is `6 + 8 = 14`, which overwrites `m[0][1]`. Printing `m[0][1]` shows 14.\nChoice B is wrong because the sum is 14, not 13.\nChoice C is wrong because 2 is the original value, which the assignment replaced.\nChoice D is wrong because 11 swaps in different cells.",
           },
           {
             id: "4_11_q07",
@@ -20711,7 +20711,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A compile-time error occurs." },
             ],
             answer: "C",
-            explanation: "Java initializes all int elements to 0 by default, including 2D arrays created with `new`. `new int[2][3]` allocates a grid of 2 rows by 3 columns with every cell set to 0, so `g[0][0]` prints 0. Distractor A is the default for object reference types (String, Integer wrapper, etc.); B is arbitrary; D would imply a syntactic error which the code does not contain. The default values by type: int/double/long/short = 0, boolean = false, char = '\\u0000', and any object reference = null. Remembering these defaults is essential for AP MCQs.",
+            explanation: "C is correct. `new int[2][3]` allocates a 2x3 grid with every cell at the int default of 0, so `g[0][0]` prints 0.\nChoice A is wrong because null is the default for object reference arrays, not int.\nChoice B is wrong because no slot defaults to 1.\nChoice D is wrong because the syntax compiles cleanly.",
           },
           {
             id: "4_11_q08",
@@ -20771,7 +20771,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "30" },
             ],
             answer: "B",
-            explanation: "Cross-cell arithmetic in a 2D array works by evaluating each access independently and then applying the operator. `data[0][2]` reads row 0 column 2 = 15, and `data[1][0]` reads row 1 column 0 = 20, so x = 15+20 = 35. Distractor A mixes up two cells (would correspond to a different pair), D mistakes column indices, and C confuses with the row-column transposition. The general rule: 2D array reads compose freely into any expression where ints appear, including conditionals, arithmetic, and method arguments.",
+            explanation: "B is correct. `data[0][2]` is row 0 column 2, which is 15. `data[1][0]` is row 1 column 0, which is 20. The sum is `15 + 20 = 35`.\nChoice A is wrong because 25 is a single cell, not the sum.\nChoice C is wrong because 45 over-counts.\nChoice D is wrong because 30 is just `data[1][2]`.",
           },
           {
             id: "4_11_q12",
@@ -20786,7 +20786,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "false" },
             ],
             answer: "D",
-            explanation: "Boolean arrays in Java default to `false` on creation, just as int arrays default to 0 and object reference arrays default to null. `new boolean[3][3]` fills every cell with false, so `flags[1][2]` (which has not been assigned) prints false. Distractor A is the default for object reference types; B is the int default (wrong for booleans); C is the opposite of the actual default. Knowing all the type defaults — int=0, double=0.0, boolean=false, char='\\u0000', object=null — is essential for predicting MCQ outputs.",
+            explanation: "D is correct. `boolean` arrays default every slot to `false`, so `flags[1][2]` prints `false`.\nChoice A is wrong because null is the default for object reference arrays.\nChoice B is wrong because 0 is the int default, not the boolean default.\nChoice C is wrong because the default for boolean is the opposite of `true`.",
           },
           {
             id: "4_11_q13",
@@ -20801,7 +20801,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A runtime error occurs." },
             ],
             answer: "C",
-            explanation: "Object reference arrays (including String, Integer wrapper, custom class types) default to null when created with `new`. `new String[2][2]` fills every cell with null, so `words[0][0]` prints \"null\". Distractor A is the empty string \"\" which is NOT the default (you'd have to explicitly assign it); B is the int default; D imagines a non-existent runtime error (reading an unassigned cell just gives the default value, not an exception). The general rule: any reference type defaults to null, while primitive types default to a zero-like value.",
+            explanation: "C is correct. Reference-type arrays default every slot to `null`, so `words[0][0]` prints `null`.\nChoice A is wrong because the empty string must be explicitly assigned.\nChoice B is wrong because 0 is the int default, not the String default.\nChoice D is wrong because reading a null slot is safe. Only calling a method on null would throw.",
           },
           {
             id: "4_11_q14",
@@ -20816,7 +20816,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "9" },
             ],
             answer: "B",
-            explanation: "Each cell access is evaluated independently, then the arithmetic is applied to the resulting values. `m[0][0]` = 3 and `m[0][1]` = 6, so the right-hand side is 3*6 = 18. The assignment then overwrites `m[1][1]` (originally 5) with 18, and the print reads it back as 18. Distractor A is the original value of `m[1][1]` (before the assignment), C and D are wrong arithmetic. The general rule: the right-hand side is fully computed using the current array values BEFORE the left-hand side cell is updated, so original values matter only insofar as they appear on the right.",
+            explanation: "B is correct. `m[0][0]` is 3 and `m[0][1]` is 6. The right side is `3 * 6 = 18`, which overwrites `m[1][1]`. Printing it shows 18.\nChoice A is wrong because 15 is the original value of `m[1][1]`, now replaced.\nChoice C is wrong because 27 uses wrong factors.\nChoice D is wrong because 9 is `m[0][2]`, not the product.",
           },
           {
             id: "4_11_q15",
@@ -20891,7 +20891,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "99 99" },
             ],
             answer: "B",
-            explanation: "Only assigned cells differ from the default 0 in an int 2D array. `arr[3][1] = 99` sets exactly one cell, leaving every other cell at its default 0. `arr[2][0]` was never written, so it remains 0. The output prints \"99 0\". Distractor C swaps the two prints; D assumes spillover from one assignment to another (which never happens); D imagines an out-of-bounds error (indices [3][1] and [2][0] are both valid for `new int[4][2]`). The general rule: assignments affect only the specified cell, never any neighboring cells.",
+            explanation: "B is correct. `arr[3][1] = 99` only changes that one slot. `arr[2][0]` was never assigned, so it stays at the int default of 0.\nChoice A is wrong because the assignment is in bounds, so no exception occurs.\nChoice C is wrong because it swaps the two printed values.\nChoice D is wrong because assigning one slot does not spill into other slots.",
           },
           {
             id: "4_11_q20",
@@ -20906,7 +20906,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "5" },
             ],
             answer: "A",
-            explanation: "Each cell read on the right side is independent of the assignment target on the left. `m[2][1]` = 30 and `m[1][0]` = 15, so the right-hand side is 30-15 = 15. The assignment then overwrites `m[0][0]` (originally 5) with 15, and the print reads it back. Distractor D is the original value of m[0][0] (before assignment); B and C are wrong arithmetic. The general rule: the right-hand side is fully computed using current array values before the left-hand side is updated, so the original value at m[0][0] is irrelevant unless it appeared on the right.",
+            explanation: "A is correct. `m[2][1]` is 30 and `m[1][0]` is 15. The right side is `30 - 15 = 15`, which overwrites `m[0][0]`. Printing it shows 15.\nChoice B is wrong because 10 does not match either cell or the difference.\nChoice C is wrong because 20 picks `m[1][1]`, not the difference.\nChoice D is wrong because 5 is the original `m[0][0]`, now replaced.",
           },
           {
             id: "4_11_q21",
@@ -20935,7 +20935,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "table[table.length - 1][table[0].length - 1]" },
             ],
             answer: "D",
-            explanation: "The last valid index in any dimension is `length - 1` because Java array indexing is 0-based. For a 2D array `table`, the last row index is `table.length - 1` and the last column index is `table[0].length - 1`. Option D uses both correctly, giving the bottom-right cell. Distractor C uses raw lengths (off by one — would cause ArrayIndexOutOfBoundsException); A swaps the row and column lengths (a transposition mistake); D mixes valid and invalid indices. This is one of the most-tested 2D array MCQ patterns.",
+            explanation: "D is correct. The last valid row index is `table.length - 1` and the last valid column index is `table[0].length - 1`, so the bottom-right cell is `table[table.length - 1][table[0].length - 1]`.\nChoice A is wrong because it swaps the row and column lengths.\nChoice B is wrong because `table[table.length]` is one past the last row.\nChoice C is wrong because both `table.length` and `table[0].length` are one past the end.",
           },
           {
             id: "4_11_q23",
@@ -20950,7 +20950,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "7" },
             ],
             answer: "C",
-            explanation: "`grid.length` always returns the number of rows in a 2D array, regardless of how the rows are populated, because the outer array holds row references and its length is the count of those references. `new int[5][2]` allocates 5 row sub-arrays, so `grid.length` = 5. Distractor A is the column count (length of any single row); B is the total cell count (5*2=10); D is unrelated. The complementary fact: `grid[0].length` = 2 (the column count). Together these two values describe the grid's shape.",
+            explanation: "C is correct. `grid.length` returns the number of rows, regardless of column count. `new int[5][2]` allocates 5 row sub-arrays, so `grid.length` is 5.\nChoice A is wrong because 2 is `grid[0].length` (the column count).\nChoice B is wrong because 10 is the total cell count, not the row count.\nChoice D is wrong because 7 is unrelated to either dimension.",
           },
           {
             id: "4_11_q24",
@@ -20964,7 +20964,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "null" },
             ],
             answer: "A",
-            explanation: "All int cells in any Java array (1D or 2B) initialize to 0 by default. The indices [0][5] are valid for `new int[4][6]` because rows go 0-3 and columns go 0-5, so `scores[0][5]` is in-bounds and holds the default value 0. Distractor C is arbitrary; D is the object-reference default (not used for int); D imagines an out-of-bounds error that doesn't apply (index 5 is the last valid column index, not the first invalid one). The general rule: defaults apply to every cell until explicitly assigned otherwise.",
+            explanation: "A is correct. `int` cells default to 0. The grid has rows 0 through 3 and columns 0 through 5, so `scores[0][5]` is in bounds and holds the default 0.\nChoice B is wrong because index 5 is the last valid column index, not out of bounds.\nChoice C is wrong because the default for int is 0, not the value 5.\nChoice D is wrong because null is the default for object reference arrays, not int.",
           },
           {
             id: "4_11_q25",
@@ -20978,7 +20978,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "int[][] m = {{1, 2, 3}, {4, 5, 6}};" },
             ],
             answer: "D",
-            explanation: "The nested-brace literal `{{row0vals}, {row1vals}, ...}` declares a 2D array row by row, with each inner brace giving one row's contents. Option D `{{1,2,3},{4,5,6}}` creates 2 rows each with 3 columns, matching the requirement exactly. Distractor A has 3 rows by 2 columns (a transposition mistake); B uses `new` which fills with default 0s, not the specified values; C is a 1D array literal (only one set of braces) and would cause a compile error in a 2D context. The general syntax: outer braces hold inner braces, one per row.",
+            explanation: "D is correct. The literal `{{1, 2, 3}, {4, 5, 6}}` declares 2 rows with 3 columns each, matching the requested shape and values.\nChoice A is wrong because it has 3 rows with 2 columns (row/column swap).\nChoice B is wrong because `new int[3][2]` fills with 0s and gives 3 rows, not 2.\nChoice C is wrong because a flat list compiles as 1D, not 2D.",
           },
           {
             id: "4_11_q26",
@@ -21008,7 +21008,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "21" },
             ],
             answer: "D",
-            explanation: "Each cell stores its assigned value independently of others. `arr[0][2]` was assigned 7 and `arr[2][0]` was assigned 3, so the product `arr[0][2] * arr[2][0]` = 7*3 = 21. Distractor B would result if the assignments never happened (both cells still at default 0, product 0); C is wrong arithmetic; D treats the result as string concatenation (\"73\", but these are ints). Note that the two assignments are to different cells, so neither overwrites the other. The general rule: each cell is independent storage.",
+            explanation: "D is correct. Each cell stores its assigned value independently. `arr[0][2]` is 7 and `arr[2][0]` is 3, so the product `7 * 3` is 21.\nChoice A is wrong because the operator is `*`, not String concatenation, so the result is an int.\nChoice B is wrong because both cells were assigned, so neither stays at the default 0.\nChoice C is wrong because 7 plus 3 is 10, but the code multiplies, not adds.",
           },
           {
             id: "4_11_q28",
@@ -21023,7 +21023,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "7" },
             ],
             answer: "C",
-            explanation: "Accessing a row index greater than or equal to `m.length` throws ArrayIndexOutOfBoundsException at runtime, not at compile time, because Java's compiler cannot always determine indices statically. The grid m has 3 rows (indices 0, 1, 2), so `m[3][0]` requires a non-existent row 3. The exception fires when the JVM tries to dereference the bad row reference. Distractor D would require some sort of wraparound (which Java does NOT do); A is the default cell value (only valid for in-bounds reads); B confuses runtime exceptions with compile-time errors (different mechanism, different timing).",
+            explanation: "C is correct. The grid has 3 rows with valid row indices 0, 1, 2. Accessing `m[3][0]` reads a non-existent row 3, throwing `ArrayIndexOutOfBoundsException` at runtime.\nChoice A is wrong because reading an out-of-bounds row throws, not returns a default.\nChoice B is wrong because the compiler accepts the syntax. Index checks happen at runtime.\nChoice D is wrong because Java does not wrap around to row 2.",
           },
           {
             id: "4_11_q29",
@@ -21037,7 +21037,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The number of columns in row 0 of the array" },
             ],
             answer: "D",
-            explanation: "`m[0]` is itself a 1D array (the first row of the 2D array), so `m[0].length` returns the number of columns in row 0 — which equals the number of elements in that row's inner array. Distractor B is the total cell count (m.length * m[0].length); C is the row count (just m.length); A is unrelated. In a rectangular grid all rows have the same length, so m[0].length equals m[r].length for any r. In a ragged jagged array, different rows can have different lengths.",
+            explanation: "D is correct. `m[0]` is the first row, a 1D array. `m[0].length` returns the column count of that row.\nChoice A is wrong because no array length expression returns `length - 1`.\nChoice B is wrong because total cells is `m.length * m[0].length`, not just `m[0].length`.\nChoice C is wrong because the row count is `m.length`, not `m[0].length`.",
           },
           {
             id: "4_11_q30",
@@ -21073,7 +21073,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "6 5 4 3 2 1" },
             ],
             answer: "C",
-            explanation: "Row-major traversal uses the outer loop over rows and the inner loop over columns, so elements print in their natural left-to-right, top-to-bottom order — the same order they would appear if you read the grid like a page of text. For the 2-by-3 grid {{1,2,3},{4,5,6}}: row 0 prints \"1 2 3\", then row 1 prints \"4 5 6\", giving \"1 2 3 4 5 6\". Distractor B is column-major order; D is fully reversed; A swaps the two rows. The hallmark of row-major: outer loop variable iterates 0..rows-1, inner iterates 0..cols-1, and access uses arr[outer][inner].",
+            explanation: "C is correct. Row-major traversal uses the outer loop over rows and inner over columns. For `{{1, 2, 3}, {4, 5, 6}}`: row 0 prints `1 2 3`, then row 1 prints `4 5 6`.\nChoice A is wrong because the outer loop starts at row 0, not row 1.\nChoice B is wrong because that is column-major order.\nChoice D is wrong because the loop goes forward, not backward.",
           },
           {
             id: "4_12_q02",
@@ -21103,7 +21103,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "1 4 2 5 3 6" },
             ],
             answer: "B",
-            explanation: "Enhanced for-each on a 2D array always traverses in row-major order: the outer loop iterates over row sub-arrays (`int[] row : grid`), and the inner loop iterates over the elements of each row (`int val : row`). For {{1,2,3},{4,5,6}}: outer picks row 0 = {1,2,3}, inner prints 1, 2, 3; outer picks row 1 = {4,5,6}, inner prints 4, 5, 6. Output: \"1 2 3 4 5 6\". Distractor D is column-major (impossible to achieve with the canonical for-each on a 2D int[][] without indexing); A reverses; C swaps rows.",
+            explanation: "B is correct. The nested for-each visits row sub-arrays then their elements in row-major order. For `{{1, 2, 3}, {4, 5, 6}}` it prints `1 2 3 4 5 6`.\nChoice A is wrong because for-each goes forward, not backward.\nChoice C is wrong because the outer loop starts at row 0.\nChoice D is wrong because that is column-major order, which for-each cannot produce.",
           },
           {
             id: "4_12_q04",
@@ -21193,7 +21193,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "1 5 9" },
             ],
             answer: "D",
-            explanation: "Filtering with `r == c` selects only main-diagonal cells, where the row index equals the column index. For the 3-by-3 grid: (0,0)=1, (1,1)=5, (2,2)=9. The loop visits every cell but prints only when r equals c. Output: \"1 5 9\". Distractor A is row 0; B is the anti-diagonal (r+c==2); D ignores the filter. The main diagonal of a square matrix is a recurring AP topic — recognize `r == c` as \"main diagonal selector\" and `r + c == n - 1` (where n is the grid size) as \"anti-diagonal selector\".",
+            explanation: "D is correct. The filter `r == c` selects main-diagonal cells. For the 3-by-3 grid: `(0, 0) = 1`, `(1, 1) = 5`, `(2, 2) = 9`. Output is `1 5 9`.\nChoice A is wrong because row 0 alone is `1 2 3`, not just the diagonal.\nChoice B is wrong because that is the anti-diagonal `r + c == 2`.\nChoice C is wrong because the filter restricts which cells print.",
           },
           {
             id: "4_12_q10",
@@ -21372,7 +21372,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Diagonal order" },
             ],
             answer: "C",
-            explanation: "The sequence grid[0][0], grid[1][0], grid[2][0], grid[0][1], grid[1][1], grid[2][1] visits all rows of column 0 first, then all rows of column 1 — that is the defining pattern of column-major order, with the outer loop over columns and the inner loop over rows. Distractor A (row-major) would visit row 0 across all columns first. B (backward row-major) would visit the last row first. D (diagonal) would jump to (0,0), (1,1), (2,2). Recognize column-major by its column-first, row-second iteration pattern.",
+            explanation: "C is correct. Visiting all rows of column 0, then all rows of column 1, is column-major order. The outer loop iterates columns and the inner iterates rows.\nChoice A is wrong because row-major would visit row 0 across all columns first.\nChoice B is wrong because backward row-major would start at the last row.\nChoice D is wrong because diagonal order jumps to matching row and column indices.",
           },
           {
             id: "4_12_q22",
@@ -21601,7 +21601,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "{{1, 2, 3}, {4, 5, 6}}" },
             ],
             answer: "B",
-            explanation: "Initializing max to 0 fails when the true maximum of a 2D array is negative, because no negative element can ever beat 0 in the `val > max` test, so max never updates from its initial 0. For the all-negative grid {{-5,-3},{-8,-1}}: every val is < 0 < max=0, so max stays 0 — but the actual maximum is -1. The fix is to initialize max = grid[0][0]. Distractors A, B, D all have non-negative maxes (6, 0, 40 respectively), so the buggy initialization happens to give the correct answer there.",
+            explanation: "B is correct. Initializing `max = 0` fails when every element is negative because no negative value beats 0 in `val > max`. For `{{-5, -3}, {-8, -1}}`, max stays at 0, but the true max is -1.\nChoice A is wrong because the all-zero grid still gets a correct max of 0.\nChoice C is wrong because every value is positive and beats 0.\nChoice D is wrong because every value is positive and beats 0.",
           },
           {
             id: "4_13_q07",
@@ -21750,7 +21750,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The outer loop should use an index, not a for-each." },
             ],
             answer: "C",
-            explanation: "Initializing max = 0 is the classic bug for all-negative input. The test `val > max` requires the new value to be strictly greater than the current max; if every val is negative and max=0, no update ever occurs, and the method incorrectly returns 0 instead of the true (negative) max. The fix is `max = grid[0][0]`, which seeds from real data and works regardless of sign. Distractors A, C, D describe style issues (or non-issues) that don't cause incorrect behavior.",
+            explanation: "C is correct. Initializing `max = 0` fails when every element is negative because the strict `val > max` test never triggers. The fix is to initialize `max = grid[0][0]`.\nChoice A is wrong because `>=` still does not handle the all-negative case correctly.\nChoice B is wrong because for-each variable scope is not the bug.\nChoice D is wrong because for-each works fine for read-only traversal of a 2D array.",
           },
           {
             id: "4_13_q17",
@@ -21980,7 +21980,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "3" },
             ],
             answer: "D",
-            explanation: "Linear search scans an array left-to-right and returns the INDEX (not the value) of the first matching element, or -1 if no match is found. Trace search for 9 in {3,7,1,9,5}: arr[0]=3 no, arr[1]=7 no, arr[2]=1 no, arr[3]=9 match — return 3. Linear search works on any array (sorted or unsorted) and has O(n) worst-case complexity. Distractor C confuses the index with the value (9 is the value at index 3, but the method returns the index); A assumes the target isn't found; B is the array length, an off-by-one mistake.",
+            explanation: "D is correct. Linear search returns the index of the first match. Scan `{3, 7, 1, 9, 5}` for 9: index 0 is 3, index 1 is 7, index 2 is 1, index 3 is 9. Return 3.\nChoice A is wrong because the loop returns once a match is found.\nChoice B is wrong because 4 is the array length, an off-by-one mistake.\nChoice C is wrong because 9 is the matched value, not its index.",
           },
           {
             id: "4_14_q02",
@@ -22084,7 +22084,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "No precondition is required; linear search works on any array." },
             ],
             answer: "D",
-            explanation: "Linear search has no preconditions — it checks each element by direct comparison, so order and duplicates don't matter, and any size (including 0) works correctly (returning -1 for an empty array). Distractor A is binary search's requirement (sorted ascending); B is a restriction that linear search doesn't impose (duplicates are fine, it just returns the first match); C is wrong (arrays of any size, including 0 or 1, are searchable). The key takeaway: when the data is unsorted, linear search is the right choice because binary search would fail.",
+            explanation: "D is correct. Linear search compares each element directly, so it has no precondition. It works on any array including empty, unsorted, and one with duplicates.\nChoice A is wrong because sorted order is a binary search requirement.\nChoice B is wrong because duplicates are fine. Linear search just returns the first match.\nChoice C is wrong because arrays of size 0 or 1 are searchable. An empty array returns -1.",
           },
           {
             id: "4_14_q09",
@@ -22113,7 +22113,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "It returns 0, which could be mistaken for finding the target at index 0." },
             ],
             answer: "D",
-            explanation: "Returning 0 instead of -1 when the target is not found creates an ambiguous result: the caller cannot distinguish \"found at index 0\" from \"not found\" because both produce the same return value. For arr={7,3,5} target=4 (absent): the buggy method returns 0, which the caller might misinterpret as \"found at index 0\". The fix is to return -1 (or any sentinel that no valid index can equal). Distractor C describes correct behavior (which is NOT what the buggy code does); A is the target value; D imagines a non-existent error.",
+            explanation: "D is correct. Returning 0 as the not-found sentinel makes index 0 indistinguishable from \"not found\", so any caller checking the result cannot tell which case happened.\nChoice A is wrong because the method returns 0 (the bad sentinel), not 4.\nChoice B is wrong because the loop runs without indexing errors.\nChoice C is wrong because the buggy method returns 0, not -1.",
           },
           {
             id: "4_14_q11",
@@ -22142,7 +22142,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Linear search always finds the last occurrence of a duplicate value." },
             ],
             answer: "A",
-            explanation: "Standard linear search returns -1 as a universally recognized \"not found\" sentinel, because -1 is never a valid array index (arrays are 0-indexed). Distractor C would impose binary search's precondition (linear search doesn't need sorted input); D is the opposite of standard behavior (left-to-right scan returns the FIRST occurrence); B is false (linear search runs SLOWER on larger arrays because it must check more elements). The contract `>= 0 on success, -1 on failure` is the universal convention.",
+            explanation: "A is correct. Standard linear search returns -1 as the not-found sentinel because -1 is never a valid array index.\nChoice B is wrong because larger arrays take more checks, not fewer.\nChoice C is wrong because linear search has no sorting precondition. That is binary search.\nChoice D is wrong because a standard left-to-right scan returns the first match, not the last.",
           },
           {
             id: "4_14_q13",
@@ -22157,7 +22157,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0" },
             ],
             answer: "B",
-            explanation: "An empty array has length 0, so the loop condition `i < arr.length` is `0 < 0` which is false. The loop body never executes, and the method falls through to `return -1`. Distractor C is the target value (irrelevant); D would mean a successful match (impossible with no elements); C imagines an out-of-bounds access that never happens because the loop doesn't run. The general rule: linear search on an empty array always returns -1, gracefully handling the boundary case without throwing exceptions.",
+            explanation: "B is correct. An empty array has length 0, so the loop condition `0 < 0` is false. The body never runs, and the method falls through to `return -1`.\nChoice A is wrong because the loop never indexes the array, so no exception happens.\nChoice C is wrong because 5 is the target value, not a return value.\nChoice D is wrong because 0 would mean a match at index 0, but no element exists.",
           },
           {
             id: "4_14_q14",
@@ -22187,7 +22187,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "-1 -1" },
             ],
             answer: "C",
-            explanation: "Two trackers run in one pass. `first` is set only on the initial match because of the `first == -1` guard, then never changes again. `last` is overwritten on every match, so it ends as the rightmost match's index. Trace {12,5,8,5,3,5} target=5: i=1 first=1 last=1; i=3 last=3 (first still 1 since first != -1); i=5 last=5. Output is '1 5'. Option B reports the second match's index instead of the last; option A confuses indices with values; option D would require no matches at all. The guard on `first` is the easy-to-miss detail that decides which match each variable tracks.",
+            explanation: "C is correct. `first` is set only on the first match because of the `first == -1` guard, then never updates. `last` is overwritten every match. For `{12, 5, 8, 5, 3, 5}`: first becomes 1 at `i = 1`, then last updates to 1, 3, and 5.\nChoice A is wrong because it confuses index values with the target value 5.\nChoice B is wrong because `last` continues updating past index 3 to the final match.\nChoice D is wrong because three matches exist, so neither variable stays at -1.",
           },
           {
             id: "4_14_q16",
@@ -22216,7 +22216,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Yes, linear search is defined as a left-to-right scan." },
             ],
             answer: "A",
-            explanation: "Linear search only requires examining each element once, and the direction (left-to-right vs right-to-left) doesn't affect CORRECTNESS — both find the target if it's present. The difference: right-to-left would find the LAST occurrence of a duplicate value instead of the first. Distractor D imposes a false rule (the algorithm is more flexible than that); B describes binary search; D imagines a compile error (the direction is just a loop choice, syntactically valid). The convention is left-to-right because it returns the first match, which is usually what's wanted.",
+            explanation: "A is correct. Linear search only requires checking each element once. Scanning right to left still examines every element and still finds the target if it is present.\nChoice B is wrong because that describes binary search, not linear search.\nChoice C is wrong because no compile error occurs. Loop direction is a runtime choice.\nChoice D is wrong because direction is not part of the definition. The convention is left-to-right because it returns the first match.",
           },
           {
             id: "4_14_q18",
@@ -22275,7 +22275,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Binary search, because linear search only works on sorted arrays." },
             ],
             answer: "B",
-            explanation: "Linear search works on any array regardless of order, making it the appropriate choice for unsorted data. Binary search requires sorted input — without sorting, binary search may incorrectly eliminate the half containing the target. Distractor A is wrong because binary search has a precondition (sorted ascending) that the unsorted input violates; C is false (unsorted arrays are perfectly searchable with linear search); D is backwards (linear search works on unsorted; binary search requires sorted). The general rule: use linear search when input might not be sorted, binary search when sorted order is guaranteed.",
+            explanation: "B is correct. Linear search compares each element directly, so order does not matter. It is the correct choice when the array might not be sorted.\nChoice A is wrong because binary search requires sorted input and may give wrong results on unsorted data.\nChoice C is wrong because unsorted arrays are still searchable with linear search.\nChoice D is wrong because linear search does not require sorted input. That is binary search.",
           },
           {
             id: "4_14_q22",
@@ -22444,7 +22444,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "{1, 5, 3, 4, 2}" },
             ],
             answer: "A",
-            explanation: "Insertion sort's outer pass i treats arr[i] as the \"key\" and shifts elements of the already-sorted prefix arr[0..i-1] one position to the right until the key fits in its correct sorted position. Pass 1 (i=1) on {5,3,1,4,2}: key=3, j=0. arr[0]=5 > 3 so shift arr[1]=5, now {5,5,1,4,2}, j=-1. Place key at arr[0]: {3,5,1,4,2}. Only the first element after the initial sorted prefix is inserted per pass. Distractor B and C jump ahead more than one pass; D scrambles.",
+            explanation: "A is correct. Insertion sort pass 1 takes key `arr[1] = 3` and shifts larger elements of the sorted prefix right. `arr[0] = 5` is larger than 3, so 5 shifts to index 1. The key is then placed at index 0.\nChoice B is wrong because it shows the array after multiple passes.\nChoice C is wrong because it leaves 5 at index 0 instead of shifting it.\nChoice D is wrong because it places 5 between 1 and 3, which is not what one pass produces.",
           },
           {
             id: "4_15_q03",
@@ -22472,7 +22472,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Insertion sort" },
             ],
             answer: "B",
-            explanation: "Selection sort's defining behavior: each outer-pass selects the minimum of the unsorted portion and places it at the boundary between sorted and unsorted regions. After pass i, arr[0..i] holds the i+1 smallest elements in sorted order. Distractor D describes insertion sort (insert each new element into the correct position); A describes merge sort (divide and merge); C describes bubble sort (compare adjacent pairs and swap). Selection sort always does exactly n-1 swaps total — one per outer pass — regardless of input order.",
+            explanation: "B is correct. Selection sort finds the minimum of the unsorted portion and places it at the boundary between the sorted and unsorted regions on each outer pass.\nChoice A is wrong because merge sort uses divide and conquer, not a min-finding pass.\nChoice C is wrong because \"linear sort\" is not a real algorithm name in this course.\nChoice D is wrong because insertion sort shifts elements into a sorted prefix rather than finding a minimum.",
           },
           {
             id: "4_15_q05",
@@ -22529,7 +22529,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Compare adjacent elements and swap if they are out of order" },
             ],
             answer: "C",
-            explanation: "Insertion sort's defining behavior: take the next unsorted element (the \"key\"), and shift sorted-prefix elements rightward until you find the correct sorted position for the key, then place it. The sorted prefix grows by one element per pass. Distractor A describes selection sort (find min, swap to front); B describes merge sort (divide and conquer); D describes bubble sort (compare adjacent pairs). Insertion sort is best when the array is nearly sorted (best case O(n) — no shifts needed) and worst when reversed (worst case O(n²) — every element shifts to the front).",
+            explanation: "C is correct. Insertion sort takes the next unsorted element and shifts sorted-prefix elements rightward until the key fits in its correct sorted position.\nChoice A is wrong because that describes selection sort.\nChoice B is wrong because that describes merge sort.\nChoice D is wrong because that describes bubble sort, which is not on the AP exam.",
           },
           {
             id: "4_15_q09",
@@ -22684,7 +22684,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "{1, 3, 2, 5, 8, 9}" },
             ],
             answer: "B",
-            explanation: "Merging two sorted arrays uses two pointers (one per array) and repeatedly takes the smaller front element. Compare 2 vs 1 -> take 1 (advance right pointer); 2 vs 3 -> take 2 (advance left); 5 vs 3 -> take 3 (advance right); 5 vs 9 -> take 5 (advance left); 8 vs 9 -> take 8 (advance left); take 9 (right pointer exhausted, no remaining). Result: {1,2,3,5,8,9}. Distractor C simply concatenates without merging; D and D scramble the order. The merge step preserves sortedness because both input arrays are already sorted.",
+            explanation: "B is correct. The merge step takes the smaller front element of two sorted arrays. Compare 2 and 1, take 1. Compare 2 and 3, take 2. Compare 5 and 3, take 3. Compare 5 and 9, take 5. Compare 8 and 9, take 8. Take the remaining 9. Result is `{1, 2, 3, 5, 8, 9}`.\nChoice A is wrong because 9 ends up before 8, breaking sorted order.\nChoice C is wrong because that is plain concatenation, not a merge.\nChoice D is wrong because the merge produces sorted output, not a partial scramble.",
           },
           {
             id: "4_15_q20",
@@ -22713,7 +22713,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Insertion sort" },
             ],
             answer: "B",
-            explanation: "Step 1 places the overall minimum (1) at index 0; step 2 places the next minimum (2) at index 1. Each step appends the smallest remaining element to the sorted prefix — this is exactly selection sort's defining behavior. Distractor D (insertion sort) would shift elements rather than swap min to front; B (merge sort) would recursively divide; D suggests no algorithm fits — but selection sort fits perfectly. The signature of selection sort: each step makes one swap, placing the minimum of the unsorted region at the boundary.",
+            explanation: "B is correct. Step 1 places the overall minimum 1 at index 0. Step 2 places the next minimum 2 at index 1. Each step appends the smallest remaining element to the sorted prefix, which is exactly selection sort.\nChoice A is wrong because merge sort would not show a simple swap-to-front pattern.\nChoice C is wrong because the pattern clearly matches selection sort.\nChoice D is wrong because insertion sort shifts elements rather than swapping the min to the front.",
           },
           {
             id: "4_15_q22",
@@ -22741,7 +22741,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Merge sort only works on integer arrays" },
             ],
             answer: "C",
-            explanation: "Merge sort uses a divide-and-conquer recursive strategy: it recursively splits the array into halves until single-element subarrays (base case), then merges them back together in sorted order. Selection and insertion sort are iterative with nested loops, not recursive. Distractor B is false (merge sort uses nested operations too, just structured differently); D is a false restriction (merge sort works on any Comparable type); A is false (no precondition on initial order). The recursive structure is what gives merge sort its O(n log n) complexity.",
+            explanation: "C is correct. Merge sort recursively splits the array in half until each piece has one element, then merges adjacent sorted pieces back together.\nChoice A is wrong because merge sort has no precondition on input order.\nChoice B is wrong because the iterative sorts also use multiple loops or recursive structure.\nChoice D is wrong because merge sort works on any comparable type, not just integers.",
           },
           {
             id: "4_15_q24",
@@ -22755,7 +22755,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Because the last element is automatically in the correct position after n-1 passes" },
             ],
             answer: "D",
-            explanation: "After n-1 passes of selection sort, n-1 positions are filled with the correct minimums in order, and the last remaining element (at index n-1) must be the maximum and is automatically in its correct position. Running an n-th pass would find no element to swap (the only remaining unsorted element is already in place). This optimization saves one redundant pass. Distractor C is false (no compile-time issue); A is false (selection sort sorts all n); B is unrelated.",
+            explanation: "D is correct. After n-1 passes, the last remaining element must be the maximum and is already in its correct position, so no n-th pass is needed.\nChoice A is wrong because selection sort sorts all n elements, not just the first n-1.\nChoice B is wrong because the bound has nothing to do with reversal.\nChoice C is wrong because `i < arr.length` would still compile. It would just do one wasted pass.",
           },
           {
             id: "4_15_q25",
@@ -22875,7 +22875,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0 1 2 3 4" },
             ],
             answer: "C",
-            explanation: "When `print` comes BEFORE the recursive call (pre-order traversal), values print on the way DOWN the call stack, in the order they are first encountered. Trace mystery(4): print 4, then call mystery(3) which prints 3 and calls mystery(2) which prints 2 and calls mystery(1) which prints 1 and calls mystery(0) which returns immediately. Output: \"4 3 2 1\". Distractor B reverses (would happen with print AFTER recursive call); D and D include extra 0 (the base case has `return` before any print). The key insight: pre-order print yields the largest value first.",
+            explanation: "C is correct. The print happens before the recursive call, so values print on the way down the call stack. Trace mystery(4): print 4, call mystery(3) prints 3, mystery(2) prints 2, mystery(1) prints 1, mystery(0) returns. Output is `4 3 2 1`.\nChoice A is wrong because mystery(0) returns before printing, so no 0 appears.\nChoice B is wrong because that reversed order would require printing after the recursive call.\nChoice D is wrong because the base case returns before any print.",
           },
           {
             id: "4_16_q03",
@@ -22980,7 +22980,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A runtime error occurs due to infinite recursion." },
             ],
             answer: "D",
-            explanation: "This method has no base case — n is always INCREMENTED (n+1) with each call, so it never reaches a stopping condition no matter what initial value. The recursion continues indefinitely, growing the call stack until it overflows, causing a StackOverflowError at runtime. Distractor A misreads the increment as a decrement (the print order would be wrong); B imagines a built-in stop (Java has no such mechanism); C is wrong (this compiles fine — the type signature and syntax are valid). A method needs both a base case AND progression toward it to terminate.",
+            explanation: "D is correct. The method has no base case for stopping, and n keeps increasing. The call stack grows until it overflows, raising a `StackOverflowError`.\nChoice A is wrong because n increases each call, so values would grow, not shrink.\nChoice B is wrong because Java has no built-in limit that stops the recursion gracefully.\nChoice C is wrong because the syntax compiles fine. The error happens at runtime.",
           },
           {
             id: "4_16_q10",
@@ -22995,7 +22995,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "1" },
             ],
             answer: "C",
-            explanation: "Fibonacci-like recurrence with base case n<=1 returning n. Note: this returns 0 for mystery(0) and 1 for mystery(1) — the standard 0-indexed Fibonacci. The recursive case calls mystery TWICE per frame, building a binary tree of calls. mystery(3) = mystery(2) + mystery(1). mystery(2) = mystery(1) + mystery(0) = 1 + 0 = 1. mystery(1) = 1. So mystery(3) = 1 + 1 = 2. Distractor A is the input; B is mystery(5); D is mystery(1). Each level of the tree doubles the number of calls (exponential complexity).",
+            explanation: "C is correct. The base case returns n for n at most 1. So mystery(0) is 0 and mystery(1) is 1. mystery(2) is `mystery(1) + mystery(0) = 1 + 0 = 1`. mystery(3) is `mystery(2) + mystery(1) = 1 + 1 = 2`.\nChoice A is wrong because 3 is the input, not the Fibonacci result.\nChoice B is wrong because 5 is mystery(5), not mystery(3).\nChoice D is wrong because 1 is mystery(1) or mystery(2), not mystery(3).",
           },
           {
             id: "4_16_q11",
@@ -23055,7 +23055,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "4" },
             ],
             answer: "C",
-            explanation: "Two branches. mystery(7): n=7 odd, so go to `return mystery(n-1)` -> mystery(6). mystery(6): n=6 even, so `return 1 + mystery(n-2)` -> 1 + mystery(4). mystery(4): 1 + mystery(2). mystery(2): 1 + mystery(0). mystery(0): base case returns 0. Unwinding: 1+0=1, 1+1=2, 1+2=3, and the topmost mystery(7) gets that 3 (since odd n just passes through). So mystery(7) = 3. Note that the odd-input shortcut just steps down to the next even without adding. Distractor D and C miss the odd-passthrough logic.",
+            explanation: "C is correct. For odd n, the method just steps down by 1 without adding. For even n it adds 1 and steps down by 2. mystery(7) becomes mystery(6), which is `1 + mystery(4) = 1 + 1 + mystery(2) = 1 + 1 + 1 + mystery(0) = 3 + 0 = 3`.\nChoice A is wrong because 7 is the input, not the count of even steps.\nChoice B is wrong because 2 misses one even step in the chain.\nChoice D is wrong because 4 over-counts the even steps.",
           },
           {
             id: "4_16_q15",
@@ -23130,7 +23130,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "3" },
             ],
             answer: "C",
-            explanation: "Fibonacci variant with base case n<=1 returning 1 (not 0 and 1). So both mystery(0) and mystery(1) return 1. mystery(2) = mystery(1) + mystery(0) = 1 + 1 = 2. mystery(3) = mystery(2) + mystery(1) = 2 + 1 = 3. mystery(4) = mystery(3) + mystery(2) = 3 + 2 = 5. mystery(5) = mystery(4) + mystery(3) = 5 + 3 = 8. Distractor B is the input; D is mystery(3); A is mystery(7). The choice of base case values shifts the entire Fibonacci sequence.",
+            explanation: "C is correct. The base case returns 1 for n at most 1, so both mystery(0) and mystery(1) return 1. mystery(2) is `1 + 1 = 2`, mystery(3) is `2 + 1 = 3`, mystery(4) is `3 + 2 = 5`, mystery(5) is `5 + 3 = 8`.\nChoice A is wrong because 13 is mystery(6), not mystery(5).\nChoice B is wrong because 5 is mystery(4) under these base cases.\nChoice D is wrong because 3 is mystery(3), not mystery(5).",
           },
           {
             id: "4_16_q20",
@@ -23145,7 +23145,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "4 3 2 1 1 2 3 4" },
             ],
             answer: "C",
-            explanation: "Two recursive calls per frame creates a binary tree of calls, with the print sandwiched between them. mystery(1): mystery(0), print 1, mystery(0) -> just prints \"1\". mystery(2): mystery(1) prints \"1\", print 2, mystery(1) prints \"1\" -> total \"1 2 1\". Each level doubles and inserts: mystery(3) = mystery(2) + print 3 + mystery(2) = \"1 2 1 3 1 2 1\". mystery(4) = mystery(3) + print 4 + mystery(3) = \"1 2 1 3 1 2 1 4 1 2 1 3 1 2 1\". Distractors B-D miss the tree-doubling structure.",
+            explanation: "C is correct. Each frame calls itself twice with the print in between. mystery(1) prints `1`. mystery(2) is `mystery(1) + print 2 + mystery(1) = 1 2 1`. mystery(3) is `1 2 1 3 1 2 1`. mystery(4) is mystery(3) + print 4 + mystery(3) = `1 2 1 3 1 2 1 4 1 2 1 3 1 2 1`.\nChoice A is wrong because it omits all the doubled lower-level output.\nChoice B is wrong because it ignores the recursive doubling.\nChoice D is wrong because it lacks the inner palindromic pattern.",
           },
           {
             id: "4_16_q21",
@@ -23205,7 +23205,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "11223344" },
             ],
             answer: "A",
-            explanation: "Two prints flank the recursive call: one BEFORE (pre-order, prints on the way down the stack) and one AFTER (post-order, prints on the way up). Trace mystery(4): print 4, then mystery(3). mystery(3): print 3, then mystery(2). mystery(2): print 2, then mystery(1). mystery(1): print 1, then mystery(0) which returns immediately. Now unwind: mystery(1) prints 1, mystery(2) prints 2, mystery(3) prints 3, mystery(4) prints 4. Concatenated: \"4321\" + \"1234\" = \"43211234\". Option B reverses both halves; option C interleaves wrongly; option D is the post-order alone (would happen with only the second print). This palindromic structure is the hallmark of a sandwiched-print recursion.",
+            explanation: "A is correct. The first print fires on the way down and the second fires on the way back up. Going down prints `4321`. Coming back up prints `1234`. Concatenated: `43211234`.\nChoice B is wrong because the first half should be descending, not ascending.\nChoice C is wrong because the two prints interleave with the recursive call, not pair up by value.\nChoice D is wrong because that would happen with only the post-order print.",
           },
           {
             id: "4_16_q25",
@@ -23235,7 +23235,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "1 2 1 3 1 2 1" },
             ],
             answer: "D",
-            explanation: "Same tree pattern as q20 but with n=3. mystery(1) prints \"1\". mystery(2): mystery(1) prints \"1\", print 2, mystery(1) prints \"1\" -> \"1 2 1\". mystery(3): mystery(2) prints \"1 2 1\", print 3, mystery(2) prints \"1 2 1\" -> \"1 2 1 3 1 2 1\". The output has palindromic structure with the current value sandwiched between two identical halves. Distractors B-D miss the binary-tree doubling structure that this code generates.",
+            explanation: "D is correct. mystery(1) prints `1`. mystery(2) is `mystery(1) + print 2 + mystery(1) = 1 2 1`. mystery(3) is `mystery(2) + print 3 + mystery(2) = 1 2 1 3 1 2 1`.\nChoice A is wrong because the structure has doubled lower-level halves, not a simple count down and up.\nChoice B is wrong because it ignores the doubled recursion.\nChoice C is wrong because the print sits between two recursive calls, producing a doubled pattern.",
           },
           {
             id: "4_16_q27",
@@ -23250,7 +23250,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "4" },
             ],
             answer: "A",
-            explanation: "Classic Fibonacci with base case 0 returning 0 and base case 1 returning 1 (the 0-indexed standard Fibonacci sequence). mystery(2) = mystery(1) + mystery(0) = 1 + 0 = 1. mystery(3) = mystery(2) + mystery(1) = 1 + 1 = 2. mystery(4) = mystery(3) + mystery(2) = 2 + 1 = 3. mystery(5) = mystery(4) + mystery(3) = 3 + 2 = 5. So mystery(5) = 5 (the 5th Fibonacci number, 0-indexed). Distractor C is mystery(4); D is unrelated; B is mystery(6).",
+            explanation: "A is correct. The base cases return 0 for n = 0 and 1 for n = 1. mystery(2) is `1 + 0 = 1`. mystery(3) is `1 + 1 = 2`. mystery(4) is `2 + 1 = 3`. mystery(5) is `3 + 2 = 5`.\nChoice B is wrong because 8 is mystery(6), not mystery(5).\nChoice C is wrong because 3 is mystery(4) in this sequence.\nChoice D is wrong because 4 is not a Fibonacci value here.",
           },
           {
             id: "4_16_q28",
@@ -23316,7 +23316,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "3" },
             ],
             answer: "D",
-            explanation: "Recursive binary search compares the target to arr[mid], returning mid on equality, or recursing on the lower half if target<arr[mid] (search left), or upper half if target>arr[mid] (search right). The base case for not-found is low>high. Trace bSearch({1,3,5,7,9}, 7, 0, 4): mid=(0+4)/2=2, arr[2]=5<7, recurse right: bSearch(arr,7,3,4). New mid=(3+4)/2=3, arr[3]=7 matches, return 3. So target 7 is found at index 3. Distractor A is the array length; B is the value; C would mean not found.",
+            explanation: "D is correct. `mid = (0 + 4) / 2 = 2`, `arr[2] = 5 < 7`, so recurse right with low = 3, high = 4. New `mid = 3`, `arr[3] = 7` matches. Return 3.\nChoice A is wrong because 4 is `arr.length - 1`, not the index of 7.\nChoice B is wrong because 7 is the target value, not the index.\nChoice C is wrong because the target is present, so -1 is not returned.",
           },
           {
             id: "4_17_q02",
@@ -23330,7 +23330,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The target must be present in the array" },
             ],
             answer: "B",
-            explanation: "Binary search's halving step assumes that if target<arr[mid], the target (if present) must be in arr[low..mid-1] — that is, in the lower half. This deduction only holds if the array is sorted in ascending order. Without sorting, binary search may discard the half that actually contains the target. Distractor A is a false restriction (any int values work, positive or negative); C is unrelated to correctness; D would defeat the purpose (we don't know if target is present — that's what we're searching for!).",
+            explanation: "B is correct. Binary search's halving step assumes that if `target < arr[mid]`, the target (if present) must lie in the lower half. That holds only when the array is sorted in ascending order.\nChoice A is wrong because binary search works on any comparable values, including negatives.\nChoice C is wrong because the length parity does not affect correctness.\nChoice D is wrong because the search must work whether or not the target is present, and return -1 if absent.",
           },
           {
             id: "4_17_q03",
@@ -23358,7 +23358,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0" },
             ],
             answer: "B",
-            explanation: "When the search range collapses (low > high) without finding the target, recursive binary search returns -1 as the not-found sentinel. This convention matches linear search and is the standard contract: -1 means \"not found\", any non-negative value is a valid index. Distractor D could be misread as \"found at index 0\" (ambiguous); A is for object types (binary search returns int); C is incorrect (no runtime error for missing target — that's the whole point of the -1 sentinel).",
+            explanation: "B is correct. When the range collapses with `low > high`, the recursive method returns -1 as the not-found sentinel.\nChoice A is wrong because the method returns an int, not an object reference.\nChoice C is wrong because the missing target is handled gracefully, not via an exception.\nChoice D is wrong because 0 is a valid index and would be ambiguous with \"found at index 0\".",
           },
           {
             id: "4_17_q05",
@@ -23456,7 +23456,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Insertion sort then linear search" },
             ],
             answer: "C",
-            explanation: "For 10⁶ sorted elements, binary search needs at most ⌈log₂(10⁶)⌉ + 1 ≈ 21 comparisons. Linear search would require up to 10⁶ comparisons — about 50000 times slower. Distractor A wastes the sorted property by linear-searching; B and D unnecessarily re-sort an already-sorted list (sorting is at best O(n log n), itself slower than just binary searching). Always prefer binary search on sorted data; only fall back to linear search when the data is unsorted.",
+            explanation: "C is correct. On a sorted million-element array, binary search needs only about 21 comparisons because each step halves the range.\nChoice A is wrong because linear search would need up to a million comparisons.\nChoice B is wrong because sorting an already-sorted list and then linear-searching wastes work.\nChoice D is wrong for the same reason. Sorting adds work that binary search already avoids.",
           },
           {
             id: "4_17_q12",
@@ -23484,7 +23484,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Merge sort, Linear search, Binary search" },
             ],
             answer: "D",
-            explanation: "On a sorted array of n elements: merge sort still does the full sort (one comparison per element per level, repeated for log n levels), so it does MORE work than linear search (at most n comparisons). Linear search in turn does more work than binary search, which halves the range each step and finishes in roughly log n comparisons. Order from most to least work: merge sort > linear search > binary search. Choice A reverses the bottom two. Choice C puts the smallest first. Choice B ignores that the algorithms scale very differently.",
+            explanation: "D is correct. On the same sorted array, merge sort still rearranges every element across many levels. Linear search scans up to n elements. Binary search halves the range each step, finishing in far fewer comparisons.\nChoice A is wrong because merge sort does more work than linear search, not less.\nChoice B is wrong because the three algorithms scale very differently.\nChoice C is wrong because binary search does the least work, not the most.",
           },
           {
             id: "4_17_q14",
@@ -23498,7 +23498,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "When low > high (the search range is empty)" },
             ],
             answer: "D",
-            explanation: "Binary search returns -1 when low > high — the search range has collapsed to empty, meaning the target was not found anywhere in the original array. Distractor C could be a trigger for the same condition but is more specific; A is the success case (target found); D still has one element left to check (when low==high, mid==low==high, one final comparison happens). Only when low STRICTLY exceeds high is the range empty, signaling failure.",
+            explanation: "D is correct. The recursive base case is `if (low > high) return -1`, which fires when the search range has collapsed to empty.\nChoice A is wrong because matching at the midpoint is the success case and returns the index.\nChoice B is wrong because `low == high` still has one element to compare.\nChoice C is wrong because an initially empty array is a special case of the same `low > high` condition, not a separate rule.",
           },
           {
             id: "4_17_q15",
@@ -23540,7 +23540,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Each pass takes the next unsorted element and shifts it into the correct position in the sorted prefix" },
             ],
             answer: "B",
-            explanation: "Merge sort's defining behavior is divide-and-conquer: recursively split the array in half until each piece has one element (trivially sorted), then merge adjacent sorted pieces back together in sorted order. Choice C describes selection sort. Choice D describes insertion sort. Choice A describes bubble sort, which is NOT on the AP CSA exam. Recognizing the structural pattern of each sort (recursive split-and-merge vs iterative min-and-swap vs iterative shift-and-insert) is what's tested.",
+            explanation: "B is correct. Merge sort recursively splits the array in half until each piece has one element, then merges adjacent sorted pieces back together.\nChoice A is wrong because that describes bubble sort, which is not on the AP exam.\nChoice C is wrong because that describes selection sort.\nChoice D is wrong because that describes insertion sort.",
           },
           {
             id: "4_17_q18",
@@ -23568,7 +23568,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Binary search and linear search examine the same number of elements" },
             ],
             answer: "C",
-            explanation: "Linear search checks each element one by one and works on any array, sorted or not. Binary search requires the array to be sorted, because the halving step assumes that everything to the left of the midpoint is smaller and everything to the right is larger — that assumption only holds for sorted data. In exchange for that precondition, binary search examines far fewer elements than linear search. Choice A swaps the precondition. Choices B and D claim binary search does as much or more work than linear search, which is the opposite of why binary search is used.",
+            explanation: "C is correct. Linear search examines each element directly and works on any array. Binary search's halving step requires the array to be sorted so that one half can be safely discarded.\nChoice A is wrong because it swaps the precondition. Binary search needs sorting, not linear search.\nChoice B is wrong because binary search examines fewer elements, not more.\nChoice D is wrong because the two algorithms examine very different numbers of elements.",
           },
           {
             id: "4_17_q20",
@@ -23722,7 +23722,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A compile-time error always occurs when binary search is used incorrectly" },
             ],
             answer: "B",
-            explanation: "Binary search's only required precondition is a sorted array. If a student calls binary search and gets an incorrect result, the most likely cause is that the array was not actually sorted before the call. The algorithm assumes sorted order to make its halving decisions; on unsorted input, it may incorrectly discard the half containing the target. Distractor A is not a real issue (even/odd length doesn't matter); C is false (binary search can find any element if the array is sorted); D is false (no compile error from incorrect input data — runtime behavior is just wrong).",
+            explanation: "B is correct. Binary search assumes the array is sorted. If a student gets an incorrect result, the most likely cause is that the array was not actually sorted before the call.\nChoice A is wrong because even or odd length does not affect correctness.\nChoice C is wrong because binary search can find elements anywhere in a sorted array.\nChoice D is wrong because incorrect input data does not produce a compile error.",
           },
         ],
       },
