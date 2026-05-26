@@ -8,6 +8,7 @@ import AuthPage from "./pages/AuthPage";
 import MCQBankPage from "./pages/MCQBankPage";
 import ScrollFeedPage from "./pages/ScrollFeedPage";
 import GuidePage from "./pages/GuidePage";
+import StatsPage from "./pages/StatsPage";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
         <Route path="/exam/:examId" element={<ExamPage />} />
         <Route path="/mcq-bank" element={<MCQBankPage />} />
         <Route path="/scroll" element={<ScrollFeedPage />} />
+        <Route path="/stats" element={<StatsPage />} />
       </Routes>
     </AuthProvider>
   );

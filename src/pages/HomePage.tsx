@@ -5,7 +5,7 @@ import {
   Box, GitBranch, Code2, Database,
   ChevronRight, BookOpen, ClipboardList,
   LogIn, LogOut, User, Trophy, Brain, Map,
-  ArrowRight, Zap,
+  ArrowRight, Zap, BarChart3,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { curriculum } from "../data/curriculum";
@@ -567,6 +567,34 @@ export default function HomePage() {
               <ChevronRight
                 size={16}
                 className="text-[#484f58] group-hover:text-violet-400 group-hover:translate-x-0.5 transition-all duration-150"
+              />
+            </button>
+
+            {/* Your Stats */}
+            <button
+              onClick={() => navigate("/stats")}
+              className="
+                group w-full flex items-center justify-between
+                bg-[#161b22] border border-sky-500/25
+                hover:border-sky-400/50 hover:bg-[#1a1f27]
+                rounded-lg px-5 py-4 transition-all duration-200
+                hover:shadow-lg hover:shadow-sky-900/10
+              "
+            >
+              <div className="flex items-center gap-4">
+                <div className="p-2 rounded-md bg-sky-500/10 text-sky-400">
+                  <BarChart3 size={18} />
+                </div>
+                <div className="text-left">
+                  <p className="font-semibold text-[#e6edf3] mb-0.5">Your Stats</p>
+                  <p className="text-xs font-mono text-[#6e7681]">
+                    Predicted score · Accuracy by unit · Weak spots
+                  </p>
+                </div>
+              </div>
+              <ChevronRight
+                size={16}
+                className="text-[#484f58] group-hover:text-sky-400 group-hover:translate-x-0.5 transition-all duration-150"
               />
             </button>
 

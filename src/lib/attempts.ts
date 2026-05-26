@@ -263,3 +263,181 @@ export function totalAttemptCount(attempts: MCQAttempt[]): number {
 export function isColdStart(attempts: MCQAttempt[]): boolean {
   return attempts.length < COLD_START_THRESHOLD;
 }
+
+// ── Stats ──────────────────────────────────────────────────────────
+
+// topicId is shaped like "1.15" → unit number is the prefix before the dot.
+function unitOf(topicId: string): number {
+  const n = parseInt(topicId.split(".")[0], 10);
+  return Number.isFinite(n) ? n : 0;
+}
+
+// Lookup: topicId → human label (e.g. "1.15" → "String Manipulation").
+// Built once from mcqBank.
+const TOPIC_LABELS: Map<string, string> = (() => {
+  const m = new Map<string, string>();
+  for (const unit of mcqBank) {
+    for (const topic of unit.topics) {
+      m.set(topic.id, topic.label);
+    }
+  }
+  return m;
+})();
+
+export function topicLabel(topicId: string): string {
+  return TOPIC_LABELS.get(topicId) ?? topicId;
+}
+
+export interface AccuracyRow {
+  key: string;     // topic id or unit number
+  label: string;   // display label
+  attempts: number;
+  correct: number;
+  accuracy: number; // 0..1
+}
+
+export function overallAccuracy(attempts: MCQAttempt[]): {
+  total: number;
+  correct: number;
+  accuracy: number;
+} {
+  const correct = attempts.filter((a) => a.correct).length;
+  return {
+    total: attempts.length,
+    correct,
+    accuracy: attempts.length === 0 ? 0 : correct / attempts.length,
+  };
+}
+
+export function accuracyByUnit(attempts: MCQAttempt[]): AccuracyRow[] {
+  const buckets = new Map<number, { attempts: number; correct: number }>();
+  for (const a of attempts) {
+    const u = unitOf(a.topicId);
+    if (u < 1 || u > 4) continue;
+    const b = buckets.get(u) ?? { attempts: 0, correct: 0 };
+    b.attempts += 1;
+    if (a.correct) b.correct += 1;
+    buckets.set(u, b);
+  }
+  const unitTitles: Record<number, string> = {
+    1: "Using Objects",
+    2: "Selection & Iteration",
+    3: "Class Creation",
+    4: "Data Collections",
+  };
+  const rows: AccuracyRow[] = [];
+  for (let u = 1; u <= 4; u++) {
+    const b = buckets.get(u) ?? { attempts: 0, correct: 0 };
+    rows.push({
+      key: String(u),
+      label: `Unit ${u} — ${unitTitles[u]}`,
+      attempts: b.attempts,
+      correct: b.correct,
+      accuracy: b.attempts === 0 ? 0 : b.correct / b.attempts,
+    });
+  }
+  return rows;
+}
+
+export function accuracyByTopic(
+  attempts: MCQAttempt[],
+  minAttempts = 3,
+): AccuracyRow[] {
+  const buckets = new Map<string, { attempts: number; correct: number }>();
+  for (const a of attempts) {
+    const b = buckets.get(a.topicId) ?? { attempts: 0, correct: 0 };
+    b.attempts += 1;
+    if (a.correct) b.correct += 1;
+    buckets.set(a.topicId, b);
+  }
+  const rows: AccuracyRow[] = [];
+  for (const [topicId, b] of buckets) {
+    if (b.attempts < minAttempts) continue;
+    rows.push({
+      key: topicId,
+      label: `${topicId} · ${topicLabel(topicId)}`,
+      attempts: b.attempts,
+      correct: b.correct,
+      accuracy: b.correct / b.attempts,
+    });
+  }
+  return rows;
+}
+
+export function topWeakTopics(attempts: MCQAttempt[], n = 3): AccuracyRow[] {
+  return accuracyByTopic(attempts)
+    .sort((a, b) => a.accuracy - b.accuracy)
+    .slice(0, n);
+}
+
+export function topStrongTopics(attempts: MCQAttempt[], n = 3): AccuracyRow[] {
+  return accuracyByTopic(attempts)
+    .sort((a, b) => b.accuracy - a.accuracy)
+    .slice(0, n);
+}
+
+export interface DayActivity {
+  date: string; // YYYY-MM-DD
+  attempts: number;
+  correct: number;
+}
+
+export function recentActivityByDay(
+  attempts: MCQAttempt[],
+  days = 7,
+): DayActivity[] {
+  const out: DayActivity[] = [];
+  const now = new Date();
+  const startOfToday = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate(),
+  );
+
+  // Build the day buckets first (oldest → newest).
+  const buckets: { date: Date; key: string }[] = [];
+  for (let i = days - 1; i >= 0; i--) {
+    const d = new Date(startOfToday);
+    d.setDate(startOfToday.getDate() - i);
+    const key = d.toISOString().slice(0, 10);
+    buckets.push({ date: d, key });
+  }
+
+  const counts = new Map<string, { attempts: number; correct: number }>();
+  for (const a of attempts) {
+    const t = new Date(a.answeredAt);
+    const key = new Date(t.getFullYear(), t.getMonth(), t.getDate())
+      .toISOString()
+      .slice(0, 10);
+    const c = counts.get(key) ?? { attempts: 0, correct: 0 };
+    c.attempts += 1;
+    if (a.correct) c.correct += 1;
+    counts.set(key, c);
+  }
+
+  for (const b of buckets) {
+    const c = counts.get(b.key) ?? { attempts: 0, correct: 0 };
+    out.push({ date: b.key, attempts: c.attempts, correct: c.correct });
+  }
+  return out;
+}
+
+// MCQ section of the AP CSA exam has 40 questions.
+const AP_MCQ_TOTAL = 40;
+
+export function predictedRawMCQ(accuracy: number): number {
+  return Math.round(accuracy * AP_MCQ_TOTAL);
+}
+
+// Rough AP score projection from raw MCQ accuracy.
+// MCQ is ~55% of total scaled score; thresholds are CollegeBoard's recent
+// public composite cutoffs for AP CSA (5 ≈ 65%+, 4 ≈ 55%+, 3 ≈ 40%+,
+// 2 ≈ 25%+, 1 below). Treating MCQ accuracy as a proxy for composite.
+export function predictedAPScore(accuracy: number): 1 | 2 | 3 | 4 | 5 {
+  const p = accuracy;
+  if (p >= 0.7) return 5;
+  if (p >= 0.6) return 4;
+  if (p >= 0.45) return 3;
+  if (p >= 0.3) return 2;
+  return 1;
+}
