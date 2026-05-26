@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   motion,
   AnimatePresence,
@@ -242,63 +242,18 @@ interface CardState {
 
 interface CardProps {
   card: CardState;
-  isFirst: boolean;
-  isLast: boolean;
   onSelectAnswer: (letter: AnswerLetter) => void;
   onSwitchView: (view: "question" | "explanation") => void;
-  onAdvance: (direction: 1 | -1) => void;
 }
 
 const SWIPE_DIST = 80;
 const SWIPE_VELOCITY = 500;
 
-function Card({
-  card,
-  isFirst,
-  isLast,
-  onSelectAnswer,
-  onSwitchView,
-  onAdvance,
-}: CardProps) {
-  const y = useMotionValue(0);
+function Card({ card, onSelectAnswer, onSwitchView }: CardProps) {
+  // Horizontal-only drag for question ↔ explanation. Vertical navigation is
+  // handled by the parent's native scroll-snap container — smoother on iOS.
   const x = useMotionValue(0);
-  const opacity = useTransform(
-    [x, y],
-    ([latestX, latestY]: number[]) => {
-      const dist = Math.max(Math.abs(latestX), Math.abs(latestY));
-      return 1 - Math.min(dist / 600, 0.3);
-    },
-  );
-
-  const handleVerticalDragEnd = (
-    _: MouseEvent | TouchEvent | PointerEvent,
-    info: PanInfo,
-  ) => {
-    const dy = info.offset.y;
-    const vy = info.velocity.y;
-    // Swipe up (negative dy) → next card
-    if ((dy < -SWIPE_DIST || vy < -SWIPE_VELOCITY) && !isLast) {
-      animate(y, -window.innerHeight, {
-        type: "spring",
-        stiffness: 300,
-        damping: 35,
-        onComplete: () => onAdvance(1),
-      });
-      return;
-    }
-    // Swipe down (positive dy) → previous card
-    if ((dy > SWIPE_DIST || vy > SWIPE_VELOCITY) && !isFirst) {
-      animate(y, window.innerHeight, {
-        type: "spring",
-        stiffness: 300,
-        damping: 35,
-        onComplete: () => onAdvance(-1),
-      });
-      return;
-    }
-    // Snap back (rubber-band)
-    animate(y, 0, { type: "spring", stiffness: 400, damping: 35 });
-  };
+  const opacity = useTransform(x, [-600, 0, 600], [0.7, 1, 0.7]);
 
   const handleHorizontalDragEnd = (
     _: MouseEvent | TouchEvent | PointerEvent,
@@ -306,7 +261,6 @@ function Card({
   ) => {
     const dx = info.offset.x;
     const vx = info.velocity.x;
-    // Swipe right → switch question → explanation
     if (
       card.view === "question" &&
       card.selected !== null &&
@@ -316,7 +270,6 @@ function Card({
       onSwitchView("explanation");
       return;
     }
-    // Swipe left → switch explanation → question
     if (
       card.view === "explanation" &&
       (dx < -SWIPE_DIST || vx < -SWIPE_VELOCITY)
@@ -325,53 +278,44 @@ function Card({
       onSwitchView("question");
       return;
     }
-    // Rubber-band snap back
     animate(x, 0, { type: "spring", stiffness: 400, damping: 35 });
   };
 
   return (
     <motion.div
-      className="absolute inset-0 touch-none"
-      style={{ y, opacity }}
-      drag="y"
+      className="absolute inset-0"
+      style={{ x, opacity, touchAction: "pan-y" }}
+      drag="x"
+      dragDirectionLock
       dragElastic={0.2}
       dragMomentum={false}
-      onDragEnd={handleVerticalDragEnd}
+      onDragEnd={handleHorizontalDragEnd}
     >
-      <motion.div
-        className="absolute inset-0 touch-none"
-        style={{ x }}
-        drag="x"
-        dragElastic={0.2}
-        dragMomentum={false}
-        onDragEnd={handleHorizontalDragEnd}
-      >
-        <AnimatePresence mode="wait" initial={false}>
-          {card.view === "question" ? (
-            <motion.div
-              key="q"
-              initial={{ opacity: 0, x: -16 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -16 }}
-              transition={{ duration: 0.18 }}
-              className="absolute inset-0"
-            >
-              <QuestionView card={card} onSelectAnswer={onSelectAnswer} />
-            </motion.div>
-          ) : (
-            <motion.div
-              key="e"
-              initial={{ opacity: 0, x: 16 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 16 }}
-              transition={{ duration: 0.18 }}
-              className="absolute inset-0"
-            >
-              <ExplanationView card={card} />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
+      <AnimatePresence mode="wait" initial={false}>
+        {card.view === "question" ? (
+          <motion.div
+            key="q"
+            initial={{ opacity: 0, x: -16 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -16 }}
+            transition={{ duration: 0.18 }}
+            className="absolute inset-0"
+          >
+            <QuestionView card={card} onSelectAnswer={onSelectAnswer} />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="e"
+            initial={{ opacity: 0, x: 16 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 16 }}
+            transition={{ duration: 0.18 }}
+            className="absolute inset-0"
+          >
+            <ExplanationView card={card} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
@@ -610,20 +554,39 @@ export default function ScrollFeedPage() {
   }, [user, authLoading, sessionId]);
 
   const [index, setIndex] = useState(0);
-  // index === SESSION_SIZE means "results card" (only valid once cards are loaded)
+  const scrollRef = useRef<HTMLDivElement>(null);
+  // Results card is the last section in the scroll stack (index === cards.length)
   const showResults = !loading && cards.length > 0 && index >= cards.length;
 
-  // Lock page scroll while feed is mounted
+  // Track the currently-snapped card via IntersectionObserver so the header
+  // indicator stays in sync without any scroll listeners (no jank).
   useEffect(() => {
-    const prevOverflow = document.body.style.overflow;
-    const prevTouch = document.body.style.touchAction;
-    document.body.style.overflow = "hidden";
-    document.body.style.touchAction = "none";
-    return () => {
-      document.body.style.overflow = prevOverflow;
-      document.body.style.touchAction = prevTouch;
-    };
-  }, []);
+    if (loading || !scrollRef.current || cards.length === 0) return;
+    const root = scrollRef.current;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting && e.intersectionRatio >= 0.6) {
+            const idx = Number((e.target as HTMLElement).dataset.idx);
+            if (!Number.isNaN(idx)) setIndex(idx);
+          }
+        }
+      },
+      { root, threshold: [0.6] },
+    );
+    root.querySelectorAll<HTMLElement>("[data-idx]").forEach((el) =>
+      observer.observe(el),
+    );
+    return () => observer.disconnect();
+  }, [loading, cards.length]);
+
+  // Programmatic scroll for keyboard nav / reshuffle
+  const scrollToIndex = (i: number, smooth = true) => {
+    const el = scrollRef.current?.querySelector<HTMLElement>(
+      `[data-idx="${i}"]`,
+    );
+    el?.scrollIntoView({ behavior: smooth ? "smooth" : "auto", block: "start" });
+  };
 
   const handleSelectAnswer = (cardIdx: number, letter: AnswerLetter) => {
     setCards((prev) => {
@@ -649,16 +612,6 @@ export default function ScrollFeedPage() {
     });
   };
 
-  const handleAdvance = (direction: 1 | -1) => {
-    setIndex((i) => {
-      const ni = i + direction;
-      if (ni < 0) return 0;
-      // Allow ni === cards.length (results card)
-      if (ni > cards.length) return cards.length;
-      return ni;
-    });
-  };
-
   // Keyboard navigation (desktop)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -667,12 +620,12 @@ export default function ScrollFeedPage() {
 
       if (key === "ArrowDown") {
         e.preventDefault();
-        setIndex((i) => (i + 1 > cards.length ? cards.length : i + 1));
+        scrollToIndex(Math.min(index + 1, cards.length));
         return;
       }
       if (key === "ArrowUp") {
         e.preventDefault();
-        setIndex((i) => (i - 1 < 0 ? 0 : i - 1));
+        scrollToIndex(Math.max(index - 1, 0));
         return;
       }
       if (showResults) return;
@@ -724,24 +677,26 @@ export default function ScrollFeedPage() {
     setIndex(0);
   };
 
-  // Reset to first card whenever a fresh session loads.
+  // When a fresh session loads, jump to the first card without animation
   useEffect(() => {
-    setIndex(0);
-  }, [sessionId]);
+    if (!loading && cards.length > 0) {
+      // Wait one frame so the new cards have mounted
+      requestAnimationFrame(() => scrollToIndex(0, false));
+    }
+  }, [sessionId, loading, cards.length]);
 
   const correctCount = cards.filter(
     (c) => c.selected !== null && c.selected === c.question.answer,
   ).length;
 
-  const currentCard = !showResults ? cards[index] : null;
   const showLoading = loading || authLoading;
 
   return (
     <div
-      className="fixed inset-0 bg-[#0d1117] text-[#e6edf3] overflow-hidden"
+      className="fixed inset-0 bg-[#0d1117] text-[#e6edf3]"
       style={{ height: "100dvh" }}
     >
-      {/* Header */}
+      {/* Header — fixed so it stays put while user scrolls */}
       <header className="absolute top-0 inset-x-0 z-20 flex items-center justify-between px-4 pt-3 pb-2">
         <button
           onClick={() => navigate("/")}
@@ -803,43 +758,57 @@ export default function ScrollFeedPage() {
         )}
       </header>
 
-      {/* Card stack */}
-      <div className="absolute inset-0">
-        <AnimatePresence mode="wait">
-          {showLoading ? (
-            <motion.div
-              key="loading"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute inset-0 flex items-center justify-center"
+      {/* Native scroll-snap container — every card snaps into place using
+          the browser's own momentum/snap physics. This is the same approach
+          TikTok / Instagram Reels use for buttery iOS scrolling. */}
+      {showLoading ? (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="flex flex-col items-center gap-3 text-[#6e7681] font-mono text-xs">
+            <div className="w-6 h-6 rounded-full border-2 border-[#30363d] border-t-rose-400 animate-spin" />
+            <span>{user ? "Picking questions for you…" : "Loading…"}</span>
+          </div>
+        </div>
+      ) : (
+        <div
+          ref={scrollRef}
+          className="absolute inset-0 overflow-y-scroll no-scrollbar"
+          style={{
+            scrollSnapType: "y mandatory",
+            scrollBehavior: "smooth",
+            overscrollBehavior: "contain",
+            WebkitOverflowScrolling: "touch",
+          }}
+        >
+          {cards.map((card, i) => (
+            <section
+              key={`card-${i}`}
+              data-idx={i}
+              className="relative w-full"
+              style={{ height: "100dvh", scrollSnapAlign: "start" }}
             >
-              <div className="flex flex-col items-center gap-3 text-[#6e7681] font-mono text-xs">
-                <div className="w-6 h-6 rounded-full border-2 border-[#30363d] border-t-rose-400 animate-spin" />
-                <span>{user ? "Picking questions for you…" : "Loading…"}</span>
-              </div>
-            </motion.div>
-          ) : showResults ? (
-            <ResultsCard
-              key="results"
-              correct={correctCount}
-              total={cards.length}
-              onAgain={handleReshuffle}
-              onHome={() => navigate("/")}
-            />
-          ) : currentCard ? (
-            <Card
-              key={`card-${index}`}
-              card={currentCard}
-              isFirst={index === 0}
-              isLast={false /* last card swipes up → results card */}
-              onSelectAnswer={(letter) => handleSelectAnswer(index, letter)}
-              onSwitchView={(view) => handleSwitchView(index, view)}
-              onAdvance={handleAdvance}
-            />
-          ) : null}
-        </AnimatePresence>
-      </div>
+              <Card
+                card={card}
+                onSelectAnswer={(letter) => handleSelectAnswer(i, letter)}
+                onSwitchView={(view) => handleSwitchView(i, view)}
+              />
+            </section>
+          ))}
+          {cards.length > 0 && (
+            <section
+              data-idx={cards.length}
+              className="relative w-full"
+              style={{ height: "100dvh", scrollSnapAlign: "start" }}
+            >
+              <ResultsCard
+                correct={correctCount}
+                total={cards.length}
+                onAgain={handleReshuffle}
+                onHome={() => navigate("/")}
+              />
+            </section>
+          )}
+        </div>
+      )}
 
       {/* Desktop keyboard hints */}
       <div className="hidden sm:flex absolute bottom-3 inset-x-0 z-20 justify-center pointer-events-none">
