@@ -143,7 +143,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A compile-time error occurs." },
             ],
             answer: "A",
-            explanation: "An infinite loop is a logic error where the loop's termination condition is never reached. n starts at 2 and increases by 3 each iteration: 2, 5, 8, 11, 14, and so on, it skips right over 10, so `n != 10` is always true. A is correct because the program never terminates. B is wrong because n never reaches exactly 10. D is wrong because the syntax is valid. The compiler does not detect logic errors like an unreachable termination condition, only the programmer can catch this by tracing.",
+            explanation: "A is correct. `n` starts at 2 and increases by 3 each iteration: 2, 5, 8, 11, 14. The value skips over 10, so `n != 10` is always true and the loop never exits.\nChoice B is wrong because `n` never equals exactly 10, so the loop body keeps executing.\nChoice C is wrong because no `println` runs while the loop is stuck running.\nChoice D is wrong because the syntax is valid. Compilers cannot detect logic errors like unreachable conditions.",
           },
           {
             id: "1_1_q10",
@@ -173,7 +173,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "4\n2" },
             ],
             answer: "C",
-            explanation: "Both `/` and `%` between two int operands return int results: `/` gives the quotient and `%` gives the remainder. 20 / 6 = 3 (since 6 * 3 = 18 is the largest multiple of 6 not exceeding 20), and 20 % 6 = 20 - 18 = 2. Each println adds a newline so the outputs appear on separate lines. C is correct. B is wrong because int division never produces a decimal result. D is wrong because `/` truncates rather than rounding up. A is wrong because the remainder of 20 divided by 6 is 2, not 6.",
+            explanation: "C is correct. Both `/` and `%` on two `int` values return `int` results. `20 / 6` is 3 because `6 * 3 = 18` is the largest multiple of 6 that fits. `20 % 6` equals `20 - 18`, which is 2.\nChoice A is wrong because the remainder of 20 divided by 6 is 2, not 6.\nChoice B is wrong because `int` division never produces a decimal result.\nChoice D is wrong because `/` truncates toward zero rather than rounding up.",
           },
           {
             id: "1_1_q12",
@@ -188,7 +188,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "1" },
             ],
             answer: "B",
-            explanation: "Division by zero on int operands is detected only at runtime, the compiler cannot evaluate variable values during compilation. y = 5 - 5 = 0 at runtime, so x / y becomes 5 / 0, which throws `ArithmeticException`. B is correct. A is wrong because the syntax is valid and the compiler cannot predict that y will be 0 at runtime. C and D are wrong because the JVM does not silently produce a value when dividing an int by zero, it always throws an exception that aborts the calculation.",
+            explanation: "B is correct. At runtime `y = 5 - 5 = 0`, so `x / y` becomes `5 / 0`. Integer division by zero throws `ArithmeticException`.\nChoice A is wrong because the syntax is valid and the compiler cannot predict `y` will be 0 at runtime.\nChoice C is wrong because the JVM does not silently return 0 when dividing by zero.\nChoice D is wrong because no value is produced. The exception aborts the calculation.",
           },
           {
             id: "1_1_q13",
@@ -6140,7 +6140,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "s.trim()" },
             ],
             answer: "D",
-            explanation: "An instance method call uses a reference (or literal object) as the receiver on the left of the dot. `s.trim()` invokes the instance method `trim()` on the String referenced by `s`. Choices A (`String.valueOf`), B (`Integer.parseInt`), and D (`Math.abs`) all use class names as receivers — they're static (class) calls. The dot operator's left side is the giveaway: lowercase variable name = instance call; uppercase class name = static call.",
+            explanation: "D is correct. An instance method uses an object reference as the receiver. `s.trim()` invokes `trim()` on the `String` referenced by `s`.\nChoice A is wrong because `Math.abs` is a static call on the `Math` class.\nChoice B is wrong because `String.valueOf` is a static call on the `String` class.\nChoice C is wrong because `Integer.parseInt` is a static call on the `Integer` class.",
           },
           {
             id: "1_14_q21",
@@ -6259,7 +6259,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A compile-time error occurs." },
             ],
             answer: "B",
-            explanation: "Method calls can be chained left-to-right: each method's return value becomes the receiver of the next call. `greeting.substring(0, 5)` returns `\"Hello\"` (excluding the `!` at index 5, since end is exclusive). Then `.toLowerCase()` converts that to `\"hello\"`. Choice A includes the `!`, but the exclusive endpoint at 5 excludes it (and toLowerCase wouldn't add a `!` either). Choice C forgets the lowercase conversion entirely. Chained calls evaluate strictly left to right.",
+            explanation: "B is correct. Chained calls evaluate left to right. `greeting.substring(0, 5)` returns `\"Hello\"` because the end index 5 is exclusive. Then `.toLowerCase()` gives `\"hello\"`.\nChoice A is wrong because the `!` sits at index 5 and is excluded by `substring(0, 5)`.\nChoice C is wrong because it skips the `toLowerCase()` step.\nChoice D is wrong because the chained call is valid Java syntax.",
           },
           {
             id: "1_14_q29",
@@ -6429,7 +6429,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "s1 == s2" },
             ],
             answer: "A",
-            explanation: "`equals()` is the correct way to compare String content: it returns `true` if and only if the characters match exactly position by position. The `==` operator compares references (memory addresses), which doesn't reliably reflect content equality due to String interning quirks. `compareTo` returns an int (0 means equal, negative/positive means ordering), not a boolean — so comparing to `true` doesn't make sense. `=` is assignment, not comparison. For Strings, always use `.equals()` for value equality.",
+            explanation: "A is correct. `equals()` compares `String` content position by position. It returns `true` only if the characters match exactly.\nChoice B is wrong because `compareTo` returns an `int` (0, negative, or positive), so comparing it to `true` is a type error.\nChoice C is wrong because `=` is assignment, not comparison.\nChoice D is wrong because `==` compares references, not content. It can return `false` for equal strings.",
           },
           {
             id: "1_15_q10",
@@ -6444,7 +6444,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: " World" },
             ],
             answer: "B",
-            explanation: "`\"Hello World\"` has characters H(0)e(1)l(2)l(3)o(4) (5)W(6)o(7)r(8)l(9)d(10) — note the space at index 5. `substring(6)` returns from index 6 to the end: W, o, r, l, d = `\"World\"` (5 characters). Choice D would result if `substring(5)` were used (including the space). Choice A is the first half (substring(0, 5)), not the second. The single-argument substring takes everything from `from` to the end, with no exclusive endpoint.",
+            explanation: "B is correct. The string indexes as H(0)e(1)l(2)l(3)o(4) (5)W(6)o(7)r(8)l(9)d(10). `substring(6)` returns from index 6 to the end: `\"World\"`.\nChoice A is wrong because `\"Hello \"` is the first half, which would require `substring(0, 6)`.\nChoice C is wrong because `\"orld\"` starts at index 7, not index 6.\nChoice D is wrong because including the space would require `substring(5)`, not `substring(6)`.",
           },
           {
             id: "1_15_q11",
@@ -6681,7 +6681,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "s.charAt(0) == \"A\"" },
             ],
             answer: "A",
-            explanation: "To check if a String starts with a letter, extract the first character as a String and compare with `.equals()`. `s.substring(0, 1).equals(\"A\")` works correctly — it gets the first character as a String and compares to \"A\". Choice D compares a `char` to a `String`, which is a compile-time type mismatch (different types can't be compared with `==`). Choice B `indexOf(\"A\") > 0` is wrong because it fails when 'A' is at index 0 (which is the very case we're testing for). Choice C requires the ENTIRE string to equal \"A\", not just start with it.",
+            explanation: "A is correct. `s.substring(0, 1)` gets the first character as a `String`. `.equals(\"A\")` compares content correctly.\nChoice B is wrong because `indexOf(\"A\") > 0` is false when `'A'` is at index 0, which is the very case being tested.\nChoice C is wrong because `compareTo` returns 0 only when the entire string equals `\"A\"`, not just starts with it.\nChoice D is wrong because it compares a `char` to a `String` literal, which is a type error.",
           },
           {
             id: "1_15_q27",
@@ -6696,7 +6696,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "carracecar" },
             ],
             answer: "B",
-            explanation: "`\"racecar\"`: r(0)a(1)c(2)e(3)c(4)a(5)r(6) — 7 characters total. `substring(4)` returns from index 4 to end: c(4)a(5)r(6) = `\"car\"`. `substring(0, 4)` returns indices 0-3: r(0)a(1)c(2)e(3) = `\"race\"`. Concatenation: `\"car\" + \"race\"` = `\"carrace\"`. Choice A would require no rearrangement at all. Choice D is the wrong concatenation order. This kind of problem tests both substring boundaries and concatenation order.",
+            explanation: "B is correct. The string indexes as r(0)a(1)c(2)e(3)c(4)a(5)r(6). `substring(4)` gives `\"car\"`. `substring(0, 4)` gives `\"race\"`. Concatenation produces `\"car\" + \"race\" = \"carrace\"`.\nChoice A is wrong because the substrings are rearranged, not preserved.\nChoice C is wrong because `substring(0, 4)` stops before index 4, so it is `\"race\"`, not `\"acecarr\"`.\nChoice D is wrong because it duplicates characters from the original string.",
           },
           {
             id: "1_15_q28",
@@ -6711,7 +6711,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "hello\nhello" },
             ],
             answer: "A",
-            explanation: "`String t = s;` aliases `t` to the same object `s` references — both point to `\"hello\"`. But then `t = t.toUpperCase()` makes `t` point to a brand-new String `\"HELLO\"`, while `s` continues to reference the original `\"hello\"` (because Strings are immutable and `s` was never reassigned). So `s` prints `hello` and `t` prints `HELLO`. Reference reassignment doesn't affect other variables that were once aliases.",
+            explanation: "A is correct. `String t = s;` aliases `t` to `\"hello\"`. Then `t = t.toUpperCase()` makes `t` point to a new String `\"HELLO\"`. `s` still references `\"hello\"` because Strings are immutable.\nChoice B is wrong because `s` was never reassigned.\nChoice C is wrong because the prints happen in order: `s` first, then `t`.\nChoice D is wrong because `t` was reassigned to the uppercase version.",
           },
           {
             id: "1_15_q29",
@@ -6741,7 +6741,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "bcde" },
             ],
             answer: "C",
-            explanation: "`substring(1)` returns from index 1 to the end (no second argument needed). `substring(1, s.length())` returns from index 1 to length 5 (exclusive) — which is also through the end. Both forms produce the same String `\"bcde\"` because `substring(from)` is shorthand for `substring(from, length())`. `equals` compares content, finds them identical, and returns `true`. This question demonstrates the equivalence of the one-argument and two-argument forms when the second argument equals length().",
+            explanation: "C is correct. `substring(1)` returns from index 1 to the end. `substring(1, s.length())` returns from 1 to length 5 (exclusive). Both produce `\"bcde\"`. `equals` compares content and returns `true`.\nChoice A is wrong because the code is syntactically valid.\nChoice B is wrong because the two strings are identical.\nChoice D is wrong because `equals` returns a `boolean`, not the substring itself.",
           },
         ],
       },
@@ -6769,7 +6769,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "6" },
             ],
             answer: "B",
-            explanation: "Trace each iteration as n counts down from 6 to 1. The body runs once per value of n that satisfies n>0, and inside the body result only changes when n is even (the if has no else, so odd values leave result unchanged). n=6: 6%2==0 so result=0+6=6, then n becomes 5. n=5: odd, skip, n=4. n=4: result=6+4=10, n=3. n=3: odd, skip, n=2. n=2: result=10+2=12, n=1. n=1: odd, skip, n=0. Loop ends with result=12. Choice A (9) sums odd values 5+3+1 (inverted filter). Choice C (21) sums every value 6+5+4+3+2+1 (ignoring the if). Choice D (6) keeps only the first even contribution, forgetting later iterations.",
+            explanation: "B is correct. `n` counts down from 6 to 1, and only even values are added to `result`. At `n=6`, `result=6`. At `n=4`, `result=10`. At `n=2`, `result=12`.\nChoice A is wrong because it sums the odd values 5+3+1, inverting the `n%2==0` filter.\nChoice C is wrong because it sums every value 6+5+4+3+2+1, ignoring the `if` check.\nChoice D is wrong because it stops after the first even contribution and skips later iterations.",
           },
           {
             id: "2_1_q02",
@@ -6872,7 +6872,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "It must use at least one loop." },
             ],
             answer: "B",
-            explanation: "By definition an algorithm must be finite, precisely defined, and effective; finiteness specifically requires termination after a bounded number of steps. Choice B states this required property exactly. Choice D is false because many algorithms use no loops at all, choice A confuses algorithms with programs (algorithms are language-independent), and choice C is false because algorithms can produce any kind of result, not just screen output.",
+            explanation: "B is correct. An algorithm must be finite, precise, and effective. Finiteness means it must halt after a bounded number of steps.\nChoice A is wrong because algorithms are language-independent and can be expressed in pseudocode or any language.\nChoice C is wrong because algorithms can return values or modify data without printing anything.\nChoice D is wrong because many valid algorithms use only sequential steps and selection, with no loops.",
           },
           {
             id: "2_1_q09",
@@ -8642,7 +8642,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "x <= 5" },
             ],
             answer: "D",
-            explanation: "Each relational operator has a complement that includes or excludes the boundary equality oppositely: > flips to <=. !(x > 5) means x is NOT strictly greater than 5, which is exactly x <= 5 (less than 5, or equal to 5). Choice D captures this. Choice C (x < 5) misses the equality case: at x=5, x>5 is false so !(x>5) is true, but x<5 is also false — they disagree at the boundary. Choice A (x >= 5) is the unnegated direction. Choice B is the original unflipped expression.",
+            explanation: "D is correct. The negation of `>` is `<=`. `!(x > 5)` means `x` is not strictly greater than 5, which is exactly `x <= 5`.\nChoice A is wrong because `x >= 5` is the same direction as the original, not the negation.\nChoice B is wrong because it just restates the original expression without negating it.\nChoice C is wrong because `x < 5` excludes `x == 5`, where `!(x > 5)` should be true.",
           },
           {
             id: "2_5_q07",
@@ -8687,7 +8687,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "true" },
             ],
             answer: "D",
-            explanation: "Java's operator precedence ranks && HIGHER than ||, so && binds tighter even without explicit parentheses. The expression is parsed as (3>2) || ((4>5) && (1<2)). Evaluate the && first: (4>5)&&(1<2) is false && true = false. Then (3>2) || false is true || false = true. Choice C would result from incorrectly grouping operators left-to-right and ignoring precedence (giving ((3>2)||(4>5))&&(1<2) = true && true = true — coincidentally same, but the principle differs). Choice A is wrong since the expression is valid.",
+            explanation: "D is correct. `&&` binds tighter than `||`, so the expression is parsed as `(3>2) || ((4>5) && (1<2))`. The `&&` part evaluates to `false`. Then `true || false` is `true`.\nChoice A is wrong because the expression is a valid boolean expression that compiles.\nChoice B is wrong because Java has fixed precedence rules, so the result is fully determined.\nChoice C is wrong because the `||` short-circuits on `true` from `(3>2)`, giving `true`, not `false`.",
           },
           {
             id: "2_5_q10",
@@ -8717,7 +8717,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "It cannot be determined." },
             ],
             answer: "B",
-            explanation: "Without explicit parentheses, && binds tighter than ||, so a && b || c is parsed as (a && b) || c. With a=true, b=false, c=true: first compute a && b = true && false = false. Then false || c = false || true = true. Choice A would result if you wrongly grouped a && (b || c), giving true && (false || true) = true && true = true — actually still true here, but the parsing matters in general cases.",
+            explanation: "B is correct. `&&` binds tighter than `||`, so the expression is parsed as `(a && b) || c`. With `a=true, b=false`, `a && b` is `false`. Then `false || true` is `true`.\nChoice A is wrong because `c` alone forces the `||` to `true` regardless of the `&&` result.\nChoice C is wrong because the expression compiles without error.\nChoice D is wrong because Java precedence rules give a single fixed answer.",
           },
           {
             id: "2_5_q12",
@@ -11462,7 +11462,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "8" },
             ],
             answer: "C",
-            explanation: "Count pairs (i,j) in 1..4 with i+j > 5. i=1: sums 2,3,4,5 — none qualify (0). i=2: sums 3,4,5,6 — only j=4 qualifies (1). i=3: sums 4,5,6,7 — j=3 and j=4 qualify (2). i=4: sums 5,6,7,8 — j=2,3,4 qualify (3). Total = 0+1+2+3 = 6. Choice A (16) is total iterations ignoring the condition. Choice B (10) is 1+2+3+4 (off-by-one bound on the diagonal). Choice D (8) double-counts a row somewhere.",
+            explanation: "C is correct. Count pairs `(i,j)` in 1..4 where `i+j > 5`. For `i=1`, 0 pairs. For `i=2`, 1 pair (`j=4`). For `i=3`, 2 pairs. For `i=4`, 3 pairs. The total is 0+1+2+3 = 6.\nChoice A is wrong because 16 counts every iteration and ignores the `if` filter.\nChoice B is wrong because 10 uses `i+j >= 5`, an off-by-one on the boundary.\nChoice D is wrong because 8 over-counts one row by treating `i+j == 5` as qualifying.",
           },
           {
             id: "2_11_q16",
@@ -11672,7 +11672,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "01 10 11 " },
             ],
             answer: "A",
-            explanation: "Nested while loops behave like nested for loops, but you must remember to reset the inner counter at the top of each outer iteration (which here happens because int j = 0 is inside the outer body, executing each pass). Choice A is correct: for i in 0..2 the inner prints j in 0..1, giving 00 01 10 11 20 21 in row-major order. Choice B and C mix the variables, and D is incomplete.",
+            explanation: "A is correct. `int j = 0` sits inside the outer loop body, so `j` resets to 0 every outer pass. For each `i` in 0,1,2 the inner loop prints `j` in 0,1. The output is `00 01 10 11 20 21`.\nChoice B is wrong because it skips the reset of `j` and keeps incrementing past 1.\nChoice C is wrong because it only prints when `i == j`, treating the loops as a diagonal scan.\nChoice D is wrong because it omits the row for `i=2` and gives an incomplete sequence.",
           },
           {
             id: "2_11_q30",
@@ -12029,7 +12029,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "16" },
             ],
             answer: "C",
-            explanation: "Count of print('*') calls follows a triangular pattern when the inner bound depends on outer (j <= i). Each row prints i stars rather than a fixed amount, so total stars is 1 + 2 + 3 + 4 = 10 for n = 4. Choice C is correct. Note that println is called 4 times total (once per outer iteration to break the line), but the question specifically asks about print calls, not println — a common reading-comprehension trap.",
+            explanation: "C is correct. The inner bound `j <= i` makes each row print `i` stars. For `n=4`, the total is 1+2+3+4 = 10 calls to `print`.\nChoice A is wrong because 4 counts the rows (the outer loop iterations), not the inner star prints.\nChoice B is wrong because 8 assumes each row prints 2 stars, ignoring the growing inner bound.\nChoice D is wrong because 16 assumes a fixed `n` inner loop, treating it as 4*4 instead of a triangular sum.",
           },
           {
             id: "2_12_q24",
@@ -12131,7 +12131,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Segment A: Check every element once in a single loop — stops early if target found" },
             ],
             answer: "D",
-            explanation: "Sequential search is O(n) in the worst case and can stop early when the target is matched, making it optimal for an unsorted list (binary search requires sorting first, which itself takes O(n log n) — more expensive than just searching once). Choice D is correct. Choices A and B are O(n squared) — strictly worse for searching, and C adds randomness without improving efficiency and potentially making things even worse than A and C.",
+            explanation: "D is correct. Sequential search visits each element at most once and can stop early when the target is found. For an unsorted list, no method can do better in the worst case.\nChoice A is wrong because nested loops check pairs, performing far more work than a single pass.\nChoice B is wrong because making `n` passes through the list does roughly `n*n` comparisons.\nChoice C is wrong because random sampling repeated `n*n` times adds even more work without guaranteeing the target is found.",
           },
         ],
       },
@@ -12221,7 +12221,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "300.0" },
             ],
             answer: "A",
-            explanation: "`totalAssets` is `static` and is only updated inside the constructor, never inside `withdraw`. After `new Account(500.0)`, `totalAssets = 500.0`. After `new Account(300.0)`, `totalAssets = 800.0`. The call `a.withdraw(100.0)` modifies only `a.balance` — it does not touch the static `totalAssets` at all. So `Account.getTotal()` returns 800.0, matching A. Choice B (700.0) is the classic trap of assuming `withdraw` updates the running total along with the balance; choice C confuses one account's post-withdrawal balance with the static total.",
+            explanation: "A is correct. `totalAssets` is `static` and only changes inside the constructor. After `new Account(500.0)`, `totalAssets` is 500.0. After `new Account(300.0)`, `totalAssets` is 800.0. `a.withdraw(100.0)` only updates `a.balance`, not the static field.\nChoice B is wrong because it assumes `withdraw` also subtracts from the static `totalAssets`, but the method only touches the instance field.\nChoice C is wrong because it confuses `a`'s post-withdrawal balance (400.0) with the class-wide total.\nChoice D is wrong because it returns `b`'s balance instead of the shared static total.",
             trap: "withdraw() only modifies the instance balance — it does NOT update the static totalAssets, even though that seems 'realistic'",
           },
           {
@@ -12280,7 +12280,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A single processOrder() method with 200 lines handling all order logic" },
             ],
             answer: "A",
-            explanation: "Method decomposition shows up in code when a higher-level method delegates pieces of its work to well-named helper methods rather than doing everything inline. `processOrder()` calling `validateOrder()`, `calculateTotal()`, and `sendConfirmation()` matches this pattern. Option D is a single 200-line method (no decomposition), and option B describes creating separate programs, which is a different kind of separation entirely.",
+            explanation: "A is correct. Method decomposition means a higher-level method delegates pieces of its work to well-named helper methods. `processOrder()` calling `validateOrder()`, `calculateTotal()`, and `sendConfirmation()` matches this pattern.\nChoice B is wrong because splitting work across separate programs is not method decomposition within a single class.\nChoice C is wrong because using a `while` loop inside one method is iteration, not breaking work into named helpers.\nChoice D is wrong because a single 200-line method does the opposite of decomposition by keeping all logic inline.",
           },
           {
             id: "3_1_q10",
@@ -12310,7 +12310,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0 20" },
             ],
             answer: "D",
-            explanation: "Inside the constructor, the parameter `width` shadows the field `width`, so `width = width` assigns the parameter to itself — the field is never touched and stays at its default of 0. The next line `this.height = height` correctly uses `this.` to reach the field, so height becomes 20. Therefore `getWidth()` returns 0 and `getHeight()` returns 20, printing \"0 20\", matching D. Choice A is the classic trap of assuming both assignments work without realizing that `width = width` is a no-op. Choice C would require both fields to remain at defaults.",
+            explanation: "D is correct. The parameter `width` shadows the field `width` inside the constructor. So `width = width` assigns the parameter back to itself and the field stays at its default of 0. The next line uses `this.height = height`, which correctly reaches the field, so height becomes 20. `getWidth()` returns 0 and `getHeight()` returns 20.\nChoice A is wrong because it assumes both assignments worked, missing that `width = width` is a no-op without the `this.` qualifier.\nChoice B is wrong because the constructor never swaps the two arguments.\nChoice C is wrong because the height assignment uses `this.` and does succeed, so height is not 0.",
             trap: "`width = width` (no this.) is a silent no-op because of parameter shadowing — only `this.width = width` actually reaches the field",
           },
           {
@@ -12357,7 +12357,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Casting an int to a double before a division" },
             ],
             answer: "A",
-            explanation: "Data abstraction means representing data with a meaningful name without revealing how the value is physically stored. Using `temp` to stand for a sensor reading hides the storage details behind a name, which is option A. Option C describes procedural abstraction (calling a method without reading its code), and option D is just a type conversion, which has nothing to do with hiding implementation behind names.",
+            explanation: "A is correct. Data abstraction means representing data with a meaningful name without revealing how the value is stored. Using `temp` to stand for a sensor reading hides the storage details behind a name.\nChoice B is wrong because using a `for` loop is control flow, not hiding how data is represented.\nChoice C is wrong because calling `System.out.println()` blindly is procedural abstraction, which hides an algorithm rather than data.\nChoice D is wrong because casting between numeric types is just type conversion and exposes the underlying representation.",
           },
           {
             id: "3_1_q15",
@@ -12371,7 +12371,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The current values of its instance variables" },
             ],
             answer: "D",
-            explanation: "The state of an object at any moment is defined by the current values of its instance variables; behavior is defined by its methods. Option D captures this state-versus-behavior distinction. Option C measures method usage rather than data values, option A confuses `static` (class-level) data with object-level state, and option D names the class itself rather than the per-object data that distinguishes one instance from another.",
+            explanation: "D is correct. The state of an object at any moment is defined by the current values of its instance variables. Behavior is what its methods do, which is separate from state.\nChoice A is wrong because `static` variables belong to the class as a whole, not to any single object's state.\nChoice B is wrong because the class name identifies the type, not the data values that make one instance different from another.\nChoice C is wrong because call counts measure history rather than the data the object currently holds.",
           },
           {
             id: "3_1_q16",
@@ -12385,7 +12385,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Methods can be reused without knowing their internal code" },
             ],
             answer: "A",
-            explanation: "Abstraction's benefits are conceptual: it hides complexity, supports reuse, and lets code be developed in independent pieces. It does not guarantee faster execution, and abstraction layers can sometimes add small overhead. Option A is the one statement that overpromises a performance benefit abstraction does not provide, while options A, B, and D all describe legitimate abstraction benefits that contribute to maintainable code.",
+            explanation: "A is correct. Abstraction's benefits are conceptual. It hides complexity, supports reuse, and lets code be developed in independent pieces. It does not guarantee faster execution, and extra layers can even add small overhead.\nChoice B is wrong because breaking code into manageable, independent pieces is a real benefit of abstraction.\nChoice C is wrong because hiding implementation details to clarify code is the core idea of abstraction.\nChoice D is wrong because reusing methods through their interface alone is a textbook benefit of abstraction.",
           },
           {
             id: "3_1_q17",
@@ -12399,7 +12399,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Procedural abstraction" },
             ],
             answer: "D",
-            explanation: "Procedural abstraction means relying on what a method does without examining how it accomplishes its task. Calling `Math.sqrt(16)` and trusting the returned `4.0` without reading its source code is the textbook example, so option D is correct. Option C (data abstraction) hides storage of data rather than algorithms, and option C (method decomposition) is about breaking large tasks into smaller methods, not about hiding implementation.",
+            explanation: "D is correct. Procedural abstraction means relying on what a method does without examining how it works. Calling `Math.sqrt(16)` and trusting the returned `4.0` without reading its source is the standard example.\nChoice A is wrong because method decomposition is splitting big tasks into smaller methods, not hiding an algorithm from the caller.\nChoice B is wrong because variable shadowing is a scoping issue where a local name hides a field, unrelated to method use.\nChoice C is wrong because data abstraction hides how data is stored rather than how an algorithm runs.",
           },
           {
             id: "3_1_q18",
@@ -12427,7 +12427,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Each object gets its own separate copy when it is created" },
             ],
             answer: "B",
-            explanation: "A class (static) variable has exactly one copy that all instances share, because it belongs to the class itself rather than to any object. Option B states this. Option D describes an instance variable, option A is wrong because constructors initialize fields but do not introduce static scope, and option C is false because `static` simply controls storage and works with any data type, including `int`, `double`, `String`, and objects.",
+            explanation: "B is correct. A `static` variable has exactly one copy that all instances share, because it belongs to the class rather than to any object.\nChoice A is wrong because variables declared inside a constructor are local variables, not class-level fields.\nChoice C is wrong because `static` controls storage, not type, and works with `int`, `double`, `String`, or any reference type.\nChoice D is wrong because per-object copies describe instance variables, not `static` ones.",
           },
           {
             id: "3_1_q20",
@@ -12442,7 +12442,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "0" },
             ],
             answer: "C",
-            explanation: "Because `count` is `static`, every constructor call increments the same shared variable rather than a per-object copy. Four `new Counter()` calls increment `count` from 0 to 4, and `getCount()` returns that shared value. Option B (3) would be right for three constructions, and option A (0) would be right only if the increment happened on an instance variable that was never read after construction, which is not the case here.",
+            explanation: "C is correct. Because `count` is `static`, every constructor call increments the same shared variable. Four `new Counter()` calls take `count` from 0 to 4. `getCount()` returns the shared value 4.\nChoice A is wrong because the field is shared across all instances and is incremented four times, not once.\nChoice B is wrong because four constructions happen, not three.\nChoice D is wrong because the static field starts at 0 but increases with each `new` call.",
           },
           {
             id: "3_1_q21",
@@ -12456,7 +12456,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Each method can be independently written, tested, and reused" },
             ],
             answer: "D",
-            explanation: "Method decomposition's main benefit is that small, focused sub-methods can each be written, tested, and reused on their own, making the overall program easier to maintain. Option D reflects this. Option C is wrong because decomposed methods still use local variables, option A is wrong because decomposition does not eliminate exceptions, and option B is wrong because methods still execute sequentially unless explicit concurrency is added.",
+            explanation: "D is correct. Method decomposition lets small, focused helpers be written, tested, and reused on their own. That makes the overall program easier to maintain.\nChoice A is wrong because splitting code into methods does not prevent runtime exceptions from occurring.\nChoice B is wrong because methods still run sequentially unless explicit concurrency is added.\nChoice C is wrong because decomposed methods still declare and use local variables internally.",
           },
           {
             id: "3_1_q22",
@@ -12471,7 +12471,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "balance and owner are shared by all BankAccount objects" },
             ],
             answer: "A",
-            explanation: "Both `balance` and `owner` are declared without `static`, so they are instance variables and each `BankAccount` gets its own copies. Option A is correct: changes to one account's balance do not touch another's. Option D would require `static`, option C invents asymmetric behavior that the code does not show, and option C is plainly false because methods declared in `BankAccount` always have direct access to its private fields.",
+            explanation: "A is correct. Both `balance` and `owner` are declared without `static`, so they are instance variables. Each `BankAccount` object gets its own copies. Changes to one account's balance do not affect another's.\nChoice B is wrong because nothing in the code makes `balance` static, so it is not shared across objects.\nChoice C is wrong because a class's own methods always have direct access to its `private` fields.\nChoice D is wrong because shared fields would require the `static` keyword, which neither variable has.",
           },
           {
             id: "3_1_q23",
@@ -12485,7 +12485,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Data abstraction" },
             ],
             answer: "B",
-            explanation: "Splitting a large operation into smaller named methods that the main method calls is the definition of method decomposition. `calculateMonthlyPayment()` delegating to `computeInterest()` and `applyFees()` matches this exactly, so option B is correct. Option D (data abstraction) is about hiding data storage rather than splitting tasks, and option D (constructor overloading) refers to multiple constructors with different parameter lists, which is unrelated to this pattern.",
+            explanation: "B is correct. Splitting a big operation into smaller named methods is the definition of method decomposition. `calculateMonthlyPayment()` delegating to `computeInterest()` and `applyFees()` fits exactly.\nChoice A is wrong because variable shadowing is a scoping problem, not a way to organize tasks.\nChoice C is wrong because constructor overloading is having multiple constructors with different parameter lists.\nChoice D is wrong because data abstraction hides how data is stored, not how a task is broken into helpers.",
           },
           {
             id: "3_1_q24",
@@ -12514,7 +12514,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The exact Java code inside each method body" },
             ],
             answer: "D",
-            explanation: "UML class diagrams intentionally omit method bodies to focus on structure and interface, in the same spirit as procedural abstraction. Option D, the Java code inside a method, is the one item not shown. The class name, the attribute list with types, and the method signatures are all standard UML content, which makes options A, B, and C all things that are shown in a typical class diagram.",
+            explanation: "D is correct. UML class diagrams intentionally omit method bodies and show only structure and interface. The Java code inside a method is the one item not shown.\nChoice A is wrong because the class name sits at the top of every UML class box.\nChoice B is wrong because UML lists method signatures with parameters and return types as its main contents.\nChoice C is wrong because the attribute list of names and types is a standard part of a UML class diagram.",
           },
           {
             id: "3_1_q26",
@@ -12543,7 +12543,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A programmer copies a sorting algorithm into their own program" },
             ],
             answer: "C",
-            explanation: "Procedural abstraction is about using a method through its name and parameters without needing to know its internal algorithm. Calling `Collections.sort(list)` and trusting it without inspecting the implementation is the standard example, making option B correct. Option B actively reads the source code (the opposite of abstraction), and option C copies an algorithm rather than relying on a hidden one, so neither demonstrates the abstraction principle.",
+            explanation: "C is correct. Procedural abstraction means using a method through its name and parameters without needing to know the algorithm inside. Calling `Collections.sort(list)` without inspecting the implementation is the standard example.\nChoice A is wrong because changing a variable's type is just a type change, unrelated to hiding an algorithm.\nChoice B is wrong because reading the full source of `Arrays.sort()` is the opposite of relying on its hidden behavior.\nChoice D is wrong because copying the algorithm into your program exposes the implementation rather than abstracting over it.",
           },
           {
             id: "3_1_q28",
@@ -12585,7 +12585,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "It hides complexity so that different parts of a system can be developed and understood independently" },
             ],
             answer: "D",
-            explanation: "Abstraction's primary value in large systems is that it hides complexity so independent teams or modules can work without understanding each other's internals. Option D captures that purpose. Option C overstates abstraction as style enforcement, option A is wrong because hiding details still requires testing of the visible interface, and option B would require formal verification rather than abstraction, since hidden implementations can still contain bugs.",
+            explanation: "D is correct. Abstraction lets independent teams or modules work without understanding each other's internals. Hiding complexity is its main value in large systems.\nChoice A is wrong because hidden implementations still need to be tested through their visible interfaces.\nChoice B is wrong because abstraction does not prevent runtime errors. Hidden code can still contain bugs.\nChoice C is wrong because abstraction is about hiding details, not enforcing a uniform coding style.",
           },
         ],
       },
@@ -12605,7 +12605,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A consequence of a program that was not planned or foreseen by the programmer" },
             ],
             answer: "D",
-            explanation: "An unintended effect is a consequence of a program that the programmer did not plan for or foresee, and such effects can be either harmful or beneficial. Option D captures this definition. Option C is the opposite (a deliberately added feature), option A describes a runtime error rather than a design consequence, and option B describes a missing feature, which is a planning gap rather than an unanticipated effect of deployed software.",
+            explanation: "D is correct. An unintended effect is a consequence of a program that the programmer did not plan for or foresee. Such effects can be harmful or beneficial.\nChoice A is wrong because a runtime crash is a fault during execution, not a design consequence in the field.\nChoice B is wrong because a missing feature is a planning gap, not an unanticipated outcome of deployed software.\nChoice C is wrong because deliberately added user benefits are intended, which is the opposite of unintended.",
           },
           {
             id: "3_2_q02",
@@ -12619,7 +12619,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A program that always runs faster than competing programs" },
             ],
             answer: "A",
-            explanation: "System reliability means a program consistently produces correct results under both expected and edge-case conditions, which is achieved through broad testing. Option A captures this. Option D is about performance, not correctness, option B is just a code-size metric unrelated to behavior, and option C is unrealistic because even reliable software typically needs updates over time as requirements, libraries, or hardware change.",
+            explanation: "A is correct. System reliability means a program consistently produces correct results under both expected and unexpected conditions. It is achieved through broad testing.\nChoice B is wrong because a small code size is a metric about the source, not about correctness in production.\nChoice C is wrong because even reliable software needs updates as requirements, libraries, or hardware change.\nChoice D is wrong because raw speed is a performance trait, not a measure of producing correct outputs.",
           },
           {
             id: "3_2_q03",
@@ -12633,7 +12633,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Different conditions expose bugs that normal use would not reveal, improving reliability" },
             ],
             answer: "D",
-            explanation: "Real users provide inputs and operate in environments that the developer did not anticipate, so testing across many scenarios catches bugs that day-to-day testing would miss. Option D reflects this reasoning. Option C describes a flawed strategy (happy-path testing alone), option B confuses testing with cleanup, and option D wrongly suggests that running more tests speeds up execution, which it does not.",
+            explanation: "D is correct. Real users provide inputs and run software in environments the developer never planned for. Broad testing catches bugs that day-to-day use would miss.\nChoice A is wrong because running more tests does not change how fast the program executes.\nChoice B is wrong because testing reveals defects, not opportunities to delete unused methods.\nChoice C is wrong because happy-path testing alone misses edge cases and unexpected inputs.",
           },
           {
             id: "3_2_q04",
@@ -12647,7 +12647,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The documentation files included with a software release" },
             ],
             answer: "A",
-            explanation: "Intellectual property in software refers to creative works such as source code that are legally owned by their creator, typically protected automatically by copyright. Option A states this. Option C describes physical hardware (not IP), option B narrows IP to documentation, and option D denies digital protection entirely, which contradicts the fact that source code is automatically copyrighted at the moment it is written.",
+            explanation: "A is correct. Intellectual property in software refers to creative works such as source code that are legally owned by their creator. Source code is automatically protected by copyright when it is written.\nChoice B is wrong because digital code is still protected by copyright once it is created.\nChoice C is wrong because hardware is a physical product, not the creative work that intellectual property law covers.\nChoice D is wrong because documentation is one piece of a release, not the full definition of intellectual property.",
           },
           {
             id: "3_2_q05",
@@ -12661,7 +12661,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Software that is free to download but whose source code cannot be viewed or modified" },
             ],
             answer: "A",
-            explanation: "Open source software has source code publicly available under a license that permits viewing, modifying, and redistributing it, subject to the specific license terms. Option A captures this. Option D confuses freeware with open source (free price is not the same as open source), option B describes proprietary licensing, and option C is wrong because open source by definition allows modification, not just viewing.",
+            explanation: "A is correct. Open source software has source code publicly available under a license that allows viewing, modifying, and redistributing the code. The license sets the specific terms.\nChoice B is wrong because proprietary licenses keep source code private and limit reuse.\nChoice C is wrong because open source is about license terms, not which operating system runs the software.\nChoice D is wrong because being free of charge is not the same as having source code open for modification.",
           },
           {
             id: "3_2_q06",
@@ -12675,7 +12675,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The programmer must remove all comments from the original source code" },
             ],
             answer: "B",
-            explanation: "The GPL is a copyleft license that requires any derivative work to be distributed under the same GPL terms with source code available. Option B captures this requirement. Option A is wrong because GPL is free of charge to use, option C is wrong because GPL prevents closed-source proprietary distribution of derived works, and option D invents a comment-stripping requirement that no license imposes.",
+            explanation: "B is correct. The GPL is a copyleft license. Any derivative work must also be released under the GPL with source code available.\nChoice A is wrong because the GPL grants free use and does not require a licensing fee.\nChoice C is wrong because the GPL blocks closed-source proprietary distribution of derived works.\nChoice D is wrong because no real license requires removing comments from the original source.",
           },
           {
             id: "3_2_q07",
@@ -12689,7 +12689,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The code's logic might be too simple to be worth reusing" },
             ],
             answer: "C",
-            explanation: "Source code is automatically protected by copyright, so reusing someone else's code without permission or a permissive license can constitute infringement. Option C states this legal concern. Options A and B describe technical or stylistic issues unrelated to legality, and option D treats simplicity as a reason not to reuse, which is a design judgment rather than a legal concern that affects whether the reuse is permitted.",
+            explanation: "C is correct. Source code is automatically copyrighted. Reusing someone else's code without permission or a permissive license can be infringement.\nChoice A is wrong because hardware performance is a technical detail, not a legal concern about reuse.\nChoice B is wrong because differing variable names are a style issue, not a legality problem.\nChoice D is wrong because simplicity is a design judgment about value, not a legal restriction on copying.",
           },
           {
             id: "3_2_q08",
@@ -12703,7 +12703,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A beneficial cultural effect" },
             ],
             answer: "C",
-            explanation: "When software bugs put people's safety at risk, the unintended consequence is a societal effect, not just a technical one. Option C captures the safety dimension of mixed-up patient records. Option B is too narrow because the harm is medical and physical, not just monetary, option C contradicts the harmful nature of the bug, and option D mischaracterizes a bug as a deliberate design tradeoff.",
+            explanation: "C is correct. Mixed-up patient records put people's health at risk, which is a societal and safety effect rather than a purely technical one.\nChoice A is wrong because a bug is an accidental fault, not a deliberate design tradeoff.\nChoice B is wrong because the harm is medical and physical, not strictly monetary.\nChoice D is wrong because harming patients is not a beneficial cultural effect.",
           },
           {
             id: "3_2_q09",
@@ -12717,7 +12717,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A legal effect" },
             ],
             answer: "C",
-            explanation: "Software failures that destroy monetary value or disrupt commerce produce economic effects. A trading-system bug that loses $450 million is a clear economic consequence, so option C is correct. Option B is too narrow because the impact here is primarily financial, option A (cultural) does not fit a trading scenario, and option D (legal) would require a specific law being broken, not just monetary loss.",
+            explanation: "C is correct. Software failures that destroy money or disrupt commerce produce economic effects. A trading-system bug losing $450 million is a clear economic consequence.\nChoice A is wrong because losing money in a trading system is financial, not a cultural shift.\nChoice B is wrong because labeling the loss as purely societal misses the direct monetary impact.\nChoice D is wrong because a legal effect needs a specific law to be broken, not just a financial loss.",
           },
           {
             id: "3_2_q10",
@@ -12731,7 +12731,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The algorithm introduces or perpetuates bias" },
             ],
             answer: "D",
-            explanation: "Algorithms trained on historical data can encode existing biases and amplify them, leading to unfair outcomes for certain groups. Option D captures this concern about algorithmic bias. Option C (speed) is irrelevant to the fairness question, option A is unrelated to outcomes because the implementation language has no bearing on bias, and option B confuses algorithmic fairness with licensing, which is a separate legal concern.",
+            explanation: "D is correct. Algorithms trained on historical data can encode existing biases and amplify them. That leads to unfair outcomes for certain groups.\nChoice A is wrong because the implementation language has no effect on the fairness of the ranking.\nChoice B is wrong because licensing is a separate legal concern unrelated to ranking fairness.\nChoice C is wrong because runtime speed has nothing to do with whether the ranking is biased.",
           },
           {
             id: "3_2_q11",
@@ -12745,7 +12745,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Edge case testing helps the programmer find unused variables" },
             ],
             answer: "A",
-            explanation: "Edge cases are boundary or extreme inputs (empty inputs, maximum values, unusual combinations) that often reveal bugs not visible in normal testing. Option A captures the purpose of edge-case testing. Option D confuses testing with cleanup, option B is wrong because all software benefits from boundary testing, and option D conflates edge testing with load or stress testing, which measures speed rather than correctness.",
+            explanation: "A is correct. Edge cases are boundary or extreme inputs like empty data, maximum values, and unusual combinations. They reveal bugs that normal testing misses.\nChoice B is wrong because all software benefits from edge case testing, not only games.\nChoice C is wrong because load or stress testing measures speed, while edge cases test correctness.\nChoice D is wrong because finding unused variables is a code cleanup task, not the goal of edge testing.",
           },
           {
             id: "3_2_q12",
@@ -12759,7 +12759,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The programming language the software was written in" },
             ],
             answer: "B",
-            explanation: "A software license is a legal document stating the terms under which the software may be used, modified, and distributed, and it determines whether the software can be reused in commercial or open source projects. Option B captures this purpose. Option D (programming language) is technical metadata rather than legal terms, option B (hardware requirements) belongs in user documentation, and option D (algorithm details) would belong in the implementation or a separate patent filing rather than the license itself.",
+            explanation: "B is correct. A software license is a legal document. It sets the terms under which software may be used, modified, and distributed.\nChoice A is wrong because hardware requirements belong in user documentation, not legal license terms.\nChoice C is wrong because the algorithm is part of the implementation, not the license that grants use.\nChoice D is wrong because the programming language is technical metadata, not a legal grant of rights.",
           },
           {
             id: "3_2_q13",
@@ -12773,7 +12773,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Public domain, because it consists of mathematical logic" },
             ],
             answer: "C",
-            explanation: "Under U.S. copyright law, source code is automatically protected as a copyrighted creative work from the moment it is written, with no registration step required. Option C captures this. Option A would require patent application and novelty review, option B requires confidentiality (the code would not stay protected if disclosed), and option D wrongly treats source code as public domain, which would defeat copyright protection entirely.",
+            explanation: "C is correct. Under U.S. copyright law, source code is automatically a copyrighted creative work from the moment it is written. No registration step is required.\nChoice A is wrong because patents require an application plus a novelty review and are not automatic.\nChoice B is wrong because trade secret protection requires keeping the code confidential.\nChoice D is wrong because code is not public domain by default. It carries copyright on creation.",
           },
           {
             id: "3_2_q14",
@@ -12787,7 +12787,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "That the library runs faster than 1 millisecond per call" },
             ],
             answer: "C",
-            explanation: "Before incorporating any third-party library into a commercial product, the programmer must verify that the library's license permits commercial use, since some licenses such as GPL impose conditions and proprietary licenses may prohibit it. Option C is correct. Options A and D are technical considerations unrelated to legal use, and option B (bug-free guarantee) is impossible to verify and not a licensing requirement.",
+            explanation: "C is correct. Before adding any third-party library to a commercial product, the programmer must verify the license permits commercial use. Some licenses like GPL impose conditions, and proprietary licenses may forbid it.\nChoice A is wrong because language compatibility is a technical issue, not a legal one.\nChoice B is wrong because no library can be guaranteed bug-free and that is not a licensing requirement.\nChoice D is wrong because runtime speed is a performance concern, not a legal use condition.",
           },
           {
             id: "3_2_q15",
@@ -12815,7 +12815,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A technical effect — the app will run slower in non-English locales" },
             ],
             answer: "B",
-            explanation: "Designing software only in one language or culture can exclude users from other backgrounds, producing an unintended cultural effect. Option B captures this. Option A (cost) is unrelated to language choice, option C invents a fictional copyright over a language, and option D wrongly suggests language affects execution speed, which is determined by code logic rather than user-facing language settings.",
+            explanation: "B is correct. Designing software only in one language or culture excludes users from other backgrounds. That is an unintended cultural effect.\nChoice A is wrong because language choice does not change operating cost.\nChoice C is wrong because a natural language cannot be copyrighted in any country.\nChoice D is wrong because runtime speed depends on code logic, not on which user-facing language is displayed.",
           },
           {
             id: "3_2_q17",
@@ -12829,7 +12829,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Programmers always make intentional mistakes to test their users" },
             ],
             answer: "A",
-            explanation: "Programmers cannot foresee every possible use, environment, or edge case their software will encounter, so even well-intentioned designs can have unintended harmful effects. Option A captures this fundamental limit. Option D invents malicious intent, option C wrongly blames the implementation language for outcomes, and option C is false because well-tested software can still have unintended consequences when deployed in unanticipated contexts.",
+            explanation: "A is correct. Programmers cannot foresee every use, environment, or edge case their software will face. Even well-intentioned designs can produce unintended harmful effects.\nChoice B is wrong because the implementation language does not determine real-world impact.\nChoice C is wrong because even well-tested software can have unintended consequences in new contexts.\nChoice D is wrong because programmers do not normally introduce harmful bugs on purpose to test users.",
           },
           {
             id: "3_2_q18",
@@ -12843,7 +12843,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "An unintended societal effect of the program" },
             ],
             answer: "D",
-            explanation: "The mapping app solved one problem (avoiding congested roads) but created a new one by shifting congestion onto a previously quiet road, which is exactly an unintended societal effect of program design. Option D captures this. Option C mischaracterizes the new congestion as intended, option A is a legal framing that does not fit, and option A (reliability) would apply only if the routing was technically incorrect.",
+            explanation: "D is correct. The app solved one problem but shifted congestion onto a previously quiet road. That is an unintended societal effect of program design.\nChoice A is wrong because the routing worked technically, so this is not a reliability failure.\nChoice B is wrong because no specific law is broken, so it is not a legal effect.\nChoice C is wrong because creating new congestion is not the beneficial outcome the designers intended.",
           },
           {
             id: "3_2_q19",
@@ -12857,7 +12857,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "It produces correct results only on the specific inputs it was tested with" },
             ],
             answer: "A",
-            explanation: "A reliable system consistently produces correct results across a wide range of conditions, including inputs and scenarios that go beyond the original test cases. Option A captures this. Option D is the opposite (over-fitting to tested inputs), option C wrongly conflates reliability with not needing updates, and option C confuses reliability with hardware compatibility, which is a separate concern from correctness.",
+            explanation: "A is correct. A reliable system consistently produces correct results across many conditions. That includes inputs that go beyond the original test cases.\nChoice B is wrong because all software eventually needs updates as requirements and environments change.\nChoice C is wrong because reliability is about correctness, not which hardware is required.\nChoice D is wrong because being correct only on tested inputs is the opposite of reliable behavior.",
           },
           {
             id: "3_2_q20",
@@ -12871,7 +12871,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The source code is publicly available and others may use, modify, or distribute it under specified terms" },
             ],
             answer: "D",
-            explanation: "An open source license makes source code publicly available and grants others rights to use, modify, and redistribute it under the license's specific terms. Option D captures this. Option C is the freeware definition (free price, but closed source), option C wrongly removes copyright (open source code is still copyrighted), and option B would describe a source-available but not truly open-source license.",
+            explanation: "D is correct. An open source license makes source code publicly available. Others may use, modify, and redistribute it under the license terms.\nChoice A is wrong because open source code is still copyrighted, just licensed for broad reuse.\nChoice B is wrong because open source permits modification, not just viewing.\nChoice C is wrong because that is freeware. A free download with closed source is not open source.",
           },
           {
             id: "3_2_q21",
@@ -12885,7 +12885,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The student's program may run slower because of the copied code" },
             ],
             answer: "A",
-            explanation: "Code on a public site like GitHub is still copyrighted, and reusing it requires checking the license to ensure the intended use is permitted. Option A captures the legal concern. Option D focuses on performance (which is unrelated to legality), option B is wrong because copied code generally still compiles, and option D wrongly assumes copied code is always slower or less efficient than freshly written code.",
+            explanation: "A is correct. Code on a public site like GitHub is still copyrighted. The student must check the license to confirm reuse is permitted.\nChoice B is wrong because copied code usually still compiles when imported correctly.\nChoice C is wrong because efficiency depends on the code itself, not on whether it was copied.\nChoice D is wrong because runtime speed is unrelated to the legality of using someone else's code.",
           },
           {
             id: "3_2_q22",
@@ -12899,7 +12899,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A societal concern — inaccurate results undermine democratic processes" },
             ],
             answer: "D",
-            explanation: "A voting system silently dropping votes is a serious societal concern because it directly affects democratic outcomes and public trust, even if no money is lost in the process. Option D captures the broader societal stakes of reliability failures in critical civic infrastructure. Option C (licensing) is unrelated to the failure itself, option A is too narrow because the harm extends beyond economics, and option D denies the obvious societal impact of inaccurate election results on representation and governance.",
+            explanation: "D is correct. A voting system silently dropping votes affects democratic outcomes and public trust. That is a serious societal concern even without monetary loss.\nChoice A is wrong because the harm extends far beyond economics into governance and representation.\nChoice B is wrong because dropped votes damage public trust in elections, a clear societal impact.\nChoice C is wrong because licensing is unrelated to a bug that drops user input.",
           },
           {
             id: "3_2_q23",
@@ -12913,7 +12913,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Any derived work must also be released under the MIT license" },
             ],
             answer: "A",
-            explanation: "The MIT license is a permissive license: anyone may use, modify, and distribute the code (including in commercial products) as long as the original copyright notice and license text are preserved. Option A captures this. Option B describes a source-available restriction the MIT license does not have, option C invents a non-commercial restriction, and option D describes copyleft, which is GPL-style rather than MIT.",
+            explanation: "A is correct. The MIT license is permissive. Anyone may use, modify, and distribute the code, including in commercial products, as long as the copyright notice is preserved.\nChoice B is wrong because MIT permits modification, not just viewing.\nChoice C is wrong because MIT places no restriction limiting use to non-profit projects.\nChoice D is wrong because requiring derived works to use the same license is copyleft, like GPL, not MIT.",
           },
           {
             id: "3_2_q24",
@@ -12927,7 +12927,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A method decomposition concern" },
             ],
             answer: "B",
-            explanation: "Collecting personal data such as GPS location without clearly notifying users or obtaining consent is a data privacy concern, and may also be a legal violation depending on jurisdiction. Option B captures this. Option A (reliability) refers to correctness of behavior rather than data handling, option C (licensing) is unrelated to private user data, and option D (method decomposition) is a code-design concern unrelated to user data ethics.",
+            explanation: "B is correct. Collecting personal data like GPS location without clearly notifying users is a data privacy concern. It may also be a legal violation depending on jurisdiction.\nChoice A is wrong because reliability is about correct behavior, not how personal data is handled.\nChoice C is wrong because open source licensing has nothing to do with collecting user data.\nChoice D is wrong because method decomposition is a code organization topic, unrelated to data ethics.",
           },
           {
             id: "3_2_q25",
@@ -12941,7 +12941,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "They prevent other developers from ever writing similar programs" },
             ],
             answer: "A",
-            explanation: "Intellectual property laws protect creators' rights to their work, allowing them to control how it is used, licensed, and distributed, which incentivizes creative work. Option A captures this. Option D overstates protection (others can independently create similar programs as long as they do not copy), option B is wrong because IP laws do not force open-sourcing, and option D conflates legal protection with quality guarantees.",
+            explanation: "A is correct. Intellectual property laws protect creators' rights to their work. They let creators control how the code is used, licensed, and distributed.\nChoice B is wrong because IP laws do not force developers to release source code as open source.\nChoice C is wrong because legal protection does not guarantee a program runs without bugs.\nChoice D is wrong because others can still write similar programs independently as long as they do not copy.",
           },
           {
             id: "3_2_q26",
@@ -12955,7 +12955,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "The program will use more memory at runtime" },
             ],
             answer: "B",
-            explanation: "Poorly designed or untested software can fail in ways that harm users, deny services, or produce incorrect critical decisions, all of which are societal harms beyond mere technical inconvenience. Option B captures this. Option A (programmer experience) trivializes the impact, option C confuses outcomes with licensing, and option D treats poorly designed software as purely a memory issue rather than a real-world impact concern.",
+            explanation: "B is correct. Poorly designed software can harm users, deny services, or drive incorrect critical decisions. These are real societal harms.\nChoice A is wrong because gaining debugging experience trivializes the actual impact on users.\nChoice C is wrong because poor design does not change the software's license status.\nChoice D is wrong because higher memory use is a runtime detail, not the main concern when users are harmed.",
           },
           {
             id: "3_2_q27",
@@ -12969,7 +12969,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A GPL licensing issue" },
             ],
             answer: "B",
-            explanation: "When an algorithm optimizes one metric (engagement) it can produce unintended cultural and societal effects (radicalization) that the designers did not plan for. Option B captures this. Option A (copyright) is unrelated to algorithmic behavior, option C (compile-time error) refers to syntax errors not behavioral outcomes, and option D (GPL licensing) describes a legal concern unrelated to the algorithm's content-promotion choices.",
+            explanation: "B is correct. Optimizing one metric like engagement can produce unintended cultural and societal effects. Designers did not plan for the slide toward extreme content.\nChoice A is wrong because content recommendations are unrelated to copying someone else's code.\nChoice C is wrong because a compile-time error is a syntax issue, not a behavior outcome.\nChoice D is wrong because GPL licensing is a legal concern about distribution, not algorithm behavior.",
           },
           {
             id: "3_2_q28",
@@ -12983,7 +12983,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "Because programs can have unintended harmful effects on individuals and communities, and programmers share responsibility for those outcomes" },
             ],
             answer: "D",
-            explanation: "Programmers share responsibility for the real-world consequences of the software they build because programs interact with real people in real contexts and can cause unintended harm. Option D captures this ethical responsibility. Option B wrongly assumes effects are always beneficial, option B treats software as living in a vacuum, and option D invents a regulation that does not match how most software is actually deployed.",
+            explanation: "D is correct. Programs interact with real people in real contexts. They can cause unintended harm, and programmers share responsibility for those outcomes.\nChoice A is wrong because non-government developers release impactful software all the time.\nChoice B is wrong because real-world effects can be harmful, not always beneficial.\nChoice C is wrong because most software runs in open environments with many external effects.",
           },
           {
             id: "3_2_q29",
@@ -12997,7 +12997,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "A program that compiled successfully is known to be free of all bugs" },
             ],
             answer: "C",
-            explanation: "Testing under many conditions reveals bugs that limited testing misses. C game tested only with a controller failing on a keyboard is a textbook example of insufficient input testing, making option A correct. Options D and C overstate confidence in compilation or unit tests alone, and option D wrongly assumes one OS works as proof for all operating systems, which usually requires separate testing.",
+            explanation: "C is correct. A game tested only with a controller failing on a keyboard is a textbook case of missing input coverage. Broad testing catches input bugs that limited testing misses.\nChoice A is wrong because passing unit tests does not prove the program works in all real conditions.\nChoice B is wrong because Windows 11 success does not guarantee correct behavior on every other OS.\nChoice D is wrong because compiling only means syntax is valid, not that the program is bug-free.",
           },
           {
             id: "3_2_q30",
