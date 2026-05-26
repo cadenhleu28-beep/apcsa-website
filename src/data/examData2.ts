@@ -166,9 +166,9 @@ System.out.println(result);`,
       { id: "C", text: "50" },
       { id: "D", text: "55" },
     ],
-    correctId: "B",
+    correctId: "A",
     explanation:
-      "Math.sqrt(50) returns ~7.0710678 (a double). (int) Math.sqrt(50) truncates to 7. Math.pow(7, 2) returns 49.0 (a double); cast to int gives 49. The second (int) Math.sqrt(x) is also 7. Final: 49 + 7 = 57. Note that (int)Math.pow(...) is needed because Math.pow returns a double, and (int)Math.sqrt(x) truncates before squaring rather than after.",
+      "Math.sqrt(50) returns ~7.0710678 (a double). (int) Math.sqrt(50) truncates to 7. Math.pow(7, 2) returns 49.0 (a double); cast to int gives 49. The second (int) Math.sqrt(x) is also 7. Final: 49 + 7 = 56. Note that (int)Math.sqrt(x) truncates before squaring, so (int)Math.pow((int)Math.sqrt(50), 2) = 49, not 50.",
     trap: "Math.sqrt returns double — casting (int) truncates BEFORE squaring, losing the fractional part; (int)(Math.sqrt(50))^2 ≠ 50",
   },
   {

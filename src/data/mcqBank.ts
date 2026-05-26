@@ -10437,7 +10437,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "1234" },
             ],
             answer: "A",
-            explanation: "The expression n % 10 extracts the ones (rightmost) digit of n in base 10, because the remainder after dividing by 10 is exactly the last digit. This is the basis for digit-by-digit processing of integers in many algorithms. Choice A is correct: 345 % 10 = 5 because 345 = 34 * 10 + 5, where 5 is the remainder. Choice C and B are partial divisions that don't match the % operation, and D is a different digit of 345 that doesn't come from a modulo operation.",
+            explanation: "The loop peels off the rightmost digit each iteration with n%10 and only appends even digits onto result using the standard build pattern result = result*10 + digit. Trace n=1234. Iter 1: digit=4, even, result=0*10+4=4, n becomes 123. Iter 2: digit=3, odd, skip, n becomes 12. Iter 3: digit=2, even, result=4*10+2=42, n becomes 1. Iter 4: digit=1, odd, skip, n becomes 0. Loop ends. Output 42. Choice B (24) reverses the order (forgets that digits are extracted right-to-left, so the first even digit found becomes the leftmost digit of result). Choice C (13) collects odd digits. Choice D (1234) ignores the if filter entirely.",
           },
           {
             id: "2_9_q08",
@@ -10947,7 +10947,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "acebdf" },
             ],
             answer: "A",
-            explanation: "The last character of a string is at index length - 1, because indexing is zero-based and the valid indices are 0 through length - 1. This is a common pattern for accessing the final element of any zero-indexed collection. Choice A is correct: \"Test\" has length 4, so charAt(3) is the last character 't'. Choice B is the first character (index 0), and C and D are the middle characters at indices 1 and 2.",
+            explanation: "Even indices append to the back, odd indices prepend to the front. Trace s=\"abcdef\". i=0 (even): result = \"\" + 'a' = \"a\". i=1 (odd): result = 'b' + \"a\" = \"ba\". i=2 (even): result = \"ba\" + 'c' = \"bac\". i=3 (odd): result = 'd' + \"bac\" = \"dbac\". i=4 (even): result = \"dbac\" + 'e' = \"dbace\". i=5 (odd): result = 'f' + \"dbace\" = \"fdbace\". Output: fdbace. Choice B (abcdef) ignores the prepend branch. Choice C (fedcba) is the full reverse, assuming every char prepends. Choice D (acebdf) splits even-then-odd indices but keeps both in forward order.",
           },
           {
             id: "2_10_q12",
@@ -11462,7 +11462,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "8" },
             ],
             answer: "C",
-            explanation: "The for loop's initialization (such as int j = 0) runs every time control enters that for statement, which happens once per outer iteration in a nested setup. The inner loop variable is reset to its starting value at the beginning of each outer pass, which is what allows the inner to repeat its full pattern. Choice C is correct. Choice A would mean j is set only once at the very end, B confuses initialization with explicit assignment, and D would mean only one initialization for the entire nested loop.",
+            explanation: "Count pairs (i,j) in 1..4 with i+j > 5. i=1: sums 2,3,4,5 — none qualify (0). i=2: sums 3,4,5,6 — only j=4 qualifies (1). i=3: sums 4,5,6,7 — j=3 and j=4 qualify (2). i=4: sums 5,6,7,8 — j=2,3,4 qualify (3). Total = 0+1+2+3 = 6. Choice A (16) is total iterations ignoring the condition. Choice B (10) is 1+2+3+4 (off-by-one bound on the diagonal). Choice D (8) double-counts a row somewhere.",
           },
           {
             id: "2_11_q16",
@@ -11582,7 +11582,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "10" },
             ],
             answer: "B",
-            explanation: "Nested loops with equal bounds give n times n = n squared total inner executions. This is the hallmark of quadratic growth, where doubling n quadruples the work. Recognizing this pattern is essential for runtime analysis. Choice B is correct: 5 * 5 = 25. Choice C is just the outer count, D is doubling rather than multiplying (the additive misconception), and A is missing a factor.",
+            explanation: "Count ordered (i,j) pairs in 1..5 satisfying i!=j AND (i+j)%2==0. The sum is even when i and j share parity. Same-parity unordered groups: odds {1,3,5} (3 values) and evens {2,4} (2 values). All ordered same-parity pairs: 3*3 + 2*2 = 13. Now exclude the diagonal i==j: subtract 5 pairs (1,1),(2,2),(3,3),(4,4),(5,5). 13 - 5 = 8. Choice A (20) ignores the i!=j filter or the parity filter. Choice C (5) just counts the diagonal. Choice D (10) drops a parity class.",
           },
           {
             id: "2_11_q24",
@@ -13064,7 +13064,7 @@ export const mcqBank: MCQUnit[] = [
               { letter: "D", text: "r is assigned the radius value successfully" },
             ],
             answer: "B",
-            explanation: "A `private` field can only be accessed within the class that declares it; outside classes must use accessor methods. The statement `c.radius` in another class attempts direct access to `Circle`'s private `radius`, which the compiler rejects, making option C correct. Option D would only work if the field were `public`, and option B (default value) does not apply because the failure happens at compile time, not runtime.",
+            explanation: "A `private` field can only be accessed within the class that declares it; outside classes must use accessor methods. The statement `c.radius` in another class attempts direct access to `Circle`'s private `radius`, which the compiler rejects, making option B correct. Option D would only work if the field were `public`. Option A (default value) does not apply because the failure happens at compile time, not runtime. Option C requires a null receiver, but a NullPointerException only fires on a method call against null, not on a compile-time access check.",
           },
           {
             id: "3_3_q04",
