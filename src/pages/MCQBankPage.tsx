@@ -224,7 +224,7 @@ export default function MCQBankPage() {
   return (
     <div className="min-h-screen bg-[#0d1117] text-[#e6edf3] flex flex-col">
       {/* Header */}
-      <header className="border-b border-[#30363d] px-6 py-3 flex items-center gap-3">
+      <header className="border-b border-[#30363d] px-6 py-3 pt-[calc(env(safe-area-inset-top)+0.75rem)] flex items-center gap-3">
         <button
           onClick={goBack}
           className="flex items-center gap-1 text-xs font-mono text-[#8b949e] hover:text-[#e6edf3] transition-colors"

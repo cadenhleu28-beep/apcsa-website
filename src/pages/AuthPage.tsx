@@ -72,7 +72,7 @@ export default function AuthPage() {
   return (
     <div className="min-h-screen bg-[#0d1117] text-[#e6edf3] flex flex-col">
       {/* Header */}
-      <header className="border-b border-[#30363d]/60 px-5 py-2.5 flex items-center gap-2">
+      <header className="border-b border-[#30363d]/60 px-5 py-2.5 pt-[calc(env(safe-area-inset-top)+0.625rem)] flex items-center gap-2">
         <span className="w-2 h-2 rounded-full bg-[#58a6ff]" />
         <button
           onClick={() => navigate("/")}

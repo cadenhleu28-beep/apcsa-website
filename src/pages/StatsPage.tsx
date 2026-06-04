@@ -223,7 +223,7 @@ export default function StatsPage() {
   if (!authLoading && !user) {
     return (
       <div className="min-h-screen bg-[#0d1117] text-[#e6edf3]">
-        <header className="border-b border-[#21262d] px-6 py-4 flex items-center justify-between">
+        <header className="border-b border-[#21262d] px-6 py-4 pt-[calc(env(safe-area-inset-top)+1rem)] flex items-center justify-between">
           <button
             onClick={() => navigate("/")}
             className="flex items-center gap-2 text-[#8b949e] hover:text-[#e6edf3] transition-colors"
@@ -276,7 +276,7 @@ export default function StatsPage() {
 
   return (
     <div className="min-h-screen bg-[#0d1117] text-[#e6edf3] pb-24">
-      <header className="border-b border-[#21262d] px-6 py-4 flex items-center justify-between sticky top-0 bg-[#0d1117]/90 backdrop-blur z-10">
+      <header className="border-b border-[#21262d] px-6 py-4 pt-[calc(env(safe-area-inset-top)+1rem)] flex items-center justify-between sticky top-0 bg-[#0d1117]/90 backdrop-blur z-10">
         <button
           onClick={() => navigate("/")}
           className="flex items-center gap-2 text-[#8b949e] hover:text-[#e6edf3] transition-colors"

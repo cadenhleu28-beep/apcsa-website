@@ -489,7 +489,7 @@ function MCQSection({
       </AnimatePresence>
 
       {/* Header */}
-      <header className="border-b border-[#30363d] px-4 py-3">
+      <header className="border-b border-[#30363d] px-4 py-3 pt-[calc(env(safe-area-inset-top)+0.75rem)]">
         <div className="max-w-3xl mx-auto">
           <div className="flex items-center justify-between mb-2">
             <div>
@@ -929,7 +929,7 @@ function FRQSection({
       <AnimatePresence>{toast && <Toast message={toast} />}</AnimatePresence>
 
       {/* Header */}
-      <header className="border-b border-[#30363d] px-4 py-3">
+      <header className="border-b border-[#30363d] px-4 py-3 pt-[calc(env(safe-area-inset-top)+0.75rem)]">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <div>
             <span className="text-xs font-mono text-[#8b949e]">
@@ -1408,7 +1408,7 @@ function ResultsDashboard({
 
   return (
     <div className="min-h-screen bg-[#0d1117] text-[#e6edf3] pb-16">
-      <header className="border-b border-[#30363d] px-6 py-3 flex items-center gap-3">
+      <header className="border-b border-[#30363d] px-6 py-3 pt-[calc(env(safe-area-inset-top)+0.75rem)] flex items-center gap-3">
         <button
           onClick={() => navigate("/")}
           className="flex items-center gap-1.5 text-sm text-[#8b949e] hover:text-[#e6edf3] transition-colors"

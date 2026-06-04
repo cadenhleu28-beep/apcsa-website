@@ -727,7 +727,7 @@ export default function ScrollFeedPage() {
       style={{ height: "100dvh" }}
     >
       {/* Header — fixed so it stays put while user scrolls */}
-      <header className="absolute top-0 inset-x-0 z-20 flex items-center justify-between px-4 pt-3 pb-2">
+      <header className="absolute top-0 inset-x-0 z-20 flex items-center justify-between px-4 pb-2 pt-[calc(env(safe-area-inset-top)+0.75rem)]">
         <button
           onClick={() => navigate("/")}
           aria-label="Back to home"
