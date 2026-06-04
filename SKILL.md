@@ -18,11 +18,12 @@ This document explains every decision, method, and process used to build this AP
 10. [Phase 9 — Writing Lesson Content](#phase-9--writing-lesson-content)
 11. [Phase 10 — Humanizing the Text](#phase-10--humanizing-the-text)
 12. [Phase 11 — Building the MCQ Question Bank](#phase-11--building-the-mcq-question-bank)
-13. [Phase 12 — Building Practice Exams](#phase-12--building-practice-exams)
-14. [Phase 13 — Building the UI Components](#phase-13--building-the-ui-components)
-15. [Phase 14 — Visual Design: Avoiding AI Slop](#phase-14--visual-design-avoiding-ai-slop)
-16. [Phase 15 — Quality Control Checklist](#phase-15--quality-control-checklist)
-17. [Replication Guide for Any AP Course](#replication-guide-for-any-ap-course)
+13. [Phase 12 — Building the Adaptive Engine: Algorithm, Scroll Feed, Stats Dashboard](#phase-12--building-the-adaptive-engine-algorithm-scroll-feed-stats-dashboard)
+14. [Phase 13 — Building Practice Exams](#phase-13--building-practice-exams)
+15. [Phase 14 — Building the UI Components](#phase-14--building-the-ui-components)
+16. [Phase 15 — Visual Design: Avoiding AI Slop](#phase-15--visual-design-avoiding-ai-slop)
+17. [Phase 16 — Quality Control Checklist](#phase-16--quality-control-checklist)
+18. [Replication Guide for Any AP Course](#replication-guide-for-any-ap-course)
 
 ---
 
@@ -586,45 +587,111 @@ More questions = more practice for high-weighted topics = better exam preparatio
 - Code snippets use consistent Java style (same indentation, same comment format)
 - No two questions test the exact same concept in the exact same way
 
-### Adaptive question selection — the weakpoint algorithm
+### Adaptive question selection
 
-A flat random shuffle treats every question as equally useful. For a logged-in student that wastes time: they re-answer questions they already know and rarely revisit the ones they miss. The site's signature feature is a **weakpoint algorithm** that drives an adaptive question feed and a stats dashboard from each student's answer history.
+A flat random shuffle treats every question as equally useful. For a logged-in student that wastes time: they re-answer questions they already know and rarely revisit the ones they miss. The site's signature feature is a **weakpoint algorithm** that drives an adaptive swipe feed (`/scroll`) and a stats dashboard (`/stats`) from each student's answer history. It is large enough to be its own phase — see Phase 12.
 
-This is the highest-leverage feature on the site, and it is worth building deliberately. It has three parts: an **attempt store**, a **scoring model**, and the **surfaces** that consume it (a swipe feed and a stats page).
+---
+
+## Phase 12 — Building the Adaptive Engine: Algorithm, Scroll Feed, Stats Dashboard
+
+This is the highest-leverage feature on the site, and it is worth building deliberately. One shared answer log drives everything; the feed and the dashboard are just two views of the same model.
+
+| Layer | Where it lives | Job |
+|---|---|---|
+| Attempt store | `supabase/migrations/0001_mcq_attempts.sql` | One row per answered question, per student |
+| Scoring model | `src/lib/attempts.ts` | Pure functions: weakness per topic, weight per question, stats aggregations |
+| Swipe feed | `src/pages/ScrollFeedPage.tsx` (`/scroll`) | TikTok-style practice sessions drawn from the model |
+| Stats dashboard | `src/pages/StatsPage.tsx` (`/stats`) | Predicted score, per-unit accuracy, weak spots |
+
+Every practice surface on the site (sub-unit lessons, MCQ bank, practice exams, the feed itself) records into the same log, so a student's exam mistakes influence what the feed shows them next.
 
 #### 1. The attempt store
 
-Record one row per answered question in a dedicated `mcq_attempts` table: `(user_id, question_id, topic_id, unit_id, correct, source, created_at)`.
+One row per answered question in a dedicated `mcq_attempts` table:
 
-- **One row per attempt, not per question.** This keeps full history and — critically — a `created_at` timestamp, which is what makes recency possible. (An earlier version reused the progress table with one merged row per topic; it worked but threw away timing, so recency was impossible. Use a dedicated table.)
-- **`source`** (`scroll` / `bank` / etc.) records where the attempt came from, so every practice surface feeds one shared model.
-- **Row-level security**: each student reads and writes only their own rows (`auth.uid() = user_id`).
-- Write attempts as the student answers (single insert per answer in a drill, or a batch insert at the end of a feed session).
+```sql
+create table public.mcq_attempts (
+  id          bigserial primary key,
+  user_id     uuid not null references auth.users(id) on delete cascade,
+  mcq_id      text not null,
+  topic_id    text not null,
+  correct     boolean not null,
+  source      text not null check (source in ('subunit', 'exam', 'bank', 'feed')),
+  answered_at timestamptz not null default now()
+);
+-- Both indexes lead with user_id and end with answered_at desc,
+-- because every query is "this student's history, newest first":
+--   (user_id, answered_at desc)
+--   (user_id, topic_id, answered_at desc)
+```
 
-#### 2. The scoring model
+Design decisions that mattered:
 
-Load a student's attempts once, then compute everything client-side:
+- **One row per attempt, not per question.** Full history plus an `answered_at` timestamp is what makes recency logic possible. (An earlier version reused the progress table with one merged row per topic; it worked but threw away timing, so recency was impossible. Use a dedicated table.)
+- **`source`** records which surface the answer came from (`subunit` / `exam` / `bank` / `feed`), so every surface feeds one shared model and the dashboard can count practice-exam questions separately.
+- **Row-level security on both verbs**: `select` and `insert` policies check `auth.uid() = user_id`. Students can never read each other's rows, even though the client uses the public anon key.
+- **Write at answer time.** The feed inserts one row the moment the student taps a choice (`recordAttempt`); a `recordAttemptsBatch` exists for end-of-session writes.
+- **Backfill old data once.** Students who used the site before the table existed had answers stored in a per-sub-unit progress blob. `backfillSubUnitAttempts()` converts those into attempt rows on first feed load, gated on "no `source='subunit'` rows exist yet" so it never runs twice.
 
-- **Per-topic and per-unit accuracy** — `correct / attempts` for each.
-- **Recency window** — the last N attempts (≈40). Any question missed inside that window is a "recent miss."
-- **Last-result-per-question** — whether the most recent attempt at each question was right.
-- **Predicted AP score** — map overall MCQ accuracy to a 1–5 estimate using the public score distribution for the exam.
+#### 2. The weakpoint algorithm
 
-From that, derive a **weight per question**:
-- Unseen topic → medium weight (surface new material).
-- Weaker topic → heavier (e.g. `1 + 3·(1 − accuracy)`).
-- Mastered topic (high accuracy with enough attempts) → suppressed.
-- Recently missed question → boosted (the recency multiplier).
-- Most recent attempt correct → suppressed.
+The whole model is ~80 lines of pure functions in `src/lib/attempts.ts`. Load the student's last 500 attempts (newest first) once, then compute everything client-side:
 
-Keep the weights **legible** — a handful of explainable multipliers beats an opaque scheduler. Resist a full spaced-repetition system (ease factors, due dates) unless the data justifies it.
+**Cold start.** Fewer than 10 total attempts is not signal — return a uniform random shuffle and skip the model entirely.
 
-#### 3. The surfaces
+**Per-topic weakness.** For each topic, take its last 20 attempts and compute `weakness = 1 − accuracy`, giving a value in [0, 1]. A topic the student has never touched defaults to `0.5` — a mild exploration prior that surfaces new material without flooding them with it. Using only the last 20 means an old bad streak stops counting once the student improves.
 
-- **Swipe feed (`/scroll`)** — a vertical, full-screen, scroll-snap feed (TikTok-style). Each session is ~15 questions drawn by **weighted sampling without replacement** from the model. The student taps an answer, then reveals the explanation (swipe right or a button). Record the session's attempts back to the store so the next session adapts.
-- **Stats dashboard (`/stats`)** — predicted score, accuracy bar per unit, and a ranked list of weak-spot topics, all from the same model. It doubles as the place a student decides what to drill.
+**Per-question weight.** Every question in the bank gets a weight built from its topic's weakness and the student's most recent attempt at that exact question:
 
-#### 4. Degrade gracefully — never hang (the most important rule)
+| Signal | Effect | Why |
+|---|---|---|
+| Base | `0.3 + topicWeakness` | Even mastered topics keep a 0.3 floor — nothing disappears entirely |
+| Missed within the last 7 days | × 2.0 | Recently missed questions resurface until won |
+| Answered within the last 24 hours | × 0.15 | Suppress immediate repeats — a feed that re-asks what you just answered feels broken |
+| Answered correctly within the last 7 days | × 0.6 | Rest questions the student just got right |
+| Never attempted | × 1.2 | Mild exploration bonus for unseen questions |
+
+**Weighted sampling without replacement.** Draw the 15-question session with the Efraimidis–Spirakis trick: give every question a key `−ln(U) / weight` (U uniform random) and keep the 15 smallest keys. One pass, no duplicates, and higher-weight questions are proportionally *more likely* without being guaranteed — sessions stay varied instead of becoming a fixed worst-topics drill.
+
+Keep the weights **legible** — five explainable numbers beat an opaque scheduler. Resist a full spaced-repetition system (ease factors, due dates) unless the data justifies it. Every constant above lives in one file, and you can tell a student exactly why a question appeared.
+
+#### 3. The Scroll Feed (`/scroll`)
+
+A vertical, full-screen swipe feed — one MCQ per screen, answer with a tap, swipe right for the explanation, swipe up for the next question. The engineering decisions that made it feel native:
+
+**Let the browser own the vertical axis.** Vertical paging is native CSS scroll-snap, not a JS gesture library: the container sets `scroll-snap-type: y mandatory` and `overscroll-behavior: contain`, and every card is a `100dvh` section with `scroll-snap-align: start`. This is the same approach TikTok and Reels use — the browser's own momentum/snap physics is what makes iOS scrolling feel right, and no JS reimplementation matches it. Use `100dvh`, not `100vh`, so mobile browser chrome doesn't cause overflow. (And because the page is edge-to-edge under `viewport-fit=cover`, the floating header needs `env(safe-area-inset-top)` padding or its buttons sit under the iPhone notch.)
+
+**Track position with IntersectionObserver, not scroll events.** The header's "3 / 15" indicator follows the currently snapped card via an IntersectionObserver at a 0.6 threshold reading each section's `data-idx`. Zero scroll listeners, zero per-frame work, no jank.
+
+**The horizontal axis belongs to Framer Motion.** Each card is draggable on x only (`drag="x"` + `dragDirectionLock`, with `touchAction: "pan-y"` so vertical pans fall through to the snap container). After answering, a rightward swipe past 80 px — or a flick faster than 500 px/s — flips the card to its explanation view; leftward flips back. The two axes never fight because each is owned by a different system.
+
+**Each card is a tiny state machine.** `{ question, selected, view }` — selection locks on the first tap (instant right/wrong coloring), and the attempt is written to the store at that moment with `source: 'feed'`, so the *next* session already knows about it.
+
+**Session lifecycle — random first, personalize as an upgrade.** The page builds a plain `randomSession()` synchronously as the safe default. If a user is logged in, it races the history load (backfill + `loadAttempts`) against a 4-second timeout; only if real history arrives and the student is past cold start does it swap in `pickPersonalizedSession()`. A "For you" badge shows when personalization actually happened; logged-out users see a "Personalize" sign-in nudge instead.
+
+**The last snap section is the results card** — score, a reshuffle button (bumps a `sessionId` counter to rebuild the session), and home. No special UI mode; it's just one more card in the stack.
+
+**Desktop parity is cheap.** ↑/↓ navigate the stack, ←/→ flip question/explanation, A–D answer — one `keydown` listener and a keyboard-hints pill at the bottom.
+
+**Rendering details.** Java snippets on cards run through a small hand-rolled line-by-line tokenizer (keywords, strings, chars, numbers, `//` comments) instead of a heavyweight highlighting dependency, and explanations are parsed for triple-backtick fences so code-bearing explanations render as real code blocks.
+
+#### 4. The stats dashboard (`/stats`)
+
+The dashboard adds no new storage — it is pure functions over the same attempt log, computed client-side after one load:
+
+- `overallAccuracy` — total, correct, accuracy.
+- `accuracyByUnit` — the unit is just the topic id's prefix (`"1.15"` → unit 1), so unit rollups need no extra schema.
+- `accuracyByTopic` — a topic needs **at least 3 attempts** to qualify; one lucky guess shouldn't label a topic a strength or weakness.
+- `topWeakTopics` / `topStrongTopics` — sort qualifying topics by accuracy, take 3 from each end.
+- `recentActivityByDay` — bucket the last 7 days for the activity sparkline.
+- `predictedAPScore` — map overall MCQ accuracy to a 1–5 using public composite cutoffs (≥70% → 5, ≥60% → 4, ≥45% → 3, ≥30% → 2), plus a projected raw score out of 40. Label it clearly as an MCQ-side projection — the real score also includes FRQs.
+
+Layout is ordered by what a student acts on: predicted-score hero → quick counters (questions answered, exam questions, sub-units completed, last 7 days) → animated per-unit accuracy bars in the unit colors → Weak Spots / Strengths side by side → activity sparkline. The Weak Spots card ends with **"Practice these in Scroll Feed →"** — the dashboard is a decision tool, and the decision is "go drill."
+
+Build all three non-data states explicitly: logged out (pitch + sign-in button), loading (spinner), and signed-in-with-no-attempts (an explainer pointing at the practice surfaces). The empty state is most students' first impression of the page.
+
+#### 5. Degrade gracefully — never hang (the most important rule)
 
 The feed and dashboard depend on a backend that **will** be slow or down sometimes (free-tier databases pause after inactivity). If the feature *waits* on that backend with no escape, it hangs forever on a loading screen — the single worst failure mode, because the student sees a dead app.
 
@@ -636,13 +703,13 @@ Build every data-dependent surface to fall back, never block:
 
 > **Hard-won lesson:** an earlier version of this feed `await`ed the attempt history with no timeout and no fallback. When the database went offline, `/scroll` sat on "picking questions for you" forever. The fix is structural: treat the backend as optional. The feature must produce a usable session from an empty model, and a timeout must guarantee it always reaches that path.
 
-#### 5. Keep it in source control
+#### 6. Keep it in source control
 
 This feature is tempting to iterate on by deploying straight from a local build. Don't. If the swipe feed, the stats page, and the algorithm live only in a deployed bundle and never get committed, the next deploy from the repo silently deletes them, and the only copy is minified production JS. Commit the data layer, the pages, and the SQL migration like any other code.
 
 ---
 
-## Phase 12 — Building Practice Exams
+## Phase 13 — Building Practice Exams
 
 ### Design goals
 
@@ -682,7 +749,7 @@ Include a clearly labeled exit button that warns the student before leaving. An 
 
 ---
 
-## Phase 13 — Building the UI Components
+## Phase 14 — Building the UI Components
 
 ### Component design principles
 
@@ -722,7 +789,7 @@ Do not animate things that fire repeatedly during normal use (e.g., don't animat
 
 ---
 
-## Phase 14 — Visual Design: Avoiding AI Slop
+## Phase 15 — Visual Design: Avoiding AI Slop
 
 "AI slop" in UI design is as real a problem as AI slop in writing. Just as LLMs produce text with predictable patterns (rule of three, em dashes, "delve"), they produce layouts with predictable patterns: everything centered, purple gradients, rounded corners on everything, Inter font. The result looks like every other AI-generated dashboard — technically competent, visually identical to a thousand other sites, with no personality a student would remember.
 
@@ -849,7 +916,7 @@ This is faster than designing in the actual codebase because the bundled artifac
 
 ---
 
-## Phase 15 — Quality Control Checklist
+## Phase 16 — Quality Control Checklist
 
 Before publishing any unit's content, verify:
 
@@ -923,7 +990,7 @@ For each sub-unit:
 - Identify the distractor patterns from wrong answers on released exams
 - Write questions proportionally to unit exam weights
 - Every question needs: correct answer verification, plausible distractors, explanation
-- For logged-in students, add the weakpoint-weighted draw from Phase 11 so the feed adapts to each student's missed questions
+- For logged-in students, add the adaptive engine from Phase 12 (attempt log, weakpoint weights, swipe feed, stats dashboard) so practice adapts to each student's missed questions
 
 ### Step 6 — Build practice exams
 - Match the real exam's question count and time limit
