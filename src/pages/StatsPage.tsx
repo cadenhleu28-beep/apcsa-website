@@ -22,6 +22,28 @@ import {
 import { loadAllProgress } from "../lib/progress";
 import { totalSubUnits } from "../data/curriculum";
 
+// Resolve to `fallback` after `ms` so a slow or unreachable backend can never
+// leave the stats page stuck on its loader.
+function withTimeout<T>(p: Promise<T>, ms: number, fallback: T): Promise<T> {
+  return new Promise((resolve) => {
+    let settled = false;
+    const finish = (v: T) => {
+      if (!settled) {
+        settled = true;
+        resolve(v);
+      }
+    };
+    const id = setTimeout(() => finish(fallback), ms);
+    p.then((v) => {
+      clearTimeout(id);
+      finish(v);
+    }).catch(() => {
+      clearTimeout(id);
+      finish(fallback);
+    });
+  });
+}
+
 const UNIT_BAR_COLORS: Record<string, string> = {
   "1": "bg-blue-500",
   "2": "bg-green-500",
@@ -177,14 +199,19 @@ export default function StatsPage() {
     let cancelled = false;
     async function load() {
       setLoading(true);
-      const [att, prog] = await Promise.all([
-        loadAttempts(user!.id),
-        loadAllProgress(user!.id),
-      ]);
-      if (cancelled) return;
-      setAttempts(att);
-      setCompletedCount(prog.filter((p) => p.completed).length);
-      setLoading(false);
+      try {
+        const [att, prog] = await Promise.all([
+          withTimeout(loadAttempts(user!.id), 4000, []),
+          withTimeout(loadAllProgress(user!.id), 4000, []),
+        ]);
+        if (cancelled) return;
+        setAttempts(att);
+        setCompletedCount(prog.filter((p) => p.completed).length);
+      } catch {
+        // Fall through to the empty/no-data state — never hang on the backend.
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
     }
     load();
     return () => {

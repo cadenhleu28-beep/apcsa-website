@@ -39,6 +39,28 @@ function randomSession(): MCQQuestion[] {
   return shuffle(ALL_QUESTIONS).slice(0, SESSION_SIZE);
 }
 
+// Resolve to `fallback` after `ms` so a slow or unreachable backend (e.g. a
+// paused free-tier database) can never leave the feed stuck on its loader.
+function withTimeout<T>(p: Promise<T>, ms: number, fallback: T): Promise<T> {
+  return new Promise((resolve) => {
+    let settled = false;
+    const finish = (v: T) => {
+      if (!settled) {
+        settled = true;
+        resolve(v);
+      }
+    };
+    const id = setTimeout(() => finish(fallback), ms);
+    p.then((v) => {
+      clearTimeout(id);
+      finish(v);
+    }).catch(() => {
+      clearTimeout(id);
+      finish(fallback);
+    });
+  });
+}
+
 function splitExplanation(text: string): string[] {
   const parts = text
     .split(/(?<=[.!?])\s+(?=[A-Z"'(])/)
@@ -518,21 +540,29 @@ export default function ScrollFeedPage() {
 
     async function load() {
       setLoading(true);
-      let questions: MCQQuestion[];
+      // Safe default: a working random session even when the backend is slow,
+      // unreachable, or empty. Personalization only ever upgrades this.
+      let questions: MCQQuestion[] = randomSession();
       let didPersonalize = false;
 
       if (user) {
-        // First-load backfill (no-op after first run)
-        await backfillSubUnitAttempts(user.id);
-        const attempts = await loadAttempts(user.id);
-        if (!isColdStart(attempts)) {
-          questions = pickPersonalizedSession(attempts, SESSION_SIZE);
-          didPersonalize = true;
-        } else {
-          questions = randomSession();
+        try {
+          const attempts = await withTimeout(
+            (async () => {
+              // First-load backfill (no-op after first run)
+              await backfillSubUnitAttempts(user.id);
+              return loadAttempts(user.id);
+            })(),
+            4000,
+            [],
+          );
+          if (!isColdStart(attempts)) {
+            questions = pickPersonalizedSession(attempts, SESSION_SIZE);
+            didPersonalize = true;
+          }
+        } catch {
+          // Keep the random default — never block the feed on the backend.
         }
-      } else {
-        questions = randomSession();
       }
 
       if (cancelled) return;
