@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import { AuthProvider } from "./context/AuthContext";
 import HomePage from "./pages/HomePage";
 import UnitPage from "./pages/UnitPage";
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="/scroll" element={<ScrollFeedPage />} />
         <Route path="/stats" element={<StatsPage />} />
       </Routes>
+      <Analytics />
     </AuthProvider>
   );
 }
